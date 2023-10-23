@@ -78,6 +78,7 @@ package methodNames
 	add: #String -> #asArgumentName;
 	add: #String -> #asCefString;
 	add: #String -> #fromSnakeCaseToCamelCase;
+	add: #String -> #uncapitalized;
 	add: #Symbol -> #isUnary;
 	yourself.
 
@@ -417,11 +418,25 @@ asCefString
 fromSnakeCaseToCamelCase
 	| words |
 	words := '_' split: self.
-	^words allButFirst inject: words first into: [:total :currentWord | total , currentWord capitalized]! !
+	^words allButFirst inject: words first into: [:total :currentWord | total , currentWord capitalized]!
+
+uncapitalized
+	"Answer a <readableString> which is a copy of the receiver but with 
+	the first character converted to its lowercase equivalent."
+
+	| size write read |
+	size := self size.
+	size == 0 ifTrue: [^self].
+	write := self species writeStream: size.
+	read := self readStream.
+	write nextPut: read next asLowercase.
+	write nextPutAll: read upToEnd.
+	^write contents! !
 !String categoriesForMethods!
 asArgumentName!converting!public! !
 asCefString!public! !
 fromSnakeCaseToCamelCase!public! !
+uncapitalized!public! !
 !
 
 !Symbol methodsFor!
