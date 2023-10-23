@@ -1,0 +1,190 @@
+﻿"Filed out from Dolphin Smalltalk"!
+
+ExtendedExternalStructure subclass: #CefKeyEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_character _OffsetOf_focus_on_editable_field _OffsetOf_is_system_key _OffsetOf_modifiers _OffsetOf_native_key_code _OffsetOf_type _OffsetOf_unmodified_character _OffsetOf_windows_key_code'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefKeyEvent guid: (GUID fromString: '{346aacfd-1ec5-4b61-854e-45f1ee15ab48}')!
+CefKeyEvent addClassConstant: '_OffsetOf_character' value: 16r14!
+CefKeyEvent addClassConstant: '_OffsetOf_focus_on_editable_field' value: 16r18!
+CefKeyEvent addClassConstant: '_OffsetOf_is_system_key' value: 16r10!
+CefKeyEvent addClassConstant: '_OffsetOf_modifiers' value: 16r4!
+CefKeyEvent addClassConstant: '_OffsetOf_native_key_code' value: 16rC!
+CefKeyEvent addClassConstant: '_OffsetOf_type' value: 16r0!
+CefKeyEvent addClassConstant: '_OffsetOf_unmodified_character' value: 16r15!
+CefKeyEvent addClassConstant: '_OffsetOf_windows_key_code' value: 16r8!
+CefKeyEvent comment: ''!
+!CefKeyEvent categoriesForClass!External-Data-Structured! !
+!CefKeyEvent methodsFor!
+
+character
+	"Answer the <Integer> value of the receiver's 'character' field."
+
+	^bytes wordAtOffset: _OffsetOf_character!
+
+character: anInteger
+	"Set the receiver's 'character' field to the value of the argument, anInteger"
+
+	bytes wordAtOffset: _OffsetOf_character put: anInteger!
+
+focus_on_editable_field
+	"Answer the <Integer> value of the receiver's 'focus_on_editable_field' field."
+
+	^bytes sdwordAtOffset: _OffsetOf_focus_on_editable_field!
+
+focus_on_editable_field: anInteger
+	"Set the receiver's 'focus_on_editable_field' field to the value of the argument, anInteger"
+
+	bytes sdwordAtOffset: _OffsetOf_focus_on_editable_field put: anInteger!
+
+is_system_key
+	"Answer the <Integer> value of the receiver's 'is_system_key' field."
+
+	^bytes sdwordAtOffset: _OffsetOf_is_system_key!
+
+is_system_key: anInteger
+	"Set the receiver's 'is_system_key' field to the value of the argument, anInteger"
+
+	bytes sdwordAtOffset: _OffsetOf_is_system_key put: anInteger!
+
+modifiers
+	"Answer the <Integer> value of the receiver's 'modifiers' field."
+
+	^bytes dwordAtOffset: _OffsetOf_modifiers!
+
+modifiers: anInteger
+	"Set the receiver's 'modifiers' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_modifiers put: anInteger!
+
+native_key_code
+	"Answer the <Integer> value of the receiver's 'native_key_code' field."
+
+	^bytes sdwordAtOffset: _OffsetOf_native_key_code!
+
+native_key_code: anInteger
+	"Set the receiver's 'native_key_code' field to the value of the argument, anInteger"
+
+	bytes sdwordAtOffset: _OffsetOf_native_key_code put: anInteger!
+
+type
+	"Answer the <Integer> value of the receiver's 'type' field."
+
+	^bytes sdwordAtOffset: _OffsetOf_type!
+
+type: anInteger
+	"Set the receiver's 'type' field to the value of the argument, anInteger"
+
+	bytes sdwordAtOffset: _OffsetOf_type put: anInteger!
+
+unmodified_character
+	"Answer the <Integer> value of the receiver's 'unmodified_character' field."
+
+	^bytes wordAtOffset: _OffsetOf_unmodified_character!
+
+unmodified_character: anInteger
+	"Set the receiver's 'unmodified_character' field to the value of the argument, anInteger"
+
+	bytes wordAtOffset: _OffsetOf_unmodified_character put: anInteger!
+
+windows_key_code
+	"Answer the <Integer> value of the receiver's 'windows_key_code' field."
+
+	^bytes sdwordAtOffset: _OffsetOf_windows_key_code!
+
+windows_key_code: anInteger
+	"Set the receiver's 'windows_key_code' field to the value of the argument, anInteger"
+
+	bytes sdwordAtOffset: _OffsetOf_windows_key_code put: anInteger! !
+!CefKeyEvent categoriesForMethods!
+character!public! !
+character:!public! !
+focus_on_editable_field!public! !
+focus_on_editable_field:!public! !
+is_system_key!public! !
+is_system_key:!public! !
+modifiers!public! !
+modifiers:!public! !
+native_key_code!public! !
+native_key_code:!public! !
+type!public! !
+type:!public! !
+unmodified_character!public! !
+unmodified_character:!public! !
+windows_key_code!public! !
+windows_key_code:!public! !
+!
+
+!CefKeyEvent class methodsFor!
+
+defineFields
+	"CefKeyEvent compileDefinition 
+
+	typedef struct _cef_key_event_t {
+	  ///
+	  /// The type of keyboard event.
+	  ///
+	  cef_key_event_type_t type;
+
+	  ///
+	  /// Bit flags describing any pressed modifier keys. See
+	  /// cef_event_flags_t for values.
+	  ///
+	  uint32_t modifiers;
+
+	  ///
+	  /// The Windows key code for the key event. This value is used by the DOM
+	  /// specification. Sometimes it comes directly from the event (i.e. on
+	  /// Windows) and sometimes it's determined using a mapping function. See
+	  /// WebCore/platform/chromium/KeyboardCodes.h for the list of values.
+	  ///
+	  int windows_key_code;
+
+	  ///
+	  /// The actual key code genenerated by the platform.
+	  ///
+	  int native_key_code;
+
+	  ///
+	  /// Indicates whether the event is considered a 'system key' event (see
+	  /// http://msdn.microsoft.com/en-us/library/ms646286(VS.85).aspx for details).
+	  /// This value will always be false on non-Windows platforms.
+	  ///
+	  int is_system_key;
+
+	  ///
+	  /// The character generated by the keystroke.
+	  ///
+	  char16_t character;
+
+	  ///
+	  /// Same as |character| but unmodified by any concurrently-held modifiers
+	  /// (except shift). This is useful for working out shortcut keys.
+	  ///
+	  char16_t unmodified_character;
+
+	  ///
+	  /// True if the focus is currently on an editable field on the page. This is
+	  /// useful for determining if standard key events should be intercepted.
+	  ///
+	  int focus_on_editable_field;
+	} cef_key_event_t;"
+
+	self
+		defineField: #type type: SDWORDField new;
+		defineField: #modifiers type: DWORDField new;
+		defineField: #windows_key_code type: SDWORDField new;
+		defineField: #native_key_code type: SDWORDField new;
+		defineField: #is_system_key type: SDWORDField new;
+		defineField: #character type: CHARField new;
+		defineField: #unmodified_character type: CHARField new;
+		defineField: #focus_on_editable_field type: SDWORDField new!
+
+getFieldNames
+	^#(#type #modifiers #windows_key_code #native_key_code #is_system_key #character #unmodified_character #focus_on_editable_field)! !
+!CefKeyEvent class categoriesForMethods!
+defineFields!public! !
+getFieldNames!**compiled accessors**!constants!private! !
+!
+

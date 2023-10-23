@@ -1,0 +1,435 @@
+﻿| package |
+package := Package name: 'Chromium Embedded Framework'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package imageStripperBytes: (ByteArray fromBase64String: 'IVNUQiA0IEYWDQAGAAAASW1hZ2VTdHJpcHBlcgAAAAASAQAAGwAAAENocm9taXVtIEVtYmVkZGVk
+IEZyYW1ld29yaxIBAAAVAAAAQnJvd3NlclN1YnByb2Nlc3MuZXhlmgAAABIBAAAbAAAAQ2hyb21p
+dW0gRW1iZWRkZWQgRnJhbWV3b3JrEgEAABEAAABDZWZTZXNzaW9uTWFuYWdlcgkdJAEAAAAABgMP
+AFZlcnNpb25SZXNvdXJjZQYBEABWU19GSVhFREZJTEVJTkZPcgAAADQAAAC9BO/+AAABAAAAAQAB
+AAAAAAABAAEAAAA/AAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAAAA6gAAAPAAAABiAAAAAgAAABIB
+AAAIAAAAMDQwOTA0YjDqAAAA8AAAAGIAAAAOAAAAEgEAAA4AAABMZWdhbENvcHlyaWdodBIBAAAs
+AAAAUG9ydGlvbnMgQ29weXJpZ2h0IMKpIE9iamVjdCBBcnRzIDE5OTctMjAxNi4SAQAACAAAAENv
+bW1lbnRzEgEAABwAAABQb3dlcmVkIGJ5IERvbHBoaW4gU21hbGx0YWxrEgEAAA8AAABGaWxlRGVz
+Y3JpcHRpb24SAQAAGAAAAERvbHBoaW4gVG9HbyBBcHBsaWNhdGlvbhIBAAALAAAAUHJvZHVjdE5h
+bWUSAQAAGgAAAEEgRG9scGhpbiBUb0dvIEFwcGxpY2F0aW9uEgEAAAsAAABGaWxlVmVyc2lvbhIB
+AAAKAAAAMSwgMCwgMCwgMRIBAAAQAAAAT3JpZ2luYWxGaWxlbmFtZRIBAAAVAAAAQnJvd3NlclN1
+YnByb2Nlc3MuZXhlEgEAAA4AAABQcm9kdWN0VmVyc2lvbhIBAAAKAAAAMSwgMCwgMCwgMcoAAADQ
+AAAAYgAAAAEAAAAGAgoARFdPUkRBcnJheXIAAAAEAAAACQSwBAMAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
+
+package classNames
+	add: #CallbackField;
+	add: #CefApp;
+	add: #CefBaseRefCounted;
+	add: #CefBrowser;
+	add: #CefBrowserHost;
+	add: #CefBrowserProcessHandler;
+	add: #CefBrowserProcessRunner;
+	add: #CefBrowserSettings;
+	add: #CefClient;
+	add: #CefCommandLine;
+	add: #CefCursorInfo;
+	add: #CefDisplayHandler;
+	add: #CefDragData;
+	add: #CefEventHandler;
+	add: #CefFocusHandler;
+	add: #CefFrame;
+	add: #CefFrameHandler;
+	add: #CefKeyEvent;
+	add: #CefLibrary;
+	add: #CefLifeSpanHandler;
+	add: #CefMainArgs;
+	add: #CefMouseEvent;
+	add: #CefPoint;
+	add: #CefProcessRunner;
+	add: #CefRange;
+	add: #CefRect;
+	add: #CefReferenceCountedObject;
+	add: #CefRenderHandler;
+	add: #CefRenderProcessHandler;
+	add: #CefRequestContext;
+	add: #CefRequestHandler;
+	add: #CefResourceBundleHandler;
+	add: #CefSchemeRegistrar;
+	add: #CefScreenInfo;
+	add: #CefSessionManager;
+	add: #CefSettings;
+	add: #CefString;
+	add: #CefStringUserfree;
+	add: #CefStringVisitor;
+	add: #CefSubprocessRunner;
+	add: #CefTouchHandleState;
+	add: #CefWebView;
+	add: #CefWindowInfo;
+	add: #DelegatedMessageCallback;
+	add: #ExtendedExternalStructure;
+	add: #MethodField;
+	add: #ProcedureField;
+	yourself.
+
+package methodNames
+	add: #Boolean -> #asInteger;
+	add: #ExternalMethod -> #bindTo:;
+	add: #Integer -> #lowByte;
+	add: #KernelLibrary -> #setPriorityClass:dwPriorityClass:;
+	add: #KernelLibrary -> #setProcessDEPPolicy:;
+	add: #Rectangle -> #asCefRect;
+	add: #String -> #asArgumentName;
+	add: #String -> #asCefString;
+	add: #String -> #fromSnakeCaseToCamelCase;
+	add: #Symbol -> #isUnary;
+	yourself.
+
+package globalNames
+	add: #CefConstants;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #().
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #CefProcessRunner
+	instanceVariableNames: 'isRunning args app settings windowsSandboxInfo'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: 'Current'!
+LPVOIDField subclass: #ProcedureField
+	instanceVariableNames: 'cName descriptor smalltalkName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ProcedureField subclass: #CallbackField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ProcedureField subclass: #MethodField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefProcessRunner subclass: #CefBrowserProcessRunner
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefProcessRunner subclass: #CefSubprocessRunner
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+MessageCallback subclass: #DelegatedMessageCallback
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalLibrary subclass: #CefLibrary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #ExtendedExternalStructure
+	instanceVariableNames: 'callbacks'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: 'CallbackRegistry MethodRegistry'!
+ExtendedExternalStructure subclass: #CefBaseRefCounted
+	instanceVariableNames: 'referenceCount'
+	classVariableNames: '_OffsetOf_add_ref _OffsetOf_cefSize _OffsetOf_has_at_least_one_ref _OffsetOf_has_one_ref _OffsetOf_release'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefBrowserSettings
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_cefSize _OffsetOf_chrome_status_bubble _OffsetOf_cursive_font_family _OffsetOf_databases _OffsetOf_default_encoding _OffsetOf_default_fixed_font_size _OffsetOf_default_font_size _OffsetOf_fantasy_font_family _OffsetOf_fixed_font_family _OffsetOf_image_loading _OffsetOf_image_shrink_standalone_to_fit _OffsetOf_javascript _OffsetOf_javascript_access_clipboard _OffsetOf_javascript_close_windows _OffsetOf_javascript_dom_paste _OffsetOf_local_storage _OffsetOf_minimum_font_size _OffsetOf_minimum_logical_font_size _OffsetOf_remote_fonts _OffsetOf_sans_serif_font_family _OffsetOf_serif_font_family _OffsetOf_standard_font_family _OffsetOf_tab_to_links _OffsetOf_text_area_resize _OffsetOf_webgl _OffsetOf_windowless_frame_rate'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefCursorInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_buffer _OffsetOf_hotspot _OffsetOf_image_scale_factor _OffsetOf_size'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefKeyEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_character _OffsetOf_focus_on_editable_field _OffsetOf_is_system_key _OffsetOf_modifiers _OffsetOf_native_key_code _OffsetOf_type _OffsetOf_unmodified_character _OffsetOf_windows_key_code'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefMainArgs
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_instance'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefMouseEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_modifiers _OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefPoint
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefRange
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefRect
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_height _OffsetOf_width _OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefReferenceCountedObject
+	instanceVariableNames: 'delegate'
+	classVariableNames: '_OffsetOf_base'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefRequestContext
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefScreenInfo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefSettings
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_browser_subprocess_path _OffsetOf_cache_path _OffsetOf_cefSize _OffsetOf_chrome_runtime _OffsetOf_command_line_args_disabled _OffsetOf_cookieable_scheme_list _OffsetOf_cookieable_schemes_exclude_defaults _OffsetOf_external_message_pump _OffsetOf_framework_dir_path _OffsetOf_javascript_flags _OffsetOf_locale _OffsetOf_locales_dir_path _OffsetOf_log_file _OffsetOf_log_items _OffsetOf_log_severity _OffsetOf_main_bundle_path _OffsetOf_multi_threaded_message_loop _OffsetOf_no_sandbox _OffsetOf_pack_loading_disabled _OffsetOf_persist_session_cookies _OffsetOf_persist_user_preferences _OffsetOf_remote_debugging_port _OffsetOf_resources_dir_path _OffsetOf_root_cache_path _OffsetOf_uncaught_exception_stack_size _OffsetOf_user_agent _OffsetOf_user_agent_product _OffsetOf_windowless_rendering_enabled'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefString
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_dtor _OffsetOf_length _OffsetOf_str'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefTouchHandleState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefWindowInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_bounds _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefApp
+	instanceVariableNames: 'browserProcessHandler resourceBundleHandler renderProcessHandler'
+	classVariableNames: '_OffsetOf_get_browser_process_handler _OffsetOf_get_render_process_handler _OffsetOf_get_resource_bundle_handler _OffsetOf_on_before_command_line_processing _OffsetOf_on_register_custom_schemes'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefBrowser
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_can_go_back _OffsetOf_can_go_forward _OffsetOf_get_focused_frame _OffsetOf_get_frame _OffsetOf_get_frame_byident _OffsetOf_get_frame_count _OffsetOf_get_frame_identifiers _OffsetOf_get_frame_names _OffsetOf_get_host _OffsetOf_get_identifier _OffsetOf_get_main_frame _OffsetOf_go_back _OffsetOf_go_forward _OffsetOf_has_document _OffsetOf_is_loading _OffsetOf_is_popup _OffsetOf_is_same _OffsetOf_is_valid _OffsetOf_reload _OffsetOf_reload_ignore_cache _OffsetOf_stop_load'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefBrowserHost
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_add_dev_tools_message_observer _OffsetOf_add_word_to_dictionary _OffsetOf_close_browser _OffsetOf_close_dev_tools _OffsetOf_download_image _OffsetOf_drag_source_ended_at _OffsetOf_drag_source_system_drag_ended _OffsetOf_drag_target_drag_enter _OffsetOf_drag_target_drag_leave _OffsetOf_drag_target_drag_over _OffsetOf_drag_target_drop _OffsetOf_execute_dev_tools_method _OffsetOf_find _OffsetOf_get_browser _OffsetOf_get_client _OffsetOf_get_extension _OffsetOf_get_navigation_entries _OffsetOf_get_opener_window_handle _OffsetOf_get_request_context _OffsetOf_get_visible_navigation_entry _OffsetOf_get_window_handle _OffsetOf_get_windowless_frame_rate _OffsetOf_get_zoom_level _OffsetOf_has_dev_tools _OffsetOf_has_view _OffsetOf_ime_cancel_composition _OffsetOf_ime_commit_text _OffsetOf_ime_finish_composing_text _OffsetOf_ime_set_composition _OffsetOf_invalidate _OffsetOf_is_audio_muted _OffsetOf_is_background_host _OffsetOf_is_window_rendering_disabled _OffsetOf_notify_move_or_resize_started _OffsetOf_notify_screen_info_changed _OffsetOf_print _OffsetOf_print_to_pdf _OffsetOf_replace_misspelling _OffsetOf_run_file_dialog _OffsetOf_send_capture_lost_event _OffsetOf_send_dev_tools_message _OffsetOf_send_external_begin_frame _OffsetOf_send_key_event _OffsetOf_send_mouse_click_event _OffsetOf_send_mouse_move_event _OffsetOf_send_mouse_wheel_event _OffsetOf_send_touch_event _OffsetOf_set_accessibility_state _OffsetOf_set_audio_muted _OffsetOf_set_auto_resize_enabled _OffsetOf_set_focus _OffsetOf_set_windowless_frame_frate _OffsetOf_set_zoom_level _OffsetOf_show_dev_tools _OffsetOf_start_download _OffsetOf_stop_finding _OffsetOf_try_close_browser _OffsetOf_was_hidden _OffsetOf_was_resized'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefClient
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler'
+	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefCommandLine
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_append_argument _OffsetOf_append_switch _OffsetOf_append_switch_with_value _OffsetOf_copy _OffsetOf_get_arguments _OffsetOf_get_argv _OffsetOf_get_command_line_string _OffsetOf_get_program _OffsetOf_get_switch_value _OffsetOf_get_switches _OffsetOf_has_arguments _OffsetOf_has_switch _OffsetOf_has_switches _OffsetOf_init_from_argv _OffsetOf_init_from_string _OffsetOf_is_read_only _OffsetOf_is_valid _OffsetOf_prepend_wrapper _OffsetOf_reset _OffsetOf_set_program'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefDragData
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefEventHandler
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefFrame
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_copy _OffsetOf_create_urlrequest _OffsetOf_cut _OffsetOf_del _OffsetOf_execute_java_script _OffsetOf_get_browser _OffsetOf_get_identifier _OffsetOf_get_name _OffsetOf_get_parent _OffsetOf_get_source _OffsetOf_get_text _OffsetOf_get_url _OffsetOf_get_v8context _OffsetOf_is_focused _OffsetOf_is_main _OffsetOf_is_valid _OffsetOf_load_request _OffsetOf_load_url _OffsetOf_paste _OffsetOf_redo _OffsetOf_select_all _OffsetOf_send_process_message _OffsetOf_undo _OffsetOf_view_source _OffsetOf_visit_dom'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefSchemeRegistrar
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefStringVisitor
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_visit'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefBrowserProcessHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_default_client _OffsetOf_on_before_child_process_launch _OffsetOf_on_context_initialized _OffsetOf_on_register_custom_preferences _OffsetOf_on_schedule_message_pump_work'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefDisplayHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_on_address_change _OffsetOf_on_auto_resize _OffsetOf_on_console_message _OffsetOf_on_cursor_change _OffsetOf_on_favicon_urlchange _OffsetOf_on_fullscreen_mode_change _OffsetOf_on_loading_progess_change _OffsetOf_on_media_access_change _OffsetOf_on_status_message _OffsetOf_on_title_change _OffsetOf_on_tooltip'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefFocusHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_on_got_focus _OffsetOf_on_set_focus _OffsetOf_on_take_focus'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefFrameHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_on_frame_attached _OffsetOf_on_frame_created _OffsetOf_on_frame_detached _OffsetOf_on_main_frame_changed'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefLifeSpanHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_do_close _OffsetOf_on_after_created _OffsetOf_on_before_close _OffsetOf_on_before_popup'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefRenderHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_accessibility_handler _OffsetOf_get_root_screen_rect _OffsetOf_get_screen_info _OffsetOf_get_screen_point _OffsetOf_get_touch_handle_size _OffsetOf_get_view_rect _OffsetOf_on_accelerated_paint _OffsetOf_on_ime_composition_range_changed _OffsetOf_on_paint _OffsetOf_on_popup_show _OffsetOf_on_popup_size _OffsetOf_on_scroll_offset_changed _OffsetOf_on_text_selection_changed _OffsetOf_on_touch_handle_state_changed _OffsetOf_on_virtual_keyboard_requested _OffsetOf_start_dragging _OffsetOf_update_drag_cursor'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefRenderProcessHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_load_handler _OffsetOf_on_browser_created _OffsetOf_on_browser_destroyed _OffsetOf_on_context_created _OffsetOf_on_context_released _OffsetOf_on_focused_node_changed _OffsetOf_on_process_message_received _OffsetOf_on_uncaught_exception _OffsetOf_on_web_kit_initialized'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefRequestHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_auth_credentials _OffsetOf_get_resource_request_handler _OffsetOf_on_before_browse _OffsetOf_on_before_resource_load _OffsetOf_on_certificate_error _OffsetOf_on_document_available_in_main_frame _OffsetOf_on_open_urlfrom_tab _OffsetOf_on_render_process_terminated _OffsetOf_on_render_view_ready _OffsetOf_on_select_client_certificate'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefResourceBundleHandler
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefString subclass: #CefStringUserfree
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RuntimeSessionManager subclass: #CefSessionManager
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ContainerView subclass: #CefWebView
+	instanceVariableNames: 'windowInfo browserSettings client url cefHandle cefBrowser childBrowserView parentBrowserView cefview'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Boolean methodsFor!
+
+asInteger
+	^self asParameter! !
+!Boolean categoriesForMethods!
+asInteger!public! !
+!
+
+!ExternalMethod methodsFor!
+
+bindTo: anExternalAddress
+	^self literalAt: 1
+		put: ((self literalAt: 1) copy
+				dwordAtOffset: 0 put: anExternalAddress;
+				yourself)! !
+!ExternalMethod categoriesForMethods!
+bindTo:!public! !
+!
+
+!Integer methodsFor!
+
+lowByte
+	^(self bitAnd: 16rFF) asInteger! !
+!Integer categoriesForMethods!
+lowByte!bit manipulation!public! !
+!
+
+!KernelLibrary methodsFor!
+
+setPriorityClass: hProcess dwPriorityClass: dwPriorityClass
+	"BOOL SetPriorityClass(
+	  [in] HANDLE hProcess,
+	  [in] DWORD  dwPriorityClass
+	);"
+
+	<stdcall: bool SetPriorityClass handle dword>
+	^self invalidCall!
+
+setProcessDEPPolicy: dwFlags
+	"BOOL WINAPI SetProcessDEPPolicy(
+	  _In_  DWORD dwFlags
+	);"
+
+	<stdcall: bool SetProcessDEPPolicy dword>
+	^self invalidCall: _failureCode! !
+!KernelLibrary categoriesForMethods!
+setPriorityClass:dwPriorityClass:!public! !
+setProcessDEPPolicy:!public! !
+!
+
+!Rectangle methodsFor!
+
+asCefRect
+	^CefRect new
+		x: self left truncated;
+		y: self top truncated;
+		width: self width truncated;
+		height: self height truncated! !
+!Rectangle categoriesForMethods!
+asCefRect!public! !
+!
+
+!String methodsFor!
+
+asArgumentName
+	^(self reject: [:each | each = $*]) uncapitalized!
+
+asCefString
+	| output |
+	output := CefString new.
+	CefLibrary default
+		stringFromAscii_src: self
+		srcLen: self size
+		output: output.
+	^output!
+
+fromSnakeCaseToCamelCase
+	| words |
+	words := '_' split: self.
+	^words allButFirst inject: words first into: [:total :currentWord | total , currentWord capitalized]! !
+!String categoriesForMethods!
+asArgumentName!converting!public! !
+asCefString!public! !
+fromSnakeCaseToCamelCase!public! !
+!
+
+!Symbol methodsFor!
+
+isUnary
+	^self argumentCount = 0! !
+!Symbol categoriesForMethods!
+isUnary!public! !
+!
+
+"End of package definition"!
