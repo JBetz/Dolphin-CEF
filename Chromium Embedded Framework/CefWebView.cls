@@ -25,11 +25,6 @@ client
 			[client := CefClient new.
 			client]!
 
-defaultLayoutManager
-	"Private - Answer a default LayoutManager to use."
-
-	^ProportionalLayout new !
-
 defaultUrl
 	^'http://www.google.com'!
 
@@ -39,9 +34,6 @@ doClose: this cefBrowser: browser
 initialize
 	super initialize.
 	childBrowserView := OrderedCollection new!
-
-isManaged
-	^true!
 
 onAddressChange: handler browser: browser frame: frame url: url!
 
@@ -65,7 +57,7 @@ onViewCreated
 				style: self cefWindowStyle;
 				ex_style: self cefWindowExStyle;
 				parent_window: self handle value;
-				bounds: self clientRectangle asCefRect.
+				bounds: self parentView clientRectangle asCefRect.
 	browserSettings := CefBrowserSettings new.
 	resultCode := CefLibrary default
 				browserHostCreateBrowser_windowInfo: windowInfo
@@ -93,11 +85,9 @@ cefBrowser!public! !
 cefWindowExStyle!public! !
 cefWindowStyle!public! !
 client!accessing!public! !
-defaultLayoutManager!public! !
 defaultUrl!public! !
 doClose:cefBrowser:!public! !
 initialize!public! !
-isManaged!public! !
 onAddressChange:browser:frame:url:!public! !
 onAfterCreated:browser:!public! !
 onBeforeClose:browser:!public! !
@@ -127,8 +117,7 @@ example
 		arrangement: 1;
 		create;
 		show.
-	shell show.
-	view setUrl: 'http://www.google.com'! !
+	shell show! !
 !CefWebView class categoriesForMethods!
 example!public! !
 !
