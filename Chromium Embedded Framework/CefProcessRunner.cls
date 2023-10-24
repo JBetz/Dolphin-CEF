@@ -56,8 +56,7 @@ onBeforeCommandLineProcessing: cefApp processType: processType commandLine: comm
 	self subclassResponsibility!
 
 onRegisterCustomSchemes: cefApp registrar: registrar
-	Transcript display: #onRegisterCustomSchemes; cr.
-	^0!
+	Transcript display: #onRegisterCustomSchemes; cr!
 
 runMainProcess
 	self subclassResponsibility!
