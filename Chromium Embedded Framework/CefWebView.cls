@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ContainerView subclass: #CefWebView
-	instanceVariableNames: 'windowInfo browserSettings client url cefHandle cefBrowser childBrowserView parentBrowserView cefview references'
+	instanceVariableNames: 'windowInfo browserSettings client url cefHandle cefBrowser childBrowserView parentBrowserView cefview'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
