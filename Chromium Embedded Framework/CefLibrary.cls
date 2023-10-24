@@ -31,7 +31,7 @@ browserHostCreateBrowser_windowInfo: win_info client: client url: url settings: 
 	    struct _cef_dictionary_value_t* extra_info,
 	    struct _cef_request_context_t* request_context);"
 
-	<stdcall: sdword cef_browser_host_create_browser CefWindowInfo* CefClient* CefString* CefBrowserSettings* lpvoid lpvoid>
+	<stdcall: sdword cef_browser_host_create_browser CefWindowInfo* CefClient* CefString* CefBrowserSettings* void* void*>
 	^self invalidCall: _failureCode!
 
 browserHostCreateBrowserSync_windowInfo: win_info client: client url: url settings: settings extraInfo: extra_info requestContext: request_context
@@ -53,7 +53,7 @@ browserHostCreateBrowserSync_windowInfo: win_info client: client url: url settin
 	    struct _cef_dictionary_value_t* extra_info,
 	    struct _cef_request_context_t* request_context);"
 
-	<stdcall: CefBrowser* cef_browser_host_create_browser_sync CefWindowInfo* CefClient* CefString* CefBrowserSettings* lpvoid lpvoid>
+	<stdcall: CefBrowser* cef_browser_host_create_browser_sync CefWindowInfo* CefClient* CefString* CefBrowserSettings* void* void*>
 	^self invalidCall: _failureCode!
 
 doMessageLoopWork
