@@ -329,7 +329,7 @@ RuntimeSessionManager subclass: #CefSessionManager
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ContainerView subclass: #CefWebView
-	instanceVariableNames: 'windowInfo browserSettings client url cefHandle cefBrowser childBrowserView parentBrowserView cefview'
+	instanceVariableNames: 'windowInfo browserSettings client url cefHandle cefBrowser childBrowserView parentBrowserView'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
