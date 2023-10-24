@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ContainerView subclass: #CefWebView
-	instanceVariableNames: 'windowInfo browserSettings client url cefHandle cefBrowser childBrowserView parentBrowserView cefview'
+	instanceVariableNames: 'windowInfo browserSettings client url cefHandle cefBrowser childBrowserView parentBrowserView cefview references'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -75,17 +75,8 @@ isManaged
 onAddressChange: handler browser: browser frame: frame url: url!
 
 onAfterCreated: aCEF3LifeSpanHandler browser: aCEF3Browser
-	cefBrowser
-		ifNil: 
-			[cefBrowser := aCEF3Browser.
-			"cefHandle := cefBrowser getHost.
-			cefview := CefViewHandle fromHandle: cefHandle.
-			cefview client: client.
-			self addSubView: cefview.
-			cefview arrangement: 1.
-			self setCefPosition.
-			[self onCefBrowserCreated] postToInputQueue"]
-		ifNotNil: ["self onNewChildBrowser: aCEF3Browser"]!
+	Transcript display: #onAfterCreated; cr.
+	cefBrowser := aCEF3Browser!
 
 onBeforeClose: this browser: browser
 	cefHandle isNull
@@ -101,15 +92,14 @@ onDestroyed
 	super onDestroyed!
 
 onViewCreated
-	| aRect |
+	| resultCode |
 	self ensureCefInit.
-	aRect := self clientRectangle.
 	windowInfo := CefWindowInfo new
 				window_name: 'CEF browser' asCefString;
 				style: self cefWindowStyle;
 				ex_style: self cefWindowExStyle;
 				parent_window: self handle value;
-				bounds: aRect asCefRect.
+				bounds: self clientRectangle asCefRect.
 	browserSettings := CefBrowserSettings new.
 	browserSettings
 		local_storage: true;
@@ -117,13 +107,16 @@ onViewCreated
 		javascript_close_windows: true;
 		javascript_access_clipboard: true;
 		javascript_dom_paste: true.
-	CefLibrary default
-		browserHostCreateBrowser_windowInfo: windowInfo
-		client: self client
-		url: self url asCefString
-		settings: browserSettings
-		extraInfo: nil
-		requestContext: nil!
+	resultCode := CefLibrary default
+				browserHostCreateBrowser_windowInfo: windowInfo
+				client: self client
+				url: self url asCefString
+				settings: browserSettings
+				extraInfo: nil
+				requestContext: nil.
+	Transcript
+		display: 'cef_browser_host_create_browser: ' , resultCode displayString;
+		cr!
 
 releaseCefView
 	cefview isNil 
@@ -192,7 +185,7 @@ url:!public! !
 !CefWebView class methodsFor!
 
 example
-	" CefView example "
+	" CefWebView example"
 
 	| processRunner shell view |
 	CefBrowserProcessRunner onShutdown.
