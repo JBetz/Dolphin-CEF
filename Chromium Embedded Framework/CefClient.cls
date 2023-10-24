@@ -251,19 +251,19 @@ get_request_handler: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_request_handler put: anExternalAddress!
 
 getDisplayHandler: aCefClient
-	^displayHandler yourAddress!
+	^displayHandler ifNotNil: [displayHandler yourAddress]!
 
 getFocusHandler: aCefClient
-	^focusHandler yourAddress!
+	^focusHandler ifNotNil: [focusHandler yourAddress]!
 
 getFrameHandler: aCefClient
-	^frameHandler yourAddress!
+	^frameHandler ifNotNil: [frameHandler yourAddress]!
 
 getLifeSpanHandler: aCefClient
-	^lifeSpanHandler yourAddress!
+	^lifeSpanHandler ifNotNil: [lifeSpanHandler yourAddress]!
 
 getRenderHandler: aCefClient
-	^renderHandler yourAddress!
+	^renderHandler ifNotNil: [renderHandler yourAddress]!
 
 on_process_message_received
 	"Answer the <ExternalAddress> value of the receiver's 'on_process_message_received' field."
