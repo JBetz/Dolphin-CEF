@@ -16,7 +16,7 @@ getDefaultClient: browserProcessHandler
 
 initializeSettings
 	| subprocessPath logFile cachePath |
-	subprocessPath := FileLocator imageRelative localFileSpecFor: 'BrowserSubprocess.exe'.
+	subprocessPath := FileLocator imageRelative localFileSpecFor: 'cefclient.exe'.
 	logFile := FileLocator imageRelative localFileSpecFor: 'cef.log'.
 	cachePath := FileLocator imageRelative localFileSpecFor: 'cef-cache'.
 	File createDirectoryPath: cachePath.
