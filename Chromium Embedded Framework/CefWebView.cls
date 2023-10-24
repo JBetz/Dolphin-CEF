@@ -151,25 +151,16 @@ setCefPosition
 				uFlags: aFlag.
 	answer := UserLibrary default endDeferWindowPos: hdwp!
 
-setUrl: aUrl 
-	url := aUrl.
+setUrl: aString
+	url := aString.
 	cefBrowser ifNil: [^nil].
-	cefBrowser mainFrame loadUrl: aUrl!
+	cefBrowser getMainFrame loadUrl_url: aString asCefString!
 
 url
 	^url ifNil: [url := self defaultUrl]!
 
 url: aCEFString 
-	url := aCEFString!
-
-wmPaint: message wParam: wParam lParam: lParam 
-	"Private - Controls do their own painting so only allow the default."
-
-	self forceCefViewToRepaint.
-	^super 
-		wmPaint: message
-		wParam: wParam
-		lParam: lParam! !
+	url := aCEFString! !
 !CefWebView categoriesForMethods!
 caption:!public! !
 cefBrowser!public! !
@@ -196,7 +187,6 @@ setCefPosition!public! !
 setUrl:!public! !
 url!public! !
 url:!public! !
-wmPaint:wParam:lParam:!public! !
 !
 
 !CefWebView class methodsFor!
