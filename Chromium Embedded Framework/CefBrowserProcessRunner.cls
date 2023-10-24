@@ -31,10 +31,6 @@ initializeSettings
 
 onBeforeCommandLineProcessing: cefApp processType: processType commandLine: commandLine
 	commandLine
-		"appendSwitch_name: 'disable-gpu' asCefString;
-		appendSwitch_name: 'disable-gpu-compositing' asCefString;
-		appendSwitch_name: 'disable-gpu-shader-disk-cache' asCefString;
-		appendSwitchWithValue_name: 'top-chrome-md' asCefString value: 'non-material' asCefString;"
 		appendSwitch_name: 'process-per-site' asCefString;
 		appendSwitchWithValue_name: 'renderer-process-limit' asCefString value: '1' asCefString!
 
@@ -60,3 +56,4 @@ onBeforeCommandLineProcessing:processType:commandLine:!private! !
 onScheduleMessagePumpWork:delayMs:!public! !
 runMainProcess!public! !
 !
+
