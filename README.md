@@ -1,6 +1,6 @@
 # What is Dolphin-CEF?
 
-Language bindings for Dolphin Smalltalk to use the Chromium Embedded Framework (CEF). It is an rewrite and expansion of https://github.com/amaurel/dolphin-chrome-embedded, updated for Dolphin 7 and the current stable version of CEF (5993).
+Language bindings for Dolphin Smalltalk to use the Chromium Embedded Framework (CEF). It is a rewrite and expansion of https://github.com/amaurel/dolphin-chrome-embedded, updated for Dolphin 7 and the current stable version of CEF (5993).
 
 # Why Dolphin-CEF?
 To build a better browser. And because browsers need to be reprogrammable, not by a broken language like JavaScript, but with a coherent and powerful language like Smalltalk.
