@@ -30,8 +30,7 @@ logCommandLineArguments
 		log: processType;
 		log: sessionManager argv!
 
-onBeforeCommandLineProcessing: cefApp processType: processType commandLine: commandLine
-!
+onBeforeCommandLineProcessing: cefApp processType: processType commandLine: commandLine!
 
 runMainProcess
 	| resultCode |
