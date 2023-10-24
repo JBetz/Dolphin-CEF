@@ -42,7 +42,6 @@ package classNames
 	add: #CefMainArgs;
 	add: #CefMouseEvent;
 	add: #CefPoint;
-	add: #CefProcessRunner;
 	add: #CefRange;
 	add: #CefRect;
 	add: #CefReferenceCountedObject;
@@ -53,12 +52,10 @@ package classNames
 	add: #CefResourceBundleHandler;
 	add: #CefSchemeRegistrar;
 	add: #CefScreenInfo;
-	add: #CefSessionManager;
 	add: #CefSettings;
 	add: #CefString;
 	add: #CefStringUserfree;
 	add: #CefStringVisitor;
-	add: #CefSubprocessRunner;
 	add: #CefTouchHandleState;
 	add: #CefWebView;
 	add: #CefWindowInfo;
@@ -92,13 +89,16 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: #().
+package setPrerequisites: #(
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
 package!
 
 "Class Definitions"!
 
-Object subclass: #CefProcessRunner
+Object subclass: #CefBrowserProcessRunner
 	instanceVariableNames: 'isRunning args app settings windowsSandboxInfo'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -114,16 +114,6 @@ ProcedureField subclass: #CallbackField
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ProcedureField subclass: #MethodField
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-CefProcessRunner subclass: #CefBrowserProcessRunner
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-CefProcessRunner subclass: #CefSubprocessRunner
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -323,11 +313,6 @@ CefString subclass: #CefStringUserfree
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-RuntimeSessionManager subclass: #CefSessionManager
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 ContainerView subclass: #CefWebView
 	instanceVariableNames: 'windowInfo browserSettings client url cefHandle cefBrowser childBrowserView parentBrowserView'
 	classVariableNames: ''
@@ -448,3 +433,4 @@ isUnary!public! !
 !
 
 "End of package definition"!
+
