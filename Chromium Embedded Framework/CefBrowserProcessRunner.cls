@@ -26,10 +26,8 @@ initializeSettings
 		log_severity: 1;
 		log_file: logFile asCefString;
 		cache_path: cachePath asCefString;
-		no_sandbox: 1;
-		multi_threaded_message_loop: 1;
-		windowless_rendering_enabled: true;
-		background_color: Color white argbCode!
+		no_sandbox: true;
+		multi_threaded_message_loop: true!
 
 onBeforeCommandLineProcessing: cefApp processType: processType commandLine: commandLine
 	commandLine
@@ -62,4 +60,3 @@ onBeforeCommandLineProcessing:processType:commandLine:!private! !
 onScheduleMessagePumpWork:delayMs:!public! !
 runMainProcess!public! !
 !
-
