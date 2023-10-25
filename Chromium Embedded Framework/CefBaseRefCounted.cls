@@ -26,7 +26,6 @@ add_ref: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_add_ref put: anExternalAddress!
 
 addReference: aCEFBaseRefCounted
-	Transcript display: #callback_addReference; cr.
 	referenceCount := referenceCount + 1.
 	^referenceCount!
 
@@ -61,11 +60,9 @@ has_one_ref: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_has_one_ref put: anExternalAddress!
 
 hasAtLeastOneReference: aCEFBaseRefCounted
-	Transcript display: #callback_hasOneReference; cr.
 	^referenceCount > 0!
 
 hasOneReference: aCEFBaseRefCounted
-	Transcript display: #callback_hasOneReference; cr.
 	^referenceCount = 1!
 
 initialize
@@ -84,7 +81,6 @@ release: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_release put: anExternalAddress!
 
 releaseReference: aCEFBaseRefCounted
-	Transcript display: #callback_release; cr.
 	referenceCount := 0 max: referenceCount - 1.
 	^referenceCount! !
 !CefBaseRefCounted categoriesForMethods!

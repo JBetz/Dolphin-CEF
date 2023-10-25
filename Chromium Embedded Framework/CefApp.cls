@@ -61,15 +61,12 @@ get_resource_bundle_handler: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_resource_bundle_handler put: anExternalAddress!
 
 getBrowserProcessHandler: aCefApp
-	Transcript display: #getBrowserProcessHandler; cr.
 	^browserProcessHandler ifNotNil: [browserProcessHandler yourAddress] ifNil: [0]!
 
 getRenderProcessHandler: aCefApp
-	Transcript display: #getRenderProcessHandler; cr.
 	^renderProcessHandler ifNotNil: [renderProcessHandler yourAddress] ifNil: [0]!
 
 getResourceBundleHandler: aCefApp
-	Transcript display: #getResourceBundleHandler; cr.
 	^resourceBundleHandler ifNotNil: [resourceBundleHandler yourAddress] ifNil: [0]!
 
 on_before_command_line_processing

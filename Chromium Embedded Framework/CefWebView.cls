@@ -38,7 +38,6 @@ initialize
 onAddressChange: handler browser: browser frame: frame url: url!
 
 onAfterCreated: aCEF3LifeSpanHandler browser: aCEF3Browser
-	Transcript display: #onAfterCreated; cr.
 	cefBrowser := aCEF3Browser!
 
 onBeforeClose: this browser: browser
@@ -51,7 +50,6 @@ onBeforeClose: this browser: browser
 				ifFalse: [self closeChildBrowser: browser]]!
 
 onViewCreated
-	| resultCode |
 	windowInfo := CefWindowInfo new
 				window_name: 'CEF browser' asCefString;
 				style: self cefWindowStyle;
@@ -59,16 +57,13 @@ onViewCreated
 				parent_window: self handle value;
 				bounds: self parentView clientRectangle asCefRect.
 	browserSettings := CefBrowserSettings new.
-	resultCode := CefLibrary default
-				browserHostCreateBrowser_windowInfo: windowInfo
-				client: self client
-				url: self url asCefString
-				settings: browserSettings
-				extraInfo: nil
-				requestContext: nil.
-	Transcript
-		display: 'cef_browser_host_create_browser: ' , resultCode displayString;
-		cr!
+	CefLibrary default
+		browserHostCreateBrowser_windowInfo: windowInfo
+		client: self client
+		url: self url asCefString
+		settings: browserSettings
+		extraInfo: nil
+		requestContext: nil!
 
 setUrl: aString
 	url := aString.

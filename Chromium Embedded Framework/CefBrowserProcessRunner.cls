@@ -18,7 +18,7 @@ configureProcessPriority
 ensureRunning
 	isRunning ifFalse: [self runMainProcess]!
 
-executeProcess
+executeCefProcess
 	| handle |
 	handle := VMLibrary default applicationHandle.
 	args := CefMainArgs new.
@@ -33,7 +33,6 @@ getBrowserProcessHandler: aCefApp
 	^app getBrowserProcessHandler: aCefApp!
 
 getDefaultClient: browserProcessHandler
-	Transcript display: #getDefaultClient; cr.
 	^0!
 
 getRenderProcessHandler: aCefApp
@@ -49,6 +48,14 @@ initialize
 initializeApp
 	app := CefApp new.
 	app delegate: self!
+
+initializeCef
+	self initializeSettings.
+	self library
+		initialize_args: args
+		settings: settings
+		application: app
+		windowsSandboxInfo: 0!
 
 initializeSettings
 	| subprocessPath logFile cachePath |
@@ -76,42 +83,34 @@ onBeforeCommandLineProcessing: cefApp processType: processType commandLine: comm
 		appendSwitch_name: 'process-per-site' asCefString;
 		appendSwitchWithValue_name: 'renderer-process-limit' asCefString value: '1' asCefString!
 
-onRegisterCustomSchemes: cefApp registrar: registrar
-	Transcript display: #onRegisterCustomSchemes; cr!
+onRegisterCustomSchemes: cefApp registrar: registrar!
 
-onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs
-	^0!
+onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs!
 
 runMainProcess
-	| resultCode |
-	resultCode := self executeProcess.
-	self log: 'cef_execute_process:   ' , resultCode displayString.
-	self initializeSettings.
-	resultCode := self library
-				initialize_args: args
-				settings: settings
-				application: app
-				windowsSandboxInfo: 0.
-	self log: 'cef_initialize:   ' , resultCode displayString!
+	self
+		executeCefProcess;
+		initializeCef!
 
 stop
 	isRunning := false! !
 !CefBrowserProcessRunner categoriesForMethods!
 configureProcessPriority!private! !
 ensureRunning!public! !
-executeProcess!private! !
-getBrowserProcessHandler:!public! !
-getDefaultClient:!public! !
-getRenderProcessHandler:!public! !
-getResourceBundleHandler:!public! !
-initialize!public! !
+executeCefProcess!public! !
+getBrowserProcessHandler:!cef event handler!private! !
+getDefaultClient:!cef event handler!private! !
+getRenderProcessHandler:!cef event handler!private! !
+getResourceBundleHandler:!cef event handler!private! !
+initialize!private! !
 initializeApp!private! !
+initializeCef!private! !
 initializeSettings!private! !
 library!private! !
 log:!private! !
-onBeforeCommandLineProcessing:processType:commandLine:!private! !
-onRegisterCustomSchemes:registrar:!public! !
-onScheduleMessagePumpWork:delayMs:!public! !
+onBeforeCommandLineProcessing:processType:commandLine:!cef event handler!private! !
+onRegisterCustomSchemes:registrar:!cef event handler!private! !
+onScheduleMessagePumpWork:delayMs:!cef event handler!private! !
 runMainProcess!public! !
 stop!public! !
 !
