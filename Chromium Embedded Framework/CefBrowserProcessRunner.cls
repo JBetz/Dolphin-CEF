@@ -125,14 +125,10 @@ new
 			Current initialize].
 	^Current!
 
-onShutdown
-	Current := nil!
-
-onStartup
+stop
 	Current := nil! !
 !CefBrowserProcessRunner class categoriesForMethods!
 new!public! !
-onShutdown!public! !
-onStartup!public! !
+stop!public! !
 !
 
