@@ -18,7 +18,9 @@ Currently, this library provides minimal support for use with Win32 widgets and 
 * Inside the image, run `CefWebView example` to create a shell that should render the Google homepage
 
 ## Known Issues
-* When using a Dolphin executable for the subprocess runner, the renderer process throws divide by zero exception when load_url is called on a cef_frame object
+* calling `cef_shutdown` crashes image
 
 ## To do
-* Clean shutdown
+* reference counting
+* clean shutdown
+* automation API
