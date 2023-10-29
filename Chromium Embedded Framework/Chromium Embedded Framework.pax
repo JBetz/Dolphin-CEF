@@ -19,7 +19,6 @@ AAAAYgAAAAEAAAAGAgoARFdPUkRBcnJheXIAAAAEAAAACQSwBAMAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
 
 package classNames
-	add: #CallbackField;
 	add: #CefApp;
 	add: #CefBaseRefCounted;
 	add: #CefBrowser;
@@ -59,24 +58,15 @@ package classNames
 	add: #CefTouchHandleState;
 	add: #CefWebView;
 	add: #CefWindowInfo;
-	add: #DelegatedMessageCallback;
-	add: #ExtendedExternalStructure;
-	add: #MethodField;
-	add: #ProcedureField;
 	yourself.
 
 package methodNames
-	add: #Boolean -> #asInteger;
-	add: #ExternalMethod -> #bindTo:;
-	add: #Integer -> #lowByte;
 	add: #KernelLibrary -> #setPriorityClass:dwPriorityClass:;
 	add: #KernelLibrary -> #setProcessDEPPolicy:;
 	add: #Rectangle -> #asCefRect;
-	add: #String -> #asArgumentName;
 	add: #String -> #asCefString;
 	add: #String -> #fromSnakeCaseToCamelCase;
 	add: #String -> #uncapitalized;
-	add: #Symbol -> #isUnary;
 	yourself.
 
 package globalNames
@@ -89,10 +79,7 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: #(
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+package setPrerequisites: #('..\FFI Extensions\FFI Extensions').
 
 package!
 
@@ -103,36 +90,11 @@ Object subclass: #CefBrowserProcessRunner
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: 'Current'!
-LPVOIDField subclass: #ProcedureField
-	instanceVariableNames: 'cName descriptor smalltalkName'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ProcedureField subclass: #CallbackField
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-ProcedureField subclass: #MethodField
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-MessageCallback subclass: #DelegatedMessageCallback
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 ExternalLibrary subclass: #CefLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ExternalStructure subclass: #ExtendedExternalStructure
-	instanceVariableNames: 'callbacks'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: 'CallbackRegistry MethodRegistry'!
 ExtendedExternalStructure subclass: #CefBaseRefCounted
 	instanceVariableNames: 'referenceCount'
 	classVariableNames: '_OffsetOf_add_ref _OffsetOf_cefSize _OffsetOf_has_at_least_one_ref _OffsetOf_has_one_ref _OffsetOf_release'
@@ -324,33 +286,6 @@ ContainerView subclass: #CefWebView
 
 "Loose Methods"!
 
-!Boolean methodsFor!
-
-asInteger
-	^self asParameter! !
-!Boolean categoriesForMethods!
-asInteger!public! !
-!
-
-!ExternalMethod methodsFor!
-
-bindTo: anExternalAddress
-	^self literalAt: 1
-		put: ((self literalAt: 1) copy
-				dwordAtOffset: 0 put: anExternalAddress;
-				yourself)! !
-!ExternalMethod categoriesForMethods!
-bindTo:!public! !
-!
-
-!Integer methodsFor!
-
-lowByte
-	^(self bitAnd: 16rFF) asInteger! !
-!Integer categoriesForMethods!
-lowByte!bit manipulation!public! !
-!
-
 !KernelLibrary methodsFor!
 
 setPriorityClass: hProcess dwPriorityClass: dwPriorityClass
@@ -388,9 +323,6 @@ asCefRect!public! !
 
 !String methodsFor!
 
-asArgumentName
-	^(self reject: [:each | each = $*]) uncapitalized!
-
 asCefString
 	| output |
 	output := CefString new.
@@ -418,19 +350,9 @@ uncapitalized
 	write nextPutAll: read upToEnd.
 	^write contents! !
 !String categoriesForMethods!
-asArgumentName!converting!public! !
 asCefString!public! !
 fromSnakeCaseToCamelCase!public! !
 uncapitalized!public! !
 !
 
-!Symbol methodsFor!
-
-isUnary
-	^self argumentCount = 0! !
-!Symbol categoriesForMethods!
-isUnary!public! !
-!
-
 "End of package definition"!
-

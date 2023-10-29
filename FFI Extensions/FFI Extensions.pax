@@ -1,0 +1,102 @@
+﻿| package |
+package := Package name: 'FFI Extensions'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #CallbackField;
+	add: #DelegatedMessageCallback;
+	add: #ExtendedExternalStructure;
+	add: #MethodField;
+	add: #ProcedureField;
+	yourself.
+
+package methodNames
+	add: #Boolean -> #asInteger;
+	add: #ExternalMethod -> #bindTo:;
+	add: #String -> #asArgumentName;
+	add: #Symbol -> #isUnary;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+LPVOIDField subclass: #ProcedureField
+	instanceVariableNames: 'cName descriptor smalltalkName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ProcedureField subclass: #CallbackField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ProcedureField subclass: #MethodField
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+MessageCallback subclass: #DelegatedMessageCallback
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #ExtendedExternalStructure
+	instanceVariableNames: 'callbacks'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: 'CallbackRegistry MethodRegistry'!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Boolean methodsFor!
+
+asInteger
+	^self asParameter! !
+!Boolean categoriesForMethods!
+asInteger!public! !
+!
+
+!ExternalMethod methodsFor!
+
+bindTo: anExternalAddress
+	^self literalAt: 1
+		put: ((self literalAt: 1) copy
+				dwordAtOffset: 0 put: anExternalAddress;
+				yourself)! !
+!ExternalMethod categoriesForMethods!
+bindTo:!public! !
+!
+
+!String methodsFor!
+
+asArgumentName
+	^(self reject: [:each | each = $*]) uncapitalized! !
+!String categoriesForMethods!
+asArgumentName!converting!public! !
+!
+
+!Symbol methodsFor!
+
+isUnary
+	^self argumentCount = 0! !
+!Symbol categoriesForMethods!
+isUnary!public! !
+!
+
+"End of package definition"!
+
