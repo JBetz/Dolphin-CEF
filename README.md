@@ -18,7 +18,7 @@ Currently, this library provides minimal support for use with Win32 widgets and 
 * Inside the image, run `CefWebView example` to create a shell that should render the Google homepage
 
 ## Known Issues
-* calling `cef_shutdown` crashes image
+* calling `cef_shutdown` causes image to hang
 
 ## To do
 * reference counting
