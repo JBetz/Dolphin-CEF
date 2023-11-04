@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExtendedExternalStructure subclass: #CefRequestContext
+CefReferenceCountedObject subclass: #CefRequestContext
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
