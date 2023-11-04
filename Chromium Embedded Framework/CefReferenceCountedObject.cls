@@ -34,7 +34,6 @@ delegate: anObject
 initialize
 	super initialize.
 	self base
-		initialize;
 		cefSize: self class byteSize;
 		cefObject: self! !
 !CefReferenceCountedObject categoriesForMethods!

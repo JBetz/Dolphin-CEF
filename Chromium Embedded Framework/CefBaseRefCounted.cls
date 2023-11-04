@@ -70,8 +70,8 @@ hasAtLeastOneReference: aCEFBaseRefCounted
 hasOneReference: aCEFBaseRefCounted
 	^(referenceCount = 1) asInteger!
 
-initialize
-	super initialize.
+initializePointer
+	super initializePointer.
 	referenceCount := 1!
 
 release
@@ -101,7 +101,7 @@ has_one_ref!public! !
 has_one_ref:!public! !
 hasAtLeastOneReference:!public! !
 hasOneReference:!public! !
-initialize!public! !
+initializePointer!public! !
 release!public! !
 release:!public! !
 releaseReference:!public! !
