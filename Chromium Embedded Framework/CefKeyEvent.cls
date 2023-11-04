@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExtendedExternalStructure subclass: #CefKeyEvent
+ExternalStructure subclass: #CefKeyEvent
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_character _OffsetOf_focus_on_editable_field _OffsetOf_is_system_key _OffsetOf_modifiers _OffsetOf_native_key_code _OffsetOf_type _OffsetOf_unmodified_character _OffsetOf_windows_key_code'
 	poolDictionaries: ''

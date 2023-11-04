@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExtendedExternalStructure subclass: #CefPoint
+ExternalStructure subclass: #CefPoint
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''

@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExtendedExternalStructure subclass: #CefWindowInfo
+ExternalStructure subclass: #CefWindowInfo
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_bounds _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''

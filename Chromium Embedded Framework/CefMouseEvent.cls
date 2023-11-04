@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExtendedExternalStructure subclass: #CefMouseEvent
+ExternalStructure subclass: #CefMouseEvent
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_modifiers _OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''

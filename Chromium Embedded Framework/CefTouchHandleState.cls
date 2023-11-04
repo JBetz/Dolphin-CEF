@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExtendedExternalStructure subclass: #CefTouchHandleState
+ExternalStructure subclass: #CefTouchHandleState
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

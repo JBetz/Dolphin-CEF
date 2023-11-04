@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExtendedExternalStructure subclass: #CefCursorInfo
+ExternalStructure subclass: #CefCursorInfo
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_buffer _OffsetOf_hotspot _OffsetOf_image_scale_factor _OffsetOf_size'
 	poolDictionaries: ''
