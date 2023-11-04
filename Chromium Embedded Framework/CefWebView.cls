@@ -49,6 +49,9 @@ onBeforeClose: this browser: browser
 					self releaseCefView]
 				ifFalse: [self closeChildBrowser: browser]]!
 
+onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
+	^1!
+
 onViewCreated
 	windowInfo := CefWindowInfo new
 				window_name: 'CEF browser' asCefString;
@@ -86,6 +89,7 @@ initialize!public! !
 onAddressChange:browser:frame:url:!public! !
 onAfterCreated:browser:!public! !
 onBeforeClose:browser:!public! !
+onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGesture:popupFeatures:windowInfo:client:settings:extraInfo:noJavascriptAccess:!public! !
 onViewCreated!public! !
 setUrl:!public! !
 url!public! !
