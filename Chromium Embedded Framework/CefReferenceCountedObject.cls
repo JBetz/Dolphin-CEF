@@ -33,7 +33,10 @@ delegate: anObject
 
 initialize
 	super initialize.
-	self base cefSize: self class byteSize! !
+	self base
+		initialize;
+		cefSize: self class byteSize;
+		cefObject: self! !
 !CefReferenceCountedObject categoriesForMethods!
 base!public! !
 base:!public! !

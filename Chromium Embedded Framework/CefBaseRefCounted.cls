@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExtendedExternalStructure subclass: #CefBaseRefCounted
-	instanceVariableNames: 'referenceCount'
+	instanceVariableNames: 'cefObject referenceCount'
 	classVariableNames: '_OffsetOf_add_ref _OffsetOf_cefSize _OffsetOf_has_at_least_one_ref _OffsetOf_has_one_ref _OffsetOf_release'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -26,8 +26,10 @@ add_ref: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_add_ref put: anExternalAddress!
 
 addReference: aCEFBaseRefCounted
-	referenceCount := referenceCount + 1.
-	^referenceCount!
+	referenceCount := referenceCount + 1!
+
+cefObject: aCefReferenceCountedObject
+	cefObject := aCefReferenceCountedObject!
 
 cefSize
 	"Answer the <Integer> value of the receiver's 'cefSize' field."
@@ -38,6 +40,9 @@ cefSize: anInteger
 	"Set the receiver's 'cefSize' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_cefSize put: anInteger!
+
+delegate
+	^self!
 
 has_at_least_one_ref
 	"Answer the <ExternalAddress> value of the receiver's 'has_at_least_one_ref' field."
@@ -60,14 +65,13 @@ has_one_ref: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_has_one_ref put: anExternalAddress!
 
 hasAtLeastOneReference: aCEFBaseRefCounted
-	^referenceCount > 0!
+	^(referenceCount > 0) asInteger!
 
 hasOneReference: aCEFBaseRefCounted
-	^referenceCount = 1!
+	^(referenceCount = 1) asInteger!
 
 initialize
 	super initialize.
-	self cefSize: self class byteSize.
 	referenceCount := 1!
 
 release
@@ -82,13 +86,15 @@ release: anExternalAddress
 
 releaseReference: aCEFBaseRefCounted
 	referenceCount := 0 max: referenceCount - 1.
-	^referenceCount! !
+	^(referenceCount = 0) asInteger! !
 !CefBaseRefCounted categoriesForMethods!
 add_ref!public! !
 add_ref:!public! !
 addReference:!public! !
+cefObject:!public! !
 cefSize!public! !
 cefSize:!public! !
+delegate!public! !
 has_at_least_one_ref!public! !
 has_at_least_one_ref:!public! !
 has_one_ref!public! !
