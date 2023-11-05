@@ -90,7 +90,8 @@ onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs!
 runMainProcess
 	self
 		executeCefProcess;
-		initializeCef!
+		initializeCef.
+	isRunning := true!
 
 stop
 	isRunning := false! !
