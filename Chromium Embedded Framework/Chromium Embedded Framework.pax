@@ -88,7 +88,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #CefBrowserProcessRunner
-	instanceVariableNames: 'isRunning args app settings windowsSandboxInfo'
+	instanceVariableNames: 'isRunning args app settings'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: 'Current'!
