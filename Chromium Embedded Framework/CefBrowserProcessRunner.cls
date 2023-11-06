@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #CefBrowserProcessRunner
-	instanceVariableNames: 'isRunning args app settings windowsSandboxInfo'
+	instanceVariableNames: 'isRunning args app settings'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: 'Current'!
@@ -94,7 +94,11 @@ runMainProcess
 	isRunning := true!
 
 stop
-	isRunning := false! !
+	self library shutdown.
+	isRunning := false.
+	args := nil.
+	app := nil.
+	settings := nil! !
 !CefBrowserProcessRunner categoriesForMethods!
 configureProcessPriority!private! !
 ensureRunning!public! !
@@ -118,6 +122,17 @@ stop!public! !
 
 !CefBrowserProcessRunner class methodsFor!
 
+initialize
+	"self initialize"
+
+	(SessionManager current)
+		when: #sessionStarted
+			send: #onStartup
+			to: self;
+		when: #sessionStopped
+			send: #onShutdown
+			to: self!
+
 new
 	Current
 		ifNil: 
@@ -125,10 +140,16 @@ new
 			Current initialize].
 	^Current!
 
-stop
+onShutdown
+	Current stop.
+	Current := nil!
+
+onStartup
 	Current := nil! !
 !CefBrowserProcessRunner class categoriesForMethods!
+initialize!public! !
 new!public! !
-stop!public! !
+onShutdown!public! !
+onStartup!public! !
 !
 

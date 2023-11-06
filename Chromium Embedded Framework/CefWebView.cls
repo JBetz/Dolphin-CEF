@@ -102,7 +102,6 @@ example
 	" CefWebView example"
 
 	| processRunner shell view |
-	CefBrowserProcessRunner stop.
 	processRunner := CefBrowserProcessRunner new.
 	processRunner ensureRunning.
 	shell := ShellView new.
