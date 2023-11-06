@@ -35,6 +35,10 @@ _getHost_cefBrowser: cefBrowser
 	<stdcall: CefBrowserHost* get_host CefBrowser*>
 	^self invalidCall: _failureCode!
 
+_getIdentifier_cefBrowser: cefBrowser
+	<stdcall: sdword get_identifier CefBrowser*>
+	^self invalidCall: _failureCode!
+
 _getMainFrame_cefBrowser: cefBrowser
 	<stdcall: CefFrame* get_main_frame CefBrowser*>
 	^self invalidCall: _failureCode!
@@ -154,6 +158,12 @@ getHost
 	method := self class externalMethodAt: #_getHost_cefBrowser: ifAbsentBindTo: self get_host.
 	^method value: self withArguments: (Array with: self)!
 
+getIdentifier
+	| method |
+	method := self class externalMethodAt: #_getIdentifier_cefBrowser:
+				ifAbsentBindTo: self get_identifier.
+	^method value: self withArguments: (Array with: self)!
+
 getMainFrame
 	| method |
 	method := self class externalMethodAt: #_getMainFrame_cefBrowser:
@@ -261,6 +271,7 @@ stop_load: anInteger
 	bytes dwordAtOffset: _OffsetOf_stop_load put: anInteger! !
 !CefBrowser categoriesForMethods!
 _getHost_cefBrowser:!**compiled accessors**!private! !
+_getIdentifier_cefBrowser:!**compiled accessors**!private! !
 _getMainFrame_cefBrowser:!**compiled accessors**!private! !
 can_go_back!public! !
 can_go_back:!public! !
@@ -285,6 +296,7 @@ get_identifier:!public! !
 get_main_frame!public! !
 get_main_frame:!public! !
 getHost!**compiled accessors**!public! !
+getIdentifier!**compiled accessors**!public! !
 getMainFrame!**compiled accessors**!public! !
 go_back!public! !
 go_back:!public! !
@@ -327,7 +339,8 @@ defineFields
 		defineField: #reload type: DWORDField new;
 		defineField: #reload_ignore_cache type: DWORDField new;
 		defineField: #stop_load type: DWORDField new;
-		defineField: #get_identifier type: DWORDField new;
+		defineField: #get_identifier
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBrowser*'));
 		defineField: #is_same type: DWORDField new;
 		defineField: #is_popup type: DWORDField new;
 		defineField: #has_document type: DWORDField new;

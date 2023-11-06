@@ -35,8 +35,20 @@ CefFrame comment: ''!
 !CefFrame categoriesForClass!External-Data-Structured! !
 !CefFrame methodsFor!
 
+_getIdentifier_cefFrame: cefFrame
+	<stdcall: sdword get_identifier CefFrame*>
+	^self invalidCall: _failureCode!
+
+_getName_cefFrame: cefFrame
+	<stdcall: CefStringUserfree* get_name CefFrame*>
+	^self invalidCall: _failureCode!
+
 _getSource_cefFrame: cefFrame visitor: visitor
 	<stdcall: void get_source CefFrame* CefStringVisitor*>
+	^self invalidCall: _failureCode!
+
+_getUrl_cefFrame: cefFrame
+	<stdcall: CefStringUserfree* get_url CefFrame*>
 	^self invalidCall: _failureCode!
 
 _loadUrl_cefFrame: cefFrame url: url
@@ -104,24 +116,24 @@ get_browser: anInteger
 	bytes dwordAtOffset: _OffsetOf_get_browser put: anInteger!
 
 get_identifier
-	"Answer the <Integer> value of the receiver's 'get_identifier' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_identifier' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_identifier!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_identifier) asExternalAddress!
 
-get_identifier: anInteger
-	"Set the receiver's 'get_identifier' field to the value of the argument, anInteger"
+get_identifier: anExternalAddress
+	"Set the receiver's 'get_identifier' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_identifier put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_identifier put: anExternalAddress!
 
 get_name
-	"Answer the <Integer> value of the receiver's 'get_name' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_name' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_name!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_name) asExternalAddress!
 
-get_name: anInteger
-	"Set the receiver's 'get_name' field to the value of the argument, anInteger"
+get_name: anExternalAddress
+	"Set the receiver's 'get_name' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_name put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_name put: anExternalAddress!
 
 get_parent
 	"Answer the <Integer> value of the receiver's 'get_parent' field."
@@ -154,14 +166,14 @@ get_text: anInteger
 	bytes dwordAtOffset: _OffsetOf_get_text put: anInteger!
 
 get_url
-	"Answer the <Integer> value of the receiver's 'get_url' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_url' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_url!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_url) asExternalAddress!
 
-get_url: anInteger
-	"Set the receiver's 'get_url' field to the value of the argument, anInteger"
+get_url: anExternalAddress
+	"Set the receiver's 'get_url' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_url put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_url put: anExternalAddress!
 
 get_v8context
 	"Answer the <Integer> value of the receiver's 'get_v8context' field."
@@ -173,6 +185,16 @@ get_v8context: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_get_v8context put: anInteger!
 
+getIdentifier
+	| method |
+	method := self class externalMethodAt: #_getIdentifier_cefFrame: ifAbsentBindTo: self get_identifier.
+	^method value: self withArguments: (Array with: self)!
+
+getName
+	| method |
+	method := self class externalMethodAt: #_getName_cefFrame: ifAbsentBindTo: self get_name.
+	^method value: self withArguments: (Array with: self)!
+
 getSource_visitor: visitor
 	| method arguments |
 	method := self class externalMethodAt: #_getSource_cefFrame:visitor: ifAbsentBindTo: self get_source.
@@ -181,6 +203,11 @@ getSource_visitor: visitor
 		at: 1 put: self;
 		at: 2 put: visitor.
 	^method value: self withArguments: arguments!
+
+getUrl
+	| method |
+	method := self class externalMethodAt: #_getUrl_cefFrame: ifAbsentBindTo: self get_url.
+	^method value: self withArguments: (Array with: self)!
 
 is_focused
 	"Answer the <Integer> value of the receiver's 'is_focused' field."
@@ -311,7 +338,10 @@ visit_dom: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_visit_dom put: anInteger! !
 !CefFrame categoriesForMethods!
+_getIdentifier_cefFrame:!**compiled accessors**!private! !
+_getName_cefFrame:!**compiled accessors**!private! !
 _getSource_cefFrame:visitor:!**compiled accessors**!private! !
+_getUrl_cefFrame:!**compiled accessors**!private! !
 _loadUrl_cefFrame:url:!**compiled accessors**!private! !
 copy!**compiled accessors**!public! !
 copy:!**compiled accessors**!public! !
@@ -339,7 +369,10 @@ get_url!**compiled accessors**!public! !
 get_url:!**compiled accessors**!public! !
 get_v8context!**compiled accessors**!public! !
 get_v8context:!**compiled accessors**!public! !
+getIdentifier!**compiled accessors**!public! !
+getName!**compiled accessors**!public! !
 getSource_visitor:!**compiled accessors**!public! !
+getUrl!**compiled accessors**!public! !
 is_focused!**compiled accessors**!public! !
 is_focused:!**compiled accessors**!public! !
 is_main!**compiled accessors**!public! !
@@ -395,10 +428,15 @@ defineFields
 		defineField: #execute_java_script type: DWORDField new;
 		defineField: #is_main type: DWORDField new;
 		defineField: #is_focused type: DWORDField new;
-		defineField: #get_name type: DWORDField new;
-		defineField: #get_identifier type: DWORDField new;
+		defineField: #get_name
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefStringUserfree* CefFrame*'));
+		defineField: #get_identifier
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefFrame*'));
 		defineField: #get_parent type: DWORDField new;
-		defineField: #get_url type: DWORDField new;
+		defineField: #get_url
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefStringUserfree* CefFrame*'));
 		defineField: #get_browser type: DWORDField new;
 		defineField: #get_v8context type: DWORDField new;
 		defineField: #visit_dom type: DWORDField new;
