@@ -53,8 +53,8 @@ open: resourceHandler request: request handleRequest: handleRequest callback: ca
 read: resourceHandler dataOut: dataOut bytesToRead: bytesToRead bytesRead: bytesRead callback: callback
 	| numberOfBytesToRead |
 	numberOfBytesToRead := htmlByteStream size - htmlByteStream position min: bytesToRead.
-	numberOfBytesToRead
-		timesRepeat: [dataOut byteAtOffset: htmlByteStream position put: htmlByteStream next].
+	1 to: numberOfBytesToRead
+		do: [:byteIndex | dataOut byteAtOffset: byteIndex - 1 put: htmlByteStream next].
 	bytesRead value: numberOfBytesToRead.
 	^(numberOfBytesToRead > 0) asInteger!
 
