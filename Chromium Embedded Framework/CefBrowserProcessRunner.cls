@@ -94,8 +94,10 @@ runMainProcess
 	isRunning := true!
 
 stop
-	self library shutdown.
-	isRunning := false.
+	isRunning
+		ifTrue: 
+			[self library shutdown.
+			isRunning := false].
 	args := nil.
 	app := nil.
 	settings := nil! !
