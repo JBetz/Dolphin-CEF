@@ -99,7 +99,7 @@ Object subclass: #CefBrowserProcessRunner
 	poolDictionaries: ''
 	classInstanceVariableNames: 'Current'!
 Object subclass: #CefContentProvider
-	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler'
+	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler webView'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #CefContentProvider
-	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler'
+	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler webView'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
@@ -43,7 +43,8 @@ onBeforeResourceLoad: resourceRequestHandler browser: browser frame: frame reque
 	^RV_CONTINUE!
 
 onResourceLoadComplete: resourceRequestHandler browser: browser frame: frame request: request response: response status: status receivedContentLength: receivedContentLength
-	htmlByteStream := nil!
+	htmlByteStream := nil.
+	webView ifNotNil: [webView removeContentProvider: self]!
 
 open: resourceHandler request: request handleRequest: handleRequest callback: callback 
 	handleRequest value: 1.
@@ -67,7 +68,10 @@ url
 	^url!
 
 url: anObject
-	url := anObject! !
+	url := anObject!
+
+webView: anObject
+	webView := anObject! !
 !CefContentProvider categoriesForMethods!
 cancel:!private! !
 getResourceHandler:browser:frame:request:!private! !
@@ -83,6 +87,7 @@ read:dataOut:bytesToRead:bytesRead:callback:!private! !
 skip:bytesToSkip:bytesSkipped:callback:!private! !
 url!accessing!public! !
 url:!accessing!public! !
+webView:!accessing!public! !
 !
 
 !CefContentProvider class methodsFor!
