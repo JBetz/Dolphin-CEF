@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -69,6 +69,10 @@ enableRenderHandler
 enableRenderHandlerAndDelegateTo: anObject
 	renderHandler := CefRenderHandler new.
 	renderHandler delegate: anObject!
+
+enableRequestHandlerAndDelegateTo: anObject
+	requestHandler := CefRequestHandler new.
+	requestHandler delegate: anObject!
 
 get_audio_handler
 	"Answer the <ExternalAddress> value of the receiver's 'get_audio_handler' field."
@@ -265,6 +269,9 @@ getLifeSpanHandler: aCefClient
 getRenderHandler: aCefClient
 	^renderHandler ifNotNil: [renderHandler yourAddress]!
 
+getRequestHandler: aCefClient
+	^requestHandler ifNotNil: [requestHandler yourAddress]!
+
 on_process_message_received
 	"Answer the <ExternalAddress> value of the receiver's 'on_process_message_received' field."
 
@@ -286,6 +293,7 @@ enableLifeSpanHandler!public! !
 enableLifeSpanHandlerAndDelegateTo:!public! !
 enableRenderHandler!public! !
 enableRenderHandlerAndDelegateTo:!public! !
+enableRequestHandlerAndDelegateTo:!public! !
 get_audio_handler!public! !
 get_audio_handler:!public! !
 get_command_handler!public! !
@@ -327,6 +335,7 @@ getFocusHandler:!public! !
 getFrameHandler:!public! !
 getLifeSpanHandler:!public! !
 getRenderHandler:!public! !
+getRequestHandler:!public! !
 on_process_message_received!public! !
 on_process_message_received:!public! !
 !
@@ -365,7 +374,9 @@ defineFields
 		defineField: #get_render_handler
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRenderHandler* CefClient*'));
-		defineField: #get_request_handler type: LPVOIDField new;
+		defineField: #get_request_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRequestHandler* CefClient*'));
 		defineField: #on_process_message_received type: LPVOIDField new!
 
 getFieldNames

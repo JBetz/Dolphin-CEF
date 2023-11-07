@@ -26,8 +26,10 @@ package classNames
 	add: #CefBrowserProcessHandler;
 	add: #CefBrowserProcessRunner;
 	add: #CefBrowserSettings;
+	add: #CefCallback;
 	add: #CefClient;
 	add: #CefCommandLine;
+	add: #CefContentProvider;
 	add: #CefCursorInfo;
 	add: #CefDictionaryValue;
 	add: #CefDisplayHandler;
@@ -48,9 +50,13 @@ package classNames
 	add: #CefReferenceCountedObject;
 	add: #CefRenderHandler;
 	add: #CefRenderProcessHandler;
+	add: #CefRequest;
 	add: #CefRequestContext;
 	add: #CefRequestHandler;
 	add: #CefResourceBundleHandler;
+	add: #CefResourceHandler;
+	add: #CefResourceRequestHandler;
+	add: #CefResponse;
 	add: #CefSchemeRegistrar;
 	add: #CefScreenInfo;
 	add: #CefSettings;
@@ -92,6 +98,11 @@ Object subclass: #CefBrowserProcessRunner
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: 'Current'!
+Object subclass: #CefContentProvider
+	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler'
+	classVariableNames: ''
+	poolDictionaries: 'CefConstants'
+	classInstanceVariableNames: ''!
 ExternalLibrary subclass: #CefLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -197,8 +208,13 @@ CefReferenceCountedObject subclass: #CefBrowserHost
 	classVariableNames: '_OffsetOf_add_dev_tools_message_observer _OffsetOf_add_word_to_dictionary _OffsetOf_close_browser _OffsetOf_close_dev_tools _OffsetOf_download_image _OffsetOf_drag_source_ended_at _OffsetOf_drag_source_system_drag_ended _OffsetOf_drag_target_drag_enter _OffsetOf_drag_target_drag_leave _OffsetOf_drag_target_drag_over _OffsetOf_drag_target_drop _OffsetOf_execute_dev_tools_method _OffsetOf_find _OffsetOf_get_browser _OffsetOf_get_client _OffsetOf_get_extension _OffsetOf_get_navigation_entries _OffsetOf_get_opener_window_handle _OffsetOf_get_request_context _OffsetOf_get_visible_navigation_entry _OffsetOf_get_window_handle _OffsetOf_get_windowless_frame_rate _OffsetOf_get_zoom_level _OffsetOf_has_dev_tools _OffsetOf_has_view _OffsetOf_ime_cancel_composition _OffsetOf_ime_commit_text _OffsetOf_ime_finish_composing_text _OffsetOf_ime_set_composition _OffsetOf_invalidate _OffsetOf_is_audio_muted _OffsetOf_is_background_host _OffsetOf_is_window_rendering_disabled _OffsetOf_notify_move_or_resize_started _OffsetOf_notify_screen_info_changed _OffsetOf_print _OffsetOf_print_to_pdf _OffsetOf_replace_misspelling _OffsetOf_run_file_dialog _OffsetOf_send_capture_lost_event _OffsetOf_send_dev_tools_message _OffsetOf_send_external_begin_frame _OffsetOf_send_key_event _OffsetOf_send_mouse_click_event _OffsetOf_send_mouse_move_event _OffsetOf_send_mouse_wheel_event _OffsetOf_send_touch_event _OffsetOf_set_accessibility_state _OffsetOf_set_audio_muted _OffsetOf_set_auto_resize_enabled _OffsetOf_set_focus _OffsetOf_set_windowless_frame_frate _OffsetOf_set_zoom_level _OffsetOf_show_dev_tools _OffsetOf_start_download _OffsetOf_stop_finding _OffsetOf_try_close_browser _OffsetOf_was_hidden _OffsetOf_was_resized'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefCallback
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_cancel _OffsetOf_cont'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -227,9 +243,19 @@ CefReferenceCountedObject subclass: #CefFrame
 	classVariableNames: '_OffsetOf_copy _OffsetOf_create_urlrequest _OffsetOf_cut _OffsetOf_del _OffsetOf_execute_java_script _OffsetOf_get_browser _OffsetOf_get_identifier _OffsetOf_get_name _OffsetOf_get_parent _OffsetOf_get_source _OffsetOf_get_text _OffsetOf_get_url _OffsetOf_get_v8context _OffsetOf_is_focused _OffsetOf_is_main _OffsetOf_is_valid _OffsetOf_load_request _OffsetOf_load_url _OffsetOf_paste _OffsetOf_redo _OffsetOf_select_all _OffsetOf_send_process_message _OffsetOf_undo _OffsetOf_view_source _OffsetOf_visit_dom'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefRequest
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_first_party_for_cookies _OffsetOf_get_flags _OffsetOf_get_header_by_name _OffsetOf_get_header_map _OffsetOf_get_identifier _OffsetOf_get_method _OffsetOf_get_post_data _OffsetOf_get_referrer_policy _OffsetOf_get_referrer_url _OffsetOf_get_resource_type _OffsetOf_get_transition_type _OffsetOf_get_url _OffsetOf_is_read_only _OffsetOf_set _OffsetOf_set_first_party_for_cookies _OffsetOf_set_flags _OffsetOf_set_header_by_name _OffsetOf_set_header_map _OffsetOf_set_method _OffsetOf_set_post_data _OffsetOf_set_referrer _OffsetOf_set_url'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefRequestContext
 	instanceVariableNames: ''
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefResponse
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_charset _OffsetOf_get_error _OffsetOf_get_header_by_name _OffsetOf_get_header_map _OffsetOf_get_mime_type _OffsetOf_get_status _OffsetOf_get_status_text _OffsetOf_get_url _OffsetOf_is_read_only _OffsetOf_set_charset _OffsetOf_set_error _OffsetOf_set_header_by_name _OffsetOf_set_header_map _OffsetOf_set_mime_type _OffsetOf_set_status _OffsetOf_set_status_text _OffsetOf_set_url'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefSchemeRegistrar
@@ -279,12 +305,22 @@ CefEventHandler subclass: #CefRenderProcessHandler
 	classInstanceVariableNames: ''!
 CefEventHandler subclass: #CefRequestHandler
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_auth_credentials _OffsetOf_get_resource_request_handler _OffsetOf_on_before_browse _OffsetOf_on_before_resource_load _OffsetOf_on_certificate_error _OffsetOf_on_document_available_in_main_frame _OffsetOf_on_open_urlfrom_tab _OffsetOf_on_render_process_terminated _OffsetOf_on_render_view_ready _OffsetOf_on_select_client_certificate'
+	classVariableNames: '_OffsetOf_get_auth_credentials _OffsetOf_get_resource_request_handler _OffsetOf_on_before_browse _OffsetOf_on_certificate_error _OffsetOf_on_document_available_in_main_frame _OffsetOf_on_open_urlfrom_tab _OffsetOf_on_render_process_terminated _OffsetOf_on_render_view_ready _OffsetOf_on_select_client_certificate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefEventHandler subclass: #CefResourceBundleHandler
 	instanceVariableNames: ''
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefResourceHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_cancel _OffsetOf_get_response_headers _OffsetOf_open _OffsetOf_process_request _OffsetOf_read _OffsetOf_read_response _OffsetOf_skip'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefResourceRequestHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_cookie_access_filter _OffsetOf_get_resource_handler _OffsetOf_get_resource_response_filter _OffsetOf_on_before_resource_load _OffsetOf_on_protocol_execution _OffsetOf_on_resource_load_complete _OffsetOf_on_resource_redirect _OffsetOf_on_resource_response'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ContainerView subclass: #CefWebView

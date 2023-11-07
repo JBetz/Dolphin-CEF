@@ -2,20 +2,19 @@
 
 CefEventHandler subclass: #CefRequestHandler
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_auth_credentials _OffsetOf_get_resource_request_handler _OffsetOf_on_before_browse _OffsetOf_on_before_resource_load _OffsetOf_on_certificate_error _OffsetOf_on_document_available_in_main_frame _OffsetOf_on_open_urlfrom_tab _OffsetOf_on_render_process_terminated _OffsetOf_on_render_view_ready _OffsetOf_on_select_client_certificate'
+	classVariableNames: '_OffsetOf_get_auth_credentials _OffsetOf_get_resource_request_handler _OffsetOf_on_before_browse _OffsetOf_on_certificate_error _OffsetOf_on_document_available_in_main_frame _OffsetOf_on_open_urlfrom_tab _OffsetOf_on_render_process_terminated _OffsetOf_on_render_view_ready _OffsetOf_on_select_client_certificate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefRequestHandler guid: (GUID fromString: '{cc61b184-defe-45ef-9e7c-17aa5f9fb29c}')!
-CefRequestHandler addClassConstant: '_OffsetOf_get_auth_credentials' value: 16r24!
-CefRequestHandler addClassConstant: '_OffsetOf_get_resource_request_handler' value: 16r20!
+CefRequestHandler addClassConstant: '_OffsetOf_get_auth_credentials' value: 16r20!
+CefRequestHandler addClassConstant: '_OffsetOf_get_resource_request_handler' value: 16r1C!
 CefRequestHandler addClassConstant: '_OffsetOf_on_before_browse' value: 16r14!
-CefRequestHandler addClassConstant: '_OffsetOf_on_before_resource_load' value: 16r1C!
-CefRequestHandler addClassConstant: '_OffsetOf_on_certificate_error' value: 16r28!
-CefRequestHandler addClassConstant: '_OffsetOf_on_document_available_in_main_frame' value: 16r38!
+CefRequestHandler addClassConstant: '_OffsetOf_on_certificate_error' value: 16r24!
+CefRequestHandler addClassConstant: '_OffsetOf_on_document_available_in_main_frame' value: 16r34!
 CefRequestHandler addClassConstant: '_OffsetOf_on_open_urlfrom_tab' value: 16r18!
-CefRequestHandler addClassConstant: '_OffsetOf_on_render_process_terminated' value: 16r34!
-CefRequestHandler addClassConstant: '_OffsetOf_on_render_view_ready' value: 16r30!
-CefRequestHandler addClassConstant: '_OffsetOf_on_select_client_certificate' value: 16r2C!
+CefRequestHandler addClassConstant: '_OffsetOf_on_render_process_terminated' value: 16r30!
+CefRequestHandler addClassConstant: '_OffsetOf_on_render_view_ready' value: 16r2C!
+CefRequestHandler addClassConstant: '_OffsetOf_on_select_client_certificate' value: 16r28!
 CefRequestHandler comment: ''!
 !CefRequestHandler categoriesForClass!External-Data-Structured! !
 !CefRequestHandler methodsFor!
@@ -49,16 +48,6 @@ on_before_browse: anExternalAddress
 	"Set the receiver's 'on_before_browse' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_before_browse put: anExternalAddress!
-
-on_before_resource_load
-	"Answer the <ExternalAddress> value of the receiver's 'on_before_resource_load' field."
-
-	^(bytes uintPtrAtOffset: _OffsetOf_on_before_resource_load) asExternalAddress!
-
-on_before_resource_load: anExternalAddress
-	"Set the receiver's 'on_before_resource_load' field to the value of the argument, anExternalAddress"
-
-	bytes uintPtrAtOffset: _OffsetOf_on_before_resource_load put: anExternalAddress!
 
 on_certificate_error
 	"Answer the <ExternalAddress> value of the receiver's 'on_certificate_error' field."
@@ -126,8 +115,6 @@ get_resource_request_handler!public! !
 get_resource_request_handler:!public! !
 on_before_browse!public! !
 on_before_browse:!public! !
-on_before_resource_load!public! !
-on_before_resource_load:!public! !
 on_certificate_error!public! !
 on_certificate_error:!public! !
 on_document_available_in_main_frame!public! !
@@ -151,8 +138,10 @@ defineFields
 	self
 		defineField: #on_before_browse type: LPVOIDField new;
 		defineField: #on_open_urlfrom_tab type: LPVOIDField new;
-		defineField: #on_before_resource_load type: LPVOIDField new;
-		defineField: #get_resource_request_handler type: LPVOIDField new;
+		defineField: #get_resource_request_handler
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: CefResourceRequestHandler* CefRequestHandler* CefBrowser* CefFrame* CefRequest* sdword sdword CefString* sdword*')
+					smalltalkName: #getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:);
 		defineField: #get_auth_credentials type: LPVOIDField new;
 		defineField: #on_certificate_error type: LPVOIDField new;
 		defineField: #on_select_client_certificate type: LPVOIDField new;
@@ -161,7 +150,7 @@ defineFields
 		defineField: #on_document_available_in_main_frame type: LPVOIDField new!
 
 getFieldNames
-	^#(#base #on_before_browse #on_open_urlfrom_tab #on_before_resource_load #get_resource_request_handler #get_auth_credentials #on_certificate_error #on_select_client_certificate #on_render_view_ready #on_render_process_terminated #on_document_available_in_main_frame)! !
+	^#(#base #on_before_browse #on_open_urlfrom_tab #get_resource_request_handler #get_auth_credentials #on_certificate_error #on_select_client_certificate #on_render_view_ready #on_render_process_terminated #on_document_available_in_main_frame)! !
 !CefRequestHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
