@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 AbstractCefWebView subclass: #OffScreenCefWebView
-	instanceVariableNames: ''
+	instanceVariableNames: 'texture scrollOffset'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -79,8 +79,41 @@ onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCo
 	texture updatePixels: buffer pitch: pitch.
 	host pushRenderEvent!
 
+onScrollOffsetChanged: renderHandler browser: browser x: x y: y
+	self scrollOffset
+		x: x;
+		y: y.
+	^0!
+
 onVirtualKeyboardRequested: renderHandler browser: browser inputMode: inputMode
-	^0! !
+	^0!
+
+scrollOffset
+	^host scrollOffset!
+
+sendKeyEvent: aKeyEvent
+	cefBrowser getHost sendKeyEvent_event: aKeyEvent
+	!
+
+sendMouseClickEvent: aMouseEvent mouseButtonType: anInteger mouseUp: aBoolean clickCount: anotherInteger
+	cefBrowser getHost
+		sendMouseClickEvent_event: aMouseEvent
+		mouseButtonType: anInteger
+		mouseUp: aBoolean asInteger
+		clickCount: anotherInteger!
+
+sendMouseMoveEvent: aMouseEvent mouseLeave: aBoolean
+	cefBrowser
+		ifNotNil: [cefBrowser getHost sendMouseMoveEvent_event: aMouseEvent mouseLeave: aBoolean asInteger]!
+
+sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
+	cefBrowser getHost
+		sendMouseWheelEvent_event: aMouseWheelEvent
+		deltaX: aPoint x asInteger
+		deltaY: aPoint y asInteger!
+
+texture: aSDLTexture
+	texture := aSDLTexture! !
 !OffScreenCefWebView categoriesForMethods!
 createBrowser:inWindow:!public! !
 getRootScreenRect:browser:rect:!cef event handler!private!render handler! !
@@ -89,7 +122,14 @@ getViewRect:browser:rect:!cef event handler!private!render handler! !
 onAcceleratedPaint:browser:type:dirtyRectsCount:sharedHandle:!cef event handler!private!render handler! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
+onScrollOffsetChanged:browser:x:y:!cef event handler!private!render handler! !
 onVirtualKeyboardRequested:browser:inputMode:!cef event handler!private!render handler! !
+scrollOffset!public! !
+sendKeyEvent:!public! !
+sendMouseClickEvent:mouseButtonType:mouseUp:clickCount:!public! !
+sendMouseMoveEvent:mouseLeave:!public! !
+sendMouseWheelEvent:delta:!public! !
+texture:!public! !
 !
 
 !OffScreenCefWebView class methodsFor!

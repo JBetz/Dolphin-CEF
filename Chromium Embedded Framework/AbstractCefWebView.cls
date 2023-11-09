@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #AbstractCefWebView
-	instanceVariableNames: 'host cefClient cefBrowser texture rectangle contentProviders scrollOffset shouldClose readyToClose'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
@@ -130,12 +130,6 @@ onResize: aRectangle
 	rectangle := aRectangle.
 	cefBrowser getHost wasResized!
 
-onScrollOffsetChanged: renderHandler browser: browser x: x y: y
-	"self scrollOffset
-		x: x;
-		y: y."
-	^0!
-
 onTextSelectionChanged: renderHandler browser: browser selectedText: selectedText selectedRange: selectedRange
 	^0!
 
@@ -156,39 +150,12 @@ onViewClosed
 removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url!
 
-scrollOffset: aPoint
-	scrollOffset := aPoint!
-
-sendKeyEvent: aKeyEvent
-	cefBrowser getHost sendKeyEvent_event: aKeyEvent
-	!
-
-sendMouseClickEvent: aMouseEvent mouseButtonType: anInteger mouseUp: aBoolean clickCount: anotherInteger
-	cefBrowser getHost
-		sendMouseClickEvent_event: aMouseEvent
-		mouseButtonType: anInteger
-		mouseUp: aBoolean asInteger
-		clickCount: anotherInteger!
-
-sendMouseMoveEvent: aMouseEvent mouseLeave: aBoolean
-	cefBrowser
-		ifNotNil: [cefBrowser getHost sendMouseMoveEvent_event: aMouseEvent mouseLeave: aBoolean asInteger]!
-
-sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
-	cefBrowser getHost
-		sendMouseWheelEvent_event: aMouseWheelEvent
-		deltaX: aPoint x asInteger
-		deltaY: aPoint y asInteger!
-
 shouldViewClose
 	shouldClose ifFalse: [self closeBrowser].
 	^shouldClose!
 
 startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData allowedOps: anInteger x: anInteger2 y: anInteger3 
-	^0!
-
-texture: aSDLTexture
-	texture := aSDLTexture! !
+	^0! !
 !AbstractCefWebView categoriesForMethods!
 closeBrowser!public! !
 createBrowser:inWindow:!public! !
@@ -214,18 +181,11 @@ onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
 onResize:!public! !
-onScrollOffsetChanged:browser:x:y:!cef event handler!private! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
 onViewClosed!public! !
 removeContentProvider:!public! !
-scrollOffset:!cef event handler!public! !
-sendKeyEvent:!public! !
-sendMouseClickEvent:mouseButtonType:mouseUp:clickCount:!public! !
-sendMouseMoveEvent:mouseLeave:!public! !
-sendMouseWheelEvent:delta:!public! !
 shouldViewClose!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
-texture:!public! !
 !
 
 !AbstractCefWebView class methodsFor!
