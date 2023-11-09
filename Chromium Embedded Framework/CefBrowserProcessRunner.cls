@@ -70,7 +70,8 @@ initializeSettings
 		log_file: logFile asCefString;
 		cache_path: cachePath asCefString;
 		no_sandbox: true;
-		multi_threaded_message_loop: true!
+		multi_threaded_message_loop: true;
+		windowless_rendering_enabled: true!
 
 library
 	^CefLibrary default!
@@ -143,8 +144,10 @@ new
 	^Current!
 
 onShutdown
-	Current stop.
-	Current := nil!
+	Current
+		ifNotNil: 
+			[Current stop.
+			Current := nil]!
 
 onStartup
 	Current := nil! !
