@@ -19,6 +19,7 @@ AAAAYgAAAAEAAAAGAgoARFdPUkRBcnJheXIAAAAEAAAACQSwBAMAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
 
 package classNames
+	add: #AbstractCefWebView;
 	add: #CefApp;
 	add: #CefBaseRefCounted;
 	add: #CefBrowser;
@@ -64,8 +65,10 @@ package classNames
 	add: #CefStringUserfree;
 	add: #CefStringVisitor;
 	add: #CefTouchHandleState;
-	add: #CefWebView;
+	add: #CefWebViewView;
 	add: #CefWindowInfo;
+	add: #OffScreenCefWebView;
+	add: #WindowedCefWebView;
 	yourself.
 
 package methodNames
@@ -93,6 +96,11 @@ package!
 
 "Class Definitions"!
 
+Object subclass: #AbstractCefWebView
+	instanceVariableNames: 'host cefClient cefBrowser texture rectangle contentProviders scrollOffset shouldClose readyToClose'
+	classVariableNames: ''
+	poolDictionaries: 'CefConstants'
+	classInstanceVariableNames: ''!
 Object subclass: #CefBrowserProcessRunner
 	instanceVariableNames: 'isRunning args app settings'
 	classVariableNames: ''
@@ -102,6 +110,16 @@ Object subclass: #CefContentProvider
 	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler webView'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
+	classInstanceVariableNames: ''!
+AbstractCefWebView subclass: #OffScreenCefWebView
+	instanceVariableNames: ''
+	classVariableNames: 'CursorMap'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+AbstractCefWebView subclass: #WindowedCefWebView
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'Win32Constants'
 	classInstanceVariableNames: ''!
 ExternalLibrary subclass: #CefLibrary
 	instanceVariableNames: ''
@@ -323,8 +341,8 @@ CefEventHandler subclass: #CefResourceRequestHandler
 	classVariableNames: '_OffsetOf_get_cookie_access_filter _OffsetOf_get_resource_handler _OffsetOf_get_resource_response_filter _OffsetOf_on_before_resource_load _OffsetOf_on_protocol_execution _OffsetOf_on_resource_load_complete _OffsetOf_on_resource_redirect _OffsetOf_on_resource_response'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ContainerView subclass: #CefWebView
-	instanceVariableNames: 'windowInfo browserSettings client url cefHandle cefBrowser childBrowserView parentBrowserView'
+ContainerView subclass: #CefWebViewView
+	instanceVariableNames: 'webView'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
