@@ -19,7 +19,7 @@ AAAAYgAAAAEAAAAGAgoARFdPUkRBcnJheXIAAAAEAAAACQSwBAMAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
 
 package classNames
-	add: #AbstractCefWebView;
+	add: #AbstractChromiumBrowser;
 	add: #CefApp;
 	add: #CefBaseRefCounted;
 	add: #CefBrowser;
@@ -65,10 +65,10 @@ package classNames
 	add: #CefStringUserfree;
 	add: #CefStringVisitor;
 	add: #CefTouchHandleState;
-	add: #CefWebViewView;
 	add: #CefWindowInfo;
-	add: #OffScreenCefWebView;
-	add: #WindowedCefWebView;
+	add: #OffScreenChromiumBrowser;
+	add: #WebPageView;
+	add: #WindowedChromiumBrowser;
 	yourself.
 
 package methodNames
@@ -96,8 +96,8 @@ package!
 
 "Class Definitions"!
 
-Object subclass: #AbstractCefWebView
-	instanceVariableNames: 'host cefClient cefBrowser texture rectangle contentProviders scrollOffset shouldClose readyToClose'
+Object subclass: #AbstractChromiumBrowser
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
@@ -111,12 +111,12 @@ Object subclass: #CefContentProvider
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
-AbstractCefWebView subclass: #OffScreenCefWebView
-	instanceVariableNames: ''
+AbstractChromiumBrowser subclass: #OffScreenChromiumBrowser
+	instanceVariableNames: 'texture scrollOffset'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-AbstractCefWebView subclass: #WindowedCefWebView
+AbstractChromiumBrowser subclass: #WindowedChromiumBrowser
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: 'Win32Constants'
@@ -341,7 +341,7 @@ CefEventHandler subclass: #CefResourceRequestHandler
 	classVariableNames: '_OffsetOf_get_cookie_access_filter _OffsetOf_get_resource_handler _OffsetOf_get_resource_response_filter _OffsetOf_on_before_resource_load _OffsetOf_on_protocol_execution _OffsetOf_on_resource_load_complete _OffsetOf_on_resource_redirect _OffsetOf_on_resource_response'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ContainerView subclass: #CefWebViewView
+ContainerView subclass: #WebPageView
 	instanceVariableNames: 'webView'
 	classVariableNames: ''
 	poolDictionaries: ''
