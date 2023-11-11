@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ContainerView subclass: #WebPageView
-	instanceVariableNames: 'webView'
+	instanceVariableNames: 'chromiumBrowser'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,17 +10,27 @@ WebPageView comment: ''!
 !WebPageView categoriesForClass!MVP-Resources-Misc! !
 !WebPageView methodsFor!
 
+onAddressChange: aUrl
+	!
+
 onViewClosed
-	webView onViewClosed!
+	chromiumBrowser onViewClosed!
 
 onViewCreated
-	webView := WindowedChromiumBrowser new.
-	webView host: self.
-	webView createBrowser: self parentView clientRectangle inWindow: self handle value!
+	| rectangle windowHandle |
+	rectangle := self parentView clientRectangle.
+	windowHandle := self handle value.
+	chromiumBrowser := WindowedChromiumBrowser new.
+	chromiumBrowser host: self.
+	chromiumBrowser
+		createBrowser: 'https://www.youtube.com/watch?v=tYNLtcnJEFU'
+		rectangle: rectangle
+		window: windowHandle!
 
 pushCloseEvent
 	self close! !
 !WebPageView categoriesForMethods!
+onAddressChange:!public! !
 onViewClosed!public! !
 onViewCreated!public! !
 pushCloseEvent!public! !

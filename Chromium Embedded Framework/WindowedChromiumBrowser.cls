@@ -16,7 +16,7 @@ cefWindowExStyle
 cefWindowStyle
 	^##(WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_TABSTOP | WS_VISIBLE)!
 
-createBrowser: aRectangle inWindow: aHandle
+createBrowser: aUrl rectangle: aRectangle window: aHandle
 	| windowInfo browserSettings |
 	windowInfo := CefWindowInfo new
 				style: self cefWindowStyle;
@@ -31,7 +31,7 @@ createBrowser: aRectangle inWindow: aHandle
 	CefLibrary default
 		browserHostCreateBrowser_windowInfo: windowInfo
 		client: cefClient
-		url: self defaultUrl asCefString
+		url: aUrl asCefString
 		settings: browserSettings
 		extraInfo: nil
 		requestContext: nil!
@@ -41,7 +41,7 @@ defaultUrl
 !WindowedChromiumBrowser categoriesForMethods!
 cefWindowExStyle!private! !
 cefWindowStyle!private! !
-createBrowser:inWindow:!public! !
+createBrowser:rectangle:window:!public! !
 defaultUrl!public! !
 !
 

@@ -13,7 +13,7 @@ AbstractChromiumBrowser comment: ''!
 closeBrowser
 	cefBrowser getHost closeBrowser_forceClose: 0!
 
-createBrowser: aRectangle inWindow: aHandle
+createBrowser: aUrl rectangle: aRectangle window: aHandle
 	self subclassResponsibility!
 
 defaultUrl
@@ -74,22 +74,19 @@ library
 	^CefLibrary default!
 
 loadHtml: aString forUrl: aUrl
-	| contentProvider |
-	contentProvider := CefContentProvider new.
-	contentProvider
-		url: aUrl;
-		html: aString;
-		webView: self.
-	contentProviders at: aUrl put: contentProvider.
-	self loadUrl: aUrl!
+	self
+		provideHtml: aString forUrl: aUrl;
+		loadUrl: aUrl!
 
 loadUrl: aString
-	| mainFrame |
-	mainFrame := cefBrowser getMainFrame.
-	mainFrame loadUrl_url: aString asCefString!
+	cefBrowser
+		ifNotNil: 
+			[| mainFrame |
+			mainFrame := cefBrowser getMainFrame.
+			mainFrame loadUrl_url: aString asCefString]!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
-	Transcript display: url str; cr.
+	host onAddressChange: url.
 	^0!
 
 onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
@@ -138,6 +135,15 @@ onViewClosed
 	cefBrowser base releaseReference: cefBrowser.
 	cefBrowser := nil!
 
+provideHtml: aString forUrl: aUrl
+	| contentProvider |
+	contentProvider := CefContentProvider new.
+	contentProvider
+		url: aUrl;
+		html: aString;
+		webView: self.
+	contentProviders at: aUrl put: contentProvider!
+
 removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url!
 
@@ -149,7 +155,7 @@ startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData all
 	^0! !
 !AbstractChromiumBrowser categoriesForMethods!
 closeBrowser!public! !
-createBrowser:inWindow:!public! !
+createBrowser:rectangle:window:!public! !
 defaultUrl!public! !
 defocus!public! !
 doClose:browser:!cef event handler!life span handler!private! !
@@ -173,6 +179,7 @@ onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!pr
 onResize:!public! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
 onViewClosed!public! !
+provideHtml:forUrl:!public! !
 removeContentProvider:!public! !
 shouldViewClose!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !

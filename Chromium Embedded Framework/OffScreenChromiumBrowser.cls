@@ -10,7 +10,7 @@ OffScreenChromiumBrowser comment: ''!
 !OffScreenChromiumBrowser categoriesForClass!Kernel-Objects! !
 !OffScreenChromiumBrowser methodsFor!
 
-createBrowser: aRectangle inWindow: aHandle
+createBrowser: aString rectangle: aRectangle window: aHandle
 	| processRunner windowInfo browserSettings |
 	rectangle := aRectangle.
 	processRunner := CefBrowserProcessRunner new.
@@ -34,7 +34,7 @@ createBrowser: aRectangle inWindow: aHandle
 	self library
 		browserHostCreateBrowser_windowInfo: windowInfo
 		client: cefClient
-		url: self defaultUrl asCefString
+		url: aString asCefString
 		settings: browserSettings
 		extraInfo: nil
 		requestContext: nil!
@@ -124,7 +124,7 @@ sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
 texture: aSDLTexture
 	texture := aSDLTexture! !
 !OffScreenChromiumBrowser categoriesForMethods!
-createBrowser:inWindow:!public! !
+createBrowser:rectangle:window:!public! !
 getRootScreenRect:browser:rect:!cef event handler!private!render handler! !
 getScreenInfo:browser:screenInfo:!cef event handler!private!render handler! !
 getScreenPoint:browser:viewX:viewY:screenX:screenY:!cef event handler!private!render handler! !
