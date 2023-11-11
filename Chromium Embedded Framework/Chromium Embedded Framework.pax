@@ -342,7 +342,7 @@ CefEventHandler subclass: #CefResourceRequestHandler
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ContainerView subclass: #WebPageView
-	instanceVariableNames: 'webView'
+	instanceVariableNames: 'chromiumBrowser'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
