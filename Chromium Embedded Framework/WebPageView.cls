@@ -23,7 +23,7 @@ onViewCreated
 	chromiumBrowser := WindowedChromiumBrowser new.
 	chromiumBrowser host: self.
 	chromiumBrowser
-		createBrowser: 'https://www.youtube.com/watch?v=tYNLtcnJEFU'
+		createBrowser: 'https://github.com/dolphinsmalltalk/Dolphin'
 		rectangle: rectangle
 		window: windowHandle!
 

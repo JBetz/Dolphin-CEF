@@ -16,9 +16,6 @@ closeBrowser
 createBrowser: aUrl rectangle: aRectangle window: aHandle
 	self subclassResponsibility!
 
-defaultUrl
-	^'about:blank'!
-
 defocus
 	cefBrowser ifNil: [^self].
 	cefBrowser getHost setFocus_focus: 0!
@@ -156,7 +153,6 @@ startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData all
 !AbstractChromiumBrowser categoriesForMethods!
 closeBrowser!public! !
 createBrowser:rectangle:window:!public! !
-defaultUrl!public! !
 defocus!public! !
 doClose:browser:!cef event handler!life span handler!private! !
 focus!public! !

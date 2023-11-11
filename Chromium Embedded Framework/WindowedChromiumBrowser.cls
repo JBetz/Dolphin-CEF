@@ -34,14 +34,10 @@ createBrowser: aUrl rectangle: aRectangle window: aHandle
 		url: aUrl asCefString
 		settings: browserSettings
 		extraInfo: nil
-		requestContext: nil!
-
-defaultUrl
-	^'https://github.com/dolphinsmalltalk/Dolphin'! !
+		requestContext: nil! !
 !WindowedChromiumBrowser categoriesForMethods!
 cefWindowExStyle!private! !
 cefWindowStyle!private! !
 createBrowser:rectangle:window:!public! !
-defaultUrl!public! !
 !
 
