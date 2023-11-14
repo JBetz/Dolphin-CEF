@@ -166,7 +166,10 @@ defineFields
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: lpvoid CefDisplayHandler* CefBrowser* CefFrame* CefString*')
 					smalltalkName: #onAddressChange:browser:frame:url:);
-		defineField: #on_title_change type: DWORDField new;
+		defineField: #on_title_change
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: lpvoid CefDisplayHandler* CefBrowser* CefString*')
+					smalltalkName: #onTitleChange:browser:title:);
 		defineField: #on_favicon_urlchange type: DWORDField new;
 		defineField: #on_fullscreen_mode_change type: DWORDField new;
 		defineField: #on_tooltip type: DWORDField new;
