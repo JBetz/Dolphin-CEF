@@ -62,12 +62,13 @@ package classNames
 	add: #CefScreenInfo;
 	add: #CefSettings;
 	add: #CefString;
+	add: #CefStringList;
 	add: #CefStringUserfree;
 	add: #CefStringVisitor;
 	add: #CefTouchHandleState;
 	add: #CefWindowInfo;
 	add: #OffScreenChromiumBrowser;
-	add: #WebPageView;
+	add: #WebBrowserView;
 	add: #WindowedChromiumBrowser;
 	yourself.
 
@@ -184,6 +185,11 @@ ExternalStructure subclass: #CefSettings
 ExternalStructure subclass: #CefString
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_dtor _OffsetOf_length _OffsetOf_str'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #CefStringList
+	instanceVariableNames: ''
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ExternalStructure subclass: #CefTouchHandleState
@@ -341,7 +347,7 @@ CefEventHandler subclass: #CefResourceRequestHandler
 	classVariableNames: '_OffsetOf_get_cookie_access_filter _OffsetOf_get_resource_handler _OffsetOf_get_resource_response_filter _OffsetOf_on_before_resource_load _OffsetOf_on_protocol_execution _OffsetOf_on_resource_load_complete _OffsetOf_on_resource_redirect _OffsetOf_on_resource_response'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ContainerView subclass: #WebPageView
+ContainerView subclass: #WebBrowserView
 	instanceVariableNames: 'chromiumBrowser'
 	classVariableNames: ''
 	poolDictionaries: ''
