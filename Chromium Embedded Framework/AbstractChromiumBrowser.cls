@@ -20,7 +20,7 @@ canGoForward
 	^cefBrowser canGoForward!
 
 closeBrowser
-	cefBrowser getHost closeBrowser_forceClose: 0!
+	cefBrowser ifNotNil: [cefBrowser getHost closeBrowser_forceClose: 0]!
 
 createBrowser: aUrl rectangle: aRectangle window: aHandle
 	self subclassResponsibility!
@@ -39,7 +39,7 @@ focus
 	cefBrowser getHost setFocus_focus: 1!
 
 forceCloseBrowser
-	cefBrowser getHost closeBrowser_forceClose: 1!
+	cefBrowser ifNotNil: [cefBrowser getHost closeBrowser_forceClose: 1]!
 
 forward
 	cefBrowser goForward!
@@ -160,20 +160,23 @@ onTitleChange: displayHandler browser: browser title: title
 	^0!
 
 onViewClosed
-	| delay delayCount |
-	delay := Delay forMilliseconds: 500.
+	self closeBrowser
+	!
+
+onViewDestroyed
+	
+	[| delay delayCount |
+	delay := Delay forMilliseconds: 200.
 	delayCount := 0.
 	[readyToClose or: [delayCount > 10]] whileFalse: 
 			[delay wait.
 			delayCount := delayCount + 1].
-	readyToClose
-		ifFalse: 
-			[self forceCloseBrowser.
-			delay wait].
+	readyToClose ifFalse: [self forceCloseBrowser].
 	cefBrowser
 		ifNotNil: 
 			[cefBrowser base releaseReference: cefBrowser.
-			cefBrowser := nil]!
+			cefBrowser := nil]]
+			fork!
 
 provideHtml: aString forUrl: aUrl
 	| contentProvider |
@@ -231,6 +234,7 @@ onResize:!public! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
 onTitleChange:browser:title:!cef event handler!private! !
 onViewClosed!public! !
+onViewDestroyed!public! !
 provideHtml:forUrl:!public! !
 reload!public! !
 removeContentProvider:!public! !

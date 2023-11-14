@@ -34,14 +34,18 @@ onViewCreated
 		rectangle: rectangle
 		window: windowHandle!
 
+onViewDestroyed
+	chromiumBrowser onViewDestroyed!
+
 pushCloseEvent
-	self close! !
+! !
 !WebBrowserView categoriesForMethods!
 loadUrl:!public! !
 onAddressChange:!public! !
 onTitleChange:!public! !
 onViewClosed!public! !
 onViewCreated!public! !
+onViewDestroyed!public! !
 pushCloseEvent!public! !
 !
 
