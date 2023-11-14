@@ -1,16 +1,19 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ContainerView subclass: #WebPageView
+ContainerView subclass: #WebBrowserView
 	instanceVariableNames: 'chromiumBrowser'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-WebPageView guid: (GUID fromString: '{8dd4867b-32a5-40c8-86f3-8e9e7be0b4ea}')!
-WebPageView comment: ''!
-!WebPageView categoriesForClass!MVP-Resources-Misc! !
-!WebPageView methodsFor!
+WebBrowserView guid: (GUID fromString: '{8dd4867b-32a5-40c8-86f3-8e9e7be0b4ea}')!
+WebBrowserView comment: ''!
+!WebBrowserView categoriesForClass!MVP-Resources-Misc! !
+!WebBrowserView methodsFor!
 
 onAddressChange: aUrl
+	!
+
+onTitleChange: aString
 	!
 
 onViewClosed
@@ -29,14 +32,15 @@ onViewCreated
 
 pushCloseEvent
 	self close! !
-!WebPageView categoriesForMethods!
+!WebBrowserView categoriesForMethods!
 onAddressChange:!public! !
+onTitleChange:!public! !
 onViewClosed!public! !
 onViewCreated!public! !
 pushCloseEvent!public! !
 !
 
-!WebPageView class methodsFor!
+!WebBrowserView class methodsFor!
 
 example
 	" WebPageView example"
@@ -49,14 +53,14 @@ example
 		layoutManager: ProportionalLayout new;
 		create;
 		extent: 1200 @ 1000.
-	view := WebPageView new.
+	view := WebBrowserView new.
 	view
 		parentView: shell;
 		arrangement: 1;
 		create;
 		show.
 	shell show! !
-!WebPageView class categoriesForMethods!
+!WebBrowserView class categoriesForMethods!
 example!public! !
 !
 
