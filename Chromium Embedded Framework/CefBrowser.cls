@@ -31,6 +31,46 @@ CefBrowser comment: ''!
 !CefBrowser categoriesForClass!External-Data-Structured! !
 !CefBrowser methodsFor!
 
+_callReload_cefBrowser: cefBrowser
+	<stdcall: void reload CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_callReloadIgnoreCache_cefBrowser: cefBrowser
+	<stdcall: void reload_ignore_cache CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_canGoBack_cefBrowser: cefBrowser
+	<stdcall: bool can_go_back CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_canGoForward_cefBrowser: cefBrowser
+	<stdcall: bool can_go_forward CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_getFocusedFrame_cefBrowser: cefBrowser
+	<stdcall: CefFrame* get_focused_frame CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_getFrame_cefBrowser: cefBrowser name: name
+	<stdcall: CefFrame* get_frame CefBrowser* CefString*>
+	^self invalidCall: _failureCode!
+
+_getFrameByident_cefBrowser: cefBrowser identifier: identifier
+	<stdcall: CefFrame* get_frame_byident CefBrowser* sqword>
+	^self invalidCall: _failureCode!
+
+_getFrameCount_cefBrowser: cefBrowser
+	<stdcall: dword get_frame_count CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_getFrameIdentifiers_cefBrowser: cefBrowser identifiersCount: identifiersCount identifiers: identifiers
+	<stdcall: void get_frame_identifiers CefBrowser* dword* sqword*>
+	^self invalidCall: _failureCode!
+
+_getFrameNames_cefBrowser: cefBrowser names: names
+	<stdcall: void get_frame_names CefBrowser* CefStringList*>
+	^self invalidCall: _failureCode!
+
 _getHost_cefBrowser: cefBrowser
 	<stdcall: CefBrowserHost* get_host CefBrowser*>
 	^self invalidCall: _failureCode!
@@ -42,6 +82,49 @@ _getIdentifier_cefBrowser: cefBrowser
 _getMainFrame_cefBrowser: cefBrowser
 	<stdcall: CefFrame* get_main_frame CefBrowser*>
 	^self invalidCall: _failureCode!
+
+_goBack_cefBrowser: cefBrowser
+	<stdcall: void go_back CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_goForward_cefBrowser: cefBrowser
+	<stdcall: void go_forward CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_hasDocument_cefBrowser: cefBrowser
+	<stdcall: bool has_document CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_isLoading_cefBrowser: cefBrowser
+	<stdcall: bool is_loading CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_isPopup_cefBrowser: cefBrowser
+	<stdcall: bool is_popup CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_isSame_cefBrowser: cefBrowser that: that
+	<stdcall: void is_same CefBrowser* CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_isValid_cefBrowser: cefBrowser
+	<stdcall: bool is_valid CefBrowser*>
+	^self invalidCall: _failureCode!
+
+_stopLoad_cefBrowser: cefBrowser
+	<stdcall: void stop_load CefBrowser*>
+	^self invalidCall: _failureCode!
+
+callReload
+	| method |
+	method := self class externalMethodAt: #_callReload_cefBrowser: ifAbsentBindTo: self reload.
+	^method value: self withArguments: (Array with: self)!
+
+callReloadIgnoreCache
+	| method |
+	method := self class externalMethodAt: #_callReloadIgnoreCache_cefBrowser:
+				ifAbsentBindTo: self reload_ignore_cache.
+	^method value: self withArguments: (Array with: self)!
 
 can_go_back
 	"Answer the <Integer> value of the receiver's 'can_go_back' field."
@@ -62,6 +145,17 @@ can_go_forward: anInteger
 	"Set the receiver's 'can_go_forward' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_can_go_forward put: anInteger!
+
+canGoBack
+	| method |
+	method := self class externalMethodAt: #_canGoBack_cefBrowser: ifAbsentBindTo: self can_go_back.
+	^method value: self withArguments: (Array with: self)!
+
+canGoForward
+	| method |
+	method := self class externalMethodAt: #_canGoForward_cefBrowser:
+				ifAbsentBindTo: self can_go_forward.
+	^method value: self withArguments: (Array with: self)!
 
 get_focused_frame
 	"Answer the <Integer> value of the receiver's 'get_focused_frame' field."
@@ -153,6 +247,59 @@ get_main_frame: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_get_main_frame put: anInteger!
 
+getFocusedFrame
+	| method |
+	method := self class externalMethodAt: #_getFocusedFrame_cefBrowser:
+				ifAbsentBindTo: self get_focused_frame.
+	^method value: self withArguments: (Array with: self)!
+
+getFrame_name: name
+	| method arguments |
+	method := self class externalMethodAt: #_getFrame_cefBrowser:name: ifAbsentBindTo: self get_frame.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: name.
+	^method value: self withArguments: arguments!
+
+getFrameByident_identifier: identifier
+	| method arguments |
+	method := self class externalMethodAt: #_getFrameByident_cefBrowser:identifier:
+				ifAbsentBindTo: self get_frame_byident.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: identifier.
+	^method value: self withArguments: arguments!
+
+getFrameCount
+	| method |
+	method := self class externalMethodAt: #_getFrameCount_cefBrowser:
+				ifAbsentBindTo: self get_frame_count.
+	^method value: self withArguments: (Array with: self)!
+
+getFrameIdentifiers_identifiersCount: identifiersCount identifiers: identifiers
+	| method arguments |
+	method := self class
+				externalMethodAt: #_getFrameIdentifiers_cefBrowser:identifiersCount:identifiers:
+				ifAbsentBindTo: self get_frame_identifiers.
+	arguments := Array new: 3.
+	arguments
+		at: 1 put: self;
+		at: 2 put: identifiersCount;
+		at: 3 put: identifiers.
+	^method value: self withArguments: arguments!
+
+getFrameNames_names: names
+	| method arguments |
+	method := self class externalMethodAt: #_getFrameNames_cefBrowser:names:
+				ifAbsentBindTo: self get_frame_names.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: names.
+	^method value: self withArguments: arguments!
+
 getHost
 	| method |
 	method := self class externalMethodAt: #_getHost_cefBrowser: ifAbsentBindTo: self get_host.
@@ -190,6 +337,16 @@ go_forward: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_go_forward put: anInteger!
 
+goBack
+	| method |
+	method := self class externalMethodAt: #_goBack_cefBrowser: ifAbsentBindTo: self go_back.
+	^method value: self withArguments: (Array with: self)!
+
+goForward
+	| method |
+	method := self class externalMethodAt: #_goForward_cefBrowser: ifAbsentBindTo: self go_forward.
+	^method value: self withArguments: (Array with: self)!
+
 has_document
 	"Answer the <Integer> value of the receiver's 'has_document' field."
 
@@ -199,6 +356,11 @@ has_document: anInteger
 	"Set the receiver's 'has_document' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_has_document put: anInteger!
+
+hasDocument
+	| method |
+	method := self class externalMethodAt: #_hasDocument_cefBrowser: ifAbsentBindTo: self has_document.
+	^method value: self withArguments: (Array with: self)!
 
 is_loading
 	"Answer the <Integer> value of the receiver's 'is_loading' field."
@@ -240,10 +402,34 @@ is_valid: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_is_valid put: anInteger!
 
-reload
-	"Answer the <Integer> value of the receiver's 'reload' field."
+isLoading
+	| method |
+	method := self class externalMethodAt: #_isLoading_cefBrowser: ifAbsentBindTo: self is_loading.
+	^method value: self withArguments: (Array with: self)!
 
-	^bytes dwordAtOffset: _OffsetOf_reload!
+isPopup
+	| method |
+	method := self class externalMethodAt: #_isPopup_cefBrowser: ifAbsentBindTo: self is_popup.
+	^method value: self withArguments: (Array with: self)!
+
+isSame_that: that
+	| method arguments |
+	method := self class externalMethodAt: #_isSame_cefBrowser:that: ifAbsentBindTo: self is_same.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: that.
+	^method value: self withArguments: arguments!
+
+isValid
+	| method |
+	method := self class externalMethodAt: #_isValid_cefBrowser: ifAbsentBindTo: self is_valid.
+	^method value: self withArguments: (Array with: self)!
+
+reload
+	"Answer the <ExternalAddress> value of the receiver's 'reload' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_reload) asExternalAddress!
 
 reload: anInteger
 	"Set the receiver's 'reload' field to the value of the argument, anInteger"
@@ -268,15 +454,42 @@ stop_load
 stop_load: anInteger
 	"Set the receiver's 'stop_load' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_stop_load put: anInteger! !
+	bytes dwordAtOffset: _OffsetOf_stop_load put: anInteger!
+
+stopLoad
+	| method |
+	method := self class externalMethodAt: #_stopLoad_cefBrowser: ifAbsentBindTo: self stop_load.
+	^method value: self withArguments: (Array with: self)! !
 !CefBrowser categoriesForMethods!
+_callReload_cefBrowser:!**compiled accessors**!private! !
+_callReloadIgnoreCache_cefBrowser:!**compiled accessors**!private! !
+_canGoBack_cefBrowser:!**compiled accessors**!private! !
+_canGoForward_cefBrowser:!**compiled accessors**!private! !
+_getFocusedFrame_cefBrowser:!**compiled accessors**!private! !
+_getFrame_cefBrowser:name:!**compiled accessors**!private! !
+_getFrameByident_cefBrowser:identifier:!**compiled accessors**!private! !
+_getFrameCount_cefBrowser:!**compiled accessors**!private! !
+_getFrameIdentifiers_cefBrowser:identifiersCount:identifiers:!**compiled accessors**!private! !
+_getFrameNames_cefBrowser:names:!**compiled accessors**!private! !
 _getHost_cefBrowser:!**compiled accessors**!private! !
 _getIdentifier_cefBrowser:!**compiled accessors**!private! !
 _getMainFrame_cefBrowser:!**compiled accessors**!private! !
+_goBack_cefBrowser:!**compiled accessors**!private! !
+_goForward_cefBrowser:!**compiled accessors**!private! !
+_hasDocument_cefBrowser:!**compiled accessors**!private! !
+_isLoading_cefBrowser:!**compiled accessors**!private! !
+_isPopup_cefBrowser:!**compiled accessors**!private! !
+_isSame_cefBrowser:that:!**compiled accessors**!private! !
+_isValid_cefBrowser:!**compiled accessors**!private! !
+_stopLoad_cefBrowser:!**compiled accessors**!private! !
+callReload!**compiled accessors**!public! !
+callReloadIgnoreCache!**compiled accessors**!public! !
 can_go_back!public! !
 can_go_back:!public! !
 can_go_forward!public! !
 can_go_forward:!public! !
+canGoBack!**compiled accessors**!public! !
+canGoForward!**compiled accessors**!public! !
 get_focused_frame!public! !
 get_focused_frame:!public! !
 get_frame!public! !
@@ -295,6 +508,12 @@ get_identifier!public! !
 get_identifier:!public! !
 get_main_frame!public! !
 get_main_frame:!public! !
+getFocusedFrame!**compiled accessors**!public! !
+getFrame_name:!**compiled accessors**!public! !
+getFrameByident_identifier:!**compiled accessors**!public! !
+getFrameCount!**compiled accessors**!public! !
+getFrameIdentifiers_identifiersCount:identifiers:!**compiled accessors**!public! !
+getFrameNames_names:!**compiled accessors**!public! !
 getHost!**compiled accessors**!public! !
 getIdentifier!**compiled accessors**!public! !
 getMainFrame!**compiled accessors**!public! !
@@ -302,8 +521,11 @@ go_back!public! !
 go_back:!public! !
 go_forward!public! !
 go_forward:!public! !
+goBack!**compiled accessors**!public! !
+goForward!**compiled accessors**!public! !
 has_document!public! !
 has_document:!public! !
+hasDocument!**compiled accessors**!public! !
 is_loading!public! !
 is_loading:!public! !
 is_popup!public! !
@@ -312,12 +534,17 @@ is_same!public! !
 is_same:!public! !
 is_valid!public! !
 is_valid:!public! !
-reload!public! !
+isLoading!**compiled accessors**!public! !
+isPopup!**compiled accessors**!public! !
+isSame_that:!**compiled accessors**!public! !
+isValid!**compiled accessors**!public! !
+reload!**compiled accessors**!public! !
 reload:!public! !
 reload_ignore_cache!public! !
 reload_ignore_cache:!public! !
 stop_load!public! !
 stop_load:!public! !
+stopLoad!**compiled accessors**!public! !
 !
 
 !CefBrowser class methodsFor!
@@ -327,31 +554,61 @@ defineFields
 
 	super defineFields.
 	self
-		defineField: #is_valid type: DWORDField new;
+		defineField: #is_valid
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefBrowser*'));
 		defineField: #get_host
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefBrowserHost* CefBrowser*'));
-		defineField: #can_go_back type: DWORDField new;
-		defineField: #go_back type: DWORDField new;
-		defineField: #can_go_forward type: DWORDField new;
-		defineField: #go_forward type: DWORDField new;
-		defineField: #is_loading type: DWORDField new;
-		defineField: #reload type: DWORDField new;
-		defineField: #reload_ignore_cache type: DWORDField new;
-		defineField: #stop_load type: DWORDField new;
+		defineField: #can_go_back
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefBrowser*'));
+		defineField: #go_back
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser*'));
+		defineField: #can_go_forward
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefBrowser*'));
+		defineField: #go_forward
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser*'));
+		defineField: #is_loading
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefBrowser*'));
+		defineField: #reload
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser*')
+					smalltalkName: #callReload);
+		defineField: #reload_ignore_cache
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser*')
+					smalltalkName: #callReloadIgnoreCache);
+		defineField: #stop_load
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser*'));
 		defineField: #get_identifier
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBrowser*'));
-		defineField: #is_same type: DWORDField new;
-		defineField: #is_popup type: DWORDField new;
-		defineField: #has_document type: DWORDField new;
+		defineField: #is_same
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser* CefBrowser*')
+					smalltalkName: #isSame_that:);
+		defineField: #is_popup
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefBrowser*'));
+		defineField: #has_document
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefBrowser*'));
 		defineField: #get_main_frame
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrame* CefBrowser*'));
-		defineField: #get_focused_frame type: DWORDField new;
-		defineField: #get_frame_byident type: DWORDField new;
-		defineField: #get_frame type: DWORDField new;
-		defineField: #get_frame_count type: DWORDField new;
-		defineField: #get_frame_identifiers type: DWORDField new;
-		defineField: #get_frame_names type: DWORDField new!
+		defineField: #get_focused_frame
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrame* CefBrowser*'));
+		defineField: #get_frame_byident
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrame* CefBrowser* sqword')
+					smalltalkName: #getFrameByident_identifier:);
+		defineField: #get_frame
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrame* CefBrowser* CefString*')
+					smalltalkName: #getFrame_name:);
+		defineField: #get_frame_count
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: dword CefBrowser*'));
+		defineField: #get_frame_identifiers
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser* dword* sqword*')
+					smalltalkName: #getFrameIdentifiers_identifiersCount:identifiers:);
+		defineField: #get_frame_names
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser* CefStringList*')
+					smalltalkName: #getFrameNames_names:)!
 
 getFieldNames
 	^#(#base #is_valid #get_host #can_go_back #go_back #can_go_forward #go_forward #is_loading #reload #reload_ignore_cache #stop_load #get_identifier #is_same #is_popup #has_document #get_main_frame #get_focused_frame #get_frame_byident #get_frame #get_frame_count #get_frame_identifiers #get_frame_names)! !
