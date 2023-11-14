@@ -10,6 +10,15 @@ AbstractChromiumBrowser comment: ''!
 !AbstractChromiumBrowser categoriesForClass!Kernel-Objects! !
 !AbstractChromiumBrowser methodsFor!
 
+back
+	cefBrowser goBack!
+
+canGoBack
+	^cefBrowser canGoBack!
+
+canGoForward
+	^cefBrowser canGoForward!
+
 closeBrowser
 	cefBrowser getHost closeBrowser_forceClose: 0!
 
@@ -22,7 +31,7 @@ defocus
 
 doClose: lifeSpanHandler browser: browser
 	shouldClose := true.
-	[host pushCloseEvent] postToInputQueue.
+	host ifNotNil: [[host pushCloseEvent] postToInputQueue].
 	^0!
 
 focus
@@ -31,6 +40,9 @@ focus
 
 forceCloseBrowser
 	cefBrowser getHost closeBrowser_forceClose: 1!
+
+forward
+	cefBrowser goForward!
 
 getResourceRequestHandler: requestHandler browser: browser frame: frame request: request isNavigation: isNavigation isDownload: isDownload requestInitiator: requestInitiator disableDefaultHandling: disableDefaultHandling
 	| url contentProvider |
@@ -56,6 +68,26 @@ getSource: aMonadicValuable
 	cefSourceStringVisitor := CefStringVisitor new.
 	cefSourceStringVisitor visitCallback: [:aCefStringVisitor :aCefString | aMonadicValuable value: aCefString str].
 	mainFrame getSource_visitor: cefSourceStringVisitor!
+
+getTitle
+	| mainFrame cefUrl url |
+	cefBrowser ifNil: [^nil].
+	mainFrame := cefBrowser getMainFrame.
+	mainFrame ifNil: [^nil].
+	cefUrl := mainFrame getUrl.
+	url := cefUrl str.
+	cefUrl free.
+	^url!
+
+getUrl
+	| mainFrame cefUrl url |
+	cefBrowser ifNil: [^nil].
+	mainFrame := cefBrowser getMainFrame.
+	mainFrame ifNil: [^nil].
+	cefUrl := mainFrame getUrl.
+	url := cefUrl str.
+	cefUrl free.
+	^url!
 
 host: anObject 
 	host := anObject!
@@ -83,7 +115,7 @@ loadUrl: aString
 			mainFrame loadUrl_url: aString asCefString]!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
-	host onAddressChange: url.
+	host ifNotNil: [host onAddressChange: url str].
 	^0!
 
 onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
@@ -95,7 +127,6 @@ onBeforeClose: lifeSpanHandler browser: browser
 	^0!
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
-	Transcript display: ('popup url: <1d>' expandMacrosWith: targetUrl str); cr.
 	^1!
 
 onFrameAttached: frameHandler browser: browser frame: frame reattached: reattched
@@ -108,7 +139,7 @@ onFrameDetached: frameHandler browser: browser frame: frame
 	^0!
 
 onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
-	host hasFocus ifTrue: [browser getHost setFocus_focus: 1].
+	host ifNotNil: [host hasFocus ifTrue: [browser getHost setFocus_focus: 1]].
 	^0!
 
 onResize: aRectangle
@@ -116,6 +147,10 @@ onResize: aRectangle
 	cefBrowser getHost wasResized!
 
 onTextSelectionChanged: renderHandler browser: browser selectedText: selectedText selectedRange: selectedRange
+	^0!
+
+onTitleChange: displayHandler browser: browser title: title
+	host ifNotNil: [host onTitleChange: title str].
 	^0!
 
 onViewClosed
@@ -129,8 +164,10 @@ onViewClosed
 		ifFalse: 
 			[self forceCloseBrowser.
 			delay wait].
-	cefBrowser base releaseReference: cefBrowser.
-	cefBrowser := nil!
+	cefBrowser
+		ifNotNil: 
+			[cefBrowser base releaseReference: cefBrowser.
+			cefBrowser := nil]!
 
 provideHtml: aString forUrl: aUrl
 	| contentProvider |
@@ -141,6 +178,9 @@ provideHtml: aString forUrl: aUrl
 		webView: self.
 	contentProviders at: aUrl put: contentProvider!
 
+reload
+	cefBrowser callReload!
+
 removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url!
 
@@ -149,16 +189,25 @@ shouldViewClose
 	^shouldClose!
 
 startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData allowedOps: anInteger x: anInteger2 y: anInteger3 
-	^0! !
+	^0!
+
+wasHidden: aBoolean
+	cefBrowser getHost wasHidden_hidden: aBoolean asInteger! !
 !AbstractChromiumBrowser categoriesForMethods!
+back!public! !
+canGoBack!public! !
+canGoForward!public! !
 closeBrowser!public! !
 createBrowser:rectangle:window:!public! !
 defocus!public! !
 doClose:browser:!cef event handler!life span handler!private! !
 focus!public! !
 forceCloseBrowser!public! !
+forward!public! !
 getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:!cef event handler!private!request handler! !
 getSource:!public! !
+getTitle!public! !
+getUrl!public! !
 host:!public! !
 initialize!public! !
 library!public! !
@@ -174,11 +223,14 @@ onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
 onResize:!public! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
+onTitleChange:browser:title:!cef event handler!private! !
 onViewClosed!public! !
 provideHtml:forUrl:!public! !
+reload!public! !
 removeContentProvider:!public! !
 shouldViewClose!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
+wasHidden:!public! !
 !
 
 !AbstractChromiumBrowser class methodsFor!

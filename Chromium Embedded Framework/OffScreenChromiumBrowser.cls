@@ -40,25 +40,30 @@ createBrowser: aString rectangle: aRectangle window: aHandle
 		requestContext: nil!
 
 getRootScreenRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
-	| rootRectangle |
-	rootRectangle := host rootRectangle.
-	aCefRect
-		x: rootRectangle left;
-		y: rootRectangle top;
-		width: rootRectangle width;
-		height: rootRectangle height!
+	host
+		ifNotNil: 
+			[| rootRectangle |
+			rootRectangle := host rootRectangle.
+			aCefRect
+				x: rootRectangle left;
+				y: rootRectangle top;
+				width: rootRectangle width;
+				height: rootRectangle height]!
 
 getScreenInfo: aCefRenderHandler browser: aCefBrowser screenInfo: aCefScreenInfo 
 	^0!
 
 getScreenPoint: renderHandle browser: browser viewX: viewX viewY: viewY screenX: screenX screenY: screenY
-	| windowOrigin browserOrigin |
-	windowOrigin := host windowPosition.
-	windowOrigin ifNil: [^0].
-	browserOrigin := windowOrigin + rectangle origin.
-	screenX value: viewX + browserOrigin x.
-	screenY value: viewY + browserOrigin y.
-	^1!
+	^host
+		ifNil: [0]
+		ifNotNil: 
+			[| windowOrigin browserOrigin |
+			windowOrigin := host windowPosition.
+			windowOrigin ifNil: [^0].
+			browserOrigin := windowOrigin + rectangle origin.
+			screenX value: viewX + browserOrigin x.
+			screenY value: viewY + browserOrigin y.
+			1]!
 
 getViewRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
 	aCefRect
@@ -74,6 +79,7 @@ onAcceleratedPaint: renderHandler browser: browser type: type dirtyRectsCount: d
 
 onCursorChange: displayHandler browser: browser cursor: cursor type: type customCursorInfo: customCursorInfo
 	| cursorSelector |
+	host ifNil: [^0].
 	cursorSelector := CursorMap at: type ifAbsent: [nil].
 	^cursorSelector
 		ifNotNil: 
@@ -83,7 +89,7 @@ onCursorChange: displayHandler browser: browser cursor: cursor type: type custom
 
 onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRects buffer: buffer width: width height: height
 	| pitch |
-	(texture isNil or: [texture getExtent ~= (width @ height)]) ifTrue: [^0].
+	(host isNil or: [texture isNil or: [texture getExtent ~= (width @ height)]]) ifTrue: [^0].
 	pitch := width * 4.
 	texture updatePixels: buffer pitch: pitch.
 	host pushRenderEvent!
@@ -98,7 +104,7 @@ onVirtualKeyboardRequested: renderHandler browser: browser inputMode: inputMode
 	^0!
 
 scrollOffset
-	^host scrollOffset!
+	^host ifNotNil: [host scrollOffset] ifNil: [0 @ 0]!
 
 sendKeyEvent: aKeyEvent
 	cefBrowser getHost sendKeyEvent_event: aKeyEvent
