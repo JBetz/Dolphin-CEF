@@ -121,6 +121,10 @@ _tryCloseBrowser_cefBrowserHost: cefBrowserHost
 	<stdcall: sdword try_close_browser CefBrowserHost*>
 	^self invalidCall: _failureCode!
 
+_wasHidden_cefBrowserHost: cefBrowserHost hidden: hidden
+	<stdcall: void was_hidden CefBrowserHost* sdword>
+	^self invalidCall: _failureCode!
+
 _wasResized_cefBrowserHost: cefBrowserHost
 	<stdcall: void was_resized CefBrowserHost*>
 	^self invalidCall: _failureCode!
@@ -821,6 +825,16 @@ was_resized: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_was_resized put: anExternalAddress!
 
+wasHidden_hidden: hidden
+	| method arguments |
+	method := self class externalMethodAt: #_wasHidden_cefBrowserHost:hidden:
+				ifAbsentBindTo: self was_hidden.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: hidden.
+	^method value: self withArguments: arguments!
+
 wasResized
 	| method |
 	method := self class externalMethodAt: #_wasResized_cefBrowserHost: ifAbsentBindTo: self was_resized.
@@ -839,6 +853,7 @@ _sendMouseMoveEvent_cefBrowserHost:event:mouseLeave:!**compiled accessors**!priv
 _sendMouseWheelEvent_cefBrowserHost:event:deltaX:deltaY:!**compiled accessors**!private! !
 _setFocus_cefBrowserHost:focus:!**compiled accessors**!private! !
 _tryCloseBrowser_cefBrowserHost:!**compiled accessors**!private! !
+_wasHidden_cefBrowserHost:hidden:!**compiled accessors**!private! !
 _wasResized_cefBrowserHost:!**compiled accessors**!private! !
 add_dev_tools_message_observer!public! !
 add_dev_tools_message_observer:!public! !
@@ -971,6 +986,7 @@ was_hidden!public! !
 was_hidden:!public! !
 was_resized!public! !
 was_resized:!public! !
+wasHidden_hidden:!**compiled accessors**!public! !
 wasResized!**compiled accessors**!public! !
 !
 
@@ -1026,7 +1042,10 @@ defineFields
 		defineField: #is_window_rendering_disabled type: DWORDField new;
 		defineField: #was_resized
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost*'));
-		defineField: #was_hidden type: DWORDField new;
+		defineField: #was_hidden
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost* sdword')
+					smalltalkName: #wasHidden_hidden:);
 		defineField: #notify_screen_info_changed type: DWORDField new;
 		defineField: #invalidate type: DWORDField new;
 		defineField: #send_external_begin_frame type: DWORDField new;
