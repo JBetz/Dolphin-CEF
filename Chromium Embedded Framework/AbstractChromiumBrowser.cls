@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #AbstractChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
@@ -109,6 +109,7 @@ loadHtml: aString forUrl: aUrl
 
 loadUrl: aString
 	cefBrowser
+		ifNil: [queuedUrl := aString]
 		ifNotNil: 
 			[| mainFrame |
 			mainFrame := cefBrowser getMainFrame.
@@ -120,6 +121,11 @@ onAddressChange: displayHandler browser: browser frame: frame url: url
 
 onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
 	cefBrowser := aCefBrowser.
+	queuedUrl
+		ifNotNil: 
+			[:aString |
+			self loadUrl: aString.
+			queuedUrl := nil].
 	^0!
 
 onBeforeClose: lifeSpanHandler browser: browser
