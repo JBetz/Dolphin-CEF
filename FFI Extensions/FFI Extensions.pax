@@ -25,8 +25,7 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: #(
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\Base\Dolphin').
+package setPrerequisites: #().
 
 package!
 
@@ -99,4 +98,3 @@ isUnary!public! !
 !
 
 "End of package definition"!
-
