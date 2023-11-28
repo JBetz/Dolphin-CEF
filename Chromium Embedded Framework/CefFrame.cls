@@ -51,6 +51,18 @@ _getUrl_cefFrame: cefFrame
 	<stdcall: CefStringUserfree* get_url CefFrame*>
 	^self invalidCall: _failureCode!
 
+_isFocused_cefFrame: cefFrame
+	<stdcall: bool is_focused CefFrame*>
+	^self invalidCall: _failureCode!
+
+_isMain_cefFrame: cefFrame
+	<stdcall: bool is_main CefFrame*>
+	^self invalidCall: _failureCode!
+
+_isValid_cefFrame: cefFrame
+	<stdcall: bool is_valid CefFrame*>
+	^self invalidCall: _failureCode!
+
 _loadUrl_cefFrame: cefFrame url: url
 	<stdcall: void load_url CefFrame* CefString*>
 	^self invalidCall: _failureCode!
@@ -210,34 +222,49 @@ getUrl
 	^method value: self withArguments: (Array with: self)!
 
 is_focused
-	"Answer the <Integer> value of the receiver's 'is_focused' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_focused' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_focused!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_focused) asExternalAddress!
 
-is_focused: anInteger
-	"Set the receiver's 'is_focused' field to the value of the argument, anInteger"
+is_focused: anExternalAddress
+	"Set the receiver's 'is_focused' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_focused put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_focused put: anExternalAddress!
 
 is_main
-	"Answer the <Integer> value of the receiver's 'is_main' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_main' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_main!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_main) asExternalAddress!
 
-is_main: anInteger
-	"Set the receiver's 'is_main' field to the value of the argument, anInteger"
+is_main: anExternalAddress
+	"Set the receiver's 'is_main' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_main put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_main put: anExternalAddress!
 
 is_valid
-	"Answer the <Integer> value of the receiver's 'is_valid' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_valid' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_valid!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_valid) asExternalAddress!
 
-is_valid: anInteger
-	"Set the receiver's 'is_valid' field to the value of the argument, anInteger"
+is_valid: anExternalAddress
+	"Set the receiver's 'is_valid' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_valid put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_valid put: anExternalAddress!
+
+isFocused
+	| method |
+	method := self class externalMethodAt: #_isFocused_cefFrame: ifAbsentBindTo: self is_focused.
+	^method value: self withArguments: (Array with: self)!
+
+isMain
+	| method |
+	method := self class externalMethodAt: #_isMain_cefFrame: ifAbsentBindTo: self is_main.
+	^method value: self withArguments: (Array with: self)!
+
+isValid
+	| method |
+	method := self class externalMethodAt: #_isValid_cefFrame: ifAbsentBindTo: self is_valid.
+	^method value: self withArguments: (Array with: self)!
 
 load_request
 	"Answer the <Integer> value of the receiver's 'load_request' field."
@@ -342,6 +369,9 @@ _getIdentifier_cefFrame:!**compiled accessors**!private! !
 _getName_cefFrame:!**compiled accessors**!private! !
 _getSource_cefFrame:visitor:!**compiled accessors**!private! !
 _getUrl_cefFrame:!**compiled accessors**!private! !
+_isFocused_cefFrame:!**compiled accessors**!private! !
+_isMain_cefFrame:!**compiled accessors**!private! !
+_isValid_cefFrame:!**compiled accessors**!private! !
 _loadUrl_cefFrame:url:!**compiled accessors**!private! !
 copy!**compiled accessors**!public! !
 copy:!**compiled accessors**!public! !
@@ -379,6 +409,9 @@ is_main!**compiled accessors**!public! !
 is_main:!**compiled accessors**!public! !
 is_valid!**compiled accessors**!public! !
 is_valid:!**compiled accessors**!public! !
+isFocused!**compiled accessors**!public! !
+isMain!**compiled accessors**!public! !
+isValid!**compiled accessors**!public! !
 load_request!**compiled accessors**!public! !
 load_request:!**compiled accessors**!public! !
 load_url!**compiled accessors**!public! !
@@ -407,7 +440,8 @@ defineFields
 
 	super defineFields.
 	self
-		defineField: #is_valid type: DWORDField new;
+		defineField: #is_valid
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefFrame*'));
 		defineField: #undo type: DWORDField new;
 		defineField: #redo type: DWORDField new;
 		defineField: #cut type: DWORDField new;
@@ -426,8 +460,10 @@ defineFields
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame* CefString*')
 					smalltalkName: #loadUrl_url:);
 		defineField: #execute_java_script type: DWORDField new;
-		defineField: #is_main type: DWORDField new;
-		defineField: #is_focused type: DWORDField new;
+		defineField: #is_main
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefFrame*'));
+		defineField: #is_focused
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefFrame*'));
 		defineField: #get_name
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefStringUserfree* CefFrame*'));
