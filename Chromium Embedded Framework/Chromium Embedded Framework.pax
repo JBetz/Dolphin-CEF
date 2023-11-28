@@ -42,6 +42,7 @@ package classNames
 	add: #CefKeyEvent;
 	add: #CefLibrary;
 	add: #CefLifeSpanHandler;
+	add: #CefLoadHandler;
 	add: #CefMainArgs;
 	add: #CefMouseEvent;
 	add: #CefPoint;
@@ -66,6 +67,7 @@ package classNames
 	add: #CefStringUserfree;
 	add: #CefStringVisitor;
 	add: #CefTouchHandleState;
+	add: #CefUrlParts;
 	add: #CefWindowInfo;
 	add: #OffScreenChromiumBrowser;
 	add: #WebBrowserView;
@@ -197,6 +199,11 @@ ExternalStructure subclass: #CefTouchHandleState
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+ExternalStructure subclass: #CefUrlParts
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_fragment _OffsetOf_host _OffsetOf_origin _OffsetOf_password _OffsetOf_path _OffsetOf_port _OffsetOf_query _OffsetOf_scheme _OffsetOf_spec _OffsetOf_username'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 ExternalStructure subclass: #CefWindowInfo
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_bounds _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
@@ -238,7 +245,7 @@ CefReferenceCountedObject subclass: #CefCallback
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -315,6 +322,11 @@ CefEventHandler subclass: #CefFrameHandler
 CefEventHandler subclass: #CefLifeSpanHandler
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_do_close _OffsetOf_on_after_created _OffsetOf_on_before_close _OffsetOf_on_before_popup'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefLoadHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_on_load_end _OffsetOf_on_load_error _OffsetOf_on_load_start _OffsetOf_on_loading_state_change'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefEventHandler subclass: #CefRenderHandler

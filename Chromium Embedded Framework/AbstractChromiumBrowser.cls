@@ -14,10 +14,10 @@ back
 	cefBrowser goBack!
 
 canGoBack
-	^cefBrowser canGoBack!
+	^cefBrowser ifNotNil: [cefBrowser canGoBack] ifNil: [false]!
 
 canGoForward
-	^cefBrowser canGoForward!
+	^cefBrowser ifNotNil: [cefBrowser canGoForward] ifNil: [false]!
 
 closeBrowser
 	cefBrowser ifNotNil: [cefBrowser getHost closeBrowser_forceClose: 0]!
@@ -116,8 +116,10 @@ loadUrl: aString
 			mainFrame loadUrl_url: aString asCefString]!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
-	host ifNotNil: [host onAddressChange: url str].
-	^0!
+	| urlParts |
+	urlParts := CefUrlParts new.
+	CefLibrary default parseUrl_url: url parts: urlParts.
+	host ifNotNil: [frame isMain ifTrue: [host onAddressChange: urlParts]]!
 
 onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
 	cefBrowser := aCefBrowser.
@@ -144,19 +146,38 @@ onFrameCreated: frameHandler browser: browser frame: frame
 onFrameDetached: frameHandler browser: browser frame: frame
 	^0!
 
+onLoadEnd: aCefLoadHandler browser: aCefBrowser frame: aCefFrame httpStatusCode: anInteger 
+!
+
+onLoadError: aCefLoadHandler browser: aCefBrowser frame: aCefFrame errorCode: anInteger  errorText: aString failedUrl: aUrl
+!
+
+onLoadingStateChange: aCefLoadHandler browser: aCefBrowser isLoading: aBoolean canGoBack: aBoolean2 canGoForward: aBoolean3 
+	!
+
+onLoadStart: aCefLoadHandler browser: aCefBrowser frame: aCefFrame transitionType: anInteger!
+
 onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
 	host ifNotNil: [host hasFocus ifTrue: [browser getHost setFocus_focus: 1]].
 	^0!
 
+onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger 
+	^0!
+
+onPopupSize: aCefRenderHandler browser: aCefBrowser rect: anInteger 
+	^0!
+
 onResize: aRectangle
-	rectangle := aRectangle.
-	cefBrowser getHost wasResized!
+	cefBrowser
+		ifNotNil: 
+			[rectangle := aRectangle.
+			cefBrowser getHost wasResized]!
 
 onTextSelectionChanged: renderHandler browser: browser selectedText: selectedText selectedRange: selectedRange
 	^0!
 
 onTitleChange: displayHandler browser: browser title: title
-	host ifNotNil: [host onTitleChange: title str].
+	host ifNotNil: [title isNull ifFalse: [host onTitleChange: title str]].
 	^0!
 
 onViewClosed
@@ -229,7 +250,13 @@ onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGest
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
+onLoadEnd:browser:frame:httpStatusCode:!cef event handler!load handler!private! !
+onLoadError:browser:frame:errorCode:errorText:failedUrl:!cef event handler!load handler!private! !
+onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler!load handler!private! !
+onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
+onPopupShow:browser:show:!private! !
+onPopupSize:browser:rect:!private! !
 onResize:!public! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
 onTitleChange:browser:title:!cef event handler!private! !
