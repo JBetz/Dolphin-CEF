@@ -56,6 +56,10 @@ browserHostCreateBrowserSync_windowInfo: win_info client: client url: url settin
 	<stdcall: CefBrowser* cef_browser_host_create_browser_sync CefWindowInfo* CefClient* CefString* CefBrowserSettings* void* void*>
 	^self invalidCall: _failureCode!
 
+createUrl_parts: parts url: url
+	<stdcall: sdword cef_create_url CefUrlParts* CefString*>
+	^self invalidCall: _failureCode!
+
 executeProcess_args: args application: application windowsSandboxInfo: windows_sandbox_info
 	"cef_app_capi.h
 
@@ -76,6 +80,10 @@ executeProcess_args: args application: application windowsSandboxInfo: windows_s
 					   void* windows_sandbox_info);"
 
 	<stdcall: sdword cef_execute_process CefMainArgs* CefApp* void*>
+	^self invalidCall: _failureCode!
+
+formatUrlForSecurityDisplay_originUrl: originUrl
+	<stdcall: CefStringUserfree* cef_format_url_for_security_display CefString*>
 	^self invalidCall: _failureCode!
 
 initialize_args: args settings: settings application: application windowsSandboxInfo: windows_sandbox_info
@@ -101,6 +109,10 @@ parseUrl_url: url parts: parts
 	<stdcall: sdword cef_parse_url CefString* CefUrlParts*>
 	^self invalidCall: _failureCode!
 
+resolveUrl_baseUrl: baseUrl relativeUrl: relativeUrl resolvedUrl: resolvedUrl
+	<stdcall: sdword cef_resolve_url CefString* CefString* CefString*>
+	^self invalidCall: _failureCode!
+
 shutdown
 	"cef_app_capi.h
 
@@ -119,9 +131,12 @@ stringFromAscii_src: src srcLen: src_len output: output
 !CefLibrary categoriesForMethods!
 browserHostCreateBrowser_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
 browserHostCreateBrowserSync_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
+createUrl_parts:url:!parser!public! !
 executeProcess_args:application:windowsSandboxInfo:!public! !
+formatUrlForSecurityDisplay_originUrl:!parser!public! !
 initialize_args:settings:application:windowsSandboxInfo:!public! !
-parseUrl_url:parts:!public! !
+parseUrl_url:parts:!parser!public! !
+resolveUrl_baseUrl:relativeUrl:resolvedUrl:!parser!public! !
 shutdown!public! !
 stringFromAscii_src:srcLen:output:!public! !
 !
