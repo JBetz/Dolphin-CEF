@@ -21,7 +21,8 @@ createBrowser: aString rectangle: aRectangle window: aHandle
 		enableRequestHandlerAndDelegateTo: self;
 		enableDisplayHandlerAndDelegateTo: self;
 		enableRenderHandlerAndDelegateTo: self;
-		enableFrameHandlerAndDelegateTo: self.
+		enableFrameHandlerAndDelegateTo: self;
+		enableLoadHandlerAndDelegateTo: self.
 	windowInfo := CefWindowInfo new.
 	windowInfo
 		bounds: rectangle asCefRect;
@@ -73,9 +74,7 @@ getViewRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
 		height: rectangle height!
 
 onAcceleratedPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount sharedHandle: sharedHandle
-	Transcript
-		display: #onAcceleratedPaint;
-		cr!
+	!
 
 onCursorChange: displayHandler browser: browser cursor: cursor type: type customCursorInfo: customCursorInfo
 	| cursorSelector |
@@ -107,25 +106,28 @@ scrollOffset
 	^host ifNotNil: [host scrollOffset] ifNil: [0 @ 0]!
 
 sendKeyEvent: aKeyEvent
-	cefBrowser getHost sendKeyEvent_event: aKeyEvent
-	!
+	cefBrowser ifNotNil: [cefBrowser getHost sendKeyEvent_event: aKeyEvent]!
 
 sendMouseClickEvent: aMouseEvent mouseButtonType: anInteger mouseUp: aBoolean clickCount: anotherInteger
-	cefBrowser getHost
-		sendMouseClickEvent_event: aMouseEvent
-		mouseButtonType: anInteger
-		mouseUp: aBoolean asInteger
-		clickCount: anotherInteger!
+	cefBrowser
+		ifNotNil: 
+			[cefBrowser getHost
+				sendMouseClickEvent_event: aMouseEvent
+				mouseButtonType: anInteger
+				mouseUp: aBoolean asInteger
+				clickCount: anotherInteger]!
 
 sendMouseMoveEvent: aMouseEvent mouseLeave: aBoolean
 	cefBrowser
 		ifNotNil: [cefBrowser getHost sendMouseMoveEvent_event: aMouseEvent mouseLeave: aBoolean asInteger]!
 
 sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
-	cefBrowser getHost
-		sendMouseWheelEvent_event: aMouseWheelEvent
-		deltaX: aPoint x asInteger
-		deltaY: aPoint y asInteger!
+	cefBrowser
+		ifNotNil: 
+			[cefBrowser getHost
+				sendMouseWheelEvent_event: aMouseWheelEvent
+				deltaX: aPoint x asInteger
+				deltaY: aPoint y asInteger]!
 
 texture: aSDLTexture
 	texture := aSDLTexture! !

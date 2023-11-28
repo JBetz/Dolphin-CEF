@@ -13,7 +13,7 @@ WebBrowserView comment: ''!
 loadUrl: aString
 	chromiumBrowser loadUrl: aString!
 
-onAddressChange: aUrl
+onAddressChange: aCefUrlParts
 	!
 
 onTitleChange: aString

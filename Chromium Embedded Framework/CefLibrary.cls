@@ -56,29 +56,6 @@ browserHostCreateBrowserSync_windowInfo: win_info client: client url: url settin
 	<stdcall: CefBrowser* cef_browser_host_create_browser_sync CefWindowInfo* CefClient* CefString* CefBrowserSettings* void* void*>
 	^self invalidCall: _failureCode!
 
-doMessageLoopWork
-	"cef_app_capi.h
-
-	///
-	/// Perform a single iteration of CEF message loop processing. This function is
-	/// provided for cases where the CEF message loop must be integrated into an
-	/// existing application message loop. Use of this function is not recommended
-	/// for most users; use either the cef_run_message_loop() function or
-	/// cef_settings_t.multi_threaded_message_loop if possible. When using this
-	/// function care must be taken to balance performance against excessive CPU
-	/// usage. It is recommended to enable the cef_settings_t.external_message_pump
-	/// option when using this function so that
-	/// cef_browser_process_handler_t::on_schedule_message_pump_work() callbacks can
-	/// facilitate the scheduling process. This function should only be called on
-	/// the main application thread and only if cef_initialize() is called with a
-	/// cef_settings_t.multi_threaded_message_loop value of false (0). This function
-	/// will not block.
-	///
-	CEF_EXPORT void cef_do_message_loop_work(void);"
-
-	<stdcall: void cef_do_message_loop_work>
-	^self invalidCall: _failureCode!
-
 executeProcess_args: args application: application windowsSandboxInfo: windows_sandbox_info
 	"cef_app_capi.h
 
@@ -120,6 +97,10 @@ initialize_args: args settings: settings application: application windowsSandbox
 	<stdcall: sdword cef_initialize CefMainArgs* CefSettings* CefApp* void*>
 	^self invalidCall: _failureCode!
 
+parseUrl_url: url parts: parts
+	<stdcall: sdword cef_parse_url CefString* CefUrlParts*>
+	^self invalidCall: _failureCode!
+
 shutdown
 	"cef_app_capi.h
 
@@ -138,9 +119,9 @@ stringFromAscii_src: src srcLen: src_len output: output
 !CefLibrary categoriesForMethods!
 browserHostCreateBrowser_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
 browserHostCreateBrowserSync_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
-doMessageLoopWork!public! !
 executeProcess_args:application:windowsSandboxInfo:!public! !
 initialize_args:settings:application:windowsSandboxInfo:!public! !
+parseUrl_url:parts:!public! !
 shutdown!public! !
 stringFromAscii_src:srcLen:output:!public! !
 !
