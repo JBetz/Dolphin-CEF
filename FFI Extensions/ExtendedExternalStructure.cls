@@ -74,7 +74,8 @@ externalMethodAt: aSymbol ifAbsentBindTo: anExternalAddress
 initialize
 	super initialize.
 	CallbackRegistry := Dictionary new.
-	MethodRegistry := Dictionary new!
+	MethodRegistry := Dictionary new.
+	self compileDefinition!
 
 recompileDefinition
 	"Private - Recompiles the existing template for the receiver"
