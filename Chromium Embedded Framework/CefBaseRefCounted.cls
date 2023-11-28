@@ -86,6 +86,7 @@ release: anExternalAddress
 
 releaseReference: aCEFBaseRefCounted
 	referenceCount := 0 max: referenceCount - 1.
+	referenceCount = 0 ifTrue: [self free].
 	^(referenceCount = 0) asInteger! !
 !CefBaseRefCounted categoriesForMethods!
 add_ref!public! !
