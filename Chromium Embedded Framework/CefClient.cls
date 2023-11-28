@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -61,6 +61,14 @@ enableLifeSpanHandler
 enableLifeSpanHandlerAndDelegateTo: anObject
 	lifeSpanHandler := CefLifeSpanHandler new.
 	lifeSpanHandler delegate: anObject!
+
+enableLoadHandler
+	loadHandler := CefLoadHandler new.
+	loadHandler delegate: self!
+
+enableLoadHandlerAndDelegateTo: anObject
+	loadHandler := CefLoadHandler new.
+	loadHandler delegate: anObject!
 
 enableRenderHandler
 	renderHandler := CefRenderHandler new.
@@ -266,6 +274,9 @@ getFrameHandler: aCefClient
 getLifeSpanHandler: aCefClient
 	^lifeSpanHandler ifNotNil: [lifeSpanHandler yourAddress]!
 
+getLoadHandler: aCefClient
+	^loadHandler ifNotNil: [loadHandler yourAddress]!
+
 getRenderHandler: aCefClient
 	^renderHandler ifNotNil: [renderHandler yourAddress]!
 
@@ -291,6 +302,8 @@ enableFrameHandler!public! !
 enableFrameHandlerAndDelegateTo:!public! !
 enableLifeSpanHandler!public! !
 enableLifeSpanHandlerAndDelegateTo:!public! !
+enableLoadHandler!public! !
+enableLoadHandlerAndDelegateTo:!public! !
 enableRenderHandler!public! !
 enableRenderHandlerAndDelegateTo:!public! !
 enableRequestHandlerAndDelegateTo:!public! !
@@ -334,6 +347,7 @@ getDisplayHandler:!public! !
 getFocusHandler:!public! !
 getFrameHandler:!public! !
 getLifeSpanHandler:!public! !
+getLoadHandler:!public! !
 getRenderHandler:!public! !
 getRequestHandler:!public! !
 on_process_message_received!public! !
@@ -369,7 +383,9 @@ defineFields
 		defineField: #get_life_span_handler
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefLifeSpanHandler* CefClient*'));
-		defineField: #get_load_handler type: LPVOIDField new;
+		defineField: #get_load_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefLoadHandler* CefClient*'));
 		defineField: #get_print_handler type: LPVOIDField new;
 		defineField: #get_render_handler
 			type: (CallbackField
