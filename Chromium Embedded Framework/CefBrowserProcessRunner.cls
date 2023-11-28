@@ -76,9 +76,6 @@ initializeSettings
 library
 	^CefLibrary default!
 
-log: aMsg
-	Transcript display: aMsg; cr!
-
 onBeforeCommandLineProcessing: cefApp processType: processType commandLine: commandLine
 	commandLine
 		appendSwitch_name: 'process-per-site' asCefString;
@@ -115,7 +112,6 @@ initializeApp!private! !
 initializeCef!private! !
 initializeSettings!private! !
 library!private! !
-log:!private! !
 onBeforeCommandLineProcessing:processType:commandLine:!cef event handler!private! !
 onRegisterCustomSchemes:registrar:!cef event handler!private! !
 onScheduleMessagePumpWork:delayMs:!cef event handler!private! !
