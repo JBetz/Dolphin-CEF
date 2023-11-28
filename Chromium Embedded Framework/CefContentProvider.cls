@@ -59,9 +59,6 @@ read: resourceHandler dataOut: dataOut bytesToRead: bytesToRead bytesRead: bytes
 	^(numberOfBytesToRead > 0) asInteger!
 
 skip: resourceHandler bytesToSkip: bytesToSkip bytesSkipped: bytesSkipped callback: callback
-	Transcript
-		display: self -> #skip;
-		cr.
 	^1!
 
 url
