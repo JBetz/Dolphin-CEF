@@ -66,6 +66,22 @@ compileWrappedExternalMethodForField: anExternalField
 	anExternalField printWrappedExternalMethodOn: methodText.
 	self formatAndCompile: methodText contents categories: anExternalField autoGenCategories!
 
+defineField: fieldName type: anExternalField
+	"Add the argument anExternalField as the next field of the receiver's template, 
+	with the name, fieldName"
+
+	| offset |
+	((anExternalField isKindOf: MethodField)
+		and: [fieldName argumentCount = 0 and: [(fieldName includes: $_) not]])
+			ifTrue: 
+				[Error
+					signal: 'For unary C method fields with names that consist of a single word, you need to specify the Smalltalk selector manually in order to distinguish it from the accessor for the struct field. Use MethodField class>>descriptor:smalltalkName when constructing this method field instead of MethodField class>>descriptor.'].
+	offset := self structurePacker offsetFor: anExternalField base: self basicByteSize.
+	self
+		defineField: fieldName
+		type: anExternalField
+		offset: offset!
+
 externalMethodAt: aSymbol ifAbsentBindTo: anExternalAddress
 	| compiledMethod |
 	compiledMethod := (self compiledMethodAt: aSymbol) copy.
@@ -100,6 +116,7 @@ callbackRegistry!public! !
 compileExternalMethodForField:!compiling!private! !
 compileNewFields!compiling!private! !
 compileWrappedExternalMethodForField:!compiling!private! !
+defineField:type:!public! !
 externalMethodAt:ifAbsentBindTo:!private! !
 initialize!public! !
 recompileDefinition!private! !
