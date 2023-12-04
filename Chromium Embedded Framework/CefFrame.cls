@@ -35,6 +35,18 @@ CefFrame comment: ''!
 !CefFrame categoriesForClass!External-Data-Structured! !
 !CefFrame methodsFor!
 
+_copy_cefFrame: cefFrame
+	<stdcall: void copy CefFrame*>
+	^self invalidCall: _failureCode!
+
+_cut_cefFrame: cefFrame
+	<stdcall: void cut CefFrame*>
+	^self invalidCall: _failureCode!
+
+_del_cefFrame: cefFrame
+	<stdcall: void del CefFrame*>
+	^self invalidCall: _failureCode!
+
 _getIdentifier_cefFrame: cefFrame
 	<stdcall: sdword get_identifier CefFrame*>
 	^self invalidCall: _failureCode!
@@ -67,15 +79,31 @@ _loadUrl_cefFrame: cefFrame url: url
 	<stdcall: void load_url CefFrame* CefString*>
 	^self invalidCall: _failureCode!
 
+_paste_cefFrame: cefFrame
+	<stdcall: void paste CefFrame*>
+	^self invalidCall: _failureCode!
+
+_redo_cefFrame: cefFrame
+	<stdcall: void redo CefFrame*>
+	^self invalidCall: _failureCode!
+
+_selectAll_cefFrame: cefFrame
+	<stdcall: void select_all CefFrame*>
+	^self invalidCall: _failureCode!
+
+_undo_cefFrame: cefFrame
+	<stdcall: void undo CefFrame*>
+	^self invalidCall: _failureCode!
+
 copy
-	"Answer the <Integer> value of the receiver's 'copy' field."
+	"Answer the <ExternalAddress> value of the receiver's 'copy' field."
 
-	^bytes dwordAtOffset: _OffsetOf_copy!
+	^(bytes uintPtrAtOffset: _OffsetOf_copy) asExternalAddress!
 
-copy: anInteger
-	"Set the receiver's 'copy' field to the value of the argument, anInteger"
+copy: anExternalAddress
+	"Set the receiver's 'copy' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_copy put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_copy put: anExternalAddress!
 
 create_urlrequest
 	"Answer the <Integer> value of the receiver's 'create_urlrequest' field."
@@ -88,24 +116,24 @@ create_urlrequest: anInteger
 	bytes dwordAtOffset: _OffsetOf_create_urlrequest put: anInteger!
 
 cut
-	"Answer the <Integer> value of the receiver's 'cut' field."
+	"Answer the <ExternalAddress> value of the receiver's 'cut' field."
 
-	^bytes dwordAtOffset: _OffsetOf_cut!
+	^(bytes uintPtrAtOffset: _OffsetOf_cut) asExternalAddress!
 
-cut: anInteger
-	"Set the receiver's 'cut' field to the value of the argument, anInteger"
+cut: anExternalAddress
+	"Set the receiver's 'cut' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_cut put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_cut put: anExternalAddress!
 
 del
-	"Answer the <Integer> value of the receiver's 'del' field."
+	"Answer the <ExternalAddress> value of the receiver's 'del' field."
 
-	^bytes dwordAtOffset: _OffsetOf_del!
+	^(bytes uintPtrAtOffset: _OffsetOf_del) asExternalAddress!
 
-del: anInteger
-	"Set the receiver's 'del' field to the value of the argument, anInteger"
+del: anExternalAddress
+	"Set the receiver's 'del' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_del put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_del put: anExternalAddress!
 
 execute_java_script
 	"Answer the <Integer> value of the receiver's 'execute_java_script' field."
@@ -296,34 +324,39 @@ loadUrl_url: url
 	^method value: self withArguments: arguments!
 
 paste
-	"Answer the <Integer> value of the receiver's 'paste' field."
+	"Answer the <ExternalAddress> value of the receiver's 'paste' field."
 
-	^bytes dwordAtOffset: _OffsetOf_paste!
+	^(bytes uintPtrAtOffset: _OffsetOf_paste) asExternalAddress!
 
-paste: anInteger
-	"Set the receiver's 'paste' field to the value of the argument, anInteger"
+paste: anExternalAddress
+	"Set the receiver's 'paste' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_paste put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_paste put: anExternalAddress!
 
 redo
-	"Answer the <Integer> value of the receiver's 'redo' field."
+	"Answer the <ExternalAddress> value of the receiver's 'redo' field."
 
-	^bytes dwordAtOffset: _OffsetOf_redo!
+	^(bytes uintPtrAtOffset: _OffsetOf_redo) asExternalAddress!
 
-redo: anInteger
-	"Set the receiver's 'redo' field to the value of the argument, anInteger"
+redo: anExternalAddress
+	"Set the receiver's 'redo' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_redo put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_redo put: anExternalAddress!
 
 select_all
-	"Answer the <Integer> value of the receiver's 'select_all' field."
+	"Answer the <ExternalAddress> value of the receiver's 'select_all' field."
 
-	^bytes dwordAtOffset: _OffsetOf_select_all!
+	^(bytes uintPtrAtOffset: _OffsetOf_select_all) asExternalAddress!
 
-select_all: anInteger
-	"Set the receiver's 'select_all' field to the value of the argument, anInteger"
+select_all: anExternalAddress
+	"Set the receiver's 'select_all' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_select_all put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_select_all put: anExternalAddress!
+
+selectAll
+	| method |
+	method := self class externalMethodAt: #_selectAll_cefFrame: ifAbsentBindTo: self select_all.
+	^method value: self withArguments: (Array with: self)!
 
 send_process_message
 	"Answer the <Integer> value of the receiver's 'send_process_message' field."
@@ -336,14 +369,14 @@ send_process_message: anInteger
 	bytes dwordAtOffset: _OffsetOf_send_process_message put: anInteger!
 
 undo
-	"Answer the <Integer> value of the receiver's 'undo' field."
+	"Answer the <ExternalAddress> value of the receiver's 'undo' field."
 
-	^bytes dwordAtOffset: _OffsetOf_undo!
+	^(bytes uintPtrAtOffset: _OffsetOf_undo) asExternalAddress!
 
-undo: anInteger
-	"Set the receiver's 'undo' field to the value of the argument, anInteger"
+undo: anExternalAddress
+	"Set the receiver's 'undo' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_undo put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_undo put: anExternalAddress!
 
 view_source
 	"Answer the <Integer> value of the receiver's 'view_source' field."
@@ -365,72 +398,80 @@ visit_dom: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_visit_dom put: anInteger! !
 !CefFrame categoriesForMethods!
-_getIdentifier_cefFrame:!**compiled accessors**!private! !
-_getName_cefFrame:!**compiled accessors**!private! !
-_getSource_cefFrame:visitor:!**compiled accessors**!private! !
-_getUrl_cefFrame:!**compiled accessors**!private! !
-_isFocused_cefFrame:!**compiled accessors**!private! !
-_isMain_cefFrame:!**compiled accessors**!private! !
-_isValid_cefFrame:!**compiled accessors**!private! !
-_loadUrl_cefFrame:url:!**compiled accessors**!private! !
-copy!**compiled accessors**!public! !
-copy:!**compiled accessors**!public! !
-create_urlrequest!**compiled accessors**!public! !
-create_urlrequest:!**compiled accessors**!public! !
-cut!**compiled accessors**!public! !
-cut:!**compiled accessors**!public! !
-del!**compiled accessors**!public! !
-del:!**compiled accessors**!public! !
-execute_java_script!**compiled accessors**!public! !
-execute_java_script:!**compiled accessors**!public! !
-get_browser!**compiled accessors**!public! !
-get_browser:!**compiled accessors**!public! !
-get_identifier!**compiled accessors**!public! !
-get_identifier:!**compiled accessors**!public! !
-get_name!**compiled accessors**!public! !
-get_name:!**compiled accessors**!public! !
-get_parent!**compiled accessors**!public! !
-get_parent:!**compiled accessors**!public! !
-get_source!**compiled accessors**!public! !
-get_source:!**compiled accessors**!public! !
-get_text!**compiled accessors**!public! !
-get_text:!**compiled accessors**!public! !
-get_url!**compiled accessors**!public! !
-get_url:!**compiled accessors**!public! !
-get_v8context!**compiled accessors**!public! !
-get_v8context:!**compiled accessors**!public! !
-getIdentifier!**compiled accessors**!public! !
-getName!**compiled accessors**!public! !
-getSource_visitor:!**compiled accessors**!public! !
-getUrl!**compiled accessors**!public! !
-is_focused!**compiled accessors**!public! !
-is_focused:!**compiled accessors**!public! !
-is_main!**compiled accessors**!public! !
-is_main:!**compiled accessors**!public! !
-is_valid!**compiled accessors**!public! !
-is_valid:!**compiled accessors**!public! !
-isFocused!**compiled accessors**!public! !
-isMain!**compiled accessors**!public! !
-isValid!**compiled accessors**!public! !
-load_request!**compiled accessors**!public! !
-load_request:!**compiled accessors**!public! !
-load_url!**compiled accessors**!public! !
-load_url:!**compiled accessors**!public! !
-loadUrl_url:!**compiled accessors**!public! !
-paste!**compiled accessors**!public! !
-paste:!**compiled accessors**!public! !
-redo!**compiled accessors**!public! !
-redo:!**compiled accessors**!public! !
-select_all!**compiled accessors**!public! !
-select_all:!**compiled accessors**!public! !
-send_process_message!**compiled accessors**!public! !
-send_process_message:!**compiled accessors**!public! !
-undo!**compiled accessors**!public! !
-undo:!**compiled accessors**!public! !
-view_source!**compiled accessors**!public! !
-view_source:!**compiled accessors**!public! !
-visit_dom!**compiled accessors**!public! !
-visit_dom:!**compiled accessors**!public! !
+_copy_cefFrame:!public! !
+_cut_cefFrame:!public! !
+_del_cefFrame:!public! !
+_getIdentifier_cefFrame:!public! !
+_getName_cefFrame:!public! !
+_getSource_cefFrame:visitor:!public! !
+_getUrl_cefFrame:!public! !
+_isFocused_cefFrame:!public! !
+_isMain_cefFrame:!public! !
+_isValid_cefFrame:!public! !
+_loadUrl_cefFrame:url:!public! !
+_paste_cefFrame:!public! !
+_redo_cefFrame:!public! !
+_selectAll_cefFrame:!public! !
+_undo_cefFrame:!public! !
+copy!public! !
+copy:!public! !
+create_urlrequest!public! !
+create_urlrequest:!public! !
+cut!public! !
+cut:!public! !
+del!public! !
+del:!public! !
+execute_java_script!public! !
+execute_java_script:!public! !
+get_browser!public! !
+get_browser:!public! !
+get_identifier!public! !
+get_identifier:!public! !
+get_name!public! !
+get_name:!public! !
+get_parent!public! !
+get_parent:!public! !
+get_source!public! !
+get_source:!public! !
+get_text!public! !
+get_text:!public! !
+get_url!public! !
+get_url:!public! !
+get_v8context!public! !
+get_v8context:!public! !
+getIdentifier!public! !
+getName!public! !
+getSource_visitor:!public! !
+getUrl!public! !
+is_focused!public! !
+is_focused:!public! !
+is_main!public! !
+is_main:!public! !
+is_valid!public! !
+is_valid:!public! !
+isFocused!public! !
+isMain!public! !
+isValid!public! !
+load_request!public! !
+load_request:!public! !
+load_url!public! !
+load_url:!public! !
+loadUrl_url:!public! !
+paste!public! !
+paste:!public! !
+redo!public! !
+redo:!public! !
+select_all!public! !
+select_all:!public! !
+selectAll!public! !
+send_process_message!public! !
+send_process_message:!public! !
+undo!public! !
+undo:!public! !
+view_source!public! !
+view_source:!public! !
+visit_dom!public! !
+visit_dom:!public! !
 !
 
 !CefFrame class methodsFor!
@@ -442,13 +483,26 @@ defineFields
 	self
 		defineField: #is_valid
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefFrame*'));
-		defineField: #undo type: DWORDField new;
-		defineField: #redo type: DWORDField new;
-		defineField: #cut type: DWORDField new;
-		defineField: #copy type: DWORDField new;
-		defineField: #paste type: DWORDField new;
-		defineField: #del type: DWORDField new;
-		defineField: #select_all type: DWORDField new;
+		defineField: #undo
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*')
+					smalltalkName: #callUndo);
+		defineField: #redo
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*')
+					smalltalkName: #callRedo);
+		defineField: #cut
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*')
+					smalltalkName: #callCut);
+		defineField: #copy
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*')
+					smalltalkName: #callCopy);
+		defineField: #paste
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*')
+					smalltalkName: #callPaste);
+		defineField: #del
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*')
+					smalltalkName: #callDel);
+		defineField: #select_all
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*'));
 		defineField: #view_source type: DWORDField new;
 		defineField: #get_source
 			type: (MethodField
@@ -483,6 +537,6 @@ getFieldNames
 	^#(#base #is_valid #undo #redo #cut #copy #paste #del #select_all #view_source #get_source #get_text #load_request #load_url #execute_java_script #is_main #is_focused #get_name #get_identifier #get_parent #get_url #get_browser #get_v8context #visit_dom #create_urlrequest #send_process_message)! !
 !CefFrame class categoriesForMethods!
 defineFields!public! !
-getFieldNames!**compiled accessors**!constants!private! !
+getFieldNames!public! !
 !
 

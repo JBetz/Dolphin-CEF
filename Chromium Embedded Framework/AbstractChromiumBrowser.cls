@@ -22,12 +22,21 @@ canGoForward
 closeBrowser
 	cefBrowser ifNotNil: [cefBrowser getHost closeBrowser_forceClose: 0]!
 
+copy
+	cefBrowser getFocusedFrame callCopy!
+
 createBrowser: aUrl rectangle: aRectangle window: aHandle
 	self subclassResponsibility!
+
+cut
+	cefBrowser getFocusedFrame callCut!
 
 defocus
 	cefBrowser ifNil: [^self].
 	cefBrowser getHost setFocus_focus: 0!
+
+delete
+	cefBrowser getFocusedFrame callDel!
 
 doClose: lifeSpanHandler browser: browser
 	shouldClose := true.
@@ -199,6 +208,9 @@ onViewDestroyed
 			cefBrowser := nil]]
 			fork!
 
+paste
+	cefBrowser getFocusedFrame paste!
+
 provideHtml: aString forUrl: aUrl
 	| contentProvider |
 	contentProvider := CefContentProvider new.
@@ -208,18 +220,27 @@ provideHtml: aString forUrl: aUrl
 		webView: self.
 	contentProviders at: aUrl put: contentProvider!
 
+redo
+	cefBrowser getFocusedFrame callRedo!
+
 reload
 	cefBrowser callReload!
 
 removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url!
 
-shouldViewClose
+selectAll
+	cefBrowser getFocusedFrame selectAll!
+
+shouldClose
 	shouldClose ifFalse: [self closeBrowser].
 	^shouldClose!
 
 startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData allowedOps: anInteger x: anInteger2 y: anInteger3 
 	^0!
+
+undo
+	cefBrowser getFocusedFrame callUndo!
 
 wasHidden: aBoolean
 	cefBrowser getHost wasHidden_hidden: aBoolean asInteger! !
@@ -228,8 +249,11 @@ back!public! !
 canGoBack!public! !
 canGoForward!public! !
 closeBrowser!public! !
+copy!public! !
 createBrowser:rectangle:window:!public! !
+cut!public! !
 defocus!public! !
+delete!public! !
 doClose:browser:!cef event handler!life span handler!private! !
 focus!public! !
 forceCloseBrowser!public! !
@@ -262,11 +286,15 @@ onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!pri
 onTitleChange:browser:title:!cef event handler!private! !
 onViewClosed!public! !
 onViewDestroyed!public! !
+paste!public! !
 provideHtml:forUrl:!public! !
+redo!public! !
 reload!public! !
 removeContentProvider:!public! !
-shouldViewClose!public! !
+selectAll!public! !
+shouldClose!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
+undo!public! !
 wasHidden:!public! !
 !
 
