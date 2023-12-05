@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #CefContentProvider
-	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler webView'
+	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler chromiumBrowser'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
@@ -11,6 +11,9 @@ CefContentProvider comment: ''!
 !CefContentProvider methodsFor!
 
 cancel: resourceHandler!
+
+chromiumBrowser: anObject
+	chromiumBrowser := anObject!
 
 getResourceHandler: resourceRequestHandler browser: browser frame: frame request: request
 	^resourceHandler yourAddress!
@@ -44,7 +47,7 @@ onBeforeResourceLoad: resourceRequestHandler browser: browser frame: frame reque
 
 onResourceLoadComplete: resourceRequestHandler browser: browser frame: frame request: request response: response status: status receivedContentLength: receivedContentLength
 	htmlByteStream := nil.
-	webView ifNotNil: [webView removeContentProvider: self]!
+	chromiumBrowser ifNotNil: [chromiumBrowser removeContentProvider: self]!
 
 open: resourceHandler request: request handleRequest: handleRequest callback: callback 
 	handleRequest value: 1.
@@ -65,12 +68,10 @@ url
 	^url!
 
 url: anObject
-	url := anObject!
-
-webView: anObject
-	webView := anObject! !
+	url := anObject! !
 !CefContentProvider categoriesForMethods!
 cancel:!private! !
+chromiumBrowser:!accessing!public! !
 getResourceHandler:browser:frame:request:!private! !
 getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:!private! !
 getResponseHeaders:response:responseLength:redirectUrl:!private! !
@@ -84,7 +85,6 @@ read:dataOut:bytesToRead:bytesRead:callback:!private! !
 skip:bytesToSkip:bytesSkipped:callback:!private! !
 url!accessing!public! !
 url:!accessing!public! !
-webView:!accessing!public! !
 !
 
 !CefContentProvider class methodsFor!
