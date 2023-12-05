@@ -71,6 +71,10 @@ _del_cefFrame: cefFrame
 	<stdcall: void del CefFrame*>
 	^self invalidCall: _failureCode!
 
+_executeJavaScript_cefFrame: cefFrame code: code scriptUrl: scriptUrl startLine: startLine
+	<stdcall: void execute_java_script CefFrame* CefString* CefString* sdword>
+	^self invalidCall: _failureCode!
+
 _getIdentifier_cefFrame: cefFrame
 	<stdcall: sdword get_identifier CefFrame*>
 	^self invalidCall: _failureCode!
@@ -113,6 +117,10 @@ _redo_cefFrame: cefFrame
 
 _selectAll_cefFrame: cefFrame
 	<stdcall: void select_all CefFrame*>
+	^self invalidCall: _failureCode!
+
+_sendProcessMessage_cefFrame: cefFrame targetProcess: targetProcess message: message
+	<stdcall: void send_process_message CefFrame* dword CefProcessMessage*>
 	^self invalidCall: _failureCode!
 
 _undo_cefFrame: cefFrame
@@ -198,6 +206,18 @@ execute_java_script: anInteger
 	"Set the receiver's 'execute_java_script' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_execute_java_script put: anInteger!
+
+executeJavaScript_code: code scriptUrl: scriptUrl startLine: startLine
+	| method arguments |
+	method := self class externalMethodAt: #_executeJavaScript_cefFrame:code:scriptUrl:startLine:
+				ifAbsentBindTo: self execute_java_script.
+	arguments := Array new: 4.
+	arguments
+		at: 1 put: self;
+		at: 2 put: code;
+		at: 3 put: scriptUrl;
+		at: 4 put: startLine.
+	^method value: self withArguments: arguments!
 
 get_browser
 	"Answer the <Integer> value of the receiver's 'get_browser' field."
@@ -422,6 +442,17 @@ send_process_message: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_send_process_message put: anInteger!
 
+sendProcessMessage_targetProcess: targetProcess message: message
+	| method arguments |
+	method := self class externalMethodAt: #_sendProcessMessage_cefFrame:targetProcess:message:
+				ifAbsentBindTo: self send_process_message.
+	arguments := Array new: 3.
+	arguments
+		at: 1 put: self;
+		at: 2 put: targetProcess;
+		at: 3 put: message.
+	^method value: self withArguments: arguments!
+
 undo
 	"Answer the <ExternalAddress> value of the receiver's 'undo' field."
 
@@ -461,6 +492,7 @@ _callUndo_cefFrame:!**compiled accessors**!private! !
 _copy_cefFrame:!public! !
 _cut_cefFrame:!public! !
 _del_cefFrame:!public! !
+_executeJavaScript_cefFrame:code:scriptUrl:startLine:!**compiled accessors**!private! !
 _getIdentifier_cefFrame:!**compiled accessors**!private! !
 _getName_cefFrame:!**compiled accessors**!private! !
 _getSource_cefFrame:visitor:!**compiled accessors**!private! !
@@ -472,6 +504,7 @@ _loadUrl_cefFrame:url:!**compiled accessors**!private! !
 _paste_cefFrame:!public! !
 _redo_cefFrame:!public! !
 _selectAll_cefFrame:!**compiled accessors**!private! !
+_sendProcessMessage_cefFrame:targetProcess:message:!**compiled accessors**!private! !
 _undo_cefFrame:!public! !
 callCopy!**compiled accessors**!public! !
 callCut!**compiled accessors**!public! !
@@ -489,6 +522,7 @@ del!public! !
 del:!public! !
 execute_java_script!public! !
 execute_java_script:!public! !
+executeJavaScript_code:scriptUrl:startLine:!**compiled accessors**!public! !
 get_browser!public! !
 get_browser:!public! !
 get_identifier!public! !
@@ -532,6 +566,7 @@ select_all:!public! !
 selectAll!**compiled accessors**!public! !
 send_process_message!public! !
 send_process_message:!public! !
+sendProcessMessage_targetProcess:message:!**compiled accessors**!public! !
 undo!public! !
 undo:!public! !
 view_source!public! !
@@ -579,7 +614,10 @@ defineFields
 		defineField: #load_url
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame* CefString*')
 					smalltalkName: #loadUrl_url:);
-		defineField: #execute_java_script type: DWORDField new;
+		defineField: #execute_java_script
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame* CefString* CefString* sdword')
+					smalltalkName: #executeJavaScript_code:scriptUrl:startLine:);
 		defineField: #is_main
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefFrame*'));
 		defineField: #is_focused
@@ -597,7 +635,10 @@ defineFields
 		defineField: #get_v8context type: DWORDField new;
 		defineField: #visit_dom type: DWORDField new;
 		defineField: #create_urlrequest type: DWORDField new;
-		defineField: #send_process_message type: DWORDField new!
+		defineField: #send_process_message
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame* dword CefProcessMessage*')
+					smalltalkName: #sendProcessMessage_targetProcess:message:)!
 
 getFieldNames
 	^#(#base #is_valid #undo #redo #cut #copy #paste #del #select_all #view_source #get_source #get_text #load_request #load_url #execute_java_script #is_main #is_focused #get_name #get_identifier #get_parent #get_url #get_browser #get_v8context #visit_dom #create_urlrequest #send_process_message)! !
