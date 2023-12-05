@@ -19,9 +19,9 @@ AAAAYgAAAAEAAAAGAgoARFdPUkRBcnJheXIAAAAEAAAACQSwBAMAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
 
 package classNames
-	add: #AbstractChromiumBrowser;
 	add: #CefApp;
 	add: #CefBaseRefCounted;
+	add: #CefBinaryValue;
 	add: #CefBrowser;
 	add: #CefBrowserHost;
 	add: #CefBrowserProcessHandler;
@@ -34,19 +34,24 @@ package classNames
 	add: #CefCursorInfo;
 	add: #CefDictionaryValue;
 	add: #CefDisplayHandler;
+	add: #CefDomDocument;
+	add: #CefDomVisitor;
 	add: #CefDragData;
 	add: #CefEventHandler;
 	add: #CefFocusHandler;
 	add: #CefFrame;
 	add: #CefFrameHandler;
+	add: #CefKeyboardHandler;
 	add: #CefKeyEvent;
 	add: #CefLibrary;
 	add: #CefLifeSpanHandler;
+	add: #CefListValue;
 	add: #CefLoadHandler;
 	add: #CefMainArgs;
 	add: #CefMouseEvent;
 	add: #CefPoint;
 	add: #CefPopupFeatures;
+	add: #CefProcessMessage;
 	add: #CefRange;
 	add: #CefRect;
 	add: #CefReferenceCountedObject;
@@ -68,10 +73,11 @@ package classNames
 	add: #CefStringVisitor;
 	add: #CefTouchHandleState;
 	add: #CefUrlParts;
+	add: #CefValue;
+	add: #CefVisitor;
 	add: #CefWindowInfo;
-	add: #OffScreenChromiumBrowser;
+	add: #ChromiumBrowser;
 	add: #WebBrowserView;
-	add: #WindowedChromiumBrowser;
 	yourself.
 
 package methodNames
@@ -103,11 +109,6 @@ package!
 
 "Class Definitions"!
 
-Object subclass: #AbstractChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl'
-	classVariableNames: ''
-	poolDictionaries: 'CefConstants'
-	classInstanceVariableNames: ''!
 Object subclass: #CefBrowserProcessRunner
 	instanceVariableNames: 'isRunning args app settings'
 	classVariableNames: ''
@@ -118,15 +119,10 @@ Object subclass: #CefContentProvider
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
-AbstractChromiumBrowser subclass: #OffScreenChromiumBrowser
-	instanceVariableNames: 'texture scrollOffset'
+Object subclass: #ChromiumBrowser
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture'
 	classVariableNames: 'CursorMap'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-AbstractChromiumBrowser subclass: #WindowedChromiumBrowser
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: 'Win32Constants'
+	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
 ExternalLibrary subclass: #CefLibrary
 	instanceVariableNames: ''
@@ -233,6 +229,11 @@ CefReferenceCountedObject subclass: #CefApp
 	classVariableNames: '_OffsetOf_get_browser_process_handler _OffsetOf_get_render_process_handler _OffsetOf_get_resource_bundle_handler _OffsetOf_on_before_command_line_processing _OffsetOf_on_register_custom_schemes'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefBinaryValue
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefBrowser
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_can_go_back _OffsetOf_can_go_forward _OffsetOf_get_focused_frame _OffsetOf_get_frame _OffsetOf_get_frame_byident _OffsetOf_get_frame_count _OffsetOf_get_frame_identifiers _OffsetOf_get_frame_names _OffsetOf_get_host _OffsetOf_get_identifier _OffsetOf_get_main_frame _OffsetOf_go_back _OffsetOf_go_forward _OffsetOf_has_document _OffsetOf_is_loading _OffsetOf_is_popup _OffsetOf_is_same _OffsetOf_is_valid _OffsetOf_reload _OffsetOf_reload_ignore_cache _OffsetOf_stop_load'
@@ -249,7 +250,7 @@ CefReferenceCountedObject subclass: #CefCallback
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler processMessageDelegate'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -261,6 +262,11 @@ CefReferenceCountedObject subclass: #CefCommandLine
 CefReferenceCountedObject subclass: #CefDictionaryValue
 	instanceVariableNames: ''
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefDomDocument
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_base_url _OffsetOf_get_body _OffsetOf_get_complete_url _OffsetOf_get_document _OffsetOf_get_element_by_id _OffsetOf_get_focused_node _OffsetOf_get_head _OffsetOf_get_selection_as_markup _OffsetOf_get_selection_as_text _OffsetOf_get_selection_end_offset _OffsetOf_get_selection_start_offset _OffsetOf_get_title _OffsetOf_get_type _OffsetOf_has_selection'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefDragData
@@ -276,6 +282,16 @@ CefReferenceCountedObject subclass: #CefEventHandler
 CefReferenceCountedObject subclass: #CefFrame
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_copy _OffsetOf_create_urlrequest _OffsetOf_cut _OffsetOf_del _OffsetOf_execute_java_script _OffsetOf_get_browser _OffsetOf_get_identifier _OffsetOf_get_name _OffsetOf_get_parent _OffsetOf_get_source _OffsetOf_get_text _OffsetOf_get_url _OffsetOf_get_v8context _OffsetOf_is_focused _OffsetOf_is_main _OffsetOf_is_valid _OffsetOf_load_request _OffsetOf_load_url _OffsetOf_paste _OffsetOf_redo _OffsetOf_select_all _OffsetOf_send_process_message _OffsetOf_undo _OffsetOf_view_source _OffsetOf_visit_dom'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefListValue
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_clear _OffsetOf_copy _OffsetOf_get_binary _OffsetOf_get_bool _OffsetOf_get_dictionary _OffsetOf_get_double _OffsetOf_get_int _OffsetOf_get_list _OffsetOf_get_size _OffsetOf_get_string _OffsetOf_get_type _OffsetOf_get_value _OffsetOf_is_equal _OffsetOf_is_owned _OffsetOf_is_read_only _OffsetOf_is_same _OffsetOf_is_valid _OffsetOf_remove _OffsetOf_set_binary _OffsetOf_set_bool _OffsetOf_set_dictionary _OffsetOf_set_double _OffsetOf_set_int _OffsetOf_set_list _OffsetOf_set_null _OffsetOf_set_size _OffsetOf_set_string _OffsetOf_set_value'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefProcessMessage
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_copy _OffsetOf_get_argument_list _OffsetOf_get_name _OffsetOf_get_shared_memory_region _OffsetOf_is_read_only _OffsetOf_is_valid'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefRequest
@@ -298,9 +314,14 @@ CefReferenceCountedObject subclass: #CefSchemeRegistrar
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-CefReferenceCountedObject subclass: #CefStringVisitor
+CefReferenceCountedObject subclass: #CefValue
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_visit'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefVisitor
+	instanceVariableNames: ''
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefEventHandler subclass: #CefBrowserProcessHandler
@@ -321,6 +342,11 @@ CefEventHandler subclass: #CefFocusHandler
 CefEventHandler subclass: #CefFrameHandler
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_on_frame_attached _OffsetOf_on_frame_created _OffsetOf_on_frame_detached _OffsetOf_on_main_frame_changed'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefKeyboardHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_on_key_event _OffsetOf_on_pre_key_event'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefEventHandler subclass: #CefLifeSpanHandler
@@ -361,6 +387,16 @@ CefEventHandler subclass: #CefResourceHandler
 CefEventHandler subclass: #CefResourceRequestHandler
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_get_cookie_access_filter _OffsetOf_get_resource_handler _OffsetOf_get_resource_response_filter _OffsetOf_on_before_resource_load _OffsetOf_on_protocol_execution _OffsetOf_on_resource_load_complete _OffsetOf_on_resource_redirect _OffsetOf_on_resource_response'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefVisitor subclass: #CefDomVisitor
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_visit'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefVisitor subclass: #CefStringVisitor
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_visit'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ContainerView subclass: #WebBrowserView
