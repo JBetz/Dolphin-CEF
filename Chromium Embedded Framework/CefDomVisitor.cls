@@ -1,15 +1,15 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-CefVisitor subclass: #CefStringVisitor
+CefVisitor subclass: #CefDomVisitor
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_visit'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-CefStringVisitor guid: (GUID fromString: '{cd4f01a8-def9-4f37-839e-b25cdb312332}')!
-CefStringVisitor addClassConstant: '_OffsetOf_visit' value: 16r14!
-CefStringVisitor comment: ''!
-!CefStringVisitor categoriesForClass!External-Data-Structured! !
-!CefStringVisitor methodsFor!
+CefDomVisitor guid: (GUID fromString: '{37b53105-30a3-49ba-bd47-006df19fa3e3}')!
+CefDomVisitor addClassConstant: '_OffsetOf_visit' value: 16r14!
+CefDomVisitor comment: ''!
+!CefDomVisitor categoriesForClass!External-Data-Structured! !
+!CefDomVisitor methodsFor!
 
 visit
 	"Answer the <ExternalAddress> value of the receiver's 'visit' field."
@@ -20,25 +20,25 @@ visit: anExternalAddress
 	"Set the receiver's 'visit' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_visit put: anExternalAddress! !
-!CefStringVisitor categoriesForMethods!
+!CefDomVisitor categoriesForMethods!
 visit!**compiled accessors**!public! !
 visit:!**compiled accessors**!public! !
 !
 
-!CefStringVisitor class methodsFor!
+!CefDomVisitor class methodsFor!
 
 defineFields
-	"CefStringVisitor compileDefinition"
+	"CefDomVisitor compileDefinition"
 
 	super defineFields.
 	self defineField: #visit
 		type: (CallbackField
-				descriptor: (ExternalDescriptor fromString: 'stdcall: void CefStringVisitor* CefString*')
-				smalltalkName: #visit:string:)!
+				descriptor: (ExternalDescriptor fromString: 'stdcall: void CefDomVisitor* CefDomDocument*')
+				smalltalkName: #visit:document:)!
 
 getFieldNames
 	^#(#base #visit)! !
-!CefStringVisitor class categoriesForMethods!
+!CefDomVisitor class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
 !
