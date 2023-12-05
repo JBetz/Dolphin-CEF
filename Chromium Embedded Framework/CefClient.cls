@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler processMessageDelegate'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -29,9 +29,6 @@ CefClient comment: ''!
 !CefClient categoriesForClass!External-Data-Structured! !
 !CefClient methodsFor!
 
-displayHandler
-	^displayHandler!
-
 enableDisplayHandler
 	displayHandler := CefDisplayHandler new.
 	displayHandler delegate: self!
@@ -53,6 +50,13 @@ enableFrameHandler
 enableFrameHandlerAndDelegateTo: anObject
 	frameHandler := CefFrameHandler new.
 	frameHandler delegate: anObject!
+
+enableKeyboardHandler
+	keyboardHandler := CefKeyboardHandler new!
+
+enableKeyboardHandlerAndDelegateTo: anObject
+	keyboardHandler := CefKeyboardHandler new.
+	keyboardHandler delegate: anObject!
 
 enableLifeSpanHandler
 	lifeSpanHandler := CefLifeSpanHandler new.
@@ -271,6 +275,9 @@ getFocusHandler: aCefClient
 getFrameHandler: aCefClient
 	^frameHandler ifNotNil: [frameHandler yourAddress]!
 
+getKeyboardHandler: aCefClient
+	^keyboardHandler ifNotNil: [keyboardHandler yourAddress]!
+
 getLifeSpanHandler: aCefClient
 	^lifeSpanHandler ifNotNil: [lifeSpanHandler yourAddress]!
 
@@ -291,15 +298,29 @@ on_process_message_received
 on_process_message_received: anExternalAddress
 	"Set the receiver's 'on_process_message_received' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_on_process_message_received put: anExternalAddress! !
+	bytes uintPtrAtOffset: _OffsetOf_on_process_message_received put: anExternalAddress!
+
+onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
+	processMessageDelegate
+		ifNotNil: 
+			[processMessageDelegate
+				onProcessMessageReceived: aCefClient
+				browser: aCefBrowser
+				frame: aCefFrame
+				sourceProcess: anInteger
+				message: aCefProcessMessage]!
+
+processMessageDelegate: anObject
+	processMessageDelegate := anObject! !
 !CefClient categoriesForMethods!
-displayHandler!public! !
 enableDisplayHandler!public! !
 enableDisplayHandlerAndDelegateTo:!public! !
 enableFocusHandler!public! !
 enableFocusHandlerAndDelegateTo:!public! !
 enableFrameHandler!public! !
 enableFrameHandlerAndDelegateTo:!public! !
+enableKeyboardHandler!public! !
+enableKeyboardHandlerAndDelegateTo:!public! !
 enableLifeSpanHandler!public! !
 enableLifeSpanHandlerAndDelegateTo:!public! !
 enableLoadHandler!public! !
@@ -346,12 +367,15 @@ get_request_handler:!public! !
 getDisplayHandler:!public! !
 getFocusHandler:!public! !
 getFrameHandler:!public! !
+getKeyboardHandler:!public! !
 getLifeSpanHandler:!public! !
 getLoadHandler:!public! !
 getRenderHandler:!public! !
 getRequestHandler:!public! !
 on_process_message_received!public! !
 on_process_message_received:!public! !
+onProcessMessageReceived:browser:frame:sourceProcess:message:!public! !
+processMessageDelegate:!public! !
 !
 
 !CefClient class methodsFor!
@@ -379,7 +403,9 @@ defineFields
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrameHandler* CefClient*'));
 		defineField: #get_permission_handler type: LPVOIDField new;
 		defineField: #get_jsdialog_handler type: LPVOIDField new;
-		defineField: #get_keyboard_handler type: LPVOIDField new;
+		defineField: #get_keyboard_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefKeyboardHandler* CefClient*'));
 		defineField: #get_life_span_handler
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefLifeSpanHandler* CefClient*'));
@@ -393,7 +419,10 @@ defineFields
 		defineField: #get_request_handler
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRequestHandler* CefClient*'));
-		defineField: #on_process_message_received type: LPVOIDField new!
+		defineField: #on_process_message_received
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: sdword CefClient* CefBrowser* CefFrame* sdword CefProcessMessage*')
+					smalltalkName: #onProcessMessageReceived:browser:frame:sourceProcess:message:)!
 
 getFieldNames
 	^#(#base #get_audio_handler #get_command_handler #get_context_menu_handler #get_dialog_handler #get_display_handler #get_download_handler #get_drag_handler #get_find_handler #get_focus_handler #get_frame_handler #get_permission_handler #get_jsdialog_handler #get_keyboard_handler #get_life_span_handler #get_load_handler #get_print_handler #get_render_handler #get_request_handler #on_process_message_received)! !

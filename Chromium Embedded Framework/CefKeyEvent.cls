@@ -119,9 +119,9 @@ windows_key_code:!public! !
 !CefKeyEvent class methodsFor!
 
 defineFields
-	"CefKeyEvent compileDefinition 
+	"CefKeyEvent compileDefinition"
 
-	typedef struct _cef_key_event_t {
+	"typedef struct _cef_key_event_t {
 	  ///
 	  /// The type of keyboard event.
 	  ///
@@ -179,7 +179,7 @@ defineFields
 		defineField: #is_system_key type: SDWORDField new;
 		defineField: #character type: CHARField new;
 		defineField: #unmodified_character type: CHARField new;
-		defineField: #focus_on_editable_field type: SDWORDField new!
+		defineField: #focus_on_editable_field type: BOOLField new!
 
 getFieldNames
 	^#(#type #modifiers #windows_key_code #native_key_code #is_system_key #character #unmodified_character #focus_on_editable_field)! !
