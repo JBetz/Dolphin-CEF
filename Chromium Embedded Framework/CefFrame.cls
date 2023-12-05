@@ -35,6 +35,30 @@ CefFrame comment: ''!
 !CefFrame categoriesForClass!External-Data-Structured! !
 !CefFrame methodsFor!
 
+_callCopy_cefFrame: cefFrame
+	<stdcall: void copy CefFrame*>
+	^self invalidCall: _failureCode!
+
+_callCut_cefFrame: cefFrame
+	<stdcall: void cut CefFrame*>
+	^self invalidCall: _failureCode!
+
+_callDel_cefFrame: cefFrame
+	<stdcall: void del CefFrame*>
+	^self invalidCall: _failureCode!
+
+_callPaste_cefFrame: cefFrame
+	<stdcall: void paste CefFrame*>
+	^self invalidCall: _failureCode!
+
+_callRedo_cefFrame: cefFrame
+	<stdcall: void redo CefFrame*>
+	^self invalidCall: _failureCode!
+
+_callUndo_cefFrame: cefFrame
+	<stdcall: void undo CefFrame*>
+	^self invalidCall: _failureCode!
+
 _copy_cefFrame: cefFrame
 	<stdcall: void copy CefFrame*>
 	^self invalidCall: _failureCode!
@@ -94,6 +118,36 @@ _selectAll_cefFrame: cefFrame
 _undo_cefFrame: cefFrame
 	<stdcall: void undo CefFrame*>
 	^self invalidCall: _failureCode!
+
+callCopy
+	| method |
+	method := self class externalMethodAt: #_callCopy_cefFrame: ifAbsentBindTo: self copy.
+	^method value: self withArguments: (Array with: self)!
+
+callCut
+	| method |
+	method := self class externalMethodAt: #_callCut_cefFrame: ifAbsentBindTo: self cut.
+	^method value: self withArguments: (Array with: self)!
+
+callDel
+	| method |
+	method := self class externalMethodAt: #_callDel_cefFrame: ifAbsentBindTo: self del.
+	^method value: self withArguments: (Array with: self)!
+
+callPaste
+	| method |
+	method := self class externalMethodAt: #_callPaste_cefFrame: ifAbsentBindTo: self paste.
+	^method value: self withArguments: (Array with: self)!
+
+callRedo
+	| method |
+	method := self class externalMethodAt: #_callRedo_cefFrame: ifAbsentBindTo: self redo.
+	^method value: self withArguments: (Array with: self)!
+
+callUndo
+	| method |
+	method := self class externalMethodAt: #_callUndo_cefFrame: ifAbsentBindTo: self undo.
+	^method value: self withArguments: (Array with: self)!
 
 copy
 	"Answer the <ExternalAddress> value of the receiver's 'copy' field."
@@ -398,21 +452,33 @@ visit_dom: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_visit_dom put: anInteger! !
 !CefFrame categoriesForMethods!
+_callCopy_cefFrame:!**compiled accessors**!private! !
+_callCut_cefFrame:!**compiled accessors**!private! !
+_callDel_cefFrame:!**compiled accessors**!private! !
+_callPaste_cefFrame:!**compiled accessors**!private! !
+_callRedo_cefFrame:!**compiled accessors**!private! !
+_callUndo_cefFrame:!**compiled accessors**!private! !
 _copy_cefFrame:!public! !
 _cut_cefFrame:!public! !
 _del_cefFrame:!public! !
-_getIdentifier_cefFrame:!public! !
-_getName_cefFrame:!public! !
-_getSource_cefFrame:visitor:!public! !
-_getUrl_cefFrame:!public! !
-_isFocused_cefFrame:!public! !
-_isMain_cefFrame:!public! !
-_isValid_cefFrame:!public! !
-_loadUrl_cefFrame:url:!public! !
+_getIdentifier_cefFrame:!**compiled accessors**!private! !
+_getName_cefFrame:!**compiled accessors**!private! !
+_getSource_cefFrame:visitor:!**compiled accessors**!private! !
+_getUrl_cefFrame:!**compiled accessors**!private! !
+_isFocused_cefFrame:!**compiled accessors**!private! !
+_isMain_cefFrame:!**compiled accessors**!private! !
+_isValid_cefFrame:!**compiled accessors**!private! !
+_loadUrl_cefFrame:url:!**compiled accessors**!private! !
 _paste_cefFrame:!public! !
 _redo_cefFrame:!public! !
-_selectAll_cefFrame:!public! !
+_selectAll_cefFrame:!**compiled accessors**!private! !
 _undo_cefFrame:!public! !
+callCopy!**compiled accessors**!public! !
+callCut!**compiled accessors**!public! !
+callDel!**compiled accessors**!public! !
+callPaste!**compiled accessors**!public! !
+callRedo!**compiled accessors**!public! !
+callUndo!**compiled accessors**!public! !
 copy!public! !
 copy:!public! !
 create_urlrequest!public! !
@@ -439,31 +505,31 @@ get_url!public! !
 get_url:!public! !
 get_v8context!public! !
 get_v8context:!public! !
-getIdentifier!public! !
-getName!public! !
-getSource_visitor:!public! !
-getUrl!public! !
+getIdentifier!**compiled accessors**!public! !
+getName!**compiled accessors**!public! !
+getSource_visitor:!**compiled accessors**!public! !
+getUrl!**compiled accessors**!public! !
 is_focused!public! !
 is_focused:!public! !
 is_main!public! !
 is_main:!public! !
 is_valid!public! !
 is_valid:!public! !
-isFocused!public! !
-isMain!public! !
-isValid!public! !
+isFocused!**compiled accessors**!public! !
+isMain!**compiled accessors**!public! !
+isValid!**compiled accessors**!public! !
 load_request!public! !
 load_request:!public! !
 load_url!public! !
 load_url:!public! !
-loadUrl_url:!public! !
+loadUrl_url:!**compiled accessors**!public! !
 paste!public! !
 paste:!public! !
 redo!public! !
 redo:!public! !
 select_all!public! !
 select_all:!public! !
-selectAll!public! !
+selectAll!**compiled accessors**!public! !
 send_process_message!public! !
 send_process_message:!public! !
 undo!public! !
@@ -537,6 +603,6 @@ getFieldNames
 	^#(#base #is_valid #undo #redo #cut #copy #paste #del #select_all #view_source #get_source #get_text #load_request #load_url #execute_java_script #is_main #is_focused #get_name #get_identifier #get_parent #get_url #get_browser #get_v8context #visit_dom #create_urlrequest #send_process_message)! !
 !CefFrame class categoriesForMethods!
 defineFields!public! !
-getFieldNames!public! !
+getFieldNames!**compiled accessors**!constants!private! !
 !
 
