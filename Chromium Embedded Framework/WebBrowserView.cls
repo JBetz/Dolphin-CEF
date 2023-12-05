@@ -27,10 +27,10 @@ onViewCreated
 	CefBrowserProcessRunner new ensureRunning.
 	rectangle := self parentView clientRectangle.
 	windowHandle := self handle value.
-	chromiumBrowser := WindowedChromiumBrowser new.
+	chromiumBrowser := ChromiumBrowser new.
 	chromiumBrowser host: self.
 	chromiumBrowser
-		createBrowser: 'about:blank'
+		createWindowedBrowser: 'about:blank'
 		rectangle: rectangle
 		window: windowHandle!
 
