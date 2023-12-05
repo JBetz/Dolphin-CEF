@@ -71,11 +71,12 @@ defineField: fieldName type: anExternalField
 	with the name, fieldName"
 
 	| offset |
-	((anExternalField isKindOf: MethodField)
-		and: [fieldName argumentCount = 0 and: [(fieldName includes: $_) not]])
-			ifTrue: 
-				[Error
-					signal: 'For unary C method fields with names that consist of a single word, you need to specify the Smalltalk selector manually in order to distinguish it from the accessor for the struct field. Use MethodField class>>descriptor:smalltalkName when constructing this method field instead of MethodField class>>descriptor.'].
+	((anExternalField isKindOf: MethodField) and: 
+			[anExternalField smalltalkName isNil
+				and: [fieldName argumentCount = 0 and: [(fieldName includes: $_) not]]])
+		ifTrue: 
+			[Error
+				signal: 'For unary C method fields with names that consist of a single word, you need to specify the Smalltalk selector manually in order to distinguish it from the accessor for the struct field. Use MethodField class>>descriptor:smalltalkName when constructing this method field instead of MethodField class>>descriptor.'].
 	offset := self structurePacker offsetFor: anExternalField base: self basicByteSize.
 	self
 		defineField: fieldName
