@@ -115,12 +115,12 @@ Object subclass: #CefBrowserProcessRunner
 	poolDictionaries: ''
 	classInstanceVariableNames: 'Current'!
 Object subclass: #CefContentProvider
-	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler webView'
+	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler chromiumBrowser'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange cursorPosition'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -166,7 +166,7 @@ ExternalStructure subclass: #CefPopupFeatures
 	classInstanceVariableNames: ''!
 ExternalStructure subclass: #CefRange
 	instanceVariableNames: ''
-	classVariableNames: ''
+	classVariableNames: '_OffsetOf_from _OffsetOf_to'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ExternalStructure subclass: #CefRect
