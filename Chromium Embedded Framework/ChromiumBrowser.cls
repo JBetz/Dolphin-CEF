@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange cursorPosition'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -192,19 +192,7 @@ getViewRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
 		height: rectangle height!
 
 hasSelectedText
-	^selectedText ifNotNil: [selectedText size > 0] ifNil: [false]!
-
-hasSelection
-	self getDom: 
-			[:aCefDomDocument |
-			Transcript
-				display: #dom_visitor_callback -> aCefDomDocument hasSelection;
-				cr.
-			aCefDomDocument hasSelection].
-	^true!
-
-hasTextSelected
-	^selectedText ifNotNil: [selectedText size > 0] ifNil: [false]!
+	^selectedText notNil!
 
 host: anObject 
 	host := anObject!
@@ -311,7 +299,7 @@ onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
 onPopupSize: aCefRenderHandler browser: aCefBrowser rect: anInteger 
 	^0!
 
-onPreKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress isKeyboardShortcut: aBoolean 
+onPreKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress isKeyboardShortcut: aBoolean
 	^false!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
@@ -319,7 +307,12 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 		ifTrue: 
 			[| arguments |
 			arguments := aCefProcessMessage getArgumentList.
-			isFocusedNodeEditable := arguments getBool_index: 0]!
+			isFocusedNodeEditable := arguments getBool_index: 0.
+			isFocusedNodeEditable
+				ifFalse: 
+					[selectedText := nil.
+					selectedRange := nil.
+					cursorPosition := 0]]!
 
 onResize: aRectangle
 	cefBrowser
@@ -334,7 +327,14 @@ onScrollOffsetChanged: renderHandler browser: browser x: x y: y
 	^0!
 
 onTextSelectionChanged: aCefRenderHandler browser: aCefBrowser selectedText: aCefString selectedRange: aCefRange
-	aCefString isNull ifTrue: [selectedText := nil] ifFalse: [selectedText := aCefString str].
+	selectedRange := Interval from: aCefRange from to: aCefRange to.
+	aCefString isNull
+		ifTrue: 
+			[selectedText := nil.
+			cursorPosition := 0]
+		ifFalse: 
+			[selectedText := aCefString str.
+			cursorPosition := selectedRange stop].
 	^0!
 
 onTitleChange: displayHandler browser: browser title: title
@@ -372,7 +372,7 @@ provideHtml: aString forUrl: aUrl
 	contentProvider
 		url: aUrl;
 		html: aString;
-		webView: self.
+		chromiumBrowser: self.
 	contentProviders at: aUrl put: contentProvider!
 
 redo
@@ -456,8 +456,6 @@ getTitle!public! !
 getUrl!public! !
 getViewRect:browser:rect:!cef event handler!private!render handler! !
 hasSelectedText!cef event handler!private! !
-hasSelection!public! !
-hasTextSelected!cef event handler!private! !
 host:!public! !
 initialize!public! !
 isFocusedNodeEditable!public! !
@@ -483,7 +481,7 @@ onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event h
 onPopupShow:browser:show:!private! !
 onPopupSize:browser:rect:!private! !
 onPreKeyEvent:browser:event:osEvent:isKeyboardShortcut:!cef event handler!keyboard handler!private! !
-onProcessMessageReceived:browser:frame:sourceProcess:message:!public! !
+onProcessMessageReceived:browser:frame:sourceProcess:message:!private! !
 onResize:!public! !
 onScrollOffsetChanged:browser:x:y:!cef event handler!private!render handler! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
