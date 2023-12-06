@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange cursorPosition'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -300,7 +300,7 @@ onPopupSize: aCefRenderHandler browser: aCefBrowser rect: anInteger
 	^0!
 
 onPreKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress isKeyboardShortcut: aBoolean
-	^false!
+	^self hasSelectedText and: [aCefKeyEvent isChar]!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
 	aCefProcessMessage getName str = 'ClientRenderer.FocusedNodeChanged'
@@ -311,8 +311,7 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 			isFocusedNodeEditable
 				ifFalse: 
 					[selectedText := nil.
-					selectedRange := nil.
-					cursorPosition := 0]]!
+					selectedRange := nil]]!
 
 onResize: aRectangle
 	cefBrowser
@@ -328,13 +327,7 @@ onScrollOffsetChanged: renderHandler browser: browser x: x y: y
 
 onTextSelectionChanged: aCefRenderHandler browser: aCefBrowser selectedText: aCefString selectedRange: aCefRange
 	selectedRange := Interval from: aCefRange from to: aCefRange to.
-	aCefString isNull
-		ifTrue: 
-			[selectedText := nil.
-			cursorPosition := 0]
-		ifFalse: 
-			[selectedText := aCefString str.
-			cursorPosition := selectedRange stop].
+	aCefString isNull ifTrue: [selectedText := nil] ifFalse: [selectedText := aCefString str].
 	^0!
 
 onTitleChange: displayHandler browser: browser title: title
