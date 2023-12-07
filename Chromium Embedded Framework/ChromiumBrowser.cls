@@ -300,7 +300,7 @@ onPopupSize: aCefRenderHandler browser: aCefBrowser rect: anInteger
 	^0!
 
 onPreKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress isKeyboardShortcut: aBoolean
-	^self hasSelectedText and: [aCefKeyEvent isChar]!
+	^false!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
 	aCefProcessMessage getName str = 'ClientRenderer.FocusedNodeChanged'
