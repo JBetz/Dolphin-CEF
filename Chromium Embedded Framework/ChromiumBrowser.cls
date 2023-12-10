@@ -99,8 +99,6 @@ delete
 	cefBrowser getFocusedFrame callDel!
 
 doClose: lifeSpanHandler browser: browser
-	shouldClose := true.
-	host ifNotNil: [[host pushCloseEvent] postToInputQueue].
 	^0!
 
 focus
@@ -191,7 +189,7 @@ getViewRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
 		width: rectangle width;
 		height: rectangle height!
 
-hasSelectedText
+hasTextSelected
 	^selectedText notNil!
 
 host: anObject 
@@ -201,12 +199,14 @@ initialize
 	super initialize.
 	contentProviders := Dictionary new.
 	rectangle := Rectangle new.
-	shouldClose := false.
 	readyToClose := false.
 	isFocusedNodeEditable := false!
 
 isFocusedNodeEditable
 	^isFocusedNodeEditable!
+
+isReadyToClose
+	^readyToClose!
 
 library
 	^CefLibrary default!
@@ -351,7 +351,7 @@ onViewDestroyed
 		ifNotNil: 
 			[cefBrowser base releaseReference: cefBrowser.
 			cefBrowser := nil]]
-			fork!
+			forkAt: Processor userBackgroundPriority!
 
 onVirtualKeyboardRequested: renderHandler browser: browser inputMode: inputMode
 	^0!
@@ -363,7 +363,7 @@ provideHtml: aString forUrl: aUrl
 	| contentProvider |
 	contentProvider := CefContentProvider new.
 	contentProvider
-		url: aUrl;
+		url: aUrl string;
 		html: aString;
 		chromiumBrowser: self.
 	contentProviders at: aUrl put: contentProvider!
@@ -407,10 +407,6 @@ sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
 				deltaX: aPoint x asInteger
 				deltaY: aPoint y asInteger]!
 
-shouldClose
-	shouldClose ifFalse: [self closeBrowser].
-	^shouldClose!
-
 startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData allowedOps: anInteger x: anInteger2 y: anInteger3 
 	^0!
 
@@ -448,10 +444,11 @@ getSource:!public! !
 getTitle!public! !
 getUrl!public! !
 getViewRect:browser:rect:!cef event handler!private!render handler! !
-hasSelectedText!cef event handler!private! !
+hasTextSelected!cef event handler!private! !
 host:!public! !
 initialize!public! !
 isFocusedNodeEditable!public! !
+isReadyToClose!cef event handler!life span handler!public! !
 library!public! !
 loadHtml:forUrl:!public! !
 loadUrl:!public! !
@@ -493,7 +490,6 @@ sendKeyEvent:!public! !
 sendMouseClickEvent:mouseButtonType:mouseUp:clickCount:!public! !
 sendMouseMoveEvent:mouseLeave:!public! !
 sendMouseWheelEvent:delta:!public! !
-shouldClose!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
 texture:!public! !
 undo!public! !
