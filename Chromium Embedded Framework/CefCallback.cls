@@ -12,13 +12,23 @@ CefCallback comment: ''!
 !CefCallback categoriesForClass!External-Data-Structured! !
 !CefCallback methodsFor!
 
-_cancel_cefCallback: cefCallback
+_callCancel_cefCallback: cefCallback
 	<stdcall: void cancel CefCallback*>
 	^self invalidCall: _failureCode!
 
-_cont_cefCallback: cefCallback
+_callCont_cefCallback: cefCallback
 	<stdcall: void cont CefCallback*>
 	^self invalidCall: _failureCode!
+
+callCancel
+	| method |
+	method := self class externalMethodAt: #_callCancel_cefCallback: ifAbsentBindTo: self cancel.
+	^method value: self withArguments: (Array with: self)!
+
+callCont
+	| method |
+	method := self class externalMethodAt: #_callCont_cefCallback: ifAbsentBindTo: self cont.
+	^method value: self withArguments: (Array with: self)!
 
 cancel
 	"Answer the <ExternalAddress> value of the receiver's 'cancel' field."
@@ -40,8 +50,10 @@ cont: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_cont put: anExternalAddress! !
 !CefCallback categoriesForMethods!
-_cancel_cefCallback:!**compiled accessors**!private! !
-_cont_cefCallback:!**compiled accessors**!private! !
+_callCancel_cefCallback:!**compiled accessors**!private! !
+_callCont_cefCallback:!**compiled accessors**!private! !
+callCancel!**compiled accessors**!public! !
+callCont!**compiled accessors**!public! !
 cancel!**compiled accessors**!public! !
 cancel:!**compiled accessors**!public! !
 cont!**compiled accessors**!public! !
@@ -56,9 +68,11 @@ defineFields
 	super defineFields.
 	self
 		defineField: #cont
-			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefCallback*'));
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefCallback*')
+					smalltalkName: #callCont);
 		defineField: #cancel
-			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefCallback*'))!
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefCallback*')
+					smalltalkName: #callCancel)!
 
 getFieldNames
 	^#(#base #cont #cancel)! !
