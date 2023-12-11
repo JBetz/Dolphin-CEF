@@ -55,7 +55,7 @@ ExternalStructure subclass: #ExtendedExternalStructure
 	instanceVariableNames: 'callbacks'
 	classVariableNames: ''
 	poolDictionaries: ''
-	classInstanceVariableNames: 'CallbackRegistry MethodRegistry'!
+	classInstanceVariableNames: 'CallbackRegistry'!
 
 "Global Aliases"!
 
