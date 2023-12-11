@@ -74,6 +74,9 @@ initializePointer
 	super initializePointer.
 	referenceCount := 1!
 
+referenceCount
+	^referenceCount!
+
 release
 	"Answer the <ExternalAddress> value of the receiver's 'release' field."
 
@@ -89,63 +92,31 @@ releaseReference: aCEFBaseRefCounted
 	referenceCount = 0 ifTrue: [self free].
 	^(referenceCount = 0) asInteger! !
 !CefBaseRefCounted categoriesForMethods!
-add_ref!public! !
-add_ref:!public! !
+add_ref!**compiled accessors**!public! !
+add_ref:!**compiled accessors**!public! !
 addReference:!public! !
 cefObject:!public! !
-cefSize!public! !
-cefSize:!public! !
+cefSize!**compiled accessors**!public! !
+cefSize:!**compiled accessors**!public! !
 delegate!public! !
-has_at_least_one_ref!public! !
-has_at_least_one_ref:!public! !
-has_one_ref!public! !
-has_one_ref:!public! !
+has_at_least_one_ref!**compiled accessors**!public! !
+has_at_least_one_ref:!**compiled accessors**!public! !
+has_one_ref!**compiled accessors**!public! !
+has_one_ref:!**compiled accessors**!public! !
 hasAtLeastOneReference:!public! !
 hasOneReference:!public! !
 initializePointer!public! !
-release!public! !
-release:!public! !
+referenceCount!public! !
+release!**compiled accessors**!public! !
+release:!**compiled accessors**!public! !
 releaseReference:!public! !
 !
 
 !CefBaseRefCounted class methodsFor!
 
 defineFields
-	"CefBaseRefCounted  compileDefinition
+	"CefBaseRefCounted  compileDefinition"
 	
-	///
-	// All ref-counted framework structures must include this structure first.
-	///
-	typedef struct _cef_base_ref_counted_t {
-	  ///
-	  // Size of the data structure.
-	  ///
-	  size_t size;
-
-	  ///
-	  // Called to increment the reference count for the object. Should be called
-	  // for every new copy of a pointer to a given object.
-	  ///
-	  void(CEF_CALLBACK* add_ref)(struct _cef_base_ref_counted_t* self);
-
-	  ///
-	  // Called to decrement the reference count for the object. If the reference
-	  // count falls to 0 the object should self-delete. Returns true (1) if the
-	  // resulting reference count is 0.
-	  ///
-	  int(CEF_CALLBACK* release)(struct _cef_base_ref_counted_t* self);
-
-	  ///
-	  // Returns true (1) if the current reference count is 1.
-	  ///
-	  int(CEF_CALLBACK* has_one_ref)(struct _cef_base_ref_counted_t* self);
-
-	  ///
-	  // Returns true (1) if the current reference count is at least 1.
-	  ///
-	  int(CEF_CALLBACK* has_at_least_one_ref)(struct _cef_base_ref_counted_t* self);
-	} cef_base_ref_counted_t;"
-
 	self
 		defineField: #cefSize type: DWORDField new;
 		defineField: #add_ref
