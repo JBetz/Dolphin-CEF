@@ -31,24 +31,12 @@ closeBrowser
 copy
 	cefBrowser getFocusedFrame callCopy!
 
-createBrowser: aUrl rectangle: aRectangle window: aHandle
-	self subclassResponsibility!
-
 createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
-	| processRunner windowInfo browserSettings |
+	| processRunner windowInfo browserSettings resultCode |
 	rectangle := aRectangle.
 	processRunner := CefBrowserProcessRunner new.
 	processRunner ensureRunning.
-	cefClient := CefClient new.
-	cefClient
-		enableLifeSpanHandlerAndDelegateTo: self;
-		enableRequestHandlerAndDelegateTo: self;
-		enableDisplayHandlerAndDelegateTo: self;
-		enableRenderHandlerAndDelegateTo: self;
-		enableFrameHandlerAndDelegateTo: self;
-		enableLoadHandlerAndDelegateTo: self;
-		enableKeyboardHandlerAndDelegateTo: self;
-		processMessageDelegate: self.
+	self initializeOffscreenClient.
 	windowInfo := CefWindowInfo new.
 	windowInfo
 		bounds: rectangle asCefRect;
@@ -58,13 +46,14 @@ createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
 	browserSettings
 		windowless_frame_rate: 60;
 		background_color: Color white argbCode.
-	self library
-		browserHostCreateBrowser_windowInfo: windowInfo
-		client: cefClient
-		url: aUrl string asCefString
-		settings: browserSettings
-		extraInfo: nil
-		requestContext: nil!
+	resultCode := self library
+				browserHostCreateBrowser_windowInfo: windowInfo
+				client: cefClient
+				url: aUrl string asCefString
+				settings: browserSettings
+				extraInfo: nil
+				requestContext: nil.
+	resultCode = 0 ifTrue: [Error signal: 'Error creating CEF browser']!
 
 createWindowedBrowser: aUrl rectangle: aRectangle window: aHandle
 	| windowInfo browserSettings |
@@ -74,12 +63,7 @@ createWindowedBrowser: aUrl rectangle: aRectangle window: aHandle
 				parent_window: aHandle;
 				bounds: aRectangle asCefRect.
 	browserSettings := CefBrowserSettings new.
-	cefClient := CefClient new.
-	cefClient
-		enableLifeSpanHandlerAndDelegateTo: self;
-		enableRequestHandlerAndDelegateTo: self;
-		enableKeyboardHandlerAndDelegateTo: self;
-		processMessageDelegate: self.
+	self initializeWindowedClient.
 	CefLibrary default
 		browserHostCreateBrowser_windowInfo: windowInfo
 		client: cefClient
@@ -202,6 +186,28 @@ initialize
 	readyToClose := false.
 	isFocusedNodeEditable := false!
 
+initializeOffscreenClient
+	cefClient := CefClient new.
+	cefClient
+		enableLifeSpanHandlerAndDelegateTo: self;
+		enableRequestHandlerAndDelegateTo: self;
+		enableDisplayHandlerAndDelegateTo: self;
+		enableRenderHandlerAndDelegateTo: self;
+		enableFrameHandlerAndDelegateTo: self;
+		enableLoadHandlerAndDelegateTo: self;
+		enableKeyboardHandlerAndDelegateTo: self;
+		enableContextMenuHandlerAndDelegateTo: self;
+		processMessageDelegate: self!
+
+initializeWindowedClient
+	cefClient := CefClient new.
+	cefClient
+		enableLifeSpanHandlerAndDelegateTo: self;
+		enableRequestHandlerAndDelegateTo: self;
+		enableKeyboardHandlerAndDelegateTo: self;
+		enableContextMenuHandlerAndDelegateTo: self;
+		processMessageDelegate: self!
+
 isFocusedNodeEditable
 	^isFocusedNodeEditable!
 
@@ -246,8 +252,31 @@ onBeforeClose: lifeSpanHandler browser: browser
 	readyToClose := true.
 	^0!
 
+onBeforeContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel
+	| params  model |
+	params := aCefContextMenuParams.
+	model := aCefMenuModel.
+	Transcript
+		display: #onBeforeContextMenu; cr;
+		tab; display: #frame_is_valid -> aCefFrame isValid; cr;
+		tab; display: #context_menu_params_get_xcoord -> params getXcoord; cr;
+		tab; display: #context_menu_params_get_ycoord -> params getYcoord; cr;
+		tab; display: #context_menu_params_is_editable -> params isEditable; cr;
+		tab; display: #context_menu_params_get_selection_text -> params getSelectionText; cr;
+		tab; display: #context_menu_params_get_misspelled_word -> params getMisspelledWord; cr;
+		tab; display: #menu_model_get_count -> model getCount; cr;
+		tab; display: #menu_model_get_label_at -> (model getLabelAt_index: 0) ; cr;
+		tab; display: #menu_model_clear -> model callClear; cr;
+		cr!
+
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
 	^1!
+
+onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: anInteger eventFlags: anInteger2 
+	^0!
+
+onContextMenuDismissed: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame 
+!
 
 onCursorChange: displayHandler browser: browser cursor: cursor type: type customCursorInfo: customCursorInfo
 	| cursorSelector |
@@ -294,16 +323,20 @@ onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCo
 	host pushRenderEvent!
 
 onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger 
+	Transcript display: #onPopupShow; cr.
 	^0!
 
 onPopupSize: aCefRenderHandler browser: aCefBrowser rect: anInteger 
+	Transcript display: #onPopupSize; cr.
 	^0!
 
 onPreKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress isKeyboardShortcut: aBoolean
 	^false!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
-	aCefProcessMessage getName str = 'ClientRenderer.FocusedNodeChanged'
+	| messageName |
+	messageName := aCefProcessMessage getName str.
+	messageName = 'ClientRenderer.FocusedNodeChanged'
 		ifTrue: 
 			[| arguments |
 			arguments := aCefProcessMessage getArgumentList.
@@ -377,6 +410,9 @@ reload
 removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url!
 
+runContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel callback: aCefRunContextMenuCallback 
+	^false!
+
 scrollOffset
 	^host ifNotNil: [host scrollOffset] ifNil: [0 @ 0]!
 
@@ -426,7 +462,6 @@ cefWindowExStyle!private! !
 cefWindowStyle!private! !
 closeBrowser!public! !
 copy!public! !
-createBrowser:rectangle:window:!public! !
 createOffscreenBrowser:rectangle:window:!public! !
 createWindowedBrowser:rectangle:window:!public! !
 cut!public! !
@@ -447,6 +482,8 @@ getViewRect:browser:rect:!cef event handler!private!render handler! !
 hasTextSelected!cef event handler!private! !
 host:!public! !
 initialize!public! !
+initializeOffscreenClient!private! !
+initializeWindowedClient!private! !
 isFocusedNodeEditable!public! !
 isReadyToClose!cef event handler!life span handler!public! !
 library!public! !
@@ -456,7 +493,10 @@ onAcceleratedPaint:browser:type:dirtyRectsCount:sharedHandle:!cef event handler!
 onAddressChange:browser:frame:url:!cef event handler!private! !
 onAfterCreated:browser:!cef event handler!life span handler!private! !
 onBeforeClose:browser:!cef event handler!life span handler!private! !
+onBeforeContextMenu:browser:frame:params:model:!cef event handler!context menu handler!private! !
 onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGesture:popupFeatures:windowInfo:client:settings:extraInfo:noJavascriptAccess:!cef event handler!life span handler!private! !
+onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
+onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
@@ -484,6 +524,7 @@ provideHtml:forUrl:!public! !
 redo!public! !
 reload!public! !
 removeContentProvider:!public! !
+runContextMenu:browser:frame:params:model:callback:!cef event handler!context menu handler!private! !
 scrollOffset!public! !
 selectAll!public! !
 sendKeyEvent:!public! !
