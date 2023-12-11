@@ -225,7 +225,7 @@ ExtendedExternalStructure subclass: #CefBaseRefCounted
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ExtendedExternalStructure subclass: #CefReferenceCountedObject
-	instanceVariableNames: 'base delegate'
+	instanceVariableNames: 'delegate'
 	classVariableNames: '_OffsetOf_base'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
