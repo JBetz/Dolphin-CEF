@@ -253,21 +253,7 @@ onBeforeClose: lifeSpanHandler browser: browser
 	^0!
 
 onBeforeContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel
-	| params  model |
-	params := aCefContextMenuParams.
-	model := aCefMenuModel.
-	Transcript
-		display: #onBeforeContextMenu; cr;
-		tab; display: #frame_is_valid -> aCefFrame isValid; cr;
-		tab; display: #context_menu_params_get_xcoord -> params getXcoord; cr;
-		tab; display: #context_menu_params_get_ycoord -> params getYcoord; cr;
-		tab; display: #context_menu_params_is_editable -> params isEditable; cr;
-		tab; display: #context_menu_params_get_selection_text -> params getSelectionText; cr;
-		tab; display: #context_menu_params_get_misspelled_word -> params getMisspelledWord; cr;
-		tab; display: #menu_model_get_count -> model getCount; cr;
-		tab; display: #menu_model_get_label_at -> (model getLabelAt_index: 0) ; cr;
-		tab; display: #menu_model_clear -> model callClear; cr;
-		cr!
+!
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
 	^1!
