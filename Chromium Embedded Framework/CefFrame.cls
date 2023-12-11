@@ -59,18 +59,6 @@ _callUndo_cefFrame: cefFrame
 	<stdcall: void undo CefFrame*>
 	^self invalidCall: _failureCode!
 
-_copy_cefFrame: cefFrame
-	<stdcall: void copy CefFrame*>
-	^self invalidCall: _failureCode!
-
-_cut_cefFrame: cefFrame
-	<stdcall: void cut CefFrame*>
-	^self invalidCall: _failureCode!
-
-_del_cefFrame: cefFrame
-	<stdcall: void del CefFrame*>
-	^self invalidCall: _failureCode!
-
 _executeJavaScript_cefFrame: cefFrame code: code scriptUrl: scriptUrl startLine: startLine
 	<stdcall: void execute_java_script CefFrame* CefString* CefString* sdword>
 	^self invalidCall: _failureCode!
@@ -107,24 +95,12 @@ _loadUrl_cefFrame: cefFrame url: url
 	<stdcall: void load_url CefFrame* CefString*>
 	^self invalidCall: _failureCode!
 
-_paste_cefFrame: cefFrame
-	<stdcall: void paste CefFrame*>
-	^self invalidCall: _failureCode!
-
-_redo_cefFrame: cefFrame
-	<stdcall: void redo CefFrame*>
-	^self invalidCall: _failureCode!
-
 _selectAll_cefFrame: cefFrame
 	<stdcall: void select_all CefFrame*>
 	^self invalidCall: _failureCode!
 
 _sendProcessMessage_cefFrame: cefFrame targetProcess: targetProcess message: message
 	<stdcall: void send_process_message CefFrame* dword CefProcessMessage*>
-	^self invalidCall: _failureCode!
-
-_undo_cefFrame: cefFrame
-	<stdcall: void undo CefFrame*>
 	^self invalidCall: _failureCode!
 
 callCopy
@@ -168,14 +144,14 @@ copy: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_copy put: anExternalAddress!
 
 create_urlrequest
-	"Answer the <Integer> value of the receiver's 'create_urlrequest' field."
+	"Answer the <ExternalAddress> value of the receiver's 'create_urlrequest' field."
 
-	^bytes dwordAtOffset: _OffsetOf_create_urlrequest!
+	^(bytes uintPtrAtOffset: _OffsetOf_create_urlrequest) asExternalAddress!
 
-create_urlrequest: anInteger
-	"Set the receiver's 'create_urlrequest' field to the value of the argument, anInteger"
+create_urlrequest: anExternalAddress
+	"Set the receiver's 'create_urlrequest' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_create_urlrequest put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_create_urlrequest put: anExternalAddress!
 
 cut
 	"Answer the <ExternalAddress> value of the receiver's 'cut' field."
@@ -198,14 +174,14 @@ del: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_del put: anExternalAddress!
 
 execute_java_script
-	"Answer the <Integer> value of the receiver's 'execute_java_script' field."
+	"Answer the <ExternalAddress> value of the receiver's 'execute_java_script' field."
 
-	^bytes dwordAtOffset: _OffsetOf_execute_java_script!
+	^(bytes uintPtrAtOffset: _OffsetOf_execute_java_script) asExternalAddress!
 
-execute_java_script: anInteger
-	"Set the receiver's 'execute_java_script' field to the value of the argument, anInteger"
+execute_java_script: anExternalAddress
+	"Set the receiver's 'execute_java_script' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_execute_java_script put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_execute_java_script put: anExternalAddress!
 
 executeJavaScript_code: code scriptUrl: scriptUrl startLine: startLine
 	| method arguments |
@@ -220,14 +196,14 @@ executeJavaScript_code: code scriptUrl: scriptUrl startLine: startLine
 	^method value: self withArguments: arguments!
 
 get_browser
-	"Answer the <Integer> value of the receiver's 'get_browser' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_browser' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_browser!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_browser) asExternalAddress!
 
-get_browser: anInteger
-	"Set the receiver's 'get_browser' field to the value of the argument, anInteger"
+get_browser: anExternalAddress
+	"Set the receiver's 'get_browser' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_browser put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_browser put: anExternalAddress!
 
 get_identifier
 	"Answer the <ExternalAddress> value of the receiver's 'get_identifier' field."
@@ -250,14 +226,14 @@ get_name: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_name put: anExternalAddress!
 
 get_parent
-	"Answer the <Integer> value of the receiver's 'get_parent' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_parent' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_parent!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_parent) asExternalAddress!
 
-get_parent: anInteger
-	"Set the receiver's 'get_parent' field to the value of the argument, anInteger"
+get_parent: anExternalAddress
+	"Set the receiver's 'get_parent' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_parent put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_parent put: anExternalAddress!
 
 get_source
 	"Answer the <ExternalAddress> value of the receiver's 'get_source' field."
@@ -270,14 +246,14 @@ get_source: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_source put: anExternalAddress!
 
 get_text
-	"Answer the <Integer> value of the receiver's 'get_text' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_text' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_text!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_text) asExternalAddress!
 
-get_text: anInteger
-	"Set the receiver's 'get_text' field to the value of the argument, anInteger"
+get_text: anExternalAddress
+	"Set the receiver's 'get_text' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_text put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_text put: anExternalAddress!
 
 get_url
 	"Answer the <ExternalAddress> value of the receiver's 'get_url' field."
@@ -290,14 +266,14 @@ get_url: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_url put: anExternalAddress!
 
 get_v8context
-	"Answer the <Integer> value of the receiver's 'get_v8context' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_v8context' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_v8context!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_v8context) asExternalAddress!
 
-get_v8context: anInteger
-	"Set the receiver's 'get_v8context' field to the value of the argument, anInteger"
+get_v8context: anExternalAddress
+	"Set the receiver's 'get_v8context' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_v8context put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_v8context put: anExternalAddress!
 
 getIdentifier
 	| method |
@@ -369,14 +345,14 @@ isValid
 	^method value: self withArguments: (Array with: self)!
 
 load_request
-	"Answer the <Integer> value of the receiver's 'load_request' field."
+	"Answer the <ExternalAddress> value of the receiver's 'load_request' field."
 
-	^bytes dwordAtOffset: _OffsetOf_load_request!
+	^(bytes uintPtrAtOffset: _OffsetOf_load_request) asExternalAddress!
 
-load_request: anInteger
-	"Set the receiver's 'load_request' field to the value of the argument, anInteger"
+load_request: anExternalAddress
+	"Set the receiver's 'load_request' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_load_request put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_load_request put: anExternalAddress!
 
 load_url
 	"Answer the <ExternalAddress> value of the receiver's 'load_url' field."
@@ -433,14 +409,14 @@ selectAll
 	^method value: self withArguments: (Array with: self)!
 
 send_process_message
-	"Answer the <Integer> value of the receiver's 'send_process_message' field."
+	"Answer the <ExternalAddress> value of the receiver's 'send_process_message' field."
 
-	^bytes dwordAtOffset: _OffsetOf_send_process_message!
+	^(bytes uintPtrAtOffset: _OffsetOf_send_process_message) asExternalAddress!
 
-send_process_message: anInteger
-	"Set the receiver's 'send_process_message' field to the value of the argument, anInteger"
+send_process_message: anExternalAddress
+	"Set the receiver's 'send_process_message' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_send_process_message put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_send_process_message put: anExternalAddress!
 
 sendProcessMessage_targetProcess: targetProcess message: message
 	| method arguments |
@@ -464,24 +440,24 @@ undo: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_undo put: anExternalAddress!
 
 view_source
-	"Answer the <Integer> value of the receiver's 'view_source' field."
+	"Answer the <ExternalAddress> value of the receiver's 'view_source' field."
 
-	^bytes dwordAtOffset: _OffsetOf_view_source!
+	^(bytes uintPtrAtOffset: _OffsetOf_view_source) asExternalAddress!
 
-view_source: anInteger
-	"Set the receiver's 'view_source' field to the value of the argument, anInteger"
+view_source: anExternalAddress
+	"Set the receiver's 'view_source' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_view_source put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_view_source put: anExternalAddress!
 
 visit_dom
-	"Answer the <Integer> value of the receiver's 'visit_dom' field."
+	"Answer the <ExternalAddress> value of the receiver's 'visit_dom' field."
 
-	^bytes dwordAtOffset: _OffsetOf_visit_dom!
+	^(bytes uintPtrAtOffset: _OffsetOf_visit_dom) asExternalAddress!
 
-visit_dom: anInteger
-	"Set the receiver's 'visit_dom' field to the value of the argument, anInteger"
+visit_dom: anExternalAddress
+	"Set the receiver's 'visit_dom' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_visit_dom put: anInteger! !
+	bytes uintPtrAtOffset: _OffsetOf_visit_dom put: anExternalAddress! !
 !CefFrame categoriesForMethods!
 _callCopy_cefFrame:!**compiled accessors**!private! !
 _callCut_cefFrame:!**compiled accessors**!private! !
@@ -489,9 +465,6 @@ _callDel_cefFrame:!**compiled accessors**!private! !
 _callPaste_cefFrame:!**compiled accessors**!private! !
 _callRedo_cefFrame:!**compiled accessors**!private! !
 _callUndo_cefFrame:!**compiled accessors**!private! !
-_copy_cefFrame:!public! !
-_cut_cefFrame:!public! !
-_del_cefFrame:!public! !
 _executeJavaScript_cefFrame:code:scriptUrl:startLine:!**compiled accessors**!private! !
 _getIdentifier_cefFrame:!**compiled accessors**!private! !
 _getName_cefFrame:!**compiled accessors**!private! !
@@ -501,78 +474,75 @@ _isFocused_cefFrame:!**compiled accessors**!private! !
 _isMain_cefFrame:!**compiled accessors**!private! !
 _isValid_cefFrame:!**compiled accessors**!private! !
 _loadUrl_cefFrame:url:!**compiled accessors**!private! !
-_paste_cefFrame:!public! !
-_redo_cefFrame:!public! !
 _selectAll_cefFrame:!**compiled accessors**!private! !
 _sendProcessMessage_cefFrame:targetProcess:message:!**compiled accessors**!private! !
-_undo_cefFrame:!public! !
 callCopy!**compiled accessors**!public! !
 callCut!**compiled accessors**!public! !
 callDel!**compiled accessors**!public! !
 callPaste!**compiled accessors**!public! !
 callRedo!**compiled accessors**!public! !
 callUndo!**compiled accessors**!public! !
-copy!public! !
-copy:!public! !
-create_urlrequest!public! !
-create_urlrequest:!public! !
-cut!public! !
-cut:!public! !
-del!public! !
-del:!public! !
-execute_java_script!public! !
-execute_java_script:!public! !
+copy!**compiled accessors**!public! !
+copy:!**compiled accessors**!public! !
+create_urlrequest!**compiled accessors**!public! !
+create_urlrequest:!**compiled accessors**!public! !
+cut!**compiled accessors**!public! !
+cut:!**compiled accessors**!public! !
+del!**compiled accessors**!public! !
+del:!**compiled accessors**!public! !
+execute_java_script!**compiled accessors**!public! !
+execute_java_script:!**compiled accessors**!public! !
 executeJavaScript_code:scriptUrl:startLine:!**compiled accessors**!public! !
-get_browser!public! !
-get_browser:!public! !
-get_identifier!public! !
-get_identifier:!public! !
-get_name!public! !
-get_name:!public! !
-get_parent!public! !
-get_parent:!public! !
-get_source!public! !
-get_source:!public! !
-get_text!public! !
-get_text:!public! !
-get_url!public! !
-get_url:!public! !
-get_v8context!public! !
-get_v8context:!public! !
+get_browser!**compiled accessors**!public! !
+get_browser:!**compiled accessors**!public! !
+get_identifier!**compiled accessors**!public! !
+get_identifier:!**compiled accessors**!public! !
+get_name!**compiled accessors**!public! !
+get_name:!**compiled accessors**!public! !
+get_parent!**compiled accessors**!public! !
+get_parent:!**compiled accessors**!public! !
+get_source!**compiled accessors**!public! !
+get_source:!**compiled accessors**!public! !
+get_text!**compiled accessors**!public! !
+get_text:!**compiled accessors**!public! !
+get_url!**compiled accessors**!public! !
+get_url:!**compiled accessors**!public! !
+get_v8context!**compiled accessors**!public! !
+get_v8context:!**compiled accessors**!public! !
 getIdentifier!**compiled accessors**!public! !
 getName!**compiled accessors**!public! !
 getSource_visitor:!**compiled accessors**!public! !
 getUrl!**compiled accessors**!public! !
-is_focused!public! !
-is_focused:!public! !
-is_main!public! !
-is_main:!public! !
-is_valid!public! !
-is_valid:!public! !
+is_focused!**compiled accessors**!public! !
+is_focused:!**compiled accessors**!public! !
+is_main!**compiled accessors**!public! !
+is_main:!**compiled accessors**!public! !
+is_valid!**compiled accessors**!public! !
+is_valid:!**compiled accessors**!public! !
 isFocused!**compiled accessors**!public! !
 isMain!**compiled accessors**!public! !
 isValid!**compiled accessors**!public! !
-load_request!public! !
-load_request:!public! !
-load_url!public! !
-load_url:!public! !
+load_request!**compiled accessors**!public! !
+load_request:!**compiled accessors**!public! !
+load_url!**compiled accessors**!public! !
+load_url:!**compiled accessors**!public! !
 loadUrl_url:!**compiled accessors**!public! !
-paste!public! !
-paste:!public! !
-redo!public! !
-redo:!public! !
-select_all!public! !
-select_all:!public! !
+paste!**compiled accessors**!public! !
+paste:!**compiled accessors**!public! !
+redo!**compiled accessors**!public! !
+redo:!**compiled accessors**!public! !
+select_all!**compiled accessors**!public! !
+select_all:!**compiled accessors**!public! !
 selectAll!**compiled accessors**!public! !
-send_process_message!public! !
-send_process_message:!public! !
+send_process_message!**compiled accessors**!public! !
+send_process_message:!**compiled accessors**!public! !
 sendProcessMessage_targetProcess:message:!**compiled accessors**!public! !
-undo!public! !
-undo:!public! !
-view_source!public! !
-view_source:!public! !
-visit_dom!public! !
-visit_dom:!public! !
+undo!**compiled accessors**!public! !
+undo:!**compiled accessors**!public! !
+view_source!**compiled accessors**!public! !
+view_source:!**compiled accessors**!public! !
+visit_dom!**compiled accessors**!public! !
+visit_dom:!**compiled accessors**!public! !
 !
 
 !CefFrame class methodsFor!
@@ -604,13 +574,13 @@ defineFields
 					smalltalkName: #callDel);
 		defineField: #select_all
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*'));
-		defineField: #view_source type: DWORDField new;
+		defineField: #view_source type: LPVOIDField new;
 		defineField: #get_source
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame* CefStringVisitor*')
 					smalltalkName: #getSource_visitor:);
-		defineField: #get_text type: DWORDField new;
-		defineField: #load_request type: DWORDField new;
+		defineField: #get_text type: LPVOIDField new;
+		defineField: #load_request type: LPVOIDField new;
 		defineField: #load_url
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame* CefString*')
 					smalltalkName: #loadUrl_url:);
@@ -627,14 +597,14 @@ defineFields
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefStringUserfree* CefFrame*'));
 		defineField: #get_identifier
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefFrame*'));
-		defineField: #get_parent type: DWORDField new;
+		defineField: #get_parent type: LPVOIDField new;
 		defineField: #get_url
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefStringUserfree* CefFrame*'));
-		defineField: #get_browser type: DWORDField new;
-		defineField: #get_v8context type: DWORDField new;
-		defineField: #visit_dom type: DWORDField new;
-		defineField: #create_urlrequest type: DWORDField new;
+		defineField: #get_browser type: LPVOIDField new;
+		defineField: #get_v8context type: LPVOIDField new;
+		defineField: #visit_dom type: LPVOIDField new;
+		defineField: #create_urlrequest type: LPVOIDField new;
 		defineField: #send_process_message
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame* dword CefProcessMessage*')
