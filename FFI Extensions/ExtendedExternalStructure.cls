@@ -4,7 +4,7 @@ ExternalStructure subclass: #ExtendedExternalStructure
 	instanceVariableNames: 'callbacks'
 	classVariableNames: ''
 	poolDictionaries: ''
-	classInstanceVariableNames: 'CallbackRegistry MethodRegistry'!
+	classInstanceVariableNames: 'CallbackRegistry'!
 ExtendedExternalStructure guid: (GUID fromString: '{caf21f64-04a0-4659-bed7-fc798d9543b3}')!
 ExtendedExternalStructure comment: ''!
 !ExtendedExternalStructure categoriesForClass!External-Data-Structured! !
@@ -91,7 +91,6 @@ externalMethodAt: aSymbol ifAbsentBindTo: anExternalAddress
 initialize
 	super initialize.
 	CallbackRegistry := Dictionary new.
-	MethodRegistry := Dictionary new.
 	self compileDefinition!
 
 recompileDefinition
