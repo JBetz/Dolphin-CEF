@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler processMessageDelegate'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler contextMenuHandler processMessageDelegate'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -28,6 +28,14 @@ CefClient addClassConstant: '_OffsetOf_on_process_message_received' value: 16r5C
 CefClient comment: ''!
 !CefClient categoriesForClass!External-Data-Structured! !
 !CefClient methodsFor!
+
+enableContextMenuHandler
+	contextMenuHandler := CefContextMenuHandler new.
+	contextMenuHandler delegate: self!
+
+enableContextMenuHandlerAndDelegateTo: anObject
+	contextMenuHandler := CefContextMenuHandler new.
+	contextMenuHandler delegate: anObject!
 
 enableDisplayHandler
 	displayHandler := CefDisplayHandler new.
@@ -266,6 +274,9 @@ get_request_handler: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_get_request_handler put: anExternalAddress!
 
+getContextMenuHandler: aCefClient
+	^contextMenuHandler ifNotNil: [contextMenuHandler yourAddress]!
+
 getDisplayHandler: aCefClient
 	^displayHandler ifNotNil: [displayHandler yourAddress]!
 
@@ -313,6 +324,8 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 processMessageDelegate: anObject
 	processMessageDelegate := anObject! !
 !CefClient categoriesForMethods!
+enableContextMenuHandler!public! !
+enableContextMenuHandlerAndDelegateTo:!public! !
 enableDisplayHandler!public! !
 enableDisplayHandlerAndDelegateTo:!public! !
 enableFocusHandler!public! !
@@ -364,6 +377,7 @@ get_render_handler!public! !
 get_render_handler:!public! !
 get_request_handler!public! !
 get_request_handler:!public! !
+getContextMenuHandler:!public! !
 getDisplayHandler:!public! !
 getFocusHandler:!public! !
 getFrameHandler:!public! !
@@ -387,7 +401,9 @@ defineFields
 	self
 		defineField: #get_audio_handler type: LPVOIDField new;
 		defineField: #get_command_handler type: LPVOIDField new;
-		defineField: #get_context_menu_handler type: LPVOIDField new;
+		defineField: #get_context_menu_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefContextMenuHandler* CefClient*'));
 		defineField: #get_dialog_handler type: LPVOIDField new;
 		defineField: #get_display_handler
 			type: (CallbackField
