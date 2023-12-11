@@ -50,12 +50,14 @@ initializeApp
 	app delegate: self!
 
 initializeCef
+	| resultCode |
 	self initializeSettings.
-	self library
-		initialize_args: args
-		settings: settings
-		application: app
-		windowsSandboxInfo: 0!
+	resultCode := self library
+				initialize_args: args
+				settings: settings
+				application: app
+				windowsSandboxInfo: 0.
+	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF']!
 
 initializeSettings
 	| subprocessPath logFile cachePath |
@@ -153,4 +155,3 @@ new!public! !
 onShutdown!public! !
 onStartup!public! !
 !
-
