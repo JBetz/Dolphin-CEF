@@ -164,19 +164,25 @@ defineFields
 	self
 		defineField: #on_address_change
 			type: (CallbackField descriptor: (ExternalDescriptor
-							fromString: 'stdcall: lpvoid CefDisplayHandler* CefBrowser* CefFrame* CefString*')
+							fromString: 'stdcall: void CefDisplayHandler* CefBrowser* CefFrame* CefString*')
 					smalltalkName: #onAddressChange:browser:frame:url:);
 		defineField: #on_title_change
-			type: (CallbackField descriptor: (ExternalDescriptor
-							fromString: 'stdcall: lpvoid CefDisplayHandler* CefBrowser* CefString*')
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefDisplayHandler* CefBrowser* CefString*')
 					smalltalkName: #onTitleChange:browser:title:);
 		defineField: #on_favicon_urlchange type: DWORDField new;
 		defineField: #on_fullscreen_mode_change type: DWORDField new;
 		defineField: #on_tooltip type: DWORDField new;
-		defineField: #on_status_message type: DWORDField new;
+		defineField: #on_status_message
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefDisplayHandler* CefBrowser* CefString*')
+					smalltalkName: #onStatusMessage:browser:value:);
 		defineField: #on_console_message type: DWORDField new;
 		defineField: #on_auto_resize type: DWORDField new;
-		defineField: #on_loading_progess_change type: DWORDField new;
+		defineField: #on_loading_progess_change
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefDisplayHandler* CefBrowser* double')
+					smalltalkName: #onLoadingProgressChange:browser:progress:);
 		defineField: #on_cursor_change
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: sdword CefDisplayHandler* CefBrowser* handle sdword CefCursorInfo*')
