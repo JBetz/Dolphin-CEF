@@ -20,6 +20,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
 
 package classNames
 	add: #CefApp;
+	add: #CefAuthCallback;
 	add: #CefBaseRefCounted;
 	add: #CefBinaryValue;
 	add: #CefBrowser;
@@ -82,6 +83,7 @@ package classNames
 	add: #CefVisitor;
 	add: #CefWindowInfo;
 	add: #ChromiumBrowser;
+	add: #Url;
 	add: #WebBrowserView;
 	yourself.
 
@@ -125,7 +127,7 @@ Object subclass: #CefContentProvider
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange focusedElement hoveredElement'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -234,6 +236,11 @@ CefReferenceCountedObject subclass: #CefApp
 	classVariableNames: '_OffsetOf_get_browser_process_handler _OffsetOf_get_render_process_handler _OffsetOf_get_resource_bundle_handler _OffsetOf_on_before_command_line_processing _OffsetOf_on_register_custom_schemes'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefAuthCallback
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefBinaryValue
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -271,8 +278,8 @@ CefReferenceCountedObject subclass: #CefContextMenuParams
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefDictionaryValue
 	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
+	classVariableNames: '_OffsetOf_clear _OffsetOf_copy _OffsetOf_get_binary _OffsetOf_get_bool _OffsetOf_get_dictionary _OffsetOf_get_double _OffsetOf_get_int _OffsetOf_get_keys _OffsetOf_get_list _OffsetOf_get_size _OffsetOf_get_string _OffsetOf_get_type _OffsetOf_get_value _OffsetOf_has_key _OffsetOf_is_equal _OffsetOf_is_owned _OffsetOf_is_read_only _OffsetOf_is_same _OffsetOf_is_valid _OffsetOf_remove _OffsetOf_set_binary _OffsetOf_set_bool _OffsetOf_set_dictionary _OffsetOf_set_double _OffsetOf_set_int _OffsetOf_set_list _OffsetOf_set_null _OffsetOf_set_string _OffsetOf_set_value'
+	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefDomDocument
 	instanceVariableNames: ''
