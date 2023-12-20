@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange focusedElement hoveredElement'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -88,6 +88,9 @@ doClose: lifeSpanHandler browser: browser
 focus
 	cefBrowser ifNil: [^self].
 	cefBrowser getHost setFocus_focus: 1!
+
+focusedElement
+	^focusedElement!
 
 forceCloseBrowser
 	cefBrowser ifNotNil: [cefBrowser getHost closeBrowser_forceClose: 1]!
@@ -179,12 +182,14 @@ hasTextSelected
 host: anObject 
 	host := anObject!
 
+hoveredElement
+	^hoveredElement!
+
 initialize
 	super initialize.
 	contentProviders := Dictionary new.
 	rectangle := Rectangle new.
-	readyToClose := false.
-	isFocusedNodeEditable := false!
+	readyToClose := false!
 
 initializeOffscreenClient
 	cefClient := CefClient new.
@@ -208,8 +213,8 @@ initializeWindowedClient
 		enableContextMenuHandlerAndDelegateTo: self;
 		processMessageDelegate: self!
 
-isFocusedNodeEditable
-	^isFocusedNodeEditable!
+isFocusedElementEditable
+	^focusedElement ifNotNil: [:aHtmlElement | aHtmlElement isEditable] ifNil: [false]!
 
 isReadyToClose
 	^readyToClose!
@@ -248,6 +253,9 @@ onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
 			queuedUrl := nil].
 	^0!
 
+onBeforeBrowse: aCefRequestHandler browser: aCefBrowser frame: aCefFrame request: aCefRequest userGesture: anInteger isRedirect: anInteger2 
+	^0!
+
 onBeforeClose: lifeSpanHandler browser: browser
 	readyToClose := true.
 	^0!
@@ -261,8 +269,7 @@ onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUr
 onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: anInteger eventFlags: anInteger2 
 	^0!
 
-onContextMenuDismissed: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame 
-!
+onContextMenuDismissed: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame !
 
 onCursorChange: displayHandler browser: browser cursor: cursor type: type customCursorInfo: customCursorInfo
 	| cursorSelector |
@@ -273,6 +280,13 @@ onCursorChange: displayHandler browser: browser cursor: cursor type: type custom
 			[host cursor: cursorSelector.
 			1]
 		ifNil: [0]!
+
+onFocus: aCefDictionaryValue
+	| tagName type |
+	tagName := aCefDictionaryValue at: 'tagName'.
+	type := aCefDictionaryValue at: 'type'.
+	focusedElement := HtmlElement tagName: tagName type: type.
+	focusedElement chromiumBrowser: self!
 
 onFrameAttached: frameHandler browser: browser frame: frame reattached: reattched
 	^0!
@@ -292,6 +306,9 @@ onLoadEnd: aCefLoadHandler browser: aCefBrowser frame: aCefFrame httpStatusCode:
 onLoadError: aCefLoadHandler browser: aCefBrowser frame: aCefFrame errorCode: anInteger  errorText: aString failedUrl: aUrl
 !
 
+onLoadingProgressChange: aCefDisplayHandler browser: aCefBrowser progress: aFloat 
+!
+
 onLoadingStateChange: aCefLoadHandler browser: aCefBrowser isLoading: aBoolean canGoBack: aBoolean2 canGoForward: aBoolean3 
 	!
 
@@ -299,6 +316,29 @@ onLoadStart: aCefLoadHandler browser: aCefBrowser frame: aCefFrame transitionTyp
 
 onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
 	host ifNotNil: [host hasFocus ifTrue: [browser getHost setFocus_focus: 1]].
+	^0!
+
+onMouseOver: aCefDictionaryValue
+	| tagName type href |
+	tagName := aCefDictionaryValue at: 'tagName'.
+	type := aCefDictionaryValue at: 'type'.
+	href := aCefDictionaryValue at: 'href'.
+	hoveredElement := href
+				ifNotNil: [HtmlLink new address: href]
+				ifNil: [HtmlElement tagName: tagName type: type].
+	hoveredElement
+		chromiumBrowser: self;
+		tagName: tagName;
+		rectangle: (Rectangle origin: (aCefDictionaryValue at: 'left') @ (aCefDictionaryValue at: 'top')
+					corner: (aCefDictionaryValue at: 'right') @ (aCefDictionaryValue at: 'bottom'))!
+
+onOpenUrlFromTab: aCefRequestHandler browser: aCefBrowser frame: aCefFrame targetUrl: aCefString targetDisposition: targetDisposition userGesture: userGesture
+	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
+		ifTrue: 
+			[| url |
+			url := Url fromString: aCefString str.
+			host openUrlOnNewPage: url.
+			^1].
 	^0!
 
 onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRects buffer: buffer width: width height: height
@@ -320,17 +360,12 @@ onPreKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEv
 	^false!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
-	| messageName |
+	| messageName arguments eventInfo |
 	messageName := aCefProcessMessage getName str.
-	messageName = 'ClientRenderer.FocusedNodeChanged'
-		ifTrue: 
-			[| arguments |
-			arguments := aCefProcessMessage getArgumentList.
-			isFocusedNodeEditable := arguments getBool_index: 0.
-			isFocusedNodeEditable
-				ifFalse: 
-					[selectedText := nil.
-					selectedRange := nil]]!
+	arguments := aCefProcessMessage getArgumentList.
+	eventInfo := arguments getDictionary_index: 0.
+	messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: eventInfo].
+	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: eventInfo]!
 
 onResize: aRectangle
 	cefBrowser
@@ -344,9 +379,11 @@ onScrollOffsetChanged: renderHandler browser: browser x: x y: y
 		y: y.
 	^0!
 
+onStatusMessage: aCefDisplayHandler browser: aCefBrowser value: aCefString!
+
 onTextSelectionChanged: aCefRenderHandler browser: aCefBrowser selectedText: aCefString selectedRange: aCefRange
 	selectedRange := Interval from: aCefRange from to: aCefRange to.
-	aCefString isNull ifTrue: [selectedText := nil] ifFalse: [selectedText := aCefString str].
+	selectedText := aCefString isNull ifTrue: [nil] ifFalse: [aCefString str].
 	^0!
 
 onTitleChange: displayHandler browser: browser title: title
@@ -405,6 +442,9 @@ scrollOffset
 selectAll
 	cefBrowser getFocusedFrame selectAll!
 
+selectedText
+	^selectedText!
+
 sendKeyEvent: aKeyEvent
 	cefBrowser ifNotNil: [cefBrowser getHost sendKeyEvent_event: aKeyEvent]!
 
@@ -455,6 +495,7 @@ defocus!public! !
 delete!public! !
 doClose:browser:!cef event handler!life span handler!private! !
 focus!public! !
+focusedElement!public! !
 forceCloseBrowser!public! !
 forward!public! !
 getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:!cef event handler!private!request handler! !
@@ -467,10 +508,11 @@ getUrl!public! !
 getViewRect:browser:rect:!cef event handler!private!render handler! !
 hasTextSelected!cef event handler!private! !
 host:!public! !
+hoveredElement!public! !
 initialize!public! !
 initializeOffscreenClient!private! !
 initializeWindowedClient!private! !
-isFocusedNodeEditable!public! !
+isFocusedElementEditable!public! !
 isReadyToClose!cef event handler!life span handler!public! !
 library!public! !
 loadHtml:forUrl:!public! !
@@ -478,21 +520,26 @@ loadUrl:!public! !
 onAcceleratedPaint:browser:type:dirtyRectsCount:sharedHandle:!cef event handler!private!render handler! !
 onAddressChange:browser:frame:url:!cef event handler!private! !
 onAfterCreated:browser:!cef event handler!life span handler!private! !
+onBeforeBrowse:browser:frame:request:userGesture:isRedirect:!cef event handler!private!request handler! !
 onBeforeClose:browser:!cef event handler!life span handler!private! !
 onBeforeContextMenu:browser:frame:params:model:!cef event handler!context menu handler!private! !
 onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGesture:popupFeatures:windowInfo:client:settings:extraInfo:noJavascriptAccess:!cef event handler!life span handler!private! !
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
 onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
+onFocus:!private! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
 onKeyEvent:browser:event:osEvent:!cef event handler!keyboard handler!private! !
 onLoadEnd:browser:frame:httpStatusCode:!cef event handler!load handler!private! !
 onLoadError:browser:frame:errorCode:errorText:failedUrl:!cef event handler!load handler!private! !
+onLoadingProgressChange:browser:progress:!cef event handler!display handler!private! !
 onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler!load handler!private! !
 onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
+onMouseOver:!private! !
+onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
 onPopupShow:browser:show:!private! !
 onPopupSize:browser:rect:!private! !
@@ -500,6 +547,7 @@ onPreKeyEvent:browser:event:osEvent:isKeyboardShortcut:!cef event handler!keyboa
 onProcessMessageReceived:browser:frame:sourceProcess:message:!private! !
 onResize:!public! !
 onScrollOffsetChanged:browser:x:y:!cef event handler!private!render handler! !
+onStatusMessage:browser:value:!cef event handler!display handler!private! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
 onTitleChange:browser:title:!cef event handler!private! !
 onViewClosed!public! !
@@ -513,6 +561,7 @@ removeContentProvider:!public! !
 runContextMenu:browser:frame:params:model:callback:!cef event handler!context menu handler!private! !
 scrollOffset!public! !
 selectAll!public! !
+selectedText!public! !
 sendKeyEvent:!public! !
 sendMouseClickEvent:mouseButtonType:mouseUp:clickCount:!public! !
 sendMouseMoveEvent:mouseLeave:!public! !
