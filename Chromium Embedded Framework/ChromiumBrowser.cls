@@ -281,13 +281,6 @@ onCursorChange: displayHandler browser: browser cursor: cursor type: type custom
 			1]
 		ifNil: [0]!
 
-onFocus: aCefDictionaryValue
-	| tagName type |
-	tagName := aCefDictionaryValue at: 'tagName'.
-	type := aCefDictionaryValue at: 'type'.
-	focusedElement := HtmlElement tagName: tagName type: type.
-	focusedElement chromiumBrowser: self!
-
 onFrameAttached: frameHandler browser: browser frame: frame reattached: reattched
 	^0!
 
@@ -317,20 +310,6 @@ onLoadStart: aCefLoadHandler browser: aCefBrowser frame: aCefFrame transitionTyp
 onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
 	host ifNotNil: [host hasFocus ifTrue: [browser getHost setFocus_focus: 1]].
 	^0!
-
-onMouseOver: aCefDictionaryValue
-	| tagName type href |
-	tagName := aCefDictionaryValue at: 'tagName'.
-	type := aCefDictionaryValue at: 'type'.
-	href := aCefDictionaryValue at: 'href'.
-	hoveredElement := href
-				ifNotNil: [HtmlLink new address: href]
-				ifNil: [HtmlElement tagName: tagName type: type].
-	hoveredElement
-		chromiumBrowser: self;
-		tagName: tagName;
-		rectangle: (Rectangle origin: (aCefDictionaryValue at: 'left') @ (aCefDictionaryValue at: 'top')
-					corner: (aCefDictionaryValue at: 'right') @ (aCefDictionaryValue at: 'bottom'))!
 
 onOpenUrlFromTab: aCefRequestHandler browser: aCefBrowser frame: aCefFrame targetUrl: aCefString targetDisposition: targetDisposition userGesture: userGesture
 	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
@@ -527,7 +506,6 @@ onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGest
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
 onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
-onFocus:!private! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
@@ -538,7 +516,6 @@ onLoadingProgressChange:browser:progress:!cef event handler!display handler!priv
 onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler!load handler!private! !
 onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
-onMouseOver:!private! !
 onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
 onPopupShow:browser:show:!private! !
