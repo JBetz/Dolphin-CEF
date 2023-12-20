@@ -136,13 +136,22 @@ defineFields
 
 	super defineFields.
 	self
-		defineField: #on_before_browse type: LPVOIDField new;
-		defineField: #on_open_urlfrom_tab type: LPVOIDField new;
+		defineField: #on_before_browse
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: sdword CefRequestHandler* CefBrowser* CefFrame* CefRequest* sdword sdword')
+					smalltalkName: #onBeforeBrowse:browser:frame:request:userGesture:isRedirect:);
+		defineField: #on_open_urlfrom_tab
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: sdword CefRequestHandler* CefBrowser* CefFrame* CefString* sdword sdword')
+					smalltalkName: #onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:);
 		defineField: #get_resource_request_handler
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: CefResourceRequestHandler* CefRequestHandler* CefBrowser* CefFrame* CefRequest* sdword sdword CefString* sdword*')
 					smalltalkName: #getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:);
-		defineField: #get_auth_credentials type: LPVOIDField new;
+		defineField: #get_auth_credentials
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: sdword CefRequestHandler* CefBrowser* CefString* sdword CefString* sdword CefString* CefString* CefAuthCallback*')
+					smalltalkName: #getAuthCredentials:browser:originUrl:isProxy:host:port:realm:scheme:callback:);
 		defineField: #on_certificate_error type: LPVOIDField new;
 		defineField: #on_select_client_certificate type: LPVOIDField new;
 		defineField: #on_render_view_ready type: LPVOIDField new;
