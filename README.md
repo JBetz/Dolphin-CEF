@@ -15,7 +15,7 @@ Currently, this library provides minimal support for use with Win32 widgets and 
 * Install `Chromium Embedded Framework.pax` in a Dolphin image
 * Download [CEF Windows 32-bit binaries](https://cef-builds.spotifycdn.com/index.html)
 * Unpack the zip file and copy everything inside the Release and Resources into the same directory as the image
-* Inside the image, run `WebBrowserView example` to create a shell that will render the Dolphin Github repo
+* Inside the image, run `WebBrowserView example` to open a window with the Dolphin Github page
 
 ## Example
 
