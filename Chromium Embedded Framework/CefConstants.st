@@ -1,6 +1,19 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Smalltalk at: #CefConstants put: (PoolConstantsDictionary named: #CefConstants)!
+CefConstants at: 'CEF_WOD_CURRENT_TAB' put: 16r1!
+CefConstants at: 'CEF_WOD_IGNORE_ACTION' put: 16r9!
+CefConstants at: 'CEF_WOD_MAX_VALUE' put: 16rA!
+CefConstants at: 'CEF_WOD_NEW_BACKGROUND_TAB' put: 16r4!
+CefConstants at: 'CEF_WOD_NEW_FOREGROUND_TAB' put: 16r3!
+CefConstants at: 'CEF_WOD_NEW_PICTURE_IN_PICTURE' put: 16rA!
+CefConstants at: 'CEF_WOD_NEW_POPUP' put: 16r5!
+CefConstants at: 'CEF_WOD_NEW_WINDOW' put: 16r6!
+CefConstants at: 'CEF_WOD_OFF_THE_RECORD' put: 16r8!
+CefConstants at: 'CEF_WOD_SAVE_TO_DISK' put: 16r7!
+CefConstants at: 'CEF_WOD_SINGLETON_TAB' put: 16r2!
+CefConstants at: 'CEF_WOD_SWITCH_TO_TAB' put: 16r9!
+CefConstants at: 'CEF_WOD_UNKNOWN' put: 16r0!
 CefConstants at: 'CT_ALIAS' put: 16r21!
 CefConstants at: 'CT_CELL' put: 16r1F!
 CefConstants at: 'CT_COLUMNRESIZE' put: 16r12!
@@ -76,4 +89,13 @@ CefConstants at: 'MBT_RIGHT' put: 16r2!
 CefConstants at: 'RV_CANCEL' put: 16r0!
 CefConstants at: 'RV_CONTINUE' put: 16r1!
 CefConstants at: 'RV_CONTINUE_ASYNC' put: 16r2!
+CefConstants at: 'VTYPE_BINARY' put: 16r6!
+CefConstants at: 'VTYPE_BOOL' put: 16r2!
+CefConstants at: 'VTYPE_DICTIONARY' put: 16r7!
+CefConstants at: 'VTYPE_DOUBLE' put: 16r4!
+CefConstants at: 'VTYPE_INT' put: 16r3!
+CefConstants at: 'VTYPE_INVALID' put: 16r0!
+CefConstants at: 'VTYPE_LIST' put: 16r8!
+CefConstants at: 'VTYPE_NULL' put: 16r1!
+CefConstants at: 'VTYPE_STRING' put: 16r5!
 CefConstants shrink!
