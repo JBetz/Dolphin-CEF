@@ -35,7 +35,3 @@ view
     show.
 view loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin'
 ```
-
-## To do
-* reference counting
-* automation API
