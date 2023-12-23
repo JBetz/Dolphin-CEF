@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange focusedElement hoveredElement'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange focusedElement hoveredElement popupTexture'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -131,16 +131,14 @@ getScreenInfo: aCefRenderHandler browser: aCefBrowser screenInfo: aCefScreenInfo
 	^0!
 
 getScreenPoint: renderHandle browser: browser viewX: viewX viewY: viewY screenX: screenX screenY: screenY
-	^host
-		ifNil: [0]
-		ifNotNil: 
-			[| windowOrigin browserOrigin |
-			windowOrigin := host windowPosition.
-			windowOrigin ifNil: [^0].
-			browserOrigin := windowOrigin + rectangle origin.
-			screenX value: viewX + browserOrigin x.
-			screenY value: viewY + browserOrigin y.
-			1]!
+	| windowOrigin browserOrigin |
+	host ifNil: [^0].
+	windowOrigin := host windowPosition.
+	windowOrigin ifNil: [^0].
+	browserOrigin := windowOrigin + host rectangle origin.
+	screenX value: browserOrigin x + viewX.
+	screenY value: browserOrigin y + viewY.
+	^1!
 
 getSource: aMonadicValuable
 	| mainFrame cefSourceStringVisitor |
@@ -264,6 +262,7 @@ onBeforeContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFram
 !
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
+	Transcript display: #onBeforePopup -> targetDisposition; cr.
 	^1!
 
 onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: anInteger eventFlags: anInteger2 
@@ -321,19 +320,20 @@ onOpenUrlFromTab: aCefRequestHandler browser: aCefBrowser frame: aCefFrame targe
 	^0!
 
 onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRects buffer: buffer width: width height: height
-	| pitch |
-	(host isNil or: [texture isNil or: [texture getExtent ~= (width @ height)]]) ifTrue: [^0].
+	| targetTexture pitch |
+	type = PET_VIEW ifTrue: [targetTexture := texture].
+	type = PET_POPUP ifTrue: [targetTexture := popupTexture].
+	(host isNil or: [targetTexture isNil or: [targetTexture getExtent ~= (width @ height)]])
+		ifTrue: [^0].
 	pitch := width * 4.
-	texture updatePixels: buffer pitch: pitch.
+	targetTexture updatePixels: buffer pitch: pitch.
 	host pushRenderEvent!
 
-onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger 
-	Transcript display: #onPopupShow; cr.
-	^0!
+onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
+	anInteger asBoolean ifTrue: [host onShowPopup] ifFalse: [host onHidePopup]!
 
-onPopupSize: aCefRenderHandler browser: aCefBrowser rect: anInteger 
-	Transcript display: #onPopupSize; cr.
-	^0!
+onPopupSize: aCefRenderHandler browser: aCefBrowser rect: aCefRect
+	host onPopupSize: aCefRect asRectangle!
 
 onPreKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress isKeyboardShortcut: aBoolean
 	^false!
@@ -393,6 +393,9 @@ onVirtualKeyboardRequested: renderHandler browser: browser inputMode: inputMode
 
 paste
 	cefBrowser getFocusedFrame callPaste!
+
+popupTexture: aTexture
+	popupTexture := aTexture!
 
 provideHtml: aString forUrl: aUrl
 	| contentProvider |
@@ -458,6 +461,7 @@ undo
 	cefBrowser getFocusedFrame callUndo!
 
 wasHidden: aBoolean
+	cefBrowser ifNil: [^self].
 	cefBrowser getHost wasHidden_hidden: aBoolean asInteger! !
 !ChromiumBrowser categoriesForMethods!
 back!public! !
@@ -502,7 +506,7 @@ onAfterCreated:browser:!cef event handler!life span handler!private! !
 onBeforeBrowse:browser:frame:request:userGesture:isRedirect:!cef event handler!private!request handler! !
 onBeforeClose:browser:!cef event handler!life span handler!private! !
 onBeforeContextMenu:browser:frame:params:model:!cef event handler!context menu handler!private! !
-onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGesture:popupFeatures:windowInfo:client:settings:extraInfo:noJavascriptAccess:!cef event handler!life span handler!private! !
+onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGesture:popupFeatures:windowInfo:client:settings:extraInfo:noJavascriptAccess:!cef event handler!life span handler!popup!private! !
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
 onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
@@ -518,8 +522,8 @@ onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
 onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
-onPopupShow:browser:show:!private! !
-onPopupSize:browser:rect:!private! !
+onPopupShow:browser:show:!popup!private! !
+onPopupSize:browser:rect:!popup!private! !
 onPreKeyEvent:browser:event:osEvent:isKeyboardShortcut:!cef event handler!keyboard handler!private! !
 onProcessMessageReceived:browser:frame:sourceProcess:message:!private! !
 onResize:!public! !
@@ -531,6 +535,7 @@ onViewClosed!public! !
 onViewDestroyed!public! !
 onVirtualKeyboardRequested:browser:inputMode:!cef event handler!private!render handler! !
 paste!public! !
+popupTexture:!public! !
 provideHtml:forUrl:!public! !
 redo!public! !
 reload!public! !

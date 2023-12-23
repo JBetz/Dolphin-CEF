@@ -86,6 +86,8 @@ CefConstants at: 'KEYEVENT_RAWKEYDOWN' put: 16r0!
 CefConstants at: 'MBT_LEFT' put: 16r0!
 CefConstants at: 'MBT_MIDDLE' put: 16r1!
 CefConstants at: 'MBT_RIGHT' put: 16r2!
+CefConstants at: 'PET_POPUP' put: 16r1!
+CefConstants at: 'PET_VIEW' put: 16r0!
 CefConstants at: 'RV_CANCEL' put: 16r0!
 CefConstants at: 'RV_CONTINUE' put: 16r1!
 CefConstants at: 'RV_CONTINUE_ASYNC' put: 16r2!

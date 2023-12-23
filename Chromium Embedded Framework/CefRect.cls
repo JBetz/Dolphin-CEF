@@ -14,6 +14,12 @@ CefRect comment: ''!
 !CefRect categoriesForClass!External-Data-Structured! !
 !CefRect methodsFor!
 
+asRectangle
+	^Rectangle origin: self origin extent: self extent!
+
+extent
+	^self width @ self height!
+
 height
 	"Answer the <Integer> value of the receiver's 'height' field."
 
@@ -23,6 +29,9 @@ height: anInteger
 	"Set the receiver's 'height' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_height put: anInteger!
+
+origin
+	^self x @ self y!
 
 width
 	"Answer the <Integer> value of the receiver's 'width' field."
@@ -54,8 +63,11 @@ y: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
 !CefRect categoriesForMethods!
+asRectangle!public! !
+extent!public! !
 height!public! !
 height:!public! !
+origin!public! !
 width!public! !
 width:!public! !
 x!public! !
