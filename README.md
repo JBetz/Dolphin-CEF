@@ -7,7 +7,7 @@ For creating a custom browser on top of Chromium, or otherwise embedding web con
 
 ## Why not just use Microsoft Edge WebView2?
 
-While simpler and already available in Dolphin 7, WebView has multiple limitations that make it unsuitable for anything beyond rendering web pages. The biggest one being that it only operates in windowed mode and doesn't support offscreen rendering. This subjects it to the [airspace problem](https://github.com/MicrosoftEdge/WebView2Feedback/issues/286), where it is impossible to render anything on top of a web page. It also makes basic functionality like generating a thumbnail onerous and provides limited access to a web page's JavaScript runtime. Additionally, WebView has limited automation capabilities, and it being subject to Microsoft means that they can snoop on usage and hold the reins on bugfixes and feature development.
+While simpler and already available in Dolphin 7, WebView has multiple limitations that make it unsuitable for anything beyond rendering web pages. The biggest one being that it only operates in windowed mode and doesn't support offscreen rendering. This subjects it to the [airspace problem](https://github.com/MicrosoftEdge/WebView2Feedback/issues/286), where it is impossible to render anything on top of a web page. It also has limited automation capabilities and makes basic functionality like generating a thumbnail onerous. Finally, it being subject to Microsoft means that they can snoop on usage and hold the reins on bugfixes and feature development. Meanwhile, both CEF and Chromium are open-source.
 
 ## Disclaimer
 Currently, this library provides minimal support for use with Win32 widgets and Dolphin's MVP framework. Recommended usage is with [Dolphin-SDL](https://github.com/JBetz/Dolphin-SDL).
