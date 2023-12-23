@@ -86,7 +86,7 @@ defineFields
 	self
 		defineField: #on_before_popup
 			type: (CallbackField descriptor: (ExternalDescriptor
-							fromString: 'stdcall: void CefLifeSpanHandler* CefBrowser* CefFrame* CefString* CefString* sdword sdword CefPopupFeatures* CefWindowInfo* CefClient* CefBrowserSettings* CefDictionaryValue* sdword*')
+							fromString: 'stdcall: sdword CefLifeSpanHandler* CefBrowser* CefFrame* CefString* CefString* sdword sdword CefPopupFeatures* CefWindowInfo* CefClient* CefBrowserSettings* CefDictionaryValue* sdword*')
 					smalltalkName: #onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGesture:popupFeatures:windowInfo:client:settings:extraInfo:noJavascriptAccess:);
 		defineField: #on_before_dev_tools_popup type: LPVOIDField new;
 		defineField: #on_after_created
