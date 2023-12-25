@@ -37,15 +37,13 @@ createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
 	processRunner := CefBrowserProcessRunner new.
 	processRunner ensureRunning.
 	self initializeOffscreenClient.
-	windowInfo := CefWindowInfo new.
-	windowInfo
-		bounds: rectangle asCefRect;
-		windowless_rendering_enabled: true;
-		parent_window: aHandle.
-	browserSettings := CefBrowserSettings new.
-	browserSettings
-		windowless_frame_rate: 60;
-		background_color: Color white argbCode.
+	windowInfo := CefWindowInfo new
+				bounds: rectangle asCefRect;
+				windowless_rendering_enabled: true;
+				parent_window: aHandle.
+	browserSettings := CefBrowserSettings new
+				windowless_frame_rate: 60;
+				background_color: Color white argbCode.
 	resultCode := self library
 				browserHostCreateBrowser_windowInfo: windowInfo
 				client: cefClient
