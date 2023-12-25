@@ -19,15 +19,16 @@ ensureRunning
 	isRunning ifFalse: [self runMainProcess]!
 
 executeCefProcess
-	| handle |
+	| handle resultCode |
 	handle := VMLibrary default applicationHandle.
 	args := CefMainArgs new.
 	args instance: handle.
 	self initializeApp.
-	^self library
-		executeProcess_args: args
-		application: app
-		windowsSandboxInfo: nil!
+	resultCode := self library
+				executeProcess_args: args
+				application: nil
+				windowsSandboxInfo: nil.
+	resultCode ~= -1 ifTrue: [self error: 'Error executing CEF process']!
 
 getBrowserProcessHandler: aCefApp
 	^app getBrowserProcessHandler: aCefApp!
@@ -55,7 +56,7 @@ initializeCef
 	resultCode := self library
 				initialize_args: args
 				settings: settings
-				application: app
+				application: nil
 				windowsSandboxInfo: 0.
 	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF']!
 
