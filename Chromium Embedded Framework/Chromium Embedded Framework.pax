@@ -37,7 +37,6 @@ package classNames
 	add: #CefCursorInfo;
 	add: #CefDictionaryValue;
 	add: #CefDisplayHandler;
-	add: #CefDomVisitor;
 	add: #CefDragData;
 	add: #CefEventHandler;
 	add: #CefFocusHandler;
@@ -231,7 +230,7 @@ ExtendedExternalStructure subclass: #CefBaseRefCounted
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ExtendedExternalStructure subclass: #CefReferenceCountedObject
-	instanceVariableNames: 'delegate'
+	instanceVariableNames: 'delegate base'
 	classVariableNames: '_OffsetOf_base'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -423,11 +422,6 @@ CefEventHandler subclass: #CefResourceHandler
 CefEventHandler subclass: #CefResourceRequestHandler
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_get_cookie_access_filter _OffsetOf_get_resource_handler _OffsetOf_get_resource_response_filter _OffsetOf_on_before_resource_load _OffsetOf_on_protocol_execution _OffsetOf_on_resource_load_complete _OffsetOf_on_resource_redirect _OffsetOf_on_resource_response'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-CefVisitor subclass: #CefDomVisitor
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_visit'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefVisitor subclass: #CefStringVisitor
