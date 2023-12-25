@@ -115,23 +115,23 @@ defineFields
 
 	super defineFields.
 	self
-		defineField: #on_before_command_line_processing
-			type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefApp* CefString* CefCommandLine*')
-					smalltalkName: #onBeforeCommandLineProcessing:processType:commandLine:);
+		defineField: #on_before_command_line_processing type: LPVOIDField new;
 		defineField: #on_register_custom_schemes type: LPVOIDField new;
-			"type: (CallbackField
+		defineField: #get_resource_bundle_handler type: LPVOIDField new;
+		defineField: #get_browser_process_handler type: LPVOIDField new;
+		defineField: #get_render_process_handler type: LPVOIDField new
+	"type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefApp* CefString* CefCommandLine*')
+					smalltalkName: #onBeforeCommandLineProcessing:processType:commandLine:);"
+	"type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefApp* CefSchemeRegistrar*')
 					smalltalkName: #onRegisterCustomSchemes:registrar:);"
-		defineField: #get_resource_bundle_handler type: LPVOIDField new;
-			"type: (CallbackField
+	"type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefResourceBundleHandler* CefApp*'));"
-		defineField: #get_browser_process_handler type: LPVOIDField new;
-			"type: (CallbackField
+	"type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefBrowserProcessHandler* CefApp*'));"
-		defineField: #get_render_process_handler
-			type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRenderProcessHandler* CefApp*'))!
+	"type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRenderProcessHandler* CefApp*'))"!
 
 getFieldNames
 	^#(#base #on_before_command_line_processing #on_register_custom_schemes #get_resource_bundle_handler #get_browser_process_handler #get_render_process_handler)! !

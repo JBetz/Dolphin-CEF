@@ -184,6 +184,10 @@ image_shrink_standalone_to_fit: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_image_shrink_standalone_to_fit put: anInteger!
 
+initialize
+	super initialize.
+	self cefSize: self class byteSize!
+
 javascript
 	"Answer the <Integer> value of the receiver's 'javascript' field."
 
@@ -372,6 +376,7 @@ image_loading!**compiled accessors**!public! !
 image_loading:!**compiled accessors**!public! !
 image_shrink_standalone_to_fit!**compiled accessors**!public! !
 image_shrink_standalone_to_fit:!**compiled accessors**!public! !
+initialize!public! !
 javascript!**compiled accessors**!public! !
 javascript:!**compiled accessors**!public! !
 javascript_access_clipboard!**compiled accessors**!public! !

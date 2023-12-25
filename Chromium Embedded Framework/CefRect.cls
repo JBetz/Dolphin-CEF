@@ -79,17 +79,7 @@ y:!public! !
 !CefRect class methodsFor!
 
 defineFields
-	"CEFRect compileDefinition 
-
-	///
-	/// Structure representing a rectangle.
-	///
-	typedef struct _cef_rect_t {
-	  int x;
-	  int y;
-	  int width;
-	  int height;
-	} cef_rect_t;"
+	"CefRect compileDefinition"
 
 	self
 		defineField: #x type: SDWORDField new;

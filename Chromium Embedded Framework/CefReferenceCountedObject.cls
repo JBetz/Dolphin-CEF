@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExtendedExternalStructure subclass: #CefReferenceCountedObject
-	instanceVariableNames: 'delegate'
+	instanceVariableNames: 'delegate base'
 	classVariableNames: '_OffsetOf_base'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,7 +14,8 @@ CefReferenceCountedObject comment: ''!
 base
 	"Answer the <CefBaseRefCounted> value of the receiver's 'base' field."
 
-	^CefBaseRefCounted fromAddress: bytes yourAddress!
+	base ifNil: [base := CefBaseRefCounted fromAddress: bytes yourAddress].
+	^base!
 
 base: aCefBaseRefCounted
 	"Set the receiver's 'base' field to the value of the argument, aCefBaseRefCounted"

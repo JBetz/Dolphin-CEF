@@ -187,7 +187,7 @@ framework_dir_path: aCefString
 
 initialize
 	super initialize.
-	self cefSize: self class byteSize.!
+	self cefSize: self class byteSize!
 
 javascript_flags
 	"Answer the <CefString> value of the receiver's 'javascript_flags' field."
@@ -439,7 +439,7 @@ external_message_pump!**compiled accessors**!public! !
 external_message_pump:!**compiled accessors**!public! !
 framework_dir_path!**compiled accessors**!public! !
 framework_dir_path:!**compiled accessors**!public! !
-initialize!**compiled accessors**!public! !
+initialize!public! !
 javascript_flags!**compiled accessors**!public! !
 javascript_flags:!**compiled accessors**!public! !
 locale!**compiled accessors**!public! !

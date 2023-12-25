@@ -19,24 +19,24 @@ CefKeyEvent comment: ''!
 !CefKeyEvent methodsFor!
 
 character
-	"Answer the <Integer> value of the receiver's 'character' field."
+	"Answer the <Character> value of the receiver's 'character' field."
 
-	^bytes wordAtOffset: _OffsetOf_character!
+	^Character ansiValue: (bytes byteAtOffset: _OffsetOf_character)!
 
-character: anInteger
-	"Set the receiver's 'character' field to the value of the argument, anInteger"
+character: aCharacter
+	"Set the receiver's 'character' field to the value of the argument, aCharacter"
 
-	bytes wordAtOffset: _OffsetOf_character put: anInteger!
+	bytes byteAtOffset: _OffsetOf_character put: aCharacter codePoint!
 
 focus_on_editable_field
-	"Answer the <Integer> value of the receiver's 'focus_on_editable_field' field."
+	"Answer the <Boolean> value of the receiver's 'focus_on_editable_field' field."
 
-	^bytes sdwordAtOffset: _OffsetOf_focus_on_editable_field!
+	^(bytes dwordAtOffset: _OffsetOf_focus_on_editable_field) asBoolean!
 
-focus_on_editable_field: anInteger
-	"Set the receiver's 'focus_on_editable_field' field to the value of the argument, anInteger"
+focus_on_editable_field: aBoolean
+	"Set the receiver's 'focus_on_editable_field' field to the value of the argument, aBoolean"
 
-	bytes sdwordAtOffset: _OffsetOf_focus_on_editable_field put: anInteger!
+	bytes dwordAtOffset: _OffsetOf_focus_on_editable_field put: aBoolean asParameter!
 
 is_system_key
 	"Answer the <Integer> value of the receiver's 'is_system_key' field."
@@ -47,18 +47,6 @@ is_system_key: anInteger
 	"Set the receiver's 'is_system_key' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_is_system_key put: anInteger!
-
-isChar
-	^self type = 3!
-
-isKeyDown
-	^self type = 1!
-
-isKeyUp
-	^self type = 2!
-
-isRawKeyDown
-	^self type = 0!
 
 modifiers
 	"Answer the <Integer> value of the receiver's 'modifiers' field."
@@ -91,14 +79,14 @@ type: anInteger
 	bytes sdwordAtOffset: _OffsetOf_type put: anInteger!
 
 unmodified_character
-	"Answer the <Integer> value of the receiver's 'unmodified_character' field."
+	"Answer the <Character> value of the receiver's 'unmodified_character' field."
 
-	^bytes wordAtOffset: _OffsetOf_unmodified_character!
+	^Character ansiValue: (bytes byteAtOffset: _OffsetOf_unmodified_character)!
 
-unmodified_character: anInteger
-	"Set the receiver's 'unmodified_character' field to the value of the argument, anInteger"
+unmodified_character: aCharacter
+	"Set the receiver's 'unmodified_character' field to the value of the argument, aCharacter"
 
-	bytes wordAtOffset: _OffsetOf_unmodified_character put: anInteger!
+	bytes byteAtOffset: _OffsetOf_unmodified_character put: aCharacter codePoint!
 
 windows_key_code
 	"Answer the <Integer> value of the receiver's 'windows_key_code' field."
@@ -116,10 +104,6 @@ focus_on_editable_field!**compiled accessors**!public! !
 focus_on_editable_field:!**compiled accessors**!public! !
 is_system_key!**compiled accessors**!public! !
 is_system_key:!**compiled accessors**!public! !
-isChar!**compiled accessors**!public! !
-isKeyDown!**compiled accessors**!public! !
-isKeyUp!**compiled accessors**!public! !
-isRawKeyDown!**compiled accessors**!public! !
 modifiers!**compiled accessors**!public! !
 modifiers:!**compiled accessors**!public! !
 native_key_code!**compiled accessors**!public! !

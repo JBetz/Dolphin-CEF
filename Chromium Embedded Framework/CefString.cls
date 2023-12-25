@@ -54,13 +54,7 @@ str:!**compiled accessors**!public! !
 !CefString class methodsFor!
 
 defineFields
-	"CEFString  compileDefinition
-
-	typedef struct _cef_string_utf16_t {
-	  char16* str;
-	  size_t length;
-	  void (*dtor)(char16* str);
-	} cef_string_utf16_t;"
+	"CefString compileDefinition"
 
 	self
 		defineField: #str type: (PointerField type: Utf16String);

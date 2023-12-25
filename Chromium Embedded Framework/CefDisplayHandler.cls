@@ -82,14 +82,14 @@ on_fullscreen_mode_change: anInteger
 	bytes dwordAtOffset: _OffsetOf_on_fullscreen_mode_change put: anInteger!
 
 on_loading_progess_change
-	"Answer the <Integer> value of the receiver's 'on_loading_progess_change' field."
+	"Answer the <ExternalAddress> value of the receiver's 'on_loading_progess_change' field."
 
-	^bytes dwordAtOffset: _OffsetOf_on_loading_progess_change!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_loading_progess_change) asExternalAddress!
 
-on_loading_progess_change: anInteger
-	"Set the receiver's 'on_loading_progess_change' field to the value of the argument, anInteger"
+on_loading_progess_change: anExternalAddress
+	"Set the receiver's 'on_loading_progess_change' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_on_loading_progess_change put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_on_loading_progess_change put: anExternalAddress!
 
 on_media_access_change
 	"Answer the <Integer> value of the receiver's 'on_media_access_change' field."
@@ -102,24 +102,24 @@ on_media_access_change: anInteger
 	bytes dwordAtOffset: _OffsetOf_on_media_access_change put: anInteger!
 
 on_status_message
-	"Answer the <Integer> value of the receiver's 'on_status_message' field."
+	"Answer the <ExternalAddress> value of the receiver's 'on_status_message' field."
 
-	^bytes dwordAtOffset: _OffsetOf_on_status_message!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_status_message) asExternalAddress!
 
-on_status_message: anInteger
-	"Set the receiver's 'on_status_message' field to the value of the argument, anInteger"
+on_status_message: anExternalAddress
+	"Set the receiver's 'on_status_message' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_on_status_message put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_on_status_message put: anExternalAddress!
 
 on_title_change
-	"Answer the <Integer> value of the receiver's 'on_title_change' field."
+	"Answer the <ExternalAddress> value of the receiver's 'on_title_change' field."
 
-	^bytes dwordAtOffset: _OffsetOf_on_title_change!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_title_change) asExternalAddress!
 
-on_title_change: anInteger
-	"Set the receiver's 'on_title_change' field to the value of the argument, anInteger"
+on_title_change: anExternalAddress
+	"Set the receiver's 'on_title_change' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_on_title_change put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_on_title_change put: anExternalAddress!
 
 on_tooltip
 	"Answer the <Integer> value of the receiver's 'on_tooltip' field."

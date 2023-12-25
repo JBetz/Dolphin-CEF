@@ -377,15 +377,15 @@ get_render_handler!**compiled accessors**!public! !
 get_render_handler:!**compiled accessors**!public! !
 get_request_handler!**compiled accessors**!public! !
 get_request_handler:!**compiled accessors**!public! !
-getContextMenuHandler:!**compiled accessors**!public! !
-getDisplayHandler:!**compiled accessors**!public! !
-getFocusHandler:!**compiled accessors**!public! !
-getFrameHandler:!**compiled accessors**!public! !
-getKeyboardHandler:!**compiled accessors**!public! !
-getLifeSpanHandler:!**compiled accessors**!public! !
-getLoadHandler:!**compiled accessors**!public! !
-getRenderHandler:!**compiled accessors**!public! !
-getRequestHandler:!**compiled accessors**!public! !
+getContextMenuHandler:!public! !
+getDisplayHandler:!public! !
+getFocusHandler:!public! !
+getFrameHandler:!public! !
+getKeyboardHandler:!public! !
+getLifeSpanHandler:!public! !
+getLoadHandler:!public! !
+getRenderHandler:!public! !
+getRequestHandler:!public! !
 on_process_message_received!**compiled accessors**!public! !
 on_process_message_received:!**compiled accessors**!public! !
 onProcessMessageReceived:browser:frame:sourceProcess:message:!public! !

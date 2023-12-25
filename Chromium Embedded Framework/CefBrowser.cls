@@ -127,24 +127,24 @@ callReloadIgnoreCache
 	^method value: self withArguments: (Array with: self)!
 
 can_go_back
-	"Answer the <Integer> value of the receiver's 'can_go_back' field."
+	"Answer the <ExternalAddress> value of the receiver's 'can_go_back' field."
 
-	^bytes dwordAtOffset: _OffsetOf_can_go_back!
+	^(bytes uintPtrAtOffset: _OffsetOf_can_go_back) asExternalAddress!
 
-can_go_back: anInteger
-	"Set the receiver's 'can_go_back' field to the value of the argument, anInteger"
+can_go_back: anExternalAddress
+	"Set the receiver's 'can_go_back' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_can_go_back put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_can_go_back put: anExternalAddress!
 
 can_go_forward
-	"Answer the <Integer> value of the receiver's 'can_go_forward' field."
+	"Answer the <ExternalAddress> value of the receiver's 'can_go_forward' field."
 
-	^bytes dwordAtOffset: _OffsetOf_can_go_forward!
+	^(bytes uintPtrAtOffset: _OffsetOf_can_go_forward) asExternalAddress!
 
-can_go_forward: anInteger
-	"Set the receiver's 'can_go_forward' field to the value of the argument, anInteger"
+can_go_forward: anExternalAddress
+	"Set the receiver's 'can_go_forward' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_can_go_forward put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_can_go_forward put: anExternalAddress!
 
 canGoBack
 	| method |
@@ -158,64 +158,64 @@ canGoForward
 	^method value: self withArguments: (Array with: self)!
 
 get_focused_frame
-	"Answer the <Integer> value of the receiver's 'get_focused_frame' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_focused_frame' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_focused_frame!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_focused_frame) asExternalAddress!
 
-get_focused_frame: anInteger
-	"Set the receiver's 'get_focused_frame' field to the value of the argument, anInteger"
+get_focused_frame: anExternalAddress
+	"Set the receiver's 'get_focused_frame' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_focused_frame put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_focused_frame put: anExternalAddress!
 
 get_frame
-	"Answer the <Integer> value of the receiver's 'get_frame' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_frame' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_frame!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_frame) asExternalAddress!
 
-get_frame: anInteger
-	"Set the receiver's 'get_frame' field to the value of the argument, anInteger"
+get_frame: anExternalAddress
+	"Set the receiver's 'get_frame' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_frame put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_frame put: anExternalAddress!
 
 get_frame_byident
-	"Answer the <Integer> value of the receiver's 'get_frame_byident' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_frame_byident' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_frame_byident!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_frame_byident) asExternalAddress!
 
-get_frame_byident: anInteger
-	"Set the receiver's 'get_frame_byident' field to the value of the argument, anInteger"
+get_frame_byident: anExternalAddress
+	"Set the receiver's 'get_frame_byident' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_frame_byident put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_frame_byident put: anExternalAddress!
 
 get_frame_count
-	"Answer the <Integer> value of the receiver's 'get_frame_count' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_frame_count' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_frame_count!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_frame_count) asExternalAddress!
 
-get_frame_count: anInteger
-	"Set the receiver's 'get_frame_count' field to the value of the argument, anInteger"
+get_frame_count: anExternalAddress
+	"Set the receiver's 'get_frame_count' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_frame_count put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_frame_count put: anExternalAddress!
 
 get_frame_identifiers
-	"Answer the <Integer> value of the receiver's 'get_frame_identifiers' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_frame_identifiers' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_frame_identifiers!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_frame_identifiers) asExternalAddress!
 
-get_frame_identifiers: anInteger
-	"Set the receiver's 'get_frame_identifiers' field to the value of the argument, anInteger"
+get_frame_identifiers: anExternalAddress
+	"Set the receiver's 'get_frame_identifiers' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_frame_identifiers put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_frame_identifiers put: anExternalAddress!
 
 get_frame_names
-	"Answer the <Integer> value of the receiver's 'get_frame_names' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_frame_names' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_frame_names!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_frame_names) asExternalAddress!
 
-get_frame_names: anInteger
-	"Set the receiver's 'get_frame_names' field to the value of the argument, anInteger"
+get_frame_names: anExternalAddress
+	"Set the receiver's 'get_frame_names' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_frame_names put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_frame_names put: anExternalAddress!
 
 get_host
 	"Answer the <ExternalAddress> value of the receiver's 'get_host' field."
@@ -228,24 +228,24 @@ get_host: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_host put: anExternalAddress!
 
 get_identifier
-	"Answer the <Integer> value of the receiver's 'get_identifier' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_identifier' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_identifier!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_identifier) asExternalAddress!
 
-get_identifier: anInteger
-	"Set the receiver's 'get_identifier' field to the value of the argument, anInteger"
+get_identifier: anExternalAddress
+	"Set the receiver's 'get_identifier' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_identifier put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_identifier put: anExternalAddress!
 
 get_main_frame
-	"Answer the <Integer> value of the receiver's 'get_main_frame' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_main_frame' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_main_frame!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_main_frame) asExternalAddress!
 
-get_main_frame: anInteger
-	"Set the receiver's 'get_main_frame' field to the value of the argument, anInteger"
+get_main_frame: anExternalAddress
+	"Set the receiver's 'get_main_frame' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_main_frame put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_main_frame put: anExternalAddress!
 
 getFocusedFrame
 	| method |
@@ -318,24 +318,24 @@ getMainFrame
 	^method value: self withArguments: (Array with: self)!
 
 go_back
-	"Answer the <Integer> value of the receiver's 'go_back' field."
+	"Answer the <ExternalAddress> value of the receiver's 'go_back' field."
 
-	^bytes dwordAtOffset: _OffsetOf_go_back!
+	^(bytes uintPtrAtOffset: _OffsetOf_go_back) asExternalAddress!
 
-go_back: anInteger
-	"Set the receiver's 'go_back' field to the value of the argument, anInteger"
+go_back: anExternalAddress
+	"Set the receiver's 'go_back' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_go_back put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_go_back put: anExternalAddress!
 
 go_forward
-	"Answer the <Integer> value of the receiver's 'go_forward' field."
+	"Answer the <ExternalAddress> value of the receiver's 'go_forward' field."
 
-	^bytes dwordAtOffset: _OffsetOf_go_forward!
+	^(bytes uintPtrAtOffset: _OffsetOf_go_forward) asExternalAddress!
 
-go_forward: anInteger
-	"Set the receiver's 'go_forward' field to the value of the argument, anInteger"
+go_forward: anExternalAddress
+	"Set the receiver's 'go_forward' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_go_forward put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_go_forward put: anExternalAddress!
 
 goBack
 	| method |
@@ -348,14 +348,14 @@ goForward
 	^method value: self withArguments: (Array with: self)!
 
 has_document
-	"Answer the <Integer> value of the receiver's 'has_document' field."
+	"Answer the <ExternalAddress> value of the receiver's 'has_document' field."
 
-	^bytes dwordAtOffset: _OffsetOf_has_document!
+	^(bytes uintPtrAtOffset: _OffsetOf_has_document) asExternalAddress!
 
-has_document: anInteger
-	"Set the receiver's 'has_document' field to the value of the argument, anInteger"
+has_document: anExternalAddress
+	"Set the receiver's 'has_document' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_has_document put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_has_document put: anExternalAddress!
 
 hasDocument
 	| method |
@@ -363,44 +363,44 @@ hasDocument
 	^method value: self withArguments: (Array with: self)!
 
 is_loading
-	"Answer the <Integer> value of the receiver's 'is_loading' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_loading' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_loading!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_loading) asExternalAddress!
 
-is_loading: anInteger
-	"Set the receiver's 'is_loading' field to the value of the argument, anInteger"
+is_loading: anExternalAddress
+	"Set the receiver's 'is_loading' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_loading put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_loading put: anExternalAddress!
 
 is_popup
-	"Answer the <Integer> value of the receiver's 'is_popup' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_popup' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_popup!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_popup) asExternalAddress!
 
-is_popup: anInteger
-	"Set the receiver's 'is_popup' field to the value of the argument, anInteger"
+is_popup: anExternalAddress
+	"Set the receiver's 'is_popup' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_popup put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_popup put: anExternalAddress!
 
 is_same
-	"Answer the <Integer> value of the receiver's 'is_same' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_same' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_same!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_same) asExternalAddress!
 
-is_same: anInteger
-	"Set the receiver's 'is_same' field to the value of the argument, anInteger"
+is_same: anExternalAddress
+	"Set the receiver's 'is_same' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_same put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_same put: anExternalAddress!
 
 is_valid
-	"Answer the <Integer> value of the receiver's 'is_valid' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_valid' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_valid!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_valid) asExternalAddress!
 
-is_valid: anInteger
-	"Set the receiver's 'is_valid' field to the value of the argument, anInteger"
+is_valid: anExternalAddress
+	"Set the receiver's 'is_valid' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_valid put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_valid put: anExternalAddress!
 
 isLoading
 	| method |
@@ -431,30 +431,30 @@ reload
 
 	^(bytes uintPtrAtOffset: _OffsetOf_reload) asExternalAddress!
 
-reload: anInteger
-	"Set the receiver's 'reload' field to the value of the argument, anInteger"
+reload: anExternalAddress
+	"Set the receiver's 'reload' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_reload put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_reload put: anExternalAddress!
 
 reload_ignore_cache
-	"Answer the <Integer> value of the receiver's 'reload_ignore_cache' field."
+	"Answer the <ExternalAddress> value of the receiver's 'reload_ignore_cache' field."
 
-	^bytes dwordAtOffset: _OffsetOf_reload_ignore_cache!
+	^(bytes uintPtrAtOffset: _OffsetOf_reload_ignore_cache) asExternalAddress!
 
-reload_ignore_cache: anInteger
-	"Set the receiver's 'reload_ignore_cache' field to the value of the argument, anInteger"
+reload_ignore_cache: anExternalAddress
+	"Set the receiver's 'reload_ignore_cache' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_reload_ignore_cache put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_reload_ignore_cache put: anExternalAddress!
 
 stop_load
-	"Answer the <Integer> value of the receiver's 'stop_load' field."
+	"Answer the <ExternalAddress> value of the receiver's 'stop_load' field."
 
-	^bytes dwordAtOffset: _OffsetOf_stop_load!
+	^(bytes uintPtrAtOffset: _OffsetOf_stop_load) asExternalAddress!
 
-stop_load: anInteger
-	"Set the receiver's 'stop_load' field to the value of the argument, anInteger"
+stop_load: anExternalAddress
+	"Set the receiver's 'stop_load' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_stop_load put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_stop_load put: anExternalAddress!
 
 stopLoad
 	| method |
