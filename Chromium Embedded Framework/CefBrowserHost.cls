@@ -76,6 +76,10 @@ CefBrowserHost comment: ''!
 !CefBrowserHost categoriesForClass!External-Data-Structured! !
 !CefBrowserHost methodsFor!
 
+_canZoom_cefBrowserHost: cefBrowserHost
+	<stdcall: bool can_zoom CefBrowserHost*>
+	^self invalidCall: _failureCode!
+
 _closeBrowser_cefBrowserHost: cefBrowserHost forceClose: forceClose
 	<stdcall: void close_browser CefBrowserHost* sdword>
 	^self invalidCall: _failureCode!
@@ -88,6 +92,10 @@ _getClient_cefBrowserHost: cefBrowserHost
 	<stdcall: CefClient* get_client CefBrowserHost*>
 	^self invalidCall: _failureCode!
 
+_getDefaultZoomLevel_cefBrowserHost: cefBrowserHost
+	<stdcall: double get_default_zoom_level CefBrowserHost*>
+	^self invalidCall: _failureCode!
+
 _getOpenerWindowHandle_cefBrowserHost: cefBrowserHost
 	<stdcall: handle get_opener_window_handle CefBrowserHost*>
 	^self invalidCall: _failureCode!
@@ -98,6 +106,10 @@ _getRequestContext_cefBrowserHost: cefBrowserHost
 
 _getWindowHandle_cefBrowserHost: cefBrowserHost
 	<stdcall: handle get_window_handle CefBrowserHost*>
+	^self invalidCall: _failureCode!
+
+_getZoomLevel_cefBrowserHost: cefBrowserHost
+	<stdcall: double get_zoom_level CefBrowserHost*>
 	^self invalidCall: _failureCode!
 
 _hasView_cefBrowserHost: cefBrowserHost
@@ -124,6 +136,10 @@ _setFocus_cefBrowserHost: cefBrowserHost focus: focus
 	<stdcall: void set_focus CefBrowserHost* sdword>
 	^self invalidCall: _failureCode!
 
+_setZoomLevel_cefBrowserHost: cefBrowserHost zoomLevel: zoomLevel
+	<stdcall: void set_zoom_level CefBrowserHost* double>
+	^self invalidCall: _failureCode!
+
 _tryCloseBrowser_cefBrowserHost: cefBrowserHost
 	<stdcall: sdword try_close_browser CefBrowserHost*>
 	^self invalidCall: _failureCode!
@@ -134,6 +150,10 @@ _wasHidden_cefBrowserHost: cefBrowserHost hidden: hidden
 
 _wasResized_cefBrowserHost: cefBrowserHost
 	<stdcall: void was_resized CefBrowserHost*>
+	^self invalidCall: _failureCode!
+
+_zoom_cefBrowserHost: cefBrowserHost command: command
+	<stdcall: bool zoom CefBrowserHost* sdword>
 	^self invalidCall: _failureCode!
 
 add_dev_tools_message_observer
@@ -167,14 +187,19 @@ can_execute_chrome_command: anInteger
 	bytes dwordAtOffset: _OffsetOf_can_execute_chrome_command put: anInteger!
 
 can_zoom
-	"Answer the <Integer> value of the receiver's 'can_zoom' field."
+	"Answer the <ExternalAddress> value of the receiver's 'can_zoom' field."
 
-	^bytes dwordAtOffset: _OffsetOf_can_zoom!
+	^(bytes uintPtrAtOffset: _OffsetOf_can_zoom) asExternalAddress!
 
-can_zoom: anInteger
-	"Set the receiver's 'can_zoom' field to the value of the argument, anInteger"
+can_zoom: anExternalAddress
+	"Set the receiver's 'can_zoom' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_can_zoom put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_can_zoom put: anExternalAddress!
+
+canZoom
+	| method |
+	method := self class externalMethodAt: #_canZoom_cefBrowserHost: ifAbsentBindTo: self can_zoom.
+	^method value: self withArguments: (Array with: self)!
 
 close_browser
 	"Answer the <ExternalAddress> value of the receiver's 'close_browser' field."
@@ -337,14 +362,14 @@ get_client: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_client put: anExternalAddress!
 
 get_default_zoom_level
-	"Answer the <Integer> value of the receiver's 'get_default_zoom_level' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_default_zoom_level' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_default_zoom_level!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_default_zoom_level) asExternalAddress!
 
-get_default_zoom_level: anInteger
-	"Set the receiver's 'get_default_zoom_level' field to the value of the argument, anInteger"
+get_default_zoom_level: anExternalAddress
+	"Set the receiver's 'get_default_zoom_level' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_default_zoom_level put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_default_zoom_level put: anExternalAddress!
 
 get_extension
 	"Answer the <Integer> value of the receiver's 'get_extension' field."
@@ -417,14 +442,14 @@ get_windowless_frame_rate: anInteger
 	bytes dwordAtOffset: _OffsetOf_get_windowless_frame_rate put: anInteger!
 
 get_zoom_level
-	"Answer the <Integer> value of the receiver's 'get_zoom_level' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_zoom_level' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_zoom_level!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_zoom_level) asExternalAddress!
 
-get_zoom_level: anInteger
-	"Set the receiver's 'get_zoom_level' field to the value of the argument, anInteger"
+get_zoom_level: anExternalAddress
+	"Set the receiver's 'get_zoom_level' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_zoom_level put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_zoom_level put: anExternalAddress!
 
 getBrowser
 	| method |
@@ -434,6 +459,12 @@ getBrowser
 getClient
 	| method |
 	method := self class externalMethodAt: #_getClient_cefBrowserHost: ifAbsentBindTo: self get_client.
+	^method value: self withArguments: (Array with: self)!
+
+getDefaultZoomLevel
+	| method |
+	method := self class externalMethodAt: #_getDefaultZoomLevel_cefBrowserHost:
+				ifAbsentBindTo: self get_default_zoom_level.
 	^method value: self withArguments: (Array with: self)!
 
 getOpenerWindowHandle
@@ -452,6 +483,12 @@ getWindowHandle
 	| method |
 	method := self class externalMethodAt: #_getWindowHandle_cefBrowserHost:
 				ifAbsentBindTo: self get_window_handle.
+	^method value: self withArguments: (Array with: self)!
+
+getZoomLevel
+	| method |
+	method := self class externalMethodAt: #_getZoomLevel_cefBrowserHost:
+				ifAbsentBindTo: self get_zoom_level.
 	^method value: self withArguments: (Array with: self)!
 
 has_dev_tools
@@ -807,14 +844,14 @@ set_windowless_frame_frate: anInteger
 	bytes dwordAtOffset: _OffsetOf_set_windowless_frame_frate put: anInteger!
 
 set_zoom_level
-	"Answer the <Integer> value of the receiver's 'set_zoom_level' field."
+	"Answer the <ExternalAddress> value of the receiver's 'set_zoom_level' field."
 
-	^bytes dwordAtOffset: _OffsetOf_set_zoom_level!
+	^(bytes uintPtrAtOffset: _OffsetOf_set_zoom_level) asExternalAddress!
 
-set_zoom_level: anInteger
-	"Set the receiver's 'set_zoom_level' field to the value of the argument, anInteger"
+set_zoom_level: anExternalAddress
+	"Set the receiver's 'set_zoom_level' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_set_zoom_level put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_set_zoom_level put: anExternalAddress!
 
 setFocus_focus: focus
 	| method arguments |
@@ -824,6 +861,16 @@ setFocus_focus: focus
 	arguments
 		at: 1 put: self;
 		at: 2 put: focus.
+	^method value: self withArguments: arguments!
+
+setZoomLevel_zoomLevel: zoomLevel
+	| method arguments |
+	method := self class externalMethodAt: #_setZoomLevel_cefBrowserHost:zoomLevel:
+				ifAbsentBindTo: self set_zoom_level.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: zoomLevel.
 	^method value: self withArguments: arguments!
 
 show_dev_tools
@@ -873,14 +920,14 @@ tryCloseBrowser
 	^method value: self withArguments: (Array with: self)!
 
 was_hidden
-	"Answer the <Integer> value of the receiver's 'was_hidden' field."
+	"Answer the <ExternalAddress> value of the receiver's 'was_hidden' field."
 
-	^bytes dwordAtOffset: _OffsetOf_was_hidden!
+	^(bytes uintPtrAtOffset: _OffsetOf_was_hidden) asExternalAddress!
 
-was_hidden: anInteger
-	"Set the receiver's 'was_hidden' field to the value of the argument, anInteger"
+was_hidden: anExternalAddress
+	"Set the receiver's 'was_hidden' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_was_hidden put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_was_hidden put: anExternalAddress!
 
 was_resized
 	"Answer the <ExternalAddress> value of the receiver's 'was_resized' field."
@@ -908,30 +955,44 @@ wasResized
 	^method value: self withArguments: (Array with: self)!
 
 zoom
-	"Answer the <Integer> value of the receiver's 'zoom' field."
+	"Answer the <ExternalAddress> value of the receiver's 'zoom' field."
 
-	^bytes dwordAtOffset: _OffsetOf_zoom!
+	^(bytes uintPtrAtOffset: _OffsetOf_zoom) asExternalAddress!
 
-zoom: anInteger
-	"Set the receiver's 'zoom' field to the value of the argument, anInteger"
+zoom: anExternalAddress
+	"Set the receiver's 'zoom' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_zoom put: anInteger! !
+	bytes uintPtrAtOffset: _OffsetOf_zoom put: anExternalAddress!
+
+zoom_command: command
+	| method arguments |
+	method := self class externalMethodAt: #_zoom_cefBrowserHost:command: ifAbsentBindTo: self zoom.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: command.
+	^method value: self withArguments: arguments! !
 !CefBrowserHost categoriesForMethods!
+_canZoom_cefBrowserHost:!**compiled accessors**!private! !
 _closeBrowser_cefBrowserHost:forceClose:!**compiled accessors**!private! !
 _getBrowser_cefBrowserHost:!**compiled accessors**!private! !
 _getClient_cefBrowserHost:!**compiled accessors**!private! !
+_getDefaultZoomLevel_cefBrowserHost:!**compiled accessors**!private! !
 _getOpenerWindowHandle_cefBrowserHost:!**compiled accessors**!private! !
 _getRequestContext_cefBrowserHost:!**compiled accessors**!private! !
 _getWindowHandle_cefBrowserHost:!**compiled accessors**!private! !
+_getZoomLevel_cefBrowserHost:!**compiled accessors**!private! !
 _hasView_cefBrowserHost:!**compiled accessors**!private! !
 _sendKeyEvent_cefBrowserHost:event:!**compiled accessors**!private! !
 _sendMouseClickEvent_cefBrowserHost:event:mouseButtonType:mouseUp:clickCount:!**compiled accessors**!private! !
 _sendMouseMoveEvent_cefBrowserHost:event:mouseLeave:!**compiled accessors**!private! !
 _sendMouseWheelEvent_cefBrowserHost:event:deltaX:deltaY:!**compiled accessors**!private! !
 _setFocus_cefBrowserHost:focus:!**compiled accessors**!private! !
+_setZoomLevel_cefBrowserHost:zoomLevel:!**compiled accessors**!private! !
 _tryCloseBrowser_cefBrowserHost:!**compiled accessors**!private! !
 _wasHidden_cefBrowserHost:hidden:!**compiled accessors**!private! !
 _wasResized_cefBrowserHost:!**compiled accessors**!private! !
+_zoom_cefBrowserHost:command:!**compiled accessors**!private! !
 add_dev_tools_message_observer!**compiled accessors**!public! !
 add_dev_tools_message_observer:!**compiled accessors**!public! !
 add_word_to_dictionary!**compiled accessors**!public! !
@@ -940,6 +1001,7 @@ can_execute_chrome_command!**compiled accessors**!public! !
 can_execute_chrome_command:!**compiled accessors**!public! !
 can_zoom!**compiled accessors**!public! !
 can_zoom:!**compiled accessors**!public! !
+canZoom!**compiled accessors**!public! !
 close_browser!**compiled accessors**!public! !
 close_browser:!**compiled accessors**!public! !
 close_dev_tools!**compiled accessors**!public! !
@@ -991,9 +1053,11 @@ get_zoom_level!**compiled accessors**!public! !
 get_zoom_level:!**compiled accessors**!public! !
 getBrowser!**compiled accessors**!public! !
 getClient!**compiled accessors**!public! !
+getDefaultZoomLevel!**compiled accessors**!public! !
 getOpenerWindowHandle!**compiled accessors**!public! !
 getRequestContext!**compiled accessors**!public! !
 getWindowHandle!**compiled accessors**!public! !
+getZoomLevel!**compiled accessors**!public! !
 has_dev_tools!**compiled accessors**!public! !
 has_dev_tools:!**compiled accessors**!public! !
 has_view!**compiled accessors**!public! !
@@ -1062,6 +1126,7 @@ set_windowless_frame_frate:!**compiled accessors**!public! !
 set_zoom_level!**compiled accessors**!public! !
 set_zoom_level:!**compiled accessors**!public! !
 setFocus_focus:!**compiled accessors**!public! !
+setZoomLevel_zoomLevel:!**compiled accessors**!public! !
 show_dev_tools!**compiled accessors**!public! !
 show_dev_tools:!**compiled accessors**!public! !
 start_download!**compiled accessors**!public! !
@@ -1079,6 +1144,7 @@ wasHidden_hidden:!**compiled accessors**!public! !
 wasResized!**compiled accessors**!public! !
 zoom!**compiled accessors**!public! !
 zoom:!**compiled accessors**!public! !
+zoom_command:!**compiled accessors**!public! !
 !
 
 !CefBrowserHost class methodsFor!
@@ -1112,11 +1178,20 @@ defineFields
 		defineField: #get_request_context
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRequestContext* CefBrowserHost*'));
-		defineField: #can_zoom type: DWORDField new;
-		defineField: #zoom type: DWORDField new;
-		defineField: #get_default_zoom_level type: DWORDField new;
-		defineField: #get_zoom_level type: DWORDField new;
-		defineField: #set_zoom_level type: DWORDField new;
+		defineField: #can_zoom
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefBrowserHost*'));
+		defineField: #zoom
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefBrowserHost* sdword')
+					smalltalkName: #zoom_command:);
+		defineField: #get_default_zoom_level
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: double CefBrowserHost*'));
+		defineField: #get_zoom_level
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: double CefBrowserHost*'));
+		defineField: #set_zoom_level
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost* double')
+					smalltalkName: #setZoomLevel_zoomLevel:);
 		defineField: #run_file_dialog type: DWORDField new;
 		defineField: #start_download type: DWORDField new;
 		defineField: #download_image type: DWORDField new;

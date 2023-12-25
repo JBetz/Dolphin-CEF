@@ -14,6 +14,9 @@ CefConstants at: 'CEF_WOD_SAVE_TO_DISK' put: 16r7!
 CefConstants at: 'CEF_WOD_SINGLETON_TAB' put: 16r2!
 CefConstants at: 'CEF_WOD_SWITCH_TO_TAB' put: 16r9!
 CefConstants at: 'CEF_WOD_UNKNOWN' put: 16r0!
+CefConstants at: 'CEF_ZOOM_COMMAND_IN' put: 16r2!
+CefConstants at: 'CEF_ZOOM_COMMAND_OUT' put: 16r0!
+CefConstants at: 'CEF_ZOOM_COMMAND_RESET' put: 16r1!
 CefConstants at: 'CT_ALIAS' put: 16r21!
 CefConstants at: 'CT_CELL' put: 16r1F!
 CefConstants at: 'CT_COLUMNRESIZE' put: 16r12!
