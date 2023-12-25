@@ -1,10 +1,10 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExternalStructure subclass: #ExtendedExternalStructure
-	instanceVariableNames: 'callbacks'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	classInstanceVariableNames: 'CallbackRegistry'!
+	classInstanceVariableNames: 'CallbackRegistry Instances'!
 ExtendedExternalStructure guid: (GUID fromString: '{caf21f64-04a0-4659-bed7-fc798d9543b3}')!
 ExtendedExternalStructure comment: ''!
 !ExtendedExternalStructure categoriesForClass!External-Data-Structured! !
@@ -12,21 +12,17 @@ ExtendedExternalStructure comment: ''!
 
 initialize
 	super initialize.
-	callbacks := OrderedCollection new.
-	self class callbackRegistry keysAndValuesDo: 
-			[:aSymbol :aCallbackField |
-			| messageCallback |
-			messageCallback := DelegatedMessageCallback
-						receiver: self
-						selector: aCallbackField callbackSelector
-						descriptor: aCallbackField descriptor.
-			self perform: aSymbol with: messageCallback asParameter.
-			callbacks add: messageCallback]! !
+	self class callbackRegistry
+		keysAndValuesDo: [:aSymbol :aCallback | self perform: aSymbol with: aCallback asParameter].
+	self class addInstance: self! !
 !ExtendedExternalStructure categoriesForMethods!
 initialize!public! !
 !
 
 !ExtendedExternalStructure class methodsFor!
+
+addInstance: anObject
+	Instances at: anObject yourAddress put: anObject!
 
 callbackRegistry
 	CallbackRegistry ifNil: [CallbackRegistry := Dictionary new].
@@ -88,9 +84,13 @@ externalMethodAt: aSymbol ifAbsentBindTo: anExternalAddress
 	compiledMethod := (self compiledMethodAt: aSymbol) copy.
 	^compiledMethod bindTo: anExternalAddress!
 
+getInstance: anInteger
+	^Instances at: anInteger ifAbsent: [nil]!
+
 initialize
 	super initialize.
 	CallbackRegistry := Dictionary new.
+	Instances := WeakLookupTable new.
 	self compileDefinition!
 
 recompileDefinition
@@ -107,17 +107,23 @@ registerCallbacks
 			[:selector :field |
 			(field isKindOf: CallbackField)
 				ifTrue: 
-					[| fieldSetter |
+					[| fieldSetter callback |
 					fieldSetter := (selector , ':') asSymbol.
 					field cName: fieldSetter.
-					self callbackRegistry at: fieldSetter put: field]]! !
+					callback := DelegatedMessageCallback
+								receiver: self
+								selector: field callbackSelector
+								descriptor: field descriptor.
+					self callbackRegistry at: fieldSetter put: callback]]! !
 !ExtendedExternalStructure class categoriesForMethods!
+addInstance:!public! !
 callbackRegistry!public! !
 compileExternalMethodForField:!compiling!private! !
 compileNewFields!compiling!private! !
 compileWrappedExternalMethodForField:!compiling!private! !
 defineField:type:!public! !
 externalMethodAt:ifAbsentBindTo:!private! !
+getInstance:!public! !
 initialize!public! !
 recompileDefinition!private! !
 registerCallbacks!private! !

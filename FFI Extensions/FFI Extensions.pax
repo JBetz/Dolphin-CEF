@@ -52,10 +52,10 @@ MessageCallback subclass: #DelegatedMessageCallback
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ExternalStructure subclass: #ExtendedExternalStructure
-	instanceVariableNames: 'callbacks'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	classInstanceVariableNames: 'CallbackRegistry'!
+	classInstanceVariableNames: 'CallbackRegistry Instances'!
 
 "Global Aliases"!
 

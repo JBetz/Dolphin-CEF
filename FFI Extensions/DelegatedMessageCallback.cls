@@ -10,14 +10,24 @@ DelegatedMessageCallback comment: ''!
 !DelegatedMessageCallback categoriesForClass!System-Support! !
 !DelegatedMessageCallback methodsFor!
 
+getReceiver: anAddress
+	| receiverAddress |
+	receiverAddress := (DWORD fromAddress: anAddress) value.
+	^receiver getInstance: receiverAddress!
+
 valueWithArgumentsAt: anAddress
 	"Private - Evaluate the receiver with arguments instantiated from the raw data at anAddress."
 
-	^(receiver delegate ifNil: [receiver])
+	| actualReceiver |
+	actualReceiver := self getReceiver: anAddress.
+	actualReceiver ifNil: [^nil].
+	actualReceiver delegate ifNotNil: [:anObject | actualReceiver := anObject].
+	^actualReceiver
 		perform: selector
 		withArgumentsAt: anAddress
 		descriptor: descriptor! !
 !DelegatedMessageCallback categoriesForMethods!
+getReceiver:!private! !
 valueWithArgumentsAt:!private! !
 !
 
