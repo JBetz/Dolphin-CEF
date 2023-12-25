@@ -128,26 +128,26 @@ windowless_rendering_enabled: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_windowless_rendering_enabled put: anInteger! !
 !CefWindowInfo categoriesForMethods!
-bounds!public! !
-bounds:!public! !
-ex_style!public! !
-ex_style:!public! !
-external_begin_frame_enabled!public! !
-external_begin_frame_enabled:!public! !
-menu!public! !
-menu:!public! !
-parent_window!public! !
-parent_window:!public! !
-shared_texture_enabled!public! !
-shared_texture_enabled:!public! !
-style!public! !
-style:!public! !
-window!public! !
-window:!public! !
-window_name!public! !
-window_name:!public! !
-windowless_rendering_enabled!public! !
-windowless_rendering_enabled:!public! !
+bounds!**compiled accessors**!public! !
+bounds:!**compiled accessors**!public! !
+ex_style!**compiled accessors**!public! !
+ex_style:!**compiled accessors**!public! !
+external_begin_frame_enabled!**compiled accessors**!public! !
+external_begin_frame_enabled:!**compiled accessors**!public! !
+menu!**compiled accessors**!public! !
+menu:!**compiled accessors**!public! !
+parent_window!**compiled accessors**!public! !
+parent_window:!**compiled accessors**!public! !
+shared_texture_enabled!**compiled accessors**!public! !
+shared_texture_enabled:!**compiled accessors**!public! !
+style!**compiled accessors**!public! !
+style:!**compiled accessors**!public! !
+window!**compiled accessors**!public! !
+window:!**compiled accessors**!public! !
+window_name!**compiled accessors**!public! !
+window_name:!**compiled accessors**!public! !
+windowless_rendering_enabled!**compiled accessors**!public! !
+windowless_rendering_enabled:!**compiled accessors**!public! !
 !
 
 !CefWindowInfo class methodsFor!

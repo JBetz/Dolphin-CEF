@@ -21,8 +21,8 @@ instance: anExternalHandle
 
 	bytes uintPtrAtOffset: _OffsetOf_instance put: anExternalHandle! !
 !CefMainArgs categoriesForMethods!
-instance!public! !
-instance:!public! !
+instance!**compiled accessors**!public! !
+instance:!**compiled accessors**!public! !
 !
 
 !CefMainArgs class methodsFor!

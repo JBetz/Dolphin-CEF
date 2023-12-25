@@ -110,26 +110,26 @@ windows_key_code: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_windows_key_code put: anInteger! !
 !CefKeyEvent categoriesForMethods!
-character!public! !
-character:!public! !
-focus_on_editable_field!public! !
-focus_on_editable_field:!public! !
-is_system_key!public! !
-is_system_key:!public! !
-isChar!public! !
-isKeyDown!public! !
-isKeyUp!public! !
-isRawKeyDown!public! !
-modifiers!public! !
-modifiers:!public! !
-native_key_code!public! !
-native_key_code:!public! !
-type!public! !
-type:!public! !
-unmodified_character!public! !
-unmodified_character:!public! !
-windows_key_code!public! !
-windows_key_code:!public! !
+character!**compiled accessors**!public! !
+character:!**compiled accessors**!public! !
+focus_on_editable_field!**compiled accessors**!public! !
+focus_on_editable_field:!**compiled accessors**!public! !
+is_system_key!**compiled accessors**!public! !
+is_system_key:!**compiled accessors**!public! !
+isChar!**compiled accessors**!public! !
+isKeyDown!**compiled accessors**!public! !
+isKeyUp!**compiled accessors**!public! !
+isRawKeyDown!**compiled accessors**!public! !
+modifiers!**compiled accessors**!public! !
+modifiers:!**compiled accessors**!public! !
+native_key_code!**compiled accessors**!public! !
+native_key_code:!**compiled accessors**!public! !
+type!**compiled accessors**!public! !
+type:!**compiled accessors**!public! !
+unmodified_character!**compiled accessors**!public! !
+unmodified_character:!**compiled accessors**!public! !
+windows_key_code!**compiled accessors**!public! !
+windows_key_code:!**compiled accessors**!public! !
 !
 
 !CefKeyEvent class methodsFor!

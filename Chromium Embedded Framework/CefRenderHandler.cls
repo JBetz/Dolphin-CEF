@@ -197,40 +197,40 @@ update_drag_cursor: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_update_drag_cursor put: anExternalAddress! !
 !CefRenderHandler categoriesForMethods!
-get_accessibility_handler!public! !
-get_accessibility_handler:!public! !
-get_root_screen_rect!public! !
-get_root_screen_rect:!public! !
-get_screen_info!public! !
-get_screen_info:!public! !
-get_screen_point!public! !
-get_screen_point:!public! !
-get_touch_handle_size!public! !
-get_touch_handle_size:!public! !
-get_view_rect!public! !
-get_view_rect:!public! !
-on_accelerated_paint!public! !
-on_accelerated_paint:!public! !
-on_ime_composition_range_changed!public! !
-on_ime_composition_range_changed:!public! !
-on_paint!public! !
-on_paint:!public! !
-on_popup_show!public! !
-on_popup_show:!public! !
-on_popup_size!public! !
-on_popup_size:!public! !
-on_scroll_offset_changed!public! !
-on_scroll_offset_changed:!public! !
-on_text_selection_changed!public! !
-on_text_selection_changed:!public! !
-on_touch_handle_state_changed!public! !
-on_touch_handle_state_changed:!public! !
-on_virtual_keyboard_requested!public! !
-on_virtual_keyboard_requested:!public! !
-start_dragging!public! !
-start_dragging:!public! !
-update_drag_cursor!public! !
-update_drag_cursor:!public! !
+get_accessibility_handler!**compiled accessors**!public! !
+get_accessibility_handler:!**compiled accessors**!public! !
+get_root_screen_rect!**compiled accessors**!public! !
+get_root_screen_rect:!**compiled accessors**!public! !
+get_screen_info!**compiled accessors**!public! !
+get_screen_info:!**compiled accessors**!public! !
+get_screen_point!**compiled accessors**!public! !
+get_screen_point:!**compiled accessors**!public! !
+get_touch_handle_size!**compiled accessors**!public! !
+get_touch_handle_size:!**compiled accessors**!public! !
+get_view_rect!**compiled accessors**!public! !
+get_view_rect:!**compiled accessors**!public! !
+on_accelerated_paint!**compiled accessors**!public! !
+on_accelerated_paint:!**compiled accessors**!public! !
+on_ime_composition_range_changed!**compiled accessors**!public! !
+on_ime_composition_range_changed:!**compiled accessors**!public! !
+on_paint!**compiled accessors**!public! !
+on_paint:!**compiled accessors**!public! !
+on_popup_show!**compiled accessors**!public! !
+on_popup_show:!**compiled accessors**!public! !
+on_popup_size!**compiled accessors**!public! !
+on_popup_size:!**compiled accessors**!public! !
+on_scroll_offset_changed!**compiled accessors**!public! !
+on_scroll_offset_changed:!**compiled accessors**!public! !
+on_text_selection_changed!**compiled accessors**!public! !
+on_text_selection_changed:!**compiled accessors**!public! !
+on_touch_handle_state_changed!**compiled accessors**!public! !
+on_touch_handle_state_changed:!**compiled accessors**!public! !
+on_virtual_keyboard_requested!**compiled accessors**!public! !
+on_virtual_keyboard_requested:!**compiled accessors**!public! !
+start_dragging!**compiled accessors**!public! !
+start_dragging:!**compiled accessors**!public! !
+update_drag_cursor!**compiled accessors**!public! !
+update_drag_cursor:!**compiled accessors**!public! !
 !
 
 !CefRenderHandler class methodsFor!

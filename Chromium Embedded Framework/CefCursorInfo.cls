@@ -58,14 +58,14 @@ size: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_size put: anInteger! !
 !CefCursorInfo categoriesForMethods!
-buffer!public! !
-buffer:!public! !
-hotspot!public! !
-hotspot:!public! !
-image_scale_factor!public! !
-image_scale_factor:!public! !
-size!public! !
-size:!public! !
+buffer!**compiled accessors**!public! !
+buffer:!**compiled accessors**!public! !
+hotspot!**compiled accessors**!public! !
+hotspot:!**compiled accessors**!public! !
+image_scale_factor!**compiled accessors**!public! !
+image_scale_factor:!**compiled accessors**!public! !
+size!**compiled accessors**!public! !
+size:!**compiled accessors**!public! !
 !
 
 !CefCursorInfo class methodsFor!

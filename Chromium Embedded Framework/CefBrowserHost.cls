@@ -932,149 +932,149 @@ _setFocus_cefBrowserHost:focus:!**compiled accessors**!private! !
 _tryCloseBrowser_cefBrowserHost:!**compiled accessors**!private! !
 _wasHidden_cefBrowserHost:hidden:!**compiled accessors**!private! !
 _wasResized_cefBrowserHost:!**compiled accessors**!private! !
-add_dev_tools_message_observer!public! !
-add_dev_tools_message_observer:!public! !
-add_word_to_dictionary!public! !
-add_word_to_dictionary:!public! !
+add_dev_tools_message_observer!**compiled accessors**!public! !
+add_dev_tools_message_observer:!**compiled accessors**!public! !
+add_word_to_dictionary!**compiled accessors**!public! !
+add_word_to_dictionary:!**compiled accessors**!public! !
 can_execute_chrome_command!**compiled accessors**!public! !
 can_execute_chrome_command:!**compiled accessors**!public! !
 can_zoom!**compiled accessors**!public! !
 can_zoom:!**compiled accessors**!public! !
-close_browser!public! !
-close_browser:!public! !
-close_dev_tools!public! !
-close_dev_tools:!public! !
+close_browser!**compiled accessors**!public! !
+close_browser:!**compiled accessors**!public! !
+close_dev_tools!**compiled accessors**!public! !
+close_dev_tools:!**compiled accessors**!public! !
 closeBrowser_forceClose:!**compiled accessors**!public! !
-download_image!public! !
-download_image:!public! !
-drag_source_ended_at!public! !
-drag_source_ended_at:!public! !
-drag_source_system_drag_ended!public! !
-drag_source_system_drag_ended:!public! !
-drag_target_drag_enter!public! !
-drag_target_drag_enter:!public! !
-drag_target_drag_leave!public! !
-drag_target_drag_leave:!public! !
-drag_target_drag_over!public! !
-drag_target_drag_over:!public! !
-drag_target_drop!public! !
-drag_target_drop:!public! !
+download_image!**compiled accessors**!public! !
+download_image:!**compiled accessors**!public! !
+drag_source_ended_at!**compiled accessors**!public! !
+drag_source_ended_at:!**compiled accessors**!public! !
+drag_source_system_drag_ended!**compiled accessors**!public! !
+drag_source_system_drag_ended:!**compiled accessors**!public! !
+drag_target_drag_enter!**compiled accessors**!public! !
+drag_target_drag_enter:!**compiled accessors**!public! !
+drag_target_drag_leave!**compiled accessors**!public! !
+drag_target_drag_leave:!**compiled accessors**!public! !
+drag_target_drag_over!**compiled accessors**!public! !
+drag_target_drag_over:!**compiled accessors**!public! !
+drag_target_drop!**compiled accessors**!public! !
+drag_target_drop:!**compiled accessors**!public! !
 execute_chrome_command!**compiled accessors**!public! !
 execute_chrome_command:!**compiled accessors**!public! !
-execute_dev_tools_method!public! !
-execute_dev_tools_method:!public! !
+execute_dev_tools_method!**compiled accessors**!public! !
+execute_dev_tools_method:!**compiled accessors**!public! !
 exit_fullscreen!**compiled accessors**!public! !
 exit_fullscreen:!**compiled accessors**!public! !
-find!public! !
-find:!public! !
-get_browser!public! !
-get_browser:!public! !
-get_client!public! !
-get_client:!public! !
+find!**compiled accessors**!public! !
+find:!**compiled accessors**!public! !
+get_browser!**compiled accessors**!public! !
+get_browser:!**compiled accessors**!public! !
+get_client!**compiled accessors**!public! !
+get_client:!**compiled accessors**!public! !
 get_default_zoom_level!**compiled accessors**!public! !
 get_default_zoom_level:!**compiled accessors**!public! !
-get_extension!public! !
-get_extension:!public! !
-get_navigation_entries!public! !
-get_navigation_entries:!public! !
-get_opener_window_handle!public! !
-get_opener_window_handle:!public! !
-get_request_context!public! !
-get_request_context:!public! !
-get_visible_navigation_entry!public! !
-get_visible_navigation_entry:!public! !
-get_window_handle!public! !
-get_window_handle:!public! !
-get_windowless_frame_rate!public! !
-get_windowless_frame_rate:!public! !
-get_zoom_level!public! !
-get_zoom_level:!public! !
+get_extension!**compiled accessors**!public! !
+get_extension:!**compiled accessors**!public! !
+get_navigation_entries!**compiled accessors**!public! !
+get_navigation_entries:!**compiled accessors**!public! !
+get_opener_window_handle!**compiled accessors**!public! !
+get_opener_window_handle:!**compiled accessors**!public! !
+get_request_context!**compiled accessors**!public! !
+get_request_context:!**compiled accessors**!public! !
+get_visible_navigation_entry!**compiled accessors**!public! !
+get_visible_navigation_entry:!**compiled accessors**!public! !
+get_window_handle!**compiled accessors**!public! !
+get_window_handle:!**compiled accessors**!public! !
+get_windowless_frame_rate!**compiled accessors**!public! !
+get_windowless_frame_rate:!**compiled accessors**!public! !
+get_zoom_level!**compiled accessors**!public! !
+get_zoom_level:!**compiled accessors**!public! !
 getBrowser!**compiled accessors**!public! !
 getClient!**compiled accessors**!public! !
 getOpenerWindowHandle!**compiled accessors**!public! !
 getRequestContext!**compiled accessors**!public! !
 getWindowHandle!**compiled accessors**!public! !
-has_dev_tools!public! !
-has_dev_tools:!public! !
-has_view!public! !
-has_view:!public! !
+has_dev_tools!**compiled accessors**!public! !
+has_dev_tools:!**compiled accessors**!public! !
+has_view!**compiled accessors**!public! !
+has_view:!**compiled accessors**!public! !
 hasView!**compiled accessors**!public! !
-ime_cancel_composition!public! !
-ime_cancel_composition:!public! !
-ime_commit_text!public! !
-ime_commit_text:!public! !
-ime_finish_composing_text!public! !
-ime_finish_composing_text:!public! !
-ime_set_composition!public! !
-ime_set_composition:!public! !
-invalidate!public! !
-invalidate:!public! !
-is_audio_muted!public! !
-is_audio_muted:!public! !
-is_background_host!public! !
-is_background_host:!public! !
+ime_cancel_composition!**compiled accessors**!public! !
+ime_cancel_composition:!**compiled accessors**!public! !
+ime_commit_text!**compiled accessors**!public! !
+ime_commit_text:!**compiled accessors**!public! !
+ime_finish_composing_text!**compiled accessors**!public! !
+ime_finish_composing_text:!**compiled accessors**!public! !
+ime_set_composition!**compiled accessors**!public! !
+ime_set_composition:!**compiled accessors**!public! !
+invalidate!**compiled accessors**!public! !
+invalidate:!**compiled accessors**!public! !
+is_audio_muted!**compiled accessors**!public! !
+is_audio_muted:!**compiled accessors**!public! !
+is_background_host!**compiled accessors**!public! !
+is_background_host:!**compiled accessors**!public! !
 is_fullscreen!**compiled accessors**!public! !
 is_fullscreen:!**compiled accessors**!public! !
-is_window_rendering_disabled!public! !
-is_window_rendering_disabled:!public! !
-notify_move_or_resize_started!public! !
-notify_move_or_resize_started:!public! !
-notify_screen_info_changed!public! !
-notify_screen_info_changed:!public! !
-print!public! !
-print:!public! !
-print_to_pdf!public! !
-print_to_pdf:!public! !
-replace_misspelling!public! !
-replace_misspelling:!public! !
-run_file_dialog!public! !
-run_file_dialog:!public! !
-send_capture_lost_event!public! !
-send_capture_lost_event:!public! !
-send_dev_tools_message!public! !
-send_dev_tools_message:!public! !
-send_external_begin_frame!public! !
-send_external_begin_frame:!public! !
-send_key_event!public! !
-send_key_event:!public! !
-send_mouse_click_event!public! !
-send_mouse_click_event:!public! !
-send_mouse_move_event!public! !
-send_mouse_move_event:!public! !
-send_mouse_wheel_event!public! !
-send_mouse_wheel_event:!public! !
-send_touch_event!public! !
-send_touch_event:!public! !
+is_window_rendering_disabled!**compiled accessors**!public! !
+is_window_rendering_disabled:!**compiled accessors**!public! !
+notify_move_or_resize_started!**compiled accessors**!public! !
+notify_move_or_resize_started:!**compiled accessors**!public! !
+notify_screen_info_changed!**compiled accessors**!public! !
+notify_screen_info_changed:!**compiled accessors**!public! !
+print!**compiled accessors**!public! !
+print:!**compiled accessors**!public! !
+print_to_pdf!**compiled accessors**!public! !
+print_to_pdf:!**compiled accessors**!public! !
+replace_misspelling!**compiled accessors**!public! !
+replace_misspelling:!**compiled accessors**!public! !
+run_file_dialog!**compiled accessors**!public! !
+run_file_dialog:!**compiled accessors**!public! !
+send_capture_lost_event!**compiled accessors**!public! !
+send_capture_lost_event:!**compiled accessors**!public! !
+send_dev_tools_message!**compiled accessors**!public! !
+send_dev_tools_message:!**compiled accessors**!public! !
+send_external_begin_frame!**compiled accessors**!public! !
+send_external_begin_frame:!**compiled accessors**!public! !
+send_key_event!**compiled accessors**!public! !
+send_key_event:!**compiled accessors**!public! !
+send_mouse_click_event!**compiled accessors**!public! !
+send_mouse_click_event:!**compiled accessors**!public! !
+send_mouse_move_event!**compiled accessors**!public! !
+send_mouse_move_event:!**compiled accessors**!public! !
+send_mouse_wheel_event!**compiled accessors**!public! !
+send_mouse_wheel_event:!**compiled accessors**!public! !
+send_touch_event!**compiled accessors**!public! !
+send_touch_event:!**compiled accessors**!public! !
 sendKeyEvent_event:!**compiled accessors**!public! !
 sendMouseClickEvent_event:mouseButtonType:mouseUp:clickCount:!**compiled accessors**!public! !
 sendMouseMoveEvent_event:mouseLeave:!**compiled accessors**!public! !
 sendMouseWheelEvent_event:deltaX:deltaY:!**compiled accessors**!public! !
-set_accessibility_state!public! !
-set_accessibility_state:!public! !
-set_audio_muted!public! !
-set_audio_muted:!public! !
-set_auto_resize_enabled!public! !
-set_auto_resize_enabled:!public! !
-set_focus!public! !
-set_focus:!public! !
-set_windowless_frame_frate!public! !
-set_windowless_frame_frate:!public! !
-set_zoom_level!public! !
-set_zoom_level:!public! !
+set_accessibility_state!**compiled accessors**!public! !
+set_accessibility_state:!**compiled accessors**!public! !
+set_audio_muted!**compiled accessors**!public! !
+set_audio_muted:!**compiled accessors**!public! !
+set_auto_resize_enabled!**compiled accessors**!public! !
+set_auto_resize_enabled:!**compiled accessors**!public! !
+set_focus!**compiled accessors**!public! !
+set_focus:!**compiled accessors**!public! !
+set_windowless_frame_frate!**compiled accessors**!public! !
+set_windowless_frame_frate:!**compiled accessors**!public! !
+set_zoom_level!**compiled accessors**!public! !
+set_zoom_level:!**compiled accessors**!public! !
 setFocus_focus:!**compiled accessors**!public! !
-show_dev_tools!public! !
-show_dev_tools:!public! !
-start_download!public! !
-start_download:!public! !
-stop_finding!public! !
-stop_finding:!public! !
-try_close_browser!public! !
-try_close_browser:!public! !
+show_dev_tools!**compiled accessors**!public! !
+show_dev_tools:!**compiled accessors**!public! !
+start_download!**compiled accessors**!public! !
+start_download:!**compiled accessors**!public! !
+stop_finding!**compiled accessors**!public! !
+stop_finding:!**compiled accessors**!public! !
+try_close_browser!**compiled accessors**!public! !
+try_close_browser:!**compiled accessors**!public! !
 tryCloseBrowser!**compiled accessors**!public! !
-was_hidden!public! !
-was_hidden:!public! !
-was_resized!public! !
-was_resized:!public! !
+was_hidden!**compiled accessors**!public! !
+was_hidden:!**compiled accessors**!public! !
+was_resized!**compiled accessors**!public! !
+was_resized:!**compiled accessors**!public! !
 wasHidden_hidden:!**compiled accessors**!public! !
 wasResized!**compiled accessors**!public! !
 zoom!**compiled accessors**!public! !

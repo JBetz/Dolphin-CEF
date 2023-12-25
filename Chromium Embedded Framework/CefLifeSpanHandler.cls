@@ -65,16 +65,16 @@ on_before_popup: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_on_before_popup put: anExternalAddress! !
 !CefLifeSpanHandler categoriesForMethods!
-do_close!public! !
-do_close:!public! !
-on_after_created!public! !
-on_after_created:!public! !
-on_before_close!public! !
-on_before_close:!public! !
+do_close!**compiled accessors**!public! !
+do_close:!**compiled accessors**!public! !
+on_after_created!**compiled accessors**!public! !
+on_after_created:!**compiled accessors**!public! !
+on_before_close!**compiled accessors**!public! !
+on_before_close:!**compiled accessors**!public! !
 on_before_dev_tools_popup!**compiled accessors**!public! !
 on_before_dev_tools_popup:!**compiled accessors**!public! !
-on_before_popup!public! !
-on_before_popup:!public! !
+on_before_popup!**compiled accessors**!public! !
+on_before_popup:!**compiled accessors**!public! !
 !
 
 !CefLifeSpanHandler class methodsFor!

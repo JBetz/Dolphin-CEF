@@ -43,12 +43,12 @@ on_take_focus: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_on_take_focus put: anExternalAddress! !
 !CefFocusHandler categoriesForMethods!
-on_got_focus!public! !
-on_got_focus:!public! !
-on_set_focus!public! !
-on_set_focus:!public! !
-on_take_focus!public! !
-on_take_focus:!public! !
+on_got_focus!**compiled accessors**!public! !
+on_got_focus:!**compiled accessors**!public! !
+on_set_focus!**compiled accessors**!public! !
+on_set_focus:!**compiled accessors**!public! !
+on_take_focus!**compiled accessors**!public! !
+on_take_focus:!**compiled accessors**!public! !
 !
 
 !CefFocusHandler class methodsFor!

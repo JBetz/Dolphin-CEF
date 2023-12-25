@@ -415,69 +415,69 @@ windowless_rendering_enabled: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_windowless_rendering_enabled put: anInteger! !
 !CefSettings categoriesForMethods!
-accept_language_list!public! !
-accept_language_list:!public! !
-background_color!public! !
-background_color:!public! !
-browser_subprocess_path!public! !
-browser_subprocess_path:!public! !
-cache_path!public! !
-cache_path:!public! !
-cefSize!public! !
-cefSize:!public! !
+accept_language_list!**compiled accessors**!public! !
+accept_language_list:!**compiled accessors**!public! !
+background_color!**compiled accessors**!public! !
+background_color:!**compiled accessors**!public! !
+browser_subprocess_path!**compiled accessors**!public! !
+browser_subprocess_path:!**compiled accessors**!public! !
+cache_path!**compiled accessors**!public! !
+cache_path:!**compiled accessors**!public! !
+cefSize!**compiled accessors**!public! !
+cefSize:!**compiled accessors**!public! !
 chrome_policy_id!**compiled accessors**!public! !
 chrome_policy_id:!**compiled accessors**!public! !
-chrome_runtime!public! !
-chrome_runtime:!public! !
-command_line_args_disabled!public! !
-command_line_args_disabled:!public! !
-cookieable_scheme_list!public! !
-cookieable_scheme_list:!public! !
-cookieable_schemes_exclude_defaults!public! !
-cookieable_schemes_exclude_defaults:!public! !
-external_message_pump!public! !
-external_message_pump:!public! !
-framework_dir_path!public! !
-framework_dir_path:!public! !
-initialize!public! !
-javascript_flags!public! !
-javascript_flags:!public! !
-locale!public! !
-locale:!public! !
-locales_dir_path!public! !
-locales_dir_path:!public! !
-log_file!public! !
-log_file:!public! !
-log_items!public! !
-log_items:!public! !
-log_severity!public! !
-log_severity:!public! !
-main_bundle_path!public! !
-main_bundle_path:!public! !
-multi_threaded_message_loop!public! !
-multi_threaded_message_loop:!public! !
-no_sandbox!public! !
-no_sandbox:!public! !
-pack_loading_disabled!public! !
-pack_loading_disabled:!public! !
-persist_session_cookies!public! !
-persist_session_cookies:!public! !
-persist_user_preferences!public! !
-persist_user_preferences:!public! !
-remote_debugging_port!public! !
-remote_debugging_port:!public! !
-resources_dir_path!public! !
-resources_dir_path:!public! !
-root_cache_path!public! !
-root_cache_path:!public! !
-uncaught_exception_stack_size!public! !
-uncaught_exception_stack_size:!public! !
-user_agent!public! !
-user_agent:!public! !
-user_agent_product!public! !
-user_agent_product:!public! !
-windowless_rendering_enabled!public! !
-windowless_rendering_enabled:!public! !
+chrome_runtime!**compiled accessors**!public! !
+chrome_runtime:!**compiled accessors**!public! !
+command_line_args_disabled!**compiled accessors**!public! !
+command_line_args_disabled:!**compiled accessors**!public! !
+cookieable_scheme_list!**compiled accessors**!public! !
+cookieable_scheme_list:!**compiled accessors**!public! !
+cookieable_schemes_exclude_defaults!**compiled accessors**!public! !
+cookieable_schemes_exclude_defaults:!**compiled accessors**!public! !
+external_message_pump!**compiled accessors**!public! !
+external_message_pump:!**compiled accessors**!public! !
+framework_dir_path!**compiled accessors**!public! !
+framework_dir_path:!**compiled accessors**!public! !
+initialize!**compiled accessors**!public! !
+javascript_flags!**compiled accessors**!public! !
+javascript_flags:!**compiled accessors**!public! !
+locale!**compiled accessors**!public! !
+locale:!**compiled accessors**!public! !
+locales_dir_path!**compiled accessors**!public! !
+locales_dir_path:!**compiled accessors**!public! !
+log_file!**compiled accessors**!public! !
+log_file:!**compiled accessors**!public! !
+log_items!**compiled accessors**!public! !
+log_items:!**compiled accessors**!public! !
+log_severity!**compiled accessors**!public! !
+log_severity:!**compiled accessors**!public! !
+main_bundle_path!**compiled accessors**!public! !
+main_bundle_path:!**compiled accessors**!public! !
+multi_threaded_message_loop!**compiled accessors**!public! !
+multi_threaded_message_loop:!**compiled accessors**!public! !
+no_sandbox!**compiled accessors**!public! !
+no_sandbox:!**compiled accessors**!public! !
+pack_loading_disabled!**compiled accessors**!public! !
+pack_loading_disabled:!**compiled accessors**!public! !
+persist_session_cookies!**compiled accessors**!public! !
+persist_session_cookies:!**compiled accessors**!public! !
+persist_user_preferences!**compiled accessors**!public! !
+persist_user_preferences:!**compiled accessors**!public! !
+remote_debugging_port!**compiled accessors**!public! !
+remote_debugging_port:!**compiled accessors**!public! !
+resources_dir_path!**compiled accessors**!public! !
+resources_dir_path:!**compiled accessors**!public! !
+root_cache_path!**compiled accessors**!public! !
+root_cache_path:!**compiled accessors**!public! !
+uncaught_exception_stack_size!**compiled accessors**!public! !
+uncaught_exception_stack_size:!**compiled accessors**!public! !
+user_agent!**compiled accessors**!public! !
+user_agent:!**compiled accessors**!public! !
+user_agent_product!**compiled accessors**!public! !
+user_agent_product:!**compiled accessors**!public! !
+windowless_rendering_enabled!**compiled accessors**!public! !
+windowless_rendering_enabled:!**compiled accessors**!public! !
 !
 
 !CefSettings class methodsFor!

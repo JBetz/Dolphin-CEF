@@ -341,53 +341,53 @@ enableLoadHandlerAndDelegateTo:!public! !
 enableRenderHandler!public! !
 enableRenderHandlerAndDelegateTo:!public! !
 enableRequestHandlerAndDelegateTo:!public! !
-get_audio_handler!public! !
-get_audio_handler:!public! !
-get_command_handler!public! !
-get_command_handler:!public! !
-get_context_menu_handler!public! !
-get_context_menu_handler:!public! !
-get_dialog_handler!public! !
-get_dialog_handler:!public! !
-get_display_handler!public! !
-get_display_handler:!public! !
-get_download_handler!public! !
-get_download_handler:!public! !
-get_drag_handler!public! !
-get_drag_handler:!public! !
-get_find_handler!public! !
-get_find_handler:!public! !
-get_focus_handler!public! !
-get_focus_handler:!public! !
-get_frame_handler!public! !
-get_frame_handler:!public! !
-get_jsdialog_handler!public! !
-get_jsdialog_handler:!public! !
-get_keyboard_handler!public! !
-get_keyboard_handler:!public! !
-get_life_span_handler!public! !
-get_life_span_handler:!public! !
-get_load_handler!public! !
-get_load_handler:!public! !
-get_permission_handler!public! !
-get_permission_handler:!public! !
-get_print_handler!public! !
-get_print_handler:!public! !
-get_render_handler!public! !
-get_render_handler:!public! !
-get_request_handler!public! !
-get_request_handler:!public! !
-getContextMenuHandler:!public! !
-getDisplayHandler:!public! !
-getFocusHandler:!public! !
-getFrameHandler:!public! !
-getKeyboardHandler:!public! !
-getLifeSpanHandler:!public! !
-getLoadHandler:!public! !
-getRenderHandler:!public! !
-getRequestHandler:!public! !
-on_process_message_received!public! !
-on_process_message_received:!public! !
+get_audio_handler!**compiled accessors**!public! !
+get_audio_handler:!**compiled accessors**!public! !
+get_command_handler!**compiled accessors**!public! !
+get_command_handler:!**compiled accessors**!public! !
+get_context_menu_handler!**compiled accessors**!public! !
+get_context_menu_handler:!**compiled accessors**!public! !
+get_dialog_handler!**compiled accessors**!public! !
+get_dialog_handler:!**compiled accessors**!public! !
+get_display_handler!**compiled accessors**!public! !
+get_display_handler:!**compiled accessors**!public! !
+get_download_handler!**compiled accessors**!public! !
+get_download_handler:!**compiled accessors**!public! !
+get_drag_handler!**compiled accessors**!public! !
+get_drag_handler:!**compiled accessors**!public! !
+get_find_handler!**compiled accessors**!public! !
+get_find_handler:!**compiled accessors**!public! !
+get_focus_handler!**compiled accessors**!public! !
+get_focus_handler:!**compiled accessors**!public! !
+get_frame_handler!**compiled accessors**!public! !
+get_frame_handler:!**compiled accessors**!public! !
+get_jsdialog_handler!**compiled accessors**!public! !
+get_jsdialog_handler:!**compiled accessors**!public! !
+get_keyboard_handler!**compiled accessors**!public! !
+get_keyboard_handler:!**compiled accessors**!public! !
+get_life_span_handler!**compiled accessors**!public! !
+get_life_span_handler:!**compiled accessors**!public! !
+get_load_handler!**compiled accessors**!public! !
+get_load_handler:!**compiled accessors**!public! !
+get_permission_handler!**compiled accessors**!public! !
+get_permission_handler:!**compiled accessors**!public! !
+get_print_handler!**compiled accessors**!public! !
+get_print_handler:!**compiled accessors**!public! !
+get_render_handler!**compiled accessors**!public! !
+get_render_handler:!**compiled accessors**!public! !
+get_request_handler!**compiled accessors**!public! !
+get_request_handler:!**compiled accessors**!public! !
+getContextMenuHandler:!**compiled accessors**!public! !
+getDisplayHandler:!**compiled accessors**!public! !
+getFocusHandler:!**compiled accessors**!public! !
+getFrameHandler:!**compiled accessors**!public! !
+getKeyboardHandler:!**compiled accessors**!public! !
+getLifeSpanHandler:!**compiled accessors**!public! !
+getLoadHandler:!**compiled accessors**!public! !
+getRenderHandler:!**compiled accessors**!public! !
+getRequestHandler:!**compiled accessors**!public! !
+on_process_message_received!**compiled accessors**!public! !
+on_process_message_received:!**compiled accessors**!public! !
 onProcessMessageReceived:browser:frame:sourceProcess:message:!public! !
 processMessageDelegate:!public! !
 !

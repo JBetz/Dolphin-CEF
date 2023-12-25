@@ -32,10 +32,10 @@ y: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
 !CefPoint categoriesForMethods!
-x!public! !
-x:!public! !
-y!public! !
-y:!public! !
+x!**compiled accessors**!public! !
+x:!**compiled accessors**!public! !
+y!**compiled accessors**!public! !
+y:!**compiled accessors**!public! !
 !
 
 !CefPoint class methodsFor!

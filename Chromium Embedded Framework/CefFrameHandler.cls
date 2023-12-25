@@ -54,14 +54,14 @@ on_main_frame_changed: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_on_main_frame_changed put: anExternalAddress! !
 !CefFrameHandler categoriesForMethods!
-on_frame_attached!public! !
-on_frame_attached:!public! !
-on_frame_created!public! !
-on_frame_created:!public! !
-on_frame_detached!public! !
-on_frame_detached:!public! !
-on_main_frame_changed!public! !
-on_main_frame_changed:!public! !
+on_frame_attached!**compiled accessors**!public! !
+on_frame_attached:!**compiled accessors**!public! !
+on_frame_created!**compiled accessors**!public! !
+on_frame_created:!**compiled accessors**!public! !
+on_frame_detached!**compiled accessors**!public! !
+on_frame_detached:!**compiled accessors**!public! !
+on_main_frame_changed!**compiled accessors**!public! !
+on_main_frame_changed:!**compiled accessors**!public! !
 !
 
 !CefFrameHandler class methodsFor!

@@ -109,24 +109,24 @@ on_select_client_certificate: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_on_select_client_certificate put: anExternalAddress! !
 !CefRequestHandler categoriesForMethods!
-get_auth_credentials!public! !
-get_auth_credentials:!public! !
-get_resource_request_handler!public! !
-get_resource_request_handler:!public! !
-on_before_browse!public! !
-on_before_browse:!public! !
-on_certificate_error!public! !
-on_certificate_error:!public! !
-on_document_available_in_main_frame!public! !
-on_document_available_in_main_frame:!public! !
-on_open_urlfrom_tab!public! !
-on_open_urlfrom_tab:!public! !
-on_render_process_terminated!public! !
-on_render_process_terminated:!public! !
-on_render_view_ready!public! !
-on_render_view_ready:!public! !
-on_select_client_certificate!public! !
-on_select_client_certificate:!public! !
+get_auth_credentials!**compiled accessors**!public! !
+get_auth_credentials:!**compiled accessors**!public! !
+get_resource_request_handler!**compiled accessors**!public! !
+get_resource_request_handler:!**compiled accessors**!public! !
+on_before_browse!**compiled accessors**!public! !
+on_before_browse:!**compiled accessors**!public! !
+on_certificate_error!**compiled accessors**!public! !
+on_certificate_error:!**compiled accessors**!public! !
+on_document_available_in_main_frame!**compiled accessors**!public! !
+on_document_available_in_main_frame:!**compiled accessors**!public! !
+on_open_urlfrom_tab!**compiled accessors**!public! !
+on_open_urlfrom_tab:!**compiled accessors**!public! !
+on_render_process_terminated!**compiled accessors**!public! !
+on_render_process_terminated:!**compiled accessors**!public! !
+on_render_view_ready!**compiled accessors**!public! !
+on_render_view_ready:!**compiled accessors**!public! !
+on_select_client_certificate!**compiled accessors**!public! !
+on_select_client_certificate:!**compiled accessors**!public! !
 !
 
 !CefRequestHandler class methodsFor!

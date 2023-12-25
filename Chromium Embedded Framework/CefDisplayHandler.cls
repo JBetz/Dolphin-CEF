@@ -131,28 +131,28 @@ on_tooltip: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_on_tooltip put: anInteger! !
 !CefDisplayHandler categoriesForMethods!
-on_address_change!public! !
-on_address_change:!public! !
-on_auto_resize!public! !
-on_auto_resize:!public! !
-on_console_message!public! !
-on_console_message:!public! !
-on_cursor_change!public! !
-on_cursor_change:!public! !
-on_favicon_urlchange!public! !
-on_favicon_urlchange:!public! !
-on_fullscreen_mode_change!public! !
-on_fullscreen_mode_change:!public! !
-on_loading_progess_change!public! !
-on_loading_progess_change:!public! !
-on_media_access_change!public! !
-on_media_access_change:!public! !
-on_status_message!public! !
-on_status_message:!public! !
-on_title_change!public! !
-on_title_change:!public! !
-on_tooltip!public! !
-on_tooltip:!public! !
+on_address_change!**compiled accessors**!public! !
+on_address_change:!**compiled accessors**!public! !
+on_auto_resize!**compiled accessors**!public! !
+on_auto_resize:!**compiled accessors**!public! !
+on_console_message!**compiled accessors**!public! !
+on_console_message:!**compiled accessors**!public! !
+on_cursor_change!**compiled accessors**!public! !
+on_cursor_change:!**compiled accessors**!public! !
+on_favicon_urlchange!**compiled accessors**!public! !
+on_favicon_urlchange:!**compiled accessors**!public! !
+on_fullscreen_mode_change!**compiled accessors**!public! !
+on_fullscreen_mode_change:!**compiled accessors**!public! !
+on_loading_progess_change!**compiled accessors**!public! !
+on_loading_progess_change:!**compiled accessors**!public! !
+on_media_access_change!**compiled accessors**!public! !
+on_media_access_change:!**compiled accessors**!public! !
+on_status_message!**compiled accessors**!public! !
+on_status_message:!**compiled accessors**!public! !
+on_title_change!**compiled accessors**!public! !
+on_title_change:!**compiled accessors**!public! !
+on_tooltip!**compiled accessors**!public! !
+on_tooltip:!**compiled accessors**!public! !
 !
 
 !CefDisplayHandler class methodsFor!

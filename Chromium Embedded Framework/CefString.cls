@@ -43,12 +43,12 @@ str: anUtf16String
 
 	bytes uintPtrAtOffset: _OffsetOf_str put: anUtf16String yourAddress! !
 !CefString categoriesForMethods!
-dtor!public! !
-dtor:!public! !
-length!public! !
-length:!public! !
-str!public! !
-str:!public! !
+dtor!**compiled accessors**!public! !
+dtor:!**compiled accessors**!public! !
+length!**compiled accessors**!public! !
+length:!**compiled accessors**!public! !
+str!**compiled accessors**!public! !
+str:!**compiled accessors**!public! !
 !
 
 !CefString class methodsFor!

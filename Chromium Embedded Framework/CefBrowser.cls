@@ -484,30 +484,30 @@ _isValid_cefBrowser:!**compiled accessors**!private! !
 _stopLoad_cefBrowser:!**compiled accessors**!private! !
 callReload!**compiled accessors**!public! !
 callReloadIgnoreCache!**compiled accessors**!public! !
-can_go_back!public! !
-can_go_back:!public! !
-can_go_forward!public! !
-can_go_forward:!public! !
+can_go_back!**compiled accessors**!public! !
+can_go_back:!**compiled accessors**!public! !
+can_go_forward!**compiled accessors**!public! !
+can_go_forward:!**compiled accessors**!public! !
 canGoBack!**compiled accessors**!public! !
 canGoForward!**compiled accessors**!public! !
-get_focused_frame!public! !
-get_focused_frame:!public! !
-get_frame!public! !
-get_frame:!public! !
-get_frame_byident!public! !
-get_frame_byident:!public! !
-get_frame_count!public! !
-get_frame_count:!public! !
-get_frame_identifiers!public! !
-get_frame_identifiers:!public! !
-get_frame_names!public! !
-get_frame_names:!public! !
-get_host!public! !
-get_host:!public! !
-get_identifier!public! !
-get_identifier:!public! !
-get_main_frame!public! !
-get_main_frame:!public! !
+get_focused_frame!**compiled accessors**!public! !
+get_focused_frame:!**compiled accessors**!public! !
+get_frame!**compiled accessors**!public! !
+get_frame:!**compiled accessors**!public! !
+get_frame_byident!**compiled accessors**!public! !
+get_frame_byident:!**compiled accessors**!public! !
+get_frame_count!**compiled accessors**!public! !
+get_frame_count:!**compiled accessors**!public! !
+get_frame_identifiers!**compiled accessors**!public! !
+get_frame_identifiers:!**compiled accessors**!public! !
+get_frame_names!**compiled accessors**!public! !
+get_frame_names:!**compiled accessors**!public! !
+get_host!**compiled accessors**!public! !
+get_host:!**compiled accessors**!public! !
+get_identifier!**compiled accessors**!public! !
+get_identifier:!**compiled accessors**!public! !
+get_main_frame!**compiled accessors**!public! !
+get_main_frame:!**compiled accessors**!public! !
 getFocusedFrame!**compiled accessors**!public! !
 getFrame_name:!**compiled accessors**!public! !
 getFrameByident_identifier:!**compiled accessors**!public! !
@@ -517,33 +517,33 @@ getFrameNames_names:!**compiled accessors**!public! !
 getHost!**compiled accessors**!public! !
 getIdentifier!**compiled accessors**!public! !
 getMainFrame!**compiled accessors**!public! !
-go_back!public! !
-go_back:!public! !
-go_forward!public! !
-go_forward:!public! !
+go_back!**compiled accessors**!public! !
+go_back:!**compiled accessors**!public! !
+go_forward!**compiled accessors**!public! !
+go_forward:!**compiled accessors**!public! !
 goBack!**compiled accessors**!public! !
 goForward!**compiled accessors**!public! !
-has_document!public! !
-has_document:!public! !
+has_document!**compiled accessors**!public! !
+has_document:!**compiled accessors**!public! !
 hasDocument!**compiled accessors**!public! !
-is_loading!public! !
-is_loading:!public! !
-is_popup!public! !
-is_popup:!public! !
-is_same!public! !
-is_same:!public! !
-is_valid!public! !
-is_valid:!public! !
+is_loading!**compiled accessors**!public! !
+is_loading:!**compiled accessors**!public! !
+is_popup!**compiled accessors**!public! !
+is_popup:!**compiled accessors**!public! !
+is_same!**compiled accessors**!public! !
+is_same:!**compiled accessors**!public! !
+is_valid!**compiled accessors**!public! !
+is_valid:!**compiled accessors**!public! !
 isLoading!**compiled accessors**!public! !
 isPopup!**compiled accessors**!public! !
 isSame_that:!**compiled accessors**!public! !
 isValid!**compiled accessors**!public! !
 reload!**compiled accessors**!public! !
-reload:!public! !
-reload_ignore_cache!public! !
-reload_ignore_cache:!public! !
-stop_load!public! !
-stop_load:!public! !
+reload:!**compiled accessors**!public! !
+reload_ignore_cache!**compiled accessors**!public! !
+reload_ignore_cache:!**compiled accessors**!public! !
+stop_load!**compiled accessors**!public! !
+stop_load:!**compiled accessors**!public! !
 stopLoad!**compiled accessors**!public! !
 !
 

@@ -38,20 +38,6 @@ CefBrowserSettings comment: ''!
 !CefBrowserSettings categoriesForClass!External-Libraries! !
 !CefBrowserSettings methodsFor!
 
-accept_language_list
-	"Answer the <CefString> value of the receiver's 'accept_language_list' field."
-
-	^CefString fromAddress: bytes yourAddress + _OffsetOf_accept_language_list!
-
-accept_language_list: aCefString
-	"Set the receiver's 'accept_language_list' field to the value of the argument, aCefString"
-
-	aCefString
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_accept_language_list + 1)
-		to: ##(_OffsetOf_accept_language_list + CefString basicByteSize)
-		startingAt: 1!
-
 background_color
 	"Answer the <Integer> value of the receiver's 'background_color' field."
 
@@ -197,11 +183,6 @@ image_shrink_standalone_to_fit: anInteger
 	"Set the receiver's 'image_shrink_standalone_to_fit' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_image_shrink_standalone_to_fit put: anInteger!
-
-initialize
-	super initialize.
-	self cefSize: self class byteSize
-!
 
 javascript
 	"Answer the <Integer> value of the receiver's 'javascript' field."
@@ -365,65 +346,62 @@ windowless_frame_rate: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_windowless_frame_rate put: anInteger! !
 !CefBrowserSettings categoriesForMethods!
-accept_language_list!public! !
-accept_language_list:!public! !
-background_color!public! !
-background_color:!public! !
-cefSize!public! !
-cefSize:!public! !
-chrome_status_bubble!public! !
-chrome_status_bubble:!public! !
+background_color!**compiled accessors**!public! !
+background_color:!**compiled accessors**!public! !
+cefSize!**compiled accessors**!public! !
+cefSize:!**compiled accessors**!public! !
+chrome_status_bubble!**compiled accessors**!public! !
+chrome_status_bubble:!**compiled accessors**!public! !
 chrome_zoom_bubble!**compiled accessors**!public! !
 chrome_zoom_bubble:!**compiled accessors**!public! !
-cursive_font_family!public! !
-cursive_font_family:!public! !
-databases!public! !
-databases:!public! !
-default_encoding!public! !
-default_encoding:!public! !
-default_fixed_font_size!public! !
-default_fixed_font_size:!public! !
-default_font_size!public! !
-default_font_size:!public! !
-fantasy_font_family!public! !
-fantasy_font_family:!public! !
-fixed_font_family!public! !
-fixed_font_family:!public! !
-image_loading!public! !
-image_loading:!public! !
-image_shrink_standalone_to_fit!public! !
-image_shrink_standalone_to_fit:!public! !
-initialize!public! !
-javascript!public! !
-javascript:!public! !
-javascript_access_clipboard!public! !
-javascript_access_clipboard:!public! !
-javascript_close_windows!public! !
-javascript_close_windows:!public! !
-javascript_dom_paste!public! !
-javascript_dom_paste:!public! !
-local_storage!public! !
-local_storage:!public! !
-minimum_font_size!public! !
-minimum_font_size:!public! !
-minimum_logical_font_size!public! !
-minimum_logical_font_size:!public! !
-remote_fonts!public! !
-remote_fonts:!public! !
-sans_serif_font_family!public! !
-sans_serif_font_family:!public! !
-serif_font_family!public! !
-serif_font_family:!public! !
-standard_font_family!public! !
-standard_font_family:!public! !
-tab_to_links!public! !
-tab_to_links:!public! !
-text_area_resize!public! !
-text_area_resize:!public! !
-webgl!public! !
-webgl:!public! !
-windowless_frame_rate!public! !
-windowless_frame_rate:!public! !
+cursive_font_family!**compiled accessors**!public! !
+cursive_font_family:!**compiled accessors**!public! !
+databases!**compiled accessors**!public! !
+databases:!**compiled accessors**!public! !
+default_encoding!**compiled accessors**!public! !
+default_encoding:!**compiled accessors**!public! !
+default_fixed_font_size!**compiled accessors**!public! !
+default_fixed_font_size:!**compiled accessors**!public! !
+default_font_size!**compiled accessors**!public! !
+default_font_size:!**compiled accessors**!public! !
+fantasy_font_family!**compiled accessors**!public! !
+fantasy_font_family:!**compiled accessors**!public! !
+fixed_font_family!**compiled accessors**!public! !
+fixed_font_family:!**compiled accessors**!public! !
+image_loading!**compiled accessors**!public! !
+image_loading:!**compiled accessors**!public! !
+image_shrink_standalone_to_fit!**compiled accessors**!public! !
+image_shrink_standalone_to_fit:!**compiled accessors**!public! !
+javascript!**compiled accessors**!public! !
+javascript:!**compiled accessors**!public! !
+javascript_access_clipboard!**compiled accessors**!public! !
+javascript_access_clipboard:!**compiled accessors**!public! !
+javascript_close_windows!**compiled accessors**!public! !
+javascript_close_windows:!**compiled accessors**!public! !
+javascript_dom_paste!**compiled accessors**!public! !
+javascript_dom_paste:!**compiled accessors**!public! !
+local_storage!**compiled accessors**!public! !
+local_storage:!**compiled accessors**!public! !
+minimum_font_size!**compiled accessors**!public! !
+minimum_font_size:!**compiled accessors**!public! !
+minimum_logical_font_size!**compiled accessors**!public! !
+minimum_logical_font_size:!**compiled accessors**!public! !
+remote_fonts!**compiled accessors**!public! !
+remote_fonts:!**compiled accessors**!public! !
+sans_serif_font_family!**compiled accessors**!public! !
+sans_serif_font_family:!**compiled accessors**!public! !
+serif_font_family!**compiled accessors**!public! !
+serif_font_family:!**compiled accessors**!public! !
+standard_font_family!**compiled accessors**!public! !
+standard_font_family:!**compiled accessors**!public! !
+tab_to_links!**compiled accessors**!public! !
+tab_to_links:!**compiled accessors**!public! !
+text_area_resize!**compiled accessors**!public! !
+text_area_resize:!**compiled accessors**!public! !
+webgl!**compiled accessors**!public! !
+webgl:!**compiled accessors**!public! !
+windowless_frame_rate!**compiled accessors**!public! !
+windowless_frame_rate:!**compiled accessors**!public! !
 !
 
 !CefBrowserSettings class methodsFor!
