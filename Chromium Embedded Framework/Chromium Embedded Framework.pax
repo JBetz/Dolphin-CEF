@@ -37,7 +37,6 @@ package classNames
 	add: #CefCursorInfo;
 	add: #CefDictionaryValue;
 	add: #CefDisplayHandler;
-	add: #CefDomDocument;
 	add: #CefDomVisitor;
 	add: #CefDragData;
 	add: #CefEventHandler;
@@ -285,11 +284,6 @@ CefReferenceCountedObject subclass: #CefDictionaryValue
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_clear _OffsetOf_copy _OffsetOf_get_binary _OffsetOf_get_bool _OffsetOf_get_dictionary _OffsetOf_get_double _OffsetOf_get_int _OffsetOf_get_keys _OffsetOf_get_list _OffsetOf_get_size _OffsetOf_get_string _OffsetOf_get_type _OffsetOf_get_value _OffsetOf_has_key _OffsetOf_is_equal _OffsetOf_is_owned _OffsetOf_is_read_only _OffsetOf_is_same _OffsetOf_is_valid _OffsetOf_remove _OffsetOf_set_binary _OffsetOf_set_bool _OffsetOf_set_dictionary _OffsetOf_set_double _OffsetOf_set_int _OffsetOf_set_list _OffsetOf_set_null _OffsetOf_set_string _OffsetOf_set_value'
 	poolDictionaries: 'CefConstants'
-	classInstanceVariableNames: ''!
-CefReferenceCountedObject subclass: #CefDomDocument
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_base_url _OffsetOf_get_body _OffsetOf_get_complete_url _OffsetOf_get_document _OffsetOf_get_element_by_id _OffsetOf_get_focused_node _OffsetOf_get_head _OffsetOf_get_selection_as_markup _OffsetOf_get_selection_as_text _OffsetOf_get_selection_end_offset _OffsetOf_get_selection_start_offset _OffsetOf_get_title _OffsetOf_get_type _OffsetOf_has_selection'
-	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefDragData
 	instanceVariableNames: ''
