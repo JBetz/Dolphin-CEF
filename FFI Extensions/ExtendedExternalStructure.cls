@@ -14,9 +14,16 @@ initialize
 	super initialize.
 	self class callbackRegistry
 		keysAndValuesDo: [:aSymbol :aCallback | self perform: aSymbol with: aCallback asParameter].
+	self class addInstance: self!
+
+initializePointer
+	super initializePointer.
+	self class callbackRegistry
+		keysAndValuesDo: [:aSymbol :aCallback | self perform: aSymbol with: aCallback asParameter].
 	self class addInstance: self! !
 !ExtendedExternalStructure categoriesForMethods!
 initialize!public! !
+initializePointer!public! !
 !
 
 !ExtendedExternalStructure class methodsFor!
@@ -25,7 +32,6 @@ addInstance: anObject
 	Instances at: anObject yourAddress put: anObject!
 
 callbackRegistry
-	CallbackRegistry ifNil: [CallbackRegistry := Dictionary new].
 	^CallbackRegistry!
 
 compileExternalMethodForField: anExternalField
@@ -89,9 +95,24 @@ getInstance: anInteger
 
 initialize
 	super initialize.
-	CallbackRegistry := Dictionary new.
+	SessionManager current
+		when: #sessionStarted
+			send: #onStartup
+			to: self;
+		when: #sessionStopped
+			send: #onShutdown
+			to: self!
+
+onShutdown
+	Instances := nil.
+	CallbackRegistry := nil.
+	self subBehaviors do: [:each | each onShutdown]!
+
+onStartup
+	CallbackRegistry := LookupTable new.
 	Instances := WeakLookupTable new.
-	self compileDefinition!
+	self registerCallbacks.
+	self subBehaviors do: [:each | each onStartup]!
 
 recompileDefinition
 	"Private - Recompiles the existing template for the receiver"
@@ -102,7 +123,7 @@ recompileDefinition
 	self registerCallbacks!
 
 registerCallbacks
-	CallbackRegistry ifNil: [CallbackRegistry := Dictionary new] ifNotNil: [CallbackRegistry removeAll].
+	CallbackRegistry removeAll.
 	self template keysAndValuesDo: 
 			[:selector :field |
 			(field isKindOf: CallbackField)
@@ -125,6 +146,8 @@ defineField:type:!public! !
 externalMethodAt:ifAbsentBindTo:!private! !
 getInstance:!public! !
 initialize!public! !
+onShutdown!public! !
+onStartup!public! !
 recompileDefinition!private! !
 registerCallbacks!private! !
 !
