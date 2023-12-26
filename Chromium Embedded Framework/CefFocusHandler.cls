@@ -72,7 +72,7 @@ defineFields
 					smalltalkName: #onGotFocus:browser:)!
 
 getFieldNames
-	^#(#base #on_take_focus #on_set_focus #on_got_focus)! !
+	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_take_focus #on_set_focus #on_got_focus)! !
 !CefFocusHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

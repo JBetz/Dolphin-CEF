@@ -55,7 +55,7 @@ defineFields
 					smalltalkName: #onKeyEvent:browser:event:osEvent:)!
 
 getFieldNames
-	^#(#base #on_pre_key_event #on_key_event)! !
+	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_pre_key_event #on_key_event)! !
 !CefKeyboardHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

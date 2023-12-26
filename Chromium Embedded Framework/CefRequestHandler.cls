@@ -159,7 +159,7 @@ defineFields
 		defineField: #on_document_available_in_main_frame type: LPVOIDField new!
 
 getFieldNames
-	^#(#base #on_before_browse #on_open_urlfrom_tab #get_resource_request_handler #get_auth_credentials #on_certificate_error #on_select_client_certificate #on_render_view_ready #on_render_process_terminated #on_document_available_in_main_frame)! !
+	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_before_browse #on_open_urlfrom_tab #get_resource_request_handler #get_auth_credentials #on_certificate_error #on_select_client_certificate #on_render_view_ready #on_render_process_terminated #on_document_available_in_main_frame)! !
 !CefRequestHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

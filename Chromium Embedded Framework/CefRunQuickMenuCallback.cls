@@ -82,7 +82,7 @@ defineFields
 					smalltalkName: #callCancel)!
 
 getFieldNames
-	^#(#base #cont #cancel)! !
+	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #cont #cancel)! !
 !CefRunQuickMenuCallback class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

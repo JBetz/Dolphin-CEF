@@ -308,7 +308,7 @@ defineFields
 					smalltalkName: #onVirtualKeyboardRequested:browser:inputMode:)!
 
 getFieldNames
-	^#(#base #get_accessibility_handler #get_root_screen_rect #get_view_rect #get_screen_point #get_screen_info #on_popup_show #on_popup_size #on_paint #on_accelerated_paint #get_touch_handle_size #on_touch_handle_state_changed #start_dragging #update_drag_cursor #on_scroll_offset_changed #on_ime_composition_range_changed #on_text_selection_changed #on_virtual_keyboard_requested)! !
+	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #get_accessibility_handler #get_root_screen_rect #get_view_rect #get_screen_point #get_screen_info #on_popup_show #on_popup_size #on_paint #on_accelerated_paint #get_touch_handle_size #on_touch_handle_state_changed #start_dragging #update_drag_cursor #on_scroll_offset_changed #on_ime_composition_range_changed #on_text_selection_changed #on_virtual_keyboard_requested)! !
 !CefRenderHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

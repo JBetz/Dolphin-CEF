@@ -132,7 +132,7 @@ defineFields
 			type: (CallbackField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefResourceHandler*'))!
 
 getFieldNames
-	^#(#base #open #process_request #get_response_headers #skip #read #read_response #cancel)! !
+	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #open #process_request #get_response_headers #skip #read #read_response #cancel)! !
 !CefResourceHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

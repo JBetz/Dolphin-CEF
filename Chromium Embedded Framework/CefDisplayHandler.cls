@@ -190,7 +190,7 @@ defineFields
 		defineField: #on_media_access_change type: DWORDField new!
 
 getFieldNames
-	^#(#base #on_address_change #on_title_change #on_favicon_urlchange #on_fullscreen_mode_change #on_tooltip #on_status_message #on_console_message #on_auto_resize #on_loading_progess_change #on_cursor_change #on_media_access_change)! !
+	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_address_change #on_title_change #on_favicon_urlchange #on_fullscreen_mode_change #on_tooltip #on_status_message #on_console_message #on_auto_resize #on_loading_progess_change #on_cursor_change #on_media_access_change)! !
 !CefDisplayHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

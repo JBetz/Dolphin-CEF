@@ -62,14 +62,14 @@ initializeCef
 
 initializeSettings
 	| subprocessPath logFile cachePath |
-	subprocessPath := FileLocator imageRelative localFileSpecFor: 'cefclient.exe'.
+	subprocessPath := FileLocator imageRelative localFileSpecFor: 'CefSubprocessRunner.exe'.
 	logFile := FileLocator imageRelative localFileSpecFor: 'cef.log'.
 	cachePath := FileLocator imageRelative localFileSpecFor: 'cef-cache'.
 	File createDirectoryPath: cachePath.
 	settings := CefSettings new.
 	settings
 		browser_subprocess_path: subprocessPath asCefString;
-		log_severity: 1;
+		log_severity: 0;
 		log_file: logFile asCefString;
 		cache_path: cachePath asCefString;
 		no_sandbox: true;
@@ -156,3 +156,4 @@ new!public! !
 onShutdown!public! !
 onStartup!public! !
 !
+

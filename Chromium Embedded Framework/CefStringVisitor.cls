@@ -37,7 +37,7 @@ defineFields
 				smalltalkName: #visit:string:)!
 
 getFieldNames
-	^#(#base #visit)! !
+	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #visit)! !
 !CefStringVisitor class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

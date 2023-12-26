@@ -611,7 +611,7 @@ defineFields
 					smalltalkName: #getFrameNames_names:)!
 
 getFieldNames
-	^#(#base #is_valid #get_host #can_go_back #go_back #can_go_forward #go_forward #is_loading #reload #reload_ignore_cache #stop_load #get_identifier #is_same #is_popup #has_document #get_main_frame #get_focused_frame #get_frame_byident #get_frame #get_frame_count #get_frame_identifiers #get_frame_names)! !
+	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #is_valid #get_host #can_go_back #go_back #can_go_forward #go_forward #is_loading #reload #reload_ignore_cache #stop_load #get_identifier #is_same #is_popup #has_document #get_main_frame #get_focused_frame #get_frame_byident #get_frame #get_frame_count #get_frame_identifiers #get_frame_names)! !
 !CefBrowser class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
