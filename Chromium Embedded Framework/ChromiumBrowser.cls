@@ -380,10 +380,7 @@ onViewDestroyed
 			[delay wait.
 			delayCount := delayCount + 1].
 	readyToClose ifFalse: [self forceCloseBrowser].
-	cefBrowser
-		ifNotNil: 
-			[cefBrowser base releaseReference: cefBrowser.
-			cefBrowser := nil]]
+	cefBrowser ifNotNil: [cefBrowser := nil]]
 			forkAt: Processor userBackgroundPriority!
 
 onVirtualKeyboardRequested: renderHandler browser: browser inputMode: inputMode
