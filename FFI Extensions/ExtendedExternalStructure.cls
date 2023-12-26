@@ -14,16 +14,9 @@ initialize
 	super initialize.
 	self class callbackRegistry
 		keysAndValuesDo: [:aSymbol :aCallback | self perform: aSymbol with: aCallback asParameter].
-	self class addInstance: self!
-
-initializePointer
-	super initializePointer.
-	self class callbackRegistry
-		keysAndValuesDo: [:aSymbol :aCallback | self perform: aSymbol with: aCallback asParameter].
 	self class addInstance: self! !
 !ExtendedExternalStructure categoriesForMethods!
 initialize!public! !
-initializePointer!public! !
 !
 
 !ExtendedExternalStructure class methodsFor!
