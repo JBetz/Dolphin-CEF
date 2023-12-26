@@ -21,7 +21,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
 package classNames
 	add: #CefApp;
 	add: #CefAuthCallback;
-	add: #CefBaseRefCounted;
 	add: #CefBinaryValue;
 	add: #CefBrowser;
 	add: #CefBrowserHost;
@@ -50,6 +49,7 @@ package classNames
 	add: #CefLoadHandler;
 	add: #CefMainArgs;
 	add: #CefMenuModel;
+	add: #CefMessageCallback;
 	add: #CefMouseEvent;
 	add: #CefPoint;
 	add: #CefPopupFeatures;
@@ -131,6 +131,11 @@ Object subclass: #ChromiumBrowser
 	classInstanceVariableNames: ''!
 Object subclass: #Url
 	instanceVariableNames: 'string parts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DelegatedMessageCallback subclass: #CefMessageCallback
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -224,14 +229,9 @@ CefString subclass: #CefStringUserfree
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ExtendedExternalStructure subclass: #CefBaseRefCounted
-	instanceVariableNames: 'cefObject referenceCount'
-	classVariableNames: '_OffsetOf_add_ref _OffsetOf_cefSize _OffsetOf_has_at_least_one_ref _OffsetOf_has_one_ref _OffsetOf_release'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 ExtendedExternalStructure subclass: #CefReferenceCountedObject
-	instanceVariableNames: 'delegate base'
-	classVariableNames: '_OffsetOf_base'
+	instanceVariableNames: 'delegate referenceCount'
+	classVariableNames: '_OffsetOf_add_ref _OffsetOf_cefSize _OffsetOf_has_at_least_one_ref _OffsetOf_has_one_ref _OffsetOf_release'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefApp

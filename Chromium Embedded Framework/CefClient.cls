@@ -301,6 +301,10 @@ getRenderHandler: aCefClient
 getRequestHandler: aCefClient
 	^requestHandler ifNotNil: [requestHandler yourAddress]!
 
+initialize
+	super initialize.
+	self disableReferenceCounting!
+
 on_process_message_received
 	"Answer the <ExternalAddress> value of the receiver's 'on_process_message_received' field."
 
@@ -386,6 +390,7 @@ getLifeSpanHandler:!public! !
 getLoadHandler:!public! !
 getRenderHandler:!public! !
 getRequestHandler:!public! !
+initialize!public! !
 on_process_message_received!**compiled accessors**!public! !
 on_process_message_received:!**compiled accessors**!public! !
 onProcessMessageReceived:browser:frame:sourceProcess:message:!public! !

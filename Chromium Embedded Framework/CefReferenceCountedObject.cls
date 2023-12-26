@@ -44,6 +44,13 @@ delegate
 delegate: anObject
 	delegate := anObject!
 
+disableReferenceCounting
+	self
+		add_ref: ExternalAddress new;
+		release: ExternalAddress new;
+		has_one_ref: ExternalAddress new;
+		has_at_least_one_ref: ExternalAddress new!
+
 has_at_least_one_ref
 	"Answer the <ExternalAddress> value of the receiver's 'has_at_least_one_ref' field."
 
@@ -100,6 +107,7 @@ cefSize!**compiled accessors**!public! !
 cefSize:!**compiled accessors**!public! !
 delegate!public! !
 delegate:!public! !
+disableReferenceCounting!public! !
 has_at_least_one_ref!**compiled accessors**!public! !
 has_at_least_one_ref:!**compiled accessors**!public! !
 has_one_ref!**compiled accessors**!public! !
