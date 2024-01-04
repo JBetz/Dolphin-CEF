@@ -143,10 +143,9 @@ new
 	^Current!
 
 onShutdown
-	Current
-		ifNotNil: 
-			[Current stop.
-			Current := nil]!
+	Current ifNil: [^self].
+	Current stop.
+	Current := nil!
 
 onStartup
 	Current := nil! !
