@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText isFocusedNodeEditable scrollOffset texture selectedRange focusedElement hoveredElement popupTexture'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText scrollOffset texture selectedRange focusedElement hoveredElement popupTexture'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -26,21 +26,24 @@ cefWindowStyle
 	^##(WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_TABSTOP | WS_VISIBLE)!
 
 closeBrowser
-	cefBrowser ifNotNil: [cefBrowser getHost closeBrowser_forceClose: 0]!
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost closeBrowser_forceClose: 0!
 
 copy
 	cefBrowser getFocusedFrame callCopy!
 
 createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
 	| processRunner windowInfo browserSettings resultCode |
+	(aRectangle width <= 0 or: [aRectangle height <= 0])
+		ifTrue: [Error signal: ('Invalid rectangle extent: <1d>' expandMacrosWith: aRectangle extent)].
 	rectangle := aRectangle.
 	processRunner := CefBrowserProcessRunner new.
 	processRunner ensureRunning.
 	self initializeOffscreenClient.
 	windowInfo := CefWindowInfo new
 				bounds: rectangle asCefRect;
-				windowless_rendering_enabled: true;
-				parent_window: aHandle.
+				parent_window: aHandle;
+				windowless_rendering_enabled: true.
 	browserSettings := CefBrowserSettings new
 				windowless_frame_rate: 60;
 				background_color: Color white argbCode.
@@ -175,6 +178,9 @@ getViewRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
 hasTextSelected
 	^selectedText notNil!
 
+hide
+	self wasHidden: true!
+
 host: anObject 
 	host := anObject!
 
@@ -232,7 +238,7 @@ loadUrl: aString
 			mainFrame loadUrl_url: aString asCefString]!
 
 onAcceleratedPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount sharedHandle: sharedHandle
-	!
+!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
 	| urlParts |
@@ -277,6 +283,9 @@ onCursorChange: displayHandler browser: browser cursor: cursor type: type custom
 			[host cursor: cursorSelector.
 			1]
 		ifNil: [0]!
+
+onFaviconUrlChange: displayHandler browser: browser iconUrls: iconUrls
+	^0!
 
 onFrameAttached: frameHandler browser: browser frame: frame reattached: reattched
 	^0!
@@ -345,10 +354,9 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: eventInfo]!
 
 onResize: aRectangle
-	cefBrowser
-		ifNotNil: 
-			[rectangle := aRectangle.
-			cefBrowser getHost wasResized]!
+	rectangle := aRectangle.
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost wasResized!
 
 onScrollOffsetChanged: renderHandler browser: browser x: x y: y
 	self scrollOffset
@@ -423,31 +431,33 @@ selectedText
 	^selectedText!
 
 sendKeyEvent: aKeyEvent
-	cefBrowser ifNotNil: [cefBrowser getHost sendKeyEvent_event: aKeyEvent]!
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost sendKeyEvent_event: aKeyEvent!
 
 sendMouseClickEvent: aMouseEvent mouseButtonType: anInteger mouseUp: aBoolean clickCount: anotherInteger
-	cefBrowser
-		ifNotNil: 
-			[cefBrowser getHost
-				sendMouseClickEvent_event: aMouseEvent
-				mouseButtonType: anInteger
-				mouseUp: aBoolean asInteger
-				clickCount: anotherInteger]!
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost
+		sendMouseClickEvent_event: aMouseEvent
+		mouseButtonType: anInteger
+		mouseUp: aBoolean asInteger
+		clickCount: anotherInteger!
 
 sendMouseMoveEvent: aMouseEvent mouseLeave: aBoolean
-	cefBrowser
-		ifNotNil: [cefBrowser getHost sendMouseMoveEvent_event: aMouseEvent mouseLeave: aBoolean asInteger]!
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost sendMouseMoveEvent_event: aMouseEvent mouseLeave: aBoolean asInteger!
 
 sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
-	cefBrowser
-		ifNotNil: 
-			[cefBrowser getHost
-				sendMouseWheelEvent_event: aMouseWheelEvent
-				deltaX: aPoint x asInteger
-				deltaY: aPoint y asInteger]!
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost
+		sendMouseWheelEvent_event: aMouseWheelEvent
+		deltaX: aPoint x asInteger
+		deltaY: aPoint y asInteger!
 
 startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData allowedOps: anInteger x: anInteger2 y: anInteger3 
 	^0!
+
+texture
+	^texture!
 
 texture: aSDLTexture
 	texture := aSDLTexture!
@@ -485,6 +495,7 @@ getTitle!public! !
 getUrl!public! !
 getViewRect:browser:rect:!cef event handler!private!render handler! !
 hasTextSelected!cef event handler!private! !
+hide!public! !
 host:!public! !
 hoveredElement!public! !
 initialize!public! !
@@ -505,6 +516,7 @@ onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGest
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
 onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
+onFaviconUrlChange:browser:iconUrls:!cef event handler!private! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
@@ -544,6 +556,7 @@ sendMouseClickEvent:mouseButtonType:mouseUp:clickCount:!public! !
 sendMouseMoveEvent:mouseLeave:!public! !
 sendMouseWheelEvent:delta:!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
+texture!public! !
 texture:!public! !
 undo!public! !
 wasHidden:!public! !
