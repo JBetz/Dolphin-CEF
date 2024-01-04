@@ -157,34 +157,34 @@ _zoom_cefBrowserHost: cefBrowserHost command: command
 	^self invalidCall: _failureCode!
 
 add_dev_tools_message_observer
-	"Answer the <Integer> value of the receiver's 'add_dev_tools_message_observer' field."
+	"Answer the <ExternalAddress> value of the receiver's 'add_dev_tools_message_observer' field."
 
-	^bytes dwordAtOffset: _OffsetOf_add_dev_tools_message_observer!
+	^(bytes uintPtrAtOffset: _OffsetOf_add_dev_tools_message_observer) asExternalAddress!
 
-add_dev_tools_message_observer: anInteger
-	"Set the receiver's 'add_dev_tools_message_observer' field to the value of the argument, anInteger"
+add_dev_tools_message_observer: anExternalAddress
+	"Set the receiver's 'add_dev_tools_message_observer' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_add_dev_tools_message_observer put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_add_dev_tools_message_observer put: anExternalAddress!
 
 add_word_to_dictionary
-	"Answer the <Integer> value of the receiver's 'add_word_to_dictionary' field."
+	"Answer the <ExternalAddress> value of the receiver's 'add_word_to_dictionary' field."
 
-	^bytes dwordAtOffset: _OffsetOf_add_word_to_dictionary!
+	^(bytes uintPtrAtOffset: _OffsetOf_add_word_to_dictionary) asExternalAddress!
 
-add_word_to_dictionary: anInteger
-	"Set the receiver's 'add_word_to_dictionary' field to the value of the argument, anInteger"
+add_word_to_dictionary: anExternalAddress
+	"Set the receiver's 'add_word_to_dictionary' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_add_word_to_dictionary put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_add_word_to_dictionary put: anExternalAddress!
 
 can_execute_chrome_command
-	"Answer the <Integer> value of the receiver's 'can_execute_chrome_command' field."
+	"Answer the <ExternalAddress> value of the receiver's 'can_execute_chrome_command' field."
 
-	^bytes dwordAtOffset: _OffsetOf_can_execute_chrome_command!
+	^(bytes uintPtrAtOffset: _OffsetOf_can_execute_chrome_command) asExternalAddress!
 
-can_execute_chrome_command: anInteger
-	"Set the receiver's 'can_execute_chrome_command' field to the value of the argument, anInteger"
+can_execute_chrome_command: anExternalAddress
+	"Set the receiver's 'can_execute_chrome_command' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_can_execute_chrome_command put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_can_execute_chrome_command put: anExternalAddress!
 
 can_zoom
 	"Answer the <ExternalAddress> value of the receiver's 'can_zoom' field."
@@ -212,14 +212,14 @@ close_browser: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_close_browser put: anExternalAddress!
 
 close_dev_tools
-	"Answer the <Integer> value of the receiver's 'close_dev_tools' field."
+	"Answer the <ExternalAddress> value of the receiver's 'close_dev_tools' field."
 
-	^bytes dwordAtOffset: _OffsetOf_close_dev_tools!
+	^(bytes uintPtrAtOffset: _OffsetOf_close_dev_tools) asExternalAddress!
 
-close_dev_tools: anInteger
-	"Set the receiver's 'close_dev_tools' field to the value of the argument, anInteger"
+close_dev_tools: anExternalAddress
+	"Set the receiver's 'close_dev_tools' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_close_dev_tools put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_close_dev_tools put: anExternalAddress!
 
 closeBrowser_forceClose: forceClose
 	| method arguments |
@@ -232,114 +232,114 @@ closeBrowser_forceClose: forceClose
 	^method value: self withArguments: arguments!
 
 download_image
-	"Answer the <Integer> value of the receiver's 'download_image' field."
+	"Answer the <ExternalAddress> value of the receiver's 'download_image' field."
 
-	^bytes dwordAtOffset: _OffsetOf_download_image!
+	^(bytes uintPtrAtOffset: _OffsetOf_download_image) asExternalAddress!
 
-download_image: anInteger
-	"Set the receiver's 'download_image' field to the value of the argument, anInteger"
+download_image: anExternalAddress
+	"Set the receiver's 'download_image' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_download_image put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_download_image put: anExternalAddress!
 
 drag_source_ended_at
-	"Answer the <Integer> value of the receiver's 'drag_source_ended_at' field."
+	"Answer the <ExternalAddress> value of the receiver's 'drag_source_ended_at' field."
 
-	^bytes dwordAtOffset: _OffsetOf_drag_source_ended_at!
+	^(bytes uintPtrAtOffset: _OffsetOf_drag_source_ended_at) asExternalAddress!
 
-drag_source_ended_at: anInteger
-	"Set the receiver's 'drag_source_ended_at' field to the value of the argument, anInteger"
+drag_source_ended_at: anExternalAddress
+	"Set the receiver's 'drag_source_ended_at' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_drag_source_ended_at put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_drag_source_ended_at put: anExternalAddress!
 
 drag_source_system_drag_ended
-	"Answer the <Integer> value of the receiver's 'drag_source_system_drag_ended' field."
+	"Answer the <ExternalAddress> value of the receiver's 'drag_source_system_drag_ended' field."
 
-	^bytes dwordAtOffset: _OffsetOf_drag_source_system_drag_ended!
+	^(bytes uintPtrAtOffset: _OffsetOf_drag_source_system_drag_ended) asExternalAddress!
 
-drag_source_system_drag_ended: anInteger
-	"Set the receiver's 'drag_source_system_drag_ended' field to the value of the argument, anInteger"
+drag_source_system_drag_ended: anExternalAddress
+	"Set the receiver's 'drag_source_system_drag_ended' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_drag_source_system_drag_ended put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_drag_source_system_drag_ended put: anExternalAddress!
 
 drag_target_drag_enter
-	"Answer the <Integer> value of the receiver's 'drag_target_drag_enter' field."
+	"Answer the <ExternalAddress> value of the receiver's 'drag_target_drag_enter' field."
 
-	^bytes dwordAtOffset: _OffsetOf_drag_target_drag_enter!
+	^(bytes uintPtrAtOffset: _OffsetOf_drag_target_drag_enter) asExternalAddress!
 
-drag_target_drag_enter: anInteger
-	"Set the receiver's 'drag_target_drag_enter' field to the value of the argument, anInteger"
+drag_target_drag_enter: anExternalAddress
+	"Set the receiver's 'drag_target_drag_enter' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_drag_target_drag_enter put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_drag_target_drag_enter put: anExternalAddress!
 
 drag_target_drag_leave
-	"Answer the <Integer> value of the receiver's 'drag_target_drag_leave' field."
+	"Answer the <ExternalAddress> value of the receiver's 'drag_target_drag_leave' field."
 
-	^bytes dwordAtOffset: _OffsetOf_drag_target_drag_leave!
+	^(bytes uintPtrAtOffset: _OffsetOf_drag_target_drag_leave) asExternalAddress!
 
-drag_target_drag_leave: anInteger
-	"Set the receiver's 'drag_target_drag_leave' field to the value of the argument, anInteger"
+drag_target_drag_leave: anExternalAddress
+	"Set the receiver's 'drag_target_drag_leave' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_drag_target_drag_leave put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_drag_target_drag_leave put: anExternalAddress!
 
 drag_target_drag_over
-	"Answer the <Integer> value of the receiver's 'drag_target_drag_over' field."
+	"Answer the <ExternalAddress> value of the receiver's 'drag_target_drag_over' field."
 
-	^bytes dwordAtOffset: _OffsetOf_drag_target_drag_over!
+	^(bytes uintPtrAtOffset: _OffsetOf_drag_target_drag_over) asExternalAddress!
 
-drag_target_drag_over: anInteger
-	"Set the receiver's 'drag_target_drag_over' field to the value of the argument, anInteger"
+drag_target_drag_over: anExternalAddress
+	"Set the receiver's 'drag_target_drag_over' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_drag_target_drag_over put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_drag_target_drag_over put: anExternalAddress!
 
 drag_target_drop
-	"Answer the <Integer> value of the receiver's 'drag_target_drop' field."
+	"Answer the <ExternalAddress> value of the receiver's 'drag_target_drop' field."
 
-	^bytes dwordAtOffset: _OffsetOf_drag_target_drop!
+	^(bytes uintPtrAtOffset: _OffsetOf_drag_target_drop) asExternalAddress!
 
-drag_target_drop: anInteger
-	"Set the receiver's 'drag_target_drop' field to the value of the argument, anInteger"
+drag_target_drop: anExternalAddress
+	"Set the receiver's 'drag_target_drop' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_drag_target_drop put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_drag_target_drop put: anExternalAddress!
 
 execute_chrome_command
-	"Answer the <Integer> value of the receiver's 'execute_chrome_command' field."
+	"Answer the <ExternalAddress> value of the receiver's 'execute_chrome_command' field."
 
-	^bytes dwordAtOffset: _OffsetOf_execute_chrome_command!
+	^(bytes uintPtrAtOffset: _OffsetOf_execute_chrome_command) asExternalAddress!
 
-execute_chrome_command: anInteger
-	"Set the receiver's 'execute_chrome_command' field to the value of the argument, anInteger"
+execute_chrome_command: anExternalAddress
+	"Set the receiver's 'execute_chrome_command' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_execute_chrome_command put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_execute_chrome_command put: anExternalAddress!
 
 execute_dev_tools_method
-	"Answer the <Integer> value of the receiver's 'execute_dev_tools_method' field."
+	"Answer the <ExternalAddress> value of the receiver's 'execute_dev_tools_method' field."
 
-	^bytes dwordAtOffset: _OffsetOf_execute_dev_tools_method!
+	^(bytes uintPtrAtOffset: _OffsetOf_execute_dev_tools_method) asExternalAddress!
 
-execute_dev_tools_method: anInteger
-	"Set the receiver's 'execute_dev_tools_method' field to the value of the argument, anInteger"
+execute_dev_tools_method: anExternalAddress
+	"Set the receiver's 'execute_dev_tools_method' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_execute_dev_tools_method put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_execute_dev_tools_method put: anExternalAddress!
 
 exit_fullscreen
-	"Answer the <Integer> value of the receiver's 'exit_fullscreen' field."
+	"Answer the <ExternalAddress> value of the receiver's 'exit_fullscreen' field."
 
-	^bytes dwordAtOffset: _OffsetOf_exit_fullscreen!
+	^(bytes uintPtrAtOffset: _OffsetOf_exit_fullscreen) asExternalAddress!
 
-exit_fullscreen: anInteger
-	"Set the receiver's 'exit_fullscreen' field to the value of the argument, anInteger"
+exit_fullscreen: anExternalAddress
+	"Set the receiver's 'exit_fullscreen' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_exit_fullscreen put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_exit_fullscreen put: anExternalAddress!
 
 find
-	"Answer the <Integer> value of the receiver's 'find' field."
+	"Answer the <ExternalAddress> value of the receiver's 'find' field."
 
-	^bytes dwordAtOffset: _OffsetOf_find!
+	^(bytes uintPtrAtOffset: _OffsetOf_find) asExternalAddress!
 
-find: anInteger
-	"Set the receiver's 'find' field to the value of the argument, anInteger"
+find: anExternalAddress
+	"Set the receiver's 'find' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_find put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_find put: anExternalAddress!
 
 get_browser
 	"Answer the <ExternalAddress> value of the receiver's 'get_browser' field."
@@ -372,24 +372,24 @@ get_default_zoom_level: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_default_zoom_level put: anExternalAddress!
 
 get_extension
-	"Answer the <Integer> value of the receiver's 'get_extension' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_extension' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_extension!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_extension) asExternalAddress!
 
-get_extension: anInteger
-	"Set the receiver's 'get_extension' field to the value of the argument, anInteger"
+get_extension: anExternalAddress
+	"Set the receiver's 'get_extension' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_extension put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_extension put: anExternalAddress!
 
 get_navigation_entries
-	"Answer the <Integer> value of the receiver's 'get_navigation_entries' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_navigation_entries' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_navigation_entries!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_navigation_entries) asExternalAddress!
 
-get_navigation_entries: anInteger
-	"Set the receiver's 'get_navigation_entries' field to the value of the argument, anInteger"
+get_navigation_entries: anExternalAddress
+	"Set the receiver's 'get_navigation_entries' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_navigation_entries put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_navigation_entries put: anExternalAddress!
 
 get_opener_window_handle
 	"Answer the <ExternalAddress> value of the receiver's 'get_opener_window_handle' field."
@@ -412,14 +412,14 @@ get_request_context: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_request_context put: anExternalAddress!
 
 get_visible_navigation_entry
-	"Answer the <Integer> value of the receiver's 'get_visible_navigation_entry' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_visible_navigation_entry' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_visible_navigation_entry!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_visible_navigation_entry) asExternalAddress!
 
-get_visible_navigation_entry: anInteger
-	"Set the receiver's 'get_visible_navigation_entry' field to the value of the argument, anInteger"
+get_visible_navigation_entry: anExternalAddress
+	"Set the receiver's 'get_visible_navigation_entry' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_visible_navigation_entry put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_visible_navigation_entry put: anExternalAddress!
 
 get_window_handle
 	"Answer the <ExternalAddress> value of the receiver's 'get_window_handle' field."
@@ -432,14 +432,14 @@ get_window_handle: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_window_handle put: anExternalAddress!
 
 get_windowless_frame_rate
-	"Answer the <Integer> value of the receiver's 'get_windowless_frame_rate' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_windowless_frame_rate' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_windowless_frame_rate!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_windowless_frame_rate) asExternalAddress!
 
-get_windowless_frame_rate: anInteger
-	"Set the receiver's 'get_windowless_frame_rate' field to the value of the argument, anInteger"
+get_windowless_frame_rate: anExternalAddress
+	"Set the receiver's 'get_windowless_frame_rate' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_windowless_frame_rate put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_windowless_frame_rate put: anExternalAddress!
 
 get_zoom_level
 	"Answer the <ExternalAddress> value of the receiver's 'get_zoom_level' field."
@@ -492,14 +492,14 @@ getZoomLevel
 	^method value: self withArguments: (Array with: self)!
 
 has_dev_tools
-	"Answer the <Integer> value of the receiver's 'has_dev_tools' field."
+	"Answer the <ExternalAddress> value of the receiver's 'has_dev_tools' field."
 
-	^bytes dwordAtOffset: _OffsetOf_has_dev_tools!
+	^(bytes uintPtrAtOffset: _OffsetOf_has_dev_tools) asExternalAddress!
 
-has_dev_tools: anInteger
-	"Set the receiver's 'has_dev_tools' field to the value of the argument, anInteger"
+has_dev_tools: anExternalAddress
+	"Set the receiver's 'has_dev_tools' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_has_dev_tools put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_has_dev_tools put: anExternalAddress!
 
 has_view
 	"Answer the <ExternalAddress> value of the receiver's 'has_view' field."
@@ -517,184 +517,184 @@ hasView
 	^method value: self withArguments: (Array with: self)!
 
 ime_cancel_composition
-	"Answer the <Integer> value of the receiver's 'ime_cancel_composition' field."
+	"Answer the <ExternalAddress> value of the receiver's 'ime_cancel_composition' field."
 
-	^bytes dwordAtOffset: _OffsetOf_ime_cancel_composition!
+	^(bytes uintPtrAtOffset: _OffsetOf_ime_cancel_composition) asExternalAddress!
 
-ime_cancel_composition: anInteger
-	"Set the receiver's 'ime_cancel_composition' field to the value of the argument, anInteger"
+ime_cancel_composition: anExternalAddress
+	"Set the receiver's 'ime_cancel_composition' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_ime_cancel_composition put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_ime_cancel_composition put: anExternalAddress!
 
 ime_commit_text
-	"Answer the <Integer> value of the receiver's 'ime_commit_text' field."
+	"Answer the <ExternalAddress> value of the receiver's 'ime_commit_text' field."
 
-	^bytes dwordAtOffset: _OffsetOf_ime_commit_text!
+	^(bytes uintPtrAtOffset: _OffsetOf_ime_commit_text) asExternalAddress!
 
-ime_commit_text: anInteger
-	"Set the receiver's 'ime_commit_text' field to the value of the argument, anInteger"
+ime_commit_text: anExternalAddress
+	"Set the receiver's 'ime_commit_text' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_ime_commit_text put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_ime_commit_text put: anExternalAddress!
 
 ime_finish_composing_text
-	"Answer the <Integer> value of the receiver's 'ime_finish_composing_text' field."
+	"Answer the <ExternalAddress> value of the receiver's 'ime_finish_composing_text' field."
 
-	^bytes dwordAtOffset: _OffsetOf_ime_finish_composing_text!
+	^(bytes uintPtrAtOffset: _OffsetOf_ime_finish_composing_text) asExternalAddress!
 
-ime_finish_composing_text: anInteger
-	"Set the receiver's 'ime_finish_composing_text' field to the value of the argument, anInteger"
+ime_finish_composing_text: anExternalAddress
+	"Set the receiver's 'ime_finish_composing_text' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_ime_finish_composing_text put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_ime_finish_composing_text put: anExternalAddress!
 
 ime_set_composition
-	"Answer the <Integer> value of the receiver's 'ime_set_composition' field."
+	"Answer the <ExternalAddress> value of the receiver's 'ime_set_composition' field."
 
-	^bytes dwordAtOffset: _OffsetOf_ime_set_composition!
+	^(bytes uintPtrAtOffset: _OffsetOf_ime_set_composition) asExternalAddress!
 
-ime_set_composition: anInteger
-	"Set the receiver's 'ime_set_composition' field to the value of the argument, anInteger"
+ime_set_composition: anExternalAddress
+	"Set the receiver's 'ime_set_composition' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_ime_set_composition put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_ime_set_composition put: anExternalAddress!
 
 invalidate
-	"Answer the <Integer> value of the receiver's 'invalidate' field."
+	"Answer the <ExternalAddress> value of the receiver's 'invalidate' field."
 
-	^bytes dwordAtOffset: _OffsetOf_invalidate!
+	^(bytes uintPtrAtOffset: _OffsetOf_invalidate) asExternalAddress!
 
-invalidate: anInteger
-	"Set the receiver's 'invalidate' field to the value of the argument, anInteger"
+invalidate: anExternalAddress
+	"Set the receiver's 'invalidate' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_invalidate put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_invalidate put: anExternalAddress!
 
 is_audio_muted
-	"Answer the <Integer> value of the receiver's 'is_audio_muted' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_audio_muted' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_audio_muted!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_audio_muted) asExternalAddress!
 
-is_audio_muted: anInteger
-	"Set the receiver's 'is_audio_muted' field to the value of the argument, anInteger"
+is_audio_muted: anExternalAddress
+	"Set the receiver's 'is_audio_muted' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_audio_muted put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_audio_muted put: anExternalAddress!
 
 is_background_host
-	"Answer the <Integer> value of the receiver's 'is_background_host' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_background_host' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_background_host!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_background_host) asExternalAddress!
 
-is_background_host: anInteger
-	"Set the receiver's 'is_background_host' field to the value of the argument, anInteger"
+is_background_host: anExternalAddress
+	"Set the receiver's 'is_background_host' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_background_host put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_background_host put: anExternalAddress!
 
 is_fullscreen
-	"Answer the <Integer> value of the receiver's 'is_fullscreen' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_fullscreen' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_fullscreen!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_fullscreen) asExternalAddress!
 
-is_fullscreen: anInteger
-	"Set the receiver's 'is_fullscreen' field to the value of the argument, anInteger"
+is_fullscreen: anExternalAddress
+	"Set the receiver's 'is_fullscreen' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_fullscreen put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_fullscreen put: anExternalAddress!
 
 is_window_rendering_disabled
-	"Answer the <Integer> value of the receiver's 'is_window_rendering_disabled' field."
+	"Answer the <ExternalAddress> value of the receiver's 'is_window_rendering_disabled' field."
 
-	^bytes dwordAtOffset: _OffsetOf_is_window_rendering_disabled!
+	^(bytes uintPtrAtOffset: _OffsetOf_is_window_rendering_disabled) asExternalAddress!
 
-is_window_rendering_disabled: anInteger
-	"Set the receiver's 'is_window_rendering_disabled' field to the value of the argument, anInteger"
+is_window_rendering_disabled: anExternalAddress
+	"Set the receiver's 'is_window_rendering_disabled' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_is_window_rendering_disabled put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_is_window_rendering_disabled put: anExternalAddress!
 
 notify_move_or_resize_started
-	"Answer the <Integer> value of the receiver's 'notify_move_or_resize_started' field."
+	"Answer the <ExternalAddress> value of the receiver's 'notify_move_or_resize_started' field."
 
-	^bytes dwordAtOffset: _OffsetOf_notify_move_or_resize_started!
+	^(bytes uintPtrAtOffset: _OffsetOf_notify_move_or_resize_started) asExternalAddress!
 
-notify_move_or_resize_started: anInteger
-	"Set the receiver's 'notify_move_or_resize_started' field to the value of the argument, anInteger"
+notify_move_or_resize_started: anExternalAddress
+	"Set the receiver's 'notify_move_or_resize_started' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_notify_move_or_resize_started put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_notify_move_or_resize_started put: anExternalAddress!
 
 notify_screen_info_changed
-	"Answer the <Integer> value of the receiver's 'notify_screen_info_changed' field."
+	"Answer the <ExternalAddress> value of the receiver's 'notify_screen_info_changed' field."
 
-	^bytes dwordAtOffset: _OffsetOf_notify_screen_info_changed!
+	^(bytes uintPtrAtOffset: _OffsetOf_notify_screen_info_changed) asExternalAddress!
 
-notify_screen_info_changed: anInteger
-	"Set the receiver's 'notify_screen_info_changed' field to the value of the argument, anInteger"
+notify_screen_info_changed: anExternalAddress
+	"Set the receiver's 'notify_screen_info_changed' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_notify_screen_info_changed put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_notify_screen_info_changed put: anExternalAddress!
 
 print
-	"Answer the <Integer> value of the receiver's 'print' field."
+	"Answer the <ExternalAddress> value of the receiver's 'print' field."
 
-	^bytes dwordAtOffset: _OffsetOf_print!
+	^(bytes uintPtrAtOffset: _OffsetOf_print) asExternalAddress!
 
-print: anInteger
-	"Set the receiver's 'print' field to the value of the argument, anInteger"
+print: anExternalAddress
+	"Set the receiver's 'print' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_print put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_print put: anExternalAddress!
 
 print_to_pdf
-	"Answer the <Integer> value of the receiver's 'print_to_pdf' field."
+	"Answer the <ExternalAddress> value of the receiver's 'print_to_pdf' field."
 
-	^bytes dwordAtOffset: _OffsetOf_print_to_pdf!
+	^(bytes uintPtrAtOffset: _OffsetOf_print_to_pdf) asExternalAddress!
 
-print_to_pdf: anInteger
-	"Set the receiver's 'print_to_pdf' field to the value of the argument, anInteger"
+print_to_pdf: anExternalAddress
+	"Set the receiver's 'print_to_pdf' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_print_to_pdf put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_print_to_pdf put: anExternalAddress!
 
 replace_misspelling
-	"Answer the <Integer> value of the receiver's 'replace_misspelling' field."
+	"Answer the <ExternalAddress> value of the receiver's 'replace_misspelling' field."
 
-	^bytes dwordAtOffset: _OffsetOf_replace_misspelling!
+	^(bytes uintPtrAtOffset: _OffsetOf_replace_misspelling) asExternalAddress!
 
-replace_misspelling: anInteger
-	"Set the receiver's 'replace_misspelling' field to the value of the argument, anInteger"
+replace_misspelling: anExternalAddress
+	"Set the receiver's 'replace_misspelling' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_replace_misspelling put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_replace_misspelling put: anExternalAddress!
 
 run_file_dialog
-	"Answer the <Integer> value of the receiver's 'run_file_dialog' field."
+	"Answer the <ExternalAddress> value of the receiver's 'run_file_dialog' field."
 
-	^bytes dwordAtOffset: _OffsetOf_run_file_dialog!
+	^(bytes uintPtrAtOffset: _OffsetOf_run_file_dialog) asExternalAddress!
 
-run_file_dialog: anInteger
-	"Set the receiver's 'run_file_dialog' field to the value of the argument, anInteger"
+run_file_dialog: anExternalAddress
+	"Set the receiver's 'run_file_dialog' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_run_file_dialog put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_run_file_dialog put: anExternalAddress!
 
 send_capture_lost_event
-	"Answer the <Integer> value of the receiver's 'send_capture_lost_event' field."
+	"Answer the <ExternalAddress> value of the receiver's 'send_capture_lost_event' field."
 
-	^bytes dwordAtOffset: _OffsetOf_send_capture_lost_event!
+	^(bytes uintPtrAtOffset: _OffsetOf_send_capture_lost_event) asExternalAddress!
 
-send_capture_lost_event: anInteger
-	"Set the receiver's 'send_capture_lost_event' field to the value of the argument, anInteger"
+send_capture_lost_event: anExternalAddress
+	"Set the receiver's 'send_capture_lost_event' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_send_capture_lost_event put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_send_capture_lost_event put: anExternalAddress!
 
 send_dev_tools_message
-	"Answer the <Integer> value of the receiver's 'send_dev_tools_message' field."
+	"Answer the <ExternalAddress> value of the receiver's 'send_dev_tools_message' field."
 
-	^bytes dwordAtOffset: _OffsetOf_send_dev_tools_message!
+	^(bytes uintPtrAtOffset: _OffsetOf_send_dev_tools_message) asExternalAddress!
 
-send_dev_tools_message: anInteger
-	"Set the receiver's 'send_dev_tools_message' field to the value of the argument, anInteger"
+send_dev_tools_message: anExternalAddress
+	"Set the receiver's 'send_dev_tools_message' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_send_dev_tools_message put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_send_dev_tools_message put: anExternalAddress!
 
 send_external_begin_frame
-	"Answer the <Integer> value of the receiver's 'send_external_begin_frame' field."
+	"Answer the <ExternalAddress> value of the receiver's 'send_external_begin_frame' field."
 
-	^bytes dwordAtOffset: _OffsetOf_send_external_begin_frame!
+	^(bytes uintPtrAtOffset: _OffsetOf_send_external_begin_frame) asExternalAddress!
 
-send_external_begin_frame: anInteger
-	"Set the receiver's 'send_external_begin_frame' field to the value of the argument, anInteger"
+send_external_begin_frame: anExternalAddress
+	"Set the receiver's 'send_external_begin_frame' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_send_external_begin_frame put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_send_external_begin_frame put: anExternalAddress!
 
 send_key_event
 	"Answer the <ExternalAddress> value of the receiver's 'send_key_event' field."
@@ -737,14 +737,14 @@ send_mouse_wheel_event: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_send_mouse_wheel_event put: anExternalAddress!
 
 send_touch_event
-	"Answer the <Integer> value of the receiver's 'send_touch_event' field."
+	"Answer the <ExternalAddress> value of the receiver's 'send_touch_event' field."
 
-	^bytes dwordAtOffset: _OffsetOf_send_touch_event!
+	^(bytes uintPtrAtOffset: _OffsetOf_send_touch_event) asExternalAddress!
 
-send_touch_event: anInteger
-	"Set the receiver's 'send_touch_event' field to the value of the argument, anInteger"
+send_touch_event: anExternalAddress
+	"Set the receiver's 'send_touch_event' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_send_touch_event put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_send_touch_event put: anExternalAddress!
 
 sendKeyEvent_event: event
 	| method arguments |
@@ -794,34 +794,34 @@ sendMouseWheelEvent_event: event deltaX: deltaX deltaY: deltaY
 	^method value: self withArguments: arguments!
 
 set_accessibility_state
-	"Answer the <Integer> value of the receiver's 'set_accessibility_state' field."
+	"Answer the <ExternalAddress> value of the receiver's 'set_accessibility_state' field."
 
-	^bytes dwordAtOffset: _OffsetOf_set_accessibility_state!
+	^(bytes uintPtrAtOffset: _OffsetOf_set_accessibility_state) asExternalAddress!
 
-set_accessibility_state: anInteger
-	"Set the receiver's 'set_accessibility_state' field to the value of the argument, anInteger"
+set_accessibility_state: anExternalAddress
+	"Set the receiver's 'set_accessibility_state' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_set_accessibility_state put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_set_accessibility_state put: anExternalAddress!
 
 set_audio_muted
-	"Answer the <Integer> value of the receiver's 'set_audio_muted' field."
+	"Answer the <ExternalAddress> value of the receiver's 'set_audio_muted' field."
 
-	^bytes dwordAtOffset: _OffsetOf_set_audio_muted!
+	^(bytes uintPtrAtOffset: _OffsetOf_set_audio_muted) asExternalAddress!
 
-set_audio_muted: anInteger
-	"Set the receiver's 'set_audio_muted' field to the value of the argument, anInteger"
+set_audio_muted: anExternalAddress
+	"Set the receiver's 'set_audio_muted' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_set_audio_muted put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_set_audio_muted put: anExternalAddress!
 
 set_auto_resize_enabled
-	"Answer the <Integer> value of the receiver's 'set_auto_resize_enabled' field."
+	"Answer the <ExternalAddress> value of the receiver's 'set_auto_resize_enabled' field."
 
-	^bytes dwordAtOffset: _OffsetOf_set_auto_resize_enabled!
+	^(bytes uintPtrAtOffset: _OffsetOf_set_auto_resize_enabled) asExternalAddress!
 
-set_auto_resize_enabled: anInteger
-	"Set the receiver's 'set_auto_resize_enabled' field to the value of the argument, anInteger"
+set_auto_resize_enabled: anExternalAddress
+	"Set the receiver's 'set_auto_resize_enabled' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_set_auto_resize_enabled put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_set_auto_resize_enabled put: anExternalAddress!
 
 set_focus
 	"Answer the <ExternalAddress> value of the receiver's 'set_focus' field."
@@ -834,14 +834,14 @@ set_focus: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_set_focus put: anExternalAddress!
 
 set_windowless_frame_frate
-	"Answer the <Integer> value of the receiver's 'set_windowless_frame_frate' field."
+	"Answer the <ExternalAddress> value of the receiver's 'set_windowless_frame_frate' field."
 
-	^bytes dwordAtOffset: _OffsetOf_set_windowless_frame_frate!
+	^(bytes uintPtrAtOffset: _OffsetOf_set_windowless_frame_frate) asExternalAddress!
 
-set_windowless_frame_frate: anInteger
-	"Set the receiver's 'set_windowless_frame_frate' field to the value of the argument, anInteger"
+set_windowless_frame_frate: anExternalAddress
+	"Set the receiver's 'set_windowless_frame_frate' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_set_windowless_frame_frate put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_set_windowless_frame_frate put: anExternalAddress!
 
 set_zoom_level
 	"Answer the <ExternalAddress> value of the receiver's 'set_zoom_level' field."
@@ -874,34 +874,34 @@ setZoomLevel_zoomLevel: zoomLevel
 	^method value: self withArguments: arguments!
 
 show_dev_tools
-	"Answer the <Integer> value of the receiver's 'show_dev_tools' field."
+	"Answer the <ExternalAddress> value of the receiver's 'show_dev_tools' field."
 
-	^bytes dwordAtOffset: _OffsetOf_show_dev_tools!
+	^(bytes uintPtrAtOffset: _OffsetOf_show_dev_tools) asExternalAddress!
 
-show_dev_tools: anInteger
-	"Set the receiver's 'show_dev_tools' field to the value of the argument, anInteger"
+show_dev_tools: anExternalAddress
+	"Set the receiver's 'show_dev_tools' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_show_dev_tools put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_show_dev_tools put: anExternalAddress!
 
 start_download
-	"Answer the <Integer> value of the receiver's 'start_download' field."
+	"Answer the <ExternalAddress> value of the receiver's 'start_download' field."
 
-	^bytes dwordAtOffset: _OffsetOf_start_download!
+	^(bytes uintPtrAtOffset: _OffsetOf_start_download) asExternalAddress!
 
-start_download: anInteger
-	"Set the receiver's 'start_download' field to the value of the argument, anInteger"
+start_download: anExternalAddress
+	"Set the receiver's 'start_download' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_start_download put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_start_download put: anExternalAddress!
 
 stop_finding
-	"Answer the <Integer> value of the receiver's 'stop_finding' field."
+	"Answer the <ExternalAddress> value of the receiver's 'stop_finding' field."
 
-	^bytes dwordAtOffset: _OffsetOf_stop_finding!
+	^(bytes uintPtrAtOffset: _OffsetOf_stop_finding) asExternalAddress!
 
-stop_finding: anInteger
-	"Set the receiver's 'stop_finding' field to the value of the argument, anInteger"
+stop_finding: anExternalAddress
+	"Set the receiver's 'stop_finding' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_stop_finding put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_stop_finding put: anExternalAddress!
 
 try_close_browser
 	"Answer the <ExternalAddress> value of the receiver's 'try_close_browser' field."
@@ -1192,32 +1192,32 @@ defineFields
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost* double')
 					smalltalkName: #setZoomLevel_zoomLevel:);
-		defineField: #run_file_dialog type: DWORDField new;
-		defineField: #start_download type: DWORDField new;
-		defineField: #download_image type: DWORDField new;
-		defineField: #print type: DWORDField new;
-		defineField: #print_to_pdf type: DWORDField new;
-		defineField: #find type: DWORDField new;
-		defineField: #stop_finding type: DWORDField new;
-		defineField: #show_dev_tools type: DWORDField new;
-		defineField: #close_dev_tools type: DWORDField new;
-		defineField: #has_dev_tools type: DWORDField new;
-		defineField: #send_dev_tools_message type: DWORDField new;
-		defineField: #execute_dev_tools_method type: DWORDField new;
-		defineField: #add_dev_tools_message_observer type: DWORDField new;
-		defineField: #get_navigation_entries type: DWORDField new;
-		defineField: #replace_misspelling type: DWORDField new;
-		defineField: #add_word_to_dictionary type: DWORDField new;
-		defineField: #is_window_rendering_disabled type: DWORDField new;
+		defineField: #run_file_dialog type: LPVOIDField new;
+		defineField: #start_download type: LPVOIDField new;
+		defineField: #download_image type: LPVOIDField new;
+		defineField: #print type: LPVOIDField new;
+		defineField: #print_to_pdf type: LPVOIDField new;
+		defineField: #find type: LPVOIDField new;
+		defineField: #stop_finding type: LPVOIDField new;
+		defineField: #show_dev_tools type: LPVOIDField new;
+		defineField: #close_dev_tools type: LPVOIDField new;
+		defineField: #has_dev_tools type: LPVOIDField new;
+		defineField: #send_dev_tools_message type: LPVOIDField new;
+		defineField: #execute_dev_tools_method type: LPVOIDField new;
+		defineField: #add_dev_tools_message_observer type: LPVOIDField new;
+		defineField: #get_navigation_entries type: LPVOIDField new;
+		defineField: #replace_misspelling type: LPVOIDField new;
+		defineField: #add_word_to_dictionary type: LPVOIDField new;
+		defineField: #is_window_rendering_disabled type: LPVOIDField new;
 		defineField: #was_resized
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost*'));
 		defineField: #was_hidden
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost* sdword')
 					smalltalkName: #wasHidden_hidden:);
-		defineField: #notify_screen_info_changed type: DWORDField new;
-		defineField: #invalidate type: DWORDField new;
-		defineField: #send_external_begin_frame type: DWORDField new;
+		defineField: #notify_screen_info_changed type: LPVOIDField new;
+		defineField: #invalidate type: LPVOIDField new;
+		defineField: #send_external_begin_frame type: LPVOIDField new;
 		defineField: #send_key_event
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost* CefKeyEvent*')
@@ -1234,32 +1234,32 @@ defineFields
 			type: (MethodField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: void CefBrowserHost* CefMouseEvent* sdword sdword')
 					smalltalkName: #sendMouseWheelEvent_event:deltaX:deltaY:);
-		defineField: #send_touch_event type: DWORDField new;
-		defineField: #send_capture_lost_event type: DWORDField new;
-		defineField: #notify_move_or_resize_started type: DWORDField new;
-		defineField: #get_windowless_frame_rate type: DWORDField new;
-		defineField: #set_windowless_frame_frate type: DWORDField new;
-		defineField: #ime_set_composition type: DWORDField new;
-		defineField: #ime_commit_text type: DWORDField new;
-		defineField: #ime_finish_composing_text type: DWORDField new;
-		defineField: #ime_cancel_composition type: DWORDField new;
-		defineField: #drag_target_drag_enter type: DWORDField new;
-		defineField: #drag_target_drag_over type: DWORDField new;
-		defineField: #drag_target_drag_leave type: DWORDField new;
-		defineField: #drag_target_drop type: DWORDField new;
-		defineField: #drag_source_ended_at type: DWORDField new;
-		defineField: #drag_source_system_drag_ended type: DWORDField new;
-		defineField: #get_visible_navigation_entry type: DWORDField new;
-		defineField: #set_accessibility_state type: DWORDField new;
-		defineField: #set_auto_resize_enabled type: DWORDField new;
-		defineField: #get_extension type: DWORDField new;
-		defineField: #is_background_host type: DWORDField new;
-		defineField: #set_audio_muted type: DWORDField new;
-		defineField: #is_audio_muted type: DWORDField new;
-		defineField: #is_fullscreen type: DWORDField new;
-		defineField: #exit_fullscreen type: DWORDField new;
-		defineField: #can_execute_chrome_command type: DWORDField new;
-		defineField: #execute_chrome_command type: DWORDField new!
+		defineField: #send_touch_event type: LPVOIDField new;
+		defineField: #send_capture_lost_event type: LPVOIDField new;
+		defineField: #notify_move_or_resize_started type: LPVOIDField new;
+		defineField: #get_windowless_frame_rate type: LPVOIDField new;
+		defineField: #set_windowless_frame_frate type: LPVOIDField new;
+		defineField: #ime_set_composition type: LPVOIDField new;
+		defineField: #ime_commit_text type: LPVOIDField new;
+		defineField: #ime_finish_composing_text type: LPVOIDField new;
+		defineField: #ime_cancel_composition type: LPVOIDField new;
+		defineField: #drag_target_drag_enter type: LPVOIDField new;
+		defineField: #drag_target_drag_over type: LPVOIDField new;
+		defineField: #drag_target_drag_leave type: LPVOIDField new;
+		defineField: #drag_target_drop type: LPVOIDField new;
+		defineField: #drag_source_ended_at type: LPVOIDField new;
+		defineField: #drag_source_system_drag_ended type: LPVOIDField new;
+		defineField: #get_visible_navigation_entry type: LPVOIDField new;
+		defineField: #set_accessibility_state type: LPVOIDField new;
+		defineField: #set_auto_resize_enabled type: LPVOIDField new;
+		defineField: #get_extension type: LPVOIDField new;
+		defineField: #is_background_host type: LPVOIDField new;
+		defineField: #set_audio_muted type: LPVOIDField new;
+		defineField: #is_audio_muted type: LPVOIDField new;
+		defineField: #is_fullscreen type: LPVOIDField new;
+		defineField: #exit_fullscreen type: LPVOIDField new;
+		defineField: #can_execute_chrome_command type: LPVOIDField new;
+		defineField: #execute_chrome_command type: LPVOIDField new!
 
 getFieldNames
 	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #get_browser #close_browser #try_close_browser #set_focus #get_window_handle #get_opener_window_handle #has_view #get_client #get_request_context #can_zoom #zoom #get_default_zoom_level #get_zoom_level #set_zoom_level #run_file_dialog #start_download #download_image #print #print_to_pdf #find #stop_finding #show_dev_tools #close_dev_tools #has_dev_tools #send_dev_tools_message #execute_dev_tools_method #add_dev_tools_message_observer #get_navigation_entries #replace_misspelling #add_word_to_dictionary #is_window_rendering_disabled #was_resized #was_hidden #notify_screen_info_changed #invalidate #send_external_begin_frame #send_key_event #send_mouse_click_event #send_mouse_move_event #send_mouse_wheel_event #send_touch_event #send_capture_lost_event #notify_move_or_resize_started #get_windowless_frame_rate #set_windowless_frame_frate #ime_set_composition #ime_commit_text #ime_finish_composing_text #ime_cancel_composition #drag_target_drag_enter #drag_target_drag_over #drag_target_drag_leave #drag_target_drop #drag_source_ended_at #drag_source_system_drag_ended #get_visible_navigation_entry #set_accessibility_state #set_auto_resize_enabled #get_extension #is_background_host #set_audio_muted #is_audio_muted #is_fullscreen #exit_fullscreen #can_execute_chrome_command #execute_chrome_command)! !
