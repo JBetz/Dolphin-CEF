@@ -13,6 +13,9 @@ Url comment: ''!
 displayString
 	^string!
 
+domain
+	^self host str!
+
 fragment
 	^parts fragment!
 
@@ -25,6 +28,9 @@ origin
 parse
 	parts := CefUrlParts new. 
 	CefLibrary default parseUrl_url: string asCefString parts: parts!
+
+parts: aCefUrlParts
+	parts := aCefUrlParts!
 
 password
 	^parts password!
@@ -62,10 +68,12 @@ username
 	^parts username! !
 !Url categoriesForMethods!
 displayString!public! !
+domain!public! !
 fragment!public! !
 host!public! !
 origin!public! !
 parse!private! !
+parts:!private! !
 password!public! !
 path!public! !
 port!public! !
@@ -81,7 +89,15 @@ username!public! !
 !Url class methodsFor!
 
 fromString: aString
-	^self new string: aString! !
+	| parts resultCode |
+	parts := CefUrlParts new.
+	resultCode := CefLibrary default parseUrl_url: aString asCefString parts: parts.
+	^resultCode = 0
+		ifTrue: [nil]
+		ifFalse: 
+			[self new
+				string: aString;
+				parts: parts]! !
 !Url class categoriesForMethods!
 fromString:!public! !
 !
