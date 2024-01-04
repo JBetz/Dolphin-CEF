@@ -127,6 +127,14 @@ shutdown
 
 stringFromAscii_src: src srcLen: src_len output: output 
 	<stdcall: sdword cef_string_ascii_to_utf16 char* dword CefString*>
+	^self invalidCall: _failureCode!
+
+stringListSize_list: list
+	<stdcall: dword cef_string_list_size CefStringList*>
+	^self invalidCall: _failureCode!
+
+stringListValue_list: list index: index value: value
+	<stdcall: sdword cef_string_list_value CefStringList* dword CefString*>
 	^self invalidCall: _failureCode! !
 !CefLibrary categoriesForMethods!
 browserHostCreateBrowser_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
@@ -139,6 +147,8 @@ parseUrl_url:parts:!parser!public! !
 resolveUrl_baseUrl:relativeUrl:resolvedUrl:!parser!public! !
 shutdown!public! !
 stringFromAscii_src:srcLen:output:!public! !
+stringListSize_list:!parser!public! !
+stringListValue_list:index:value:!parser!public! !
 !
 
 !CefLibrary class methodsFor!
