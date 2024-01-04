@@ -62,14 +62,14 @@ on_cursor_change: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_on_cursor_change put: anExternalAddress!
 
 on_favicon_urlchange
-	"Answer the <Integer> value of the receiver's 'on_favicon_urlchange' field."
+	"Answer the <ExternalAddress> value of the receiver's 'on_favicon_urlchange' field."
 
-	^bytes dwordAtOffset: _OffsetOf_on_favicon_urlchange!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_favicon_urlchange) asExternalAddress!
 
-on_favicon_urlchange: anInteger
-	"Set the receiver's 'on_favicon_urlchange' field to the value of the argument, anInteger"
+on_favicon_urlchange: anExternalAddress
+	"Set the receiver's 'on_favicon_urlchange' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_on_favicon_urlchange put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_on_favicon_urlchange put: anExternalAddress!
 
 on_fullscreen_mode_change
 	"Answer the <Integer> value of the receiver's 'on_fullscreen_mode_change' field."
@@ -170,7 +170,10 @@ defineFields
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefDisplayHandler* CefBrowser* CefString*')
 					smalltalkName: #onTitleChange:browser:title:);
-		defineField: #on_favicon_urlchange type: DWORDField new;
+		defineField: #on_favicon_urlchange
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: void CefDisplayHandler* CefBrowser* CefStringList*')
+					smalltalkName: #onFaviconUrlChange:browser:iconUrls:);
 		defineField: #on_fullscreen_mode_change type: DWORDField new;
 		defineField: #on_tooltip type: DWORDField new;
 		defineField: #on_status_message
