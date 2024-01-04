@@ -17,6 +17,9 @@ CefRect comment: ''!
 asRectangle
 	^Rectangle origin: self origin extent: self extent!
 
+bottom
+	^self y + self height!
+
 extent
 	^self width @ self height!
 
@@ -30,8 +33,17 @@ height: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_height put: anInteger!
 
+left
+	^self x!
+
 origin
-	^self x @ self y!
+	^self left @ self top!
+
+right
+	^self x + self width!
+
+top
+	^self y!
 
 width
 	"Answer the <Integer> value of the receiver's 'width' field."
@@ -64,10 +76,14 @@ y: anInteger
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
 !CefRect categoriesForMethods!
 asRectangle!public! !
+bottom!public! !
 extent!public! !
 height!public! !
 height:!public! !
+left!public! !
 origin!public! !
+right!public! !
+top!public! !
 width!public! !
 width:!public! !
 x!public! !
