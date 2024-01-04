@@ -268,7 +268,7 @@ defineFields
 					smalltalkName: #onPopupSize:browser:rect:);
 		defineField: #on_paint
 			type: (CallbackField descriptor: (ExternalDescriptor
-							fromString: 'stdcall: void CefRenderHandler* CefBrowser* sdword dword CefRect* lpvoid sdword sdword')
+							fromString: 'stdcall: void CefRenderHandler* CefBrowser* sdword dword lpvoid lpvoid sdword sdword')
 					smalltalkName: #onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:);
 		defineField: #on_accelerated_paint
 			type: (CallbackField descriptor: (ExternalDescriptor
