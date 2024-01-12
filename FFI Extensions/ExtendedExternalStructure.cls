@@ -22,6 +22,7 @@ initialize!public! !
 !ExtendedExternalStructure class methodsFor!
 
 addInstance: anObject
+	Instances ifNil: [Instances := WeakLookupTable new].
 	Instances at: anObject yourAddress put: anObject!
 
 callbackRegistry
@@ -116,7 +117,7 @@ recompileDefinition
 	self registerCallbacks!
 
 registerCallbacks
-	CallbackRegistry removeAll.
+	CallbackRegistry := LookupTable new.
 	self template keysAndValuesDo: 
 			[:selector :field |
 			(field isKindOf: CallbackField)

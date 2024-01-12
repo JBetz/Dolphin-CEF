@@ -38,6 +38,7 @@ package classNames
 	add: #CefDisplayHandler;
 	add: #CefDragData;
 	add: #CefEventHandler;
+	add: #CefFindHandler;
 	add: #CefFocusHandler;
 	add: #CefFrame;
 	add: #CefFrameHandler;
@@ -125,7 +126,7 @@ Object subclass: #CefContentProvider
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText scrollOffset texture selectedRange focusedElement hoveredElement popupTexture'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose queuedUrl selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -265,7 +266,7 @@ CefReferenceCountedObject subclass: #CefCallback
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler contextMenuHandler processMessageDelegate'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler findHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler contextMenuHandler processMessageDelegate'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -367,6 +368,11 @@ CefEventHandler subclass: #CefContextMenuHandler
 CefEventHandler subclass: #CefDisplayHandler
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_on_address_change _OffsetOf_on_auto_resize _OffsetOf_on_console_message _OffsetOf_on_cursor_change _OffsetOf_on_favicon_urlchange _OffsetOf_on_fullscreen_mode_change _OffsetOf_on_loading_progess_change _OffsetOf_on_media_access_change _OffsetOf_on_status_message _OffsetOf_on_title_change _OffsetOf_on_tooltip'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefEventHandler subclass: #CefFindHandler
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_on_find_result'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefEventHandler subclass: #CefFocusHandler

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler contextMenuHandler processMessageDelegate'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler findHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler contextMenuHandler processMessageDelegate'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -44,6 +44,13 @@ enableDisplayHandler
 enableDisplayHandlerAndDelegateTo: anObject
 	displayHandler := CefDisplayHandler new.
 	displayHandler delegate: anObject!
+
+enableFindHandler
+	findHandler := CefFindHandler new!
+
+enableFindHandlerAndDelegateTo: anObject
+	findHandler := CefFindHandler new.
+	findHandler delegate: anObject!
 
 enableFocusHandler
 	focusHandler := CefFocusHandler new!
@@ -280,6 +287,9 @@ getContextMenuHandler: aCefClient
 getDisplayHandler: aCefClient
 	^displayHandler ifNotNil: [displayHandler yourAddress]!
 
+getFindHandler: aCefClient
+	^findHandler ifNotNil: [findHandler yourAddress]!
+
 getFocusHandler: aCefClient
 	^focusHandler ifNotNil: [focusHandler yourAddress]!
 
@@ -332,6 +342,8 @@ enableContextMenuHandler!public! !
 enableContextMenuHandlerAndDelegateTo:!public! !
 enableDisplayHandler!public! !
 enableDisplayHandlerAndDelegateTo:!public! !
+enableFindHandler!public! !
+enableFindHandlerAndDelegateTo:!public! !
 enableFocusHandler!public! !
 enableFocusHandlerAndDelegateTo:!public! !
 enableFrameHandler!public! !
@@ -383,6 +395,7 @@ get_request_handler!**compiled accessors**!public! !
 get_request_handler:!**compiled accessors**!public! !
 getContextMenuHandler:!public! !
 getDisplayHandler:!public! !
+getFindHandler:!public! !
 getFocusHandler:!public! !
 getFrameHandler:!public! !
 getKeyboardHandler:!public! !
@@ -415,7 +428,9 @@ defineFields
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefDisplayHandler* CefClient*'));
 		defineField: #get_download_handler type: LPVOIDField new;
 		defineField: #get_drag_handler type: LPVOIDField new;
-		defineField: #get_find_handler type: LPVOIDField new;
+		defineField: #get_find_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefFindHandler* CefClient*'));
 		defineField: #get_focus_handler
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefFocusHandler* CefClient*'));

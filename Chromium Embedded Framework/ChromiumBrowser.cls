@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders shouldClose readyToClose queuedUrl selectedText scrollOffset texture selectedRange focusedElement hoveredElement popupTexture'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose queuedUrl selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -85,6 +85,14 @@ delete
 
 doClose: lifeSpanHandler browser: browser
 	^0!
+
+find: aString
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost
+		find_searchText: aString asCefString
+		forward: true asInteger
+		matchCase: false asInteger
+		findNext: (search currentPosition isNil not) asInteger!
 
 focus
 	cefBrowser ifNil: [^self].
@@ -191,19 +199,21 @@ initialize
 	super initialize.
 	contentProviders := Dictionary new.
 	rectangle := Rectangle new.
-	readyToClose := false!
+	readyToClose := false.
+	searches := LookupTable new!
 
 initializeOffscreenClient
 	cefClient := CefClient new.
 	cefClient
-		enableLifeSpanHandlerAndDelegateTo: self;
-		enableRequestHandlerAndDelegateTo: self;
-		enableDisplayHandlerAndDelegateTo: self;
-		enableRenderHandlerAndDelegateTo: self;
-		enableFrameHandlerAndDelegateTo: self;
-		enableLoadHandlerAndDelegateTo: self;
-		enableKeyboardHandlerAndDelegateTo: self;
 		enableContextMenuHandlerAndDelegateTo: self;
+		enableDisplayHandlerAndDelegateTo: self;
+		enableFindHandlerAndDelegateTo: self;
+		enableFrameHandlerAndDelegateTo: self;
+		enableKeyboardHandlerAndDelegateTo: self;
+		enableLifeSpanHandlerAndDelegateTo: self;
+		enableLoadHandlerAndDelegateTo: self;
+		enableRequestHandlerAndDelegateTo: self;
+		enableRenderHandlerAndDelegateTo: self;
 		processMessageDelegate: self!
 
 initializeWindowedClient
@@ -286,6 +296,17 @@ onCursorChange: displayHandler browser: browser cursor: cursor type: type custom
 
 onFaviconUrlChange: displayHandler browser: browser iconUrls: iconUrls
 	^0!
+
+onFindResult: aCefFindHandler browser: browser identifier: identifier count: count selectionRect: selectionRect activeMatchOrdinal: activeMatchOrdinal finalUpdate: finalUpdate
+	"Called to report find results returned by cef_browser_host_t::find(). |identifer| is a unique incremental identifier for the currently active
+	  search, |count| is the number of matches currently identified, |selectionRect| is the location of where the match was found (in window
+	  coordinates), |activeMatchOrdinal| is the current position in the search results, and |finalUpdate| is true (1) if this is the last find notification."
+
+	search ifNil: [^self].
+	search
+		resultCount: count;
+		currentPosition: activeMatchOrdinal;
+		selectionRectangle: selectionRect asRectangle!
 
 onFrameAttached: frameHandler browser: browser frame: frame reattached: reattched
 	^0!
@@ -424,6 +445,9 @@ runContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame par
 scrollOffset
 	^host ifNotNil: [host scrollOffset] ifNil: [0 @ 0]!
 
+search: aTextSearch
+	search := aTextSearch!
+
 selectAll
 	cefBrowser getFocusedFrame selectAll!
 
@@ -456,6 +480,10 @@ sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
 startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData allowedOps: anInteger x: anInteger2 y: anInteger3 
 	^0!
 
+stopFinding
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost stopFinding_clearSelection: false asInteger!
+
 texture
 	^texture!
 
@@ -482,6 +510,7 @@ cut!public! !
 defocus!public! !
 delete!public! !
 doClose:browser:!cef event handler!life span handler!private! !
+find:!public! !
 focus!public! !
 focusedElement!public! !
 forceCloseBrowser!public! !
@@ -517,6 +546,7 @@ onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handle
 onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
 onFaviconUrlChange:browser:iconUrls:!cef event handler!private! !
+onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
@@ -549,6 +579,7 @@ reload!public! !
 removeContentProvider:!public! !
 runContextMenu:browser:frame:params:model:callback:!cef event handler!context menu handler!private! !
 scrollOffset!public! !
+search:!public! !
 selectAll!public! !
 selectedText!public! !
 sendKeyEvent:!public! !
@@ -556,6 +587,7 @@ sendMouseClickEvent:mouseButtonType:mouseUp:clickCount:!public! !
 sendMouseMoveEvent:mouseLeave:!public! !
 sendMouseWheelEvent:delta:!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
+stopFinding!public! !
 texture!public! !
 texture:!public! !
 undo!public! !

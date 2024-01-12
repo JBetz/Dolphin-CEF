@@ -84,6 +84,10 @@ _closeBrowser_cefBrowserHost: cefBrowserHost forceClose: forceClose
 	<stdcall: void close_browser CefBrowserHost* sdword>
 	^self invalidCall: _failureCode!
 
+_find_cefBrowserHost: cefBrowserHost searchText: searchText forward: forward matchCase: matchCase findNext: findNext
+	<stdcall: void find CefBrowserHost* CefString* sdword sdword sdword>
+	^self invalidCall: _failureCode!
+
 _getBrowser_cefBrowserHost: cefBrowserHost
 	<stdcall: CefBrowser* get_browser CefBrowserHost*>
 	^self invalidCall: _failureCode!
@@ -138,6 +142,10 @@ _setFocus_cefBrowserHost: cefBrowserHost focus: focus
 
 _setZoomLevel_cefBrowserHost: cefBrowserHost zoomLevel: zoomLevel
 	<stdcall: void set_zoom_level CefBrowserHost* double>
+	^self invalidCall: _failureCode!
+
+_stopFinding_cefBrowserHost: cefBrowserHost clearSelection: clearSelection
+	<stdcall: void stop_finding CefBrowserHost* sdword>
 	^self invalidCall: _failureCode!
 
 _tryCloseBrowser_cefBrowserHost: cefBrowserHost
@@ -340,6 +348,19 @@ find: anExternalAddress
 	"Set the receiver's 'find' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_find put: anExternalAddress!
+
+find_searchText: searchText forward: forward matchCase: matchCase findNext: findNext
+	| method arguments |
+	method := self class externalMethodAt: #_find_cefBrowserHost:searchText:forward:matchCase:findNext:
+				ifAbsentBindTo: self find.
+	arguments := Array new: 5.
+	arguments
+		at: 1 put: self;
+		at: 2 put: searchText;
+		at: 3 put: forward;
+		at: 4 put: matchCase;
+		at: 5 put: findNext.
+	^method value: self withArguments: arguments!
 
 get_browser
 	"Answer the <ExternalAddress> value of the receiver's 'get_browser' field."
@@ -903,6 +924,16 @@ stop_finding: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_stop_finding put: anExternalAddress!
 
+stopFinding_clearSelection: clearSelection
+	| method arguments |
+	method := self class externalMethodAt: #_stopFinding_cefBrowserHost:clearSelection:
+				ifAbsentBindTo: self stop_finding.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: clearSelection.
+	^method value: self withArguments: arguments!
+
 try_close_browser
 	"Answer the <ExternalAddress> value of the receiver's 'try_close_browser' field."
 
@@ -975,6 +1006,7 @@ zoom_command: command
 !CefBrowserHost categoriesForMethods!
 _canZoom_cefBrowserHost:!**compiled accessors**!private! !
 _closeBrowser_cefBrowserHost:forceClose:!**compiled accessors**!private! !
+_find_cefBrowserHost:searchText:forward:matchCase:findNext:!**compiled accessors**!private! !
 _getBrowser_cefBrowserHost:!**compiled accessors**!private! !
 _getClient_cefBrowserHost:!**compiled accessors**!private! !
 _getDefaultZoomLevel_cefBrowserHost:!**compiled accessors**!private! !
@@ -989,6 +1021,7 @@ _sendMouseMoveEvent_cefBrowserHost:event:mouseLeave:!**compiled accessors**!priv
 _sendMouseWheelEvent_cefBrowserHost:event:deltaX:deltaY:!**compiled accessors**!private! !
 _setFocus_cefBrowserHost:focus:!**compiled accessors**!private! !
 _setZoomLevel_cefBrowserHost:zoomLevel:!**compiled accessors**!private! !
+_stopFinding_cefBrowserHost:clearSelection:!**compiled accessors**!private! !
 _tryCloseBrowser_cefBrowserHost:!**compiled accessors**!private! !
 _wasHidden_cefBrowserHost:hidden:!**compiled accessors**!private! !
 _wasResized_cefBrowserHost:!**compiled accessors**!private! !
@@ -1029,6 +1062,7 @@ exit_fullscreen!**compiled accessors**!public! !
 exit_fullscreen:!**compiled accessors**!public! !
 find!**compiled accessors**!public! !
 find:!**compiled accessors**!public! !
+find_searchText:forward:matchCase:findNext:!**compiled accessors**!public! !
 get_browser!**compiled accessors**!public! !
 get_browser:!**compiled accessors**!public! !
 get_client!**compiled accessors**!public! !
@@ -1133,6 +1167,7 @@ start_download!**compiled accessors**!public! !
 start_download:!**compiled accessors**!public! !
 stop_finding!**compiled accessors**!public! !
 stop_finding:!**compiled accessors**!public! !
+stopFinding_clearSelection:!**compiled accessors**!public! !
 try_close_browser!**compiled accessors**!public! !
 try_close_browser:!**compiled accessors**!public! !
 tryCloseBrowser!**compiled accessors**!public! !
@@ -1197,8 +1232,14 @@ defineFields
 		defineField: #download_image type: LPVOIDField new;
 		defineField: #print type: LPVOIDField new;
 		defineField: #print_to_pdf type: LPVOIDField new;
-		defineField: #find type: LPVOIDField new;
-		defineField: #stop_finding type: LPVOIDField new;
+		defineField: #find
+			type: (MethodField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: void CefBrowserHost* CefString* sdword sdword sdword')
+					smalltalkName: #find_searchText:forward:matchCase:findNext:);
+		defineField: #stop_finding
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost* sdword')
+					smalltalkName: #stopFinding_clearSelection:);
 		defineField: #show_dev_tools type: LPVOIDField new;
 		defineField: #close_dev_tools type: LPVOIDField new;
 		defineField: #has_dev_tools type: LPVOIDField new;
