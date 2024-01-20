@@ -31,7 +31,7 @@ browserHostCreateBrowser_windowInfo: win_info client: client url: url settings: 
 	    struct _cef_dictionary_value_t* extra_info,
 	    struct _cef_request_context_t* request_context);"
 
-	<stdcall: sdword cef_browser_host_create_browser CefWindowInfo* CefClient* CefString* CefBrowserSettings* void* void*>
+	<cdecl: sdword cef_browser_host_create_browser CefWindowInfo* CefClient* CefString* CefBrowserSettings* void* void*>
 	^self invalidCall: _failureCode!
 
 browserHostCreateBrowserSync_windowInfo: win_info client: client url: url settings: settings extraInfo: extra_info requestContext: request_context
@@ -53,11 +53,11 @@ browserHostCreateBrowserSync_windowInfo: win_info client: client url: url settin
 	    struct _cef_dictionary_value_t* extra_info,
 	    struct _cef_request_context_t* request_context);"
 
-	<stdcall: CefBrowser* cef_browser_host_create_browser_sync CefWindowInfo* CefClient* CefString* CefBrowserSettings* void* void*>
+	<cdecl: CefBrowser* cef_browser_host_create_browser_sync CefWindowInfo* CefClient* CefString* CefBrowserSettings* void* void*>
 	^self invalidCall: _failureCode!
 
 createUrl_parts: parts url: url
-	<stdcall: sdword cef_create_url CefUrlParts* CefString*>
+	<cdecl: sdword cef_create_url CefUrlParts* CefString*>
 	^self invalidCall: _failureCode!
 
 executeProcess_args: args application: application windowsSandboxInfo: windows_sandbox_info
@@ -79,11 +79,11 @@ executeProcess_args: args application: application windowsSandboxInfo: windows_s
 					   cef_app_t* application,
 					   void* windows_sandbox_info);"
 
-	<stdcall: sdword cef_execute_process CefMainArgs* CefApp* void*>
+	<cdecl: sdword cef_execute_process CefMainArgs* CefApp* void*>
 	^self invalidCall: _failureCode!
 
 formatUrlForSecurityDisplay_originUrl: originUrl
-	<stdcall: CefStringUserfree* cef_format_url_for_security_display CefString*>
+	<cdecl: CefStringUserfree* cef_format_url_for_security_display CefString*>
 	^self invalidCall: _failureCode!
 
 initialize_args: args settings: settings application: application windowsSandboxInfo: windows_sandbox_info
@@ -102,15 +102,15 @@ initialize_args: args settings: settings application: application windowsSandbox
 				      cef_app_t* application,
 				      void* windows_sandbox_info);"
 
-	<stdcall: sdword cef_initialize CefMainArgs* CefSettings* CefApp* void*>
+	<cdecl: sdword cef_initialize CefMainArgs* CefSettings* CefApp* void*>
 	^self invalidCall: _failureCode!
 
 parseUrl_url: url parts: parts
-	<stdcall: sdword cef_parse_url CefString* CefUrlParts*>
+	<cdecl: sdword cef_parse_url CefString* CefUrlParts*>
 	^self invalidCall: _failureCode!
 
 resolveUrl_baseUrl: baseUrl relativeUrl: relativeUrl resolvedUrl: resolvedUrl
-	<stdcall: sdword cef_resolve_url CefString* CefString* CefString*>
+	<cdecl: sdword cef_resolve_url CefString* CefString* CefString*>
 	^self invalidCall: _failureCode!
 
 shutdown
@@ -122,19 +122,19 @@ shutdown
 	///
 	CEF_EXPORT void cef_shutdown(void);"
 
-	<stdcall: void cef_shutdown>
+	<cdecl: void cef_shutdown>
 	^self invalidCall: _failureCode!
 
 stringFromAscii_src: src srcLen: src_len output: output 
-	<stdcall: sdword cef_string_ascii_to_utf16 char* dword CefString*>
+	<cdecl: sdword cef_string_ascii_to_utf16 char* dword CefString*>
 	^self invalidCall: _failureCode!
 
 stringListSize_list: list
-	<stdcall: dword cef_string_list_size CefStringList*>
+	<cdecl: dword cef_string_list_size CefStringList*>
 	^self invalidCall: _failureCode!
 
 stringListValue_list: list index: index value: value
-	<stdcall: sdword cef_string_list_value CefStringList* dword CefString*>
+	<cdecl: sdword cef_string_list_value CefStringList* dword CefString*>
 	^self invalidCall: _failureCode! !
 !CefLibrary categoriesForMethods!
 browserHostCreateBrowser_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
