@@ -54,6 +54,7 @@ package classNames
 	add: #CefMouseEvent;
 	add: #CefPoint;
 	add: #CefPopupFeatures;
+	add: #CefPreferencesRegistrar;
 	add: #CefProcessMessage;
 	add: #CefRange;
 	add: #CefRect;
@@ -310,6 +311,11 @@ CefReferenceCountedObject subclass: #CefMenuModel
 	classVariableNames: '_OffsetOf_add_check_item _OffsetOf_add_item _OffsetOf_add_radio_item _OffsetOf_add_separator _OffsetOf_add_sub_menu _OffsetOf_clear _OffsetOf_get_accelerator _OffsetOf_get_accelerator_at _OffsetOf_get_color _OffsetOf_get_color_at _OffsetOf_get_command_id_at _OffsetOf_get_count _OffsetOf_get_group_id _OffsetOf_get_group_id_at _OffsetOf_get_index_of _OffsetOf_get_label _OffsetOf_get_label_at _OffsetOf_get_sub_menu _OffsetOf_get_sub_menu_at _OffsetOf_get_type _OffsetOf_get_type_at _OffsetOf_has_accelerator _OffsetOf_has_accelerator_at _OffsetOf_insert_check_item_at _OffsetOf_insert_item_at _OffsetOf_insert_radio_item_at _OffsetOf_insert_separator_at _OffsetOf_insert_sub_menu_at _OffsetOf_is_checked _OffsetOf_is_checked_at _OffsetOf_is_enabled _OffsetOf_is_enabled_at _OffsetOf_is_sub_menu _OffsetOf_is_visible _OffsetOf_is_visible_at _OffsetOf_remove _OffsetOf_remove_accelerator _OffsetOf_remove_accelerator_at _OffsetOf_remove_at _OffsetOf_set_accelerator _OffsetOf_set_accelerator_at _OffsetOf_set_checked _OffsetOf_set_checked_at _OffsetOf_set_color _OffsetOf_set_color_at _OffsetOf_set_command_id_at _OffsetOf_set_enabled _OffsetOf_set_enabled_at _OffsetOf_set_font_list _OffsetOf_set_font_list_at _OffsetOf_set_group_id _OffsetOf_set_group_id_at _OffsetOf_set_label _OffsetOf_set_label_at _OffsetOf_set_visible _OffsetOf_set_visible_at'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefPreferencesRegistrar
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefProcessMessage
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_copy _OffsetOf_get_argument_list _OffsetOf_get_name _OffsetOf_get_shared_memory_region _OffsetOf_is_read_only _OffsetOf_is_valid'
@@ -342,7 +348,7 @@ CefReferenceCountedObject subclass: #CefRunQuickMenuCallback
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefSchemeRegistrar
 	instanceVariableNames: ''
-	classVariableNames: ''
+	classVariableNames: '_OffsetOf_add_custom_scheme'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefValue
@@ -463,7 +469,7 @@ setProcessDEPPolicy: dwFlags
 	);"
 
 	<stdcall: bool SetProcessDEPPolicy dword>
-	^self invalidCall: _failureCode! !
+	^self invalidCall! !
 !KernelLibrary categoriesForMethods!
 setPriorityClass:dwPriorityClass:!public! !
 setProcessDEPPolicy:!public! !
