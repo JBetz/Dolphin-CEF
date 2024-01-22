@@ -61,13 +61,17 @@ get_resource_bundle_handler: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_resource_bundle_handler put: anExternalAddress!
 
 getBrowserProcessHandler: aCefApp
-	^browserProcessHandler ifNotNil: [browserProcessHandler yourAddress] ifNil: [0]!
+	^browserProcessHandler ifNotNil: [browserProcessHandler yourAddress]!
 
 getRenderProcessHandler: aCefApp
-	^renderProcessHandler ifNotNil: [renderProcessHandler yourAddress] ifNil: [0]!
+	^renderProcessHandler ifNotNil: [renderProcessHandler yourAddress]!
 
 getResourceBundleHandler: aCefApp
-	^resourceBundleHandler ifNotNil: [resourceBundleHandler yourAddress] ifNil: [0]!
+	^resourceBundleHandler ifNotNil: [resourceBundleHandler yourAddress]!
+
+initialize
+	super initialize.
+	self disableReferenceCounting!
 
 on_before_command_line_processing
 	"Answer the <ExternalAddress> value of the receiver's 'on_before_command_line_processing' field."
@@ -87,7 +91,13 @@ on_register_custom_schemes
 on_register_custom_schemes: anExternalAddress
 	"Set the receiver's 'on_register_custom_schemes' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_on_register_custom_schemes put: anExternalAddress! !
+	bytes uintPtrAtOffset: _OffsetOf_on_register_custom_schemes put: anExternalAddress!
+
+onBeforeCommandLineProcessing: aCefApp processType: aCefString commandLine: aCefCommandLine 
+	Transcript display: #onBeforeCommandLineProcessing -> aCefString; cr!
+
+onRegisterCustomSchemes: aCefApp registrar: aCefSchemeRegistrar
+	Transcript display: #onRegisterCustomSchemes; cr! !
 !CefApp categoriesForMethods!
 enableBrowserProcessHandler!public! !
 enableBrowserProcessHandlerAndDelegateTo:!public! !
@@ -102,10 +112,13 @@ get_resource_bundle_handler:!**compiled accessors**!public! !
 getBrowserProcessHandler:!public! !
 getRenderProcessHandler:!public! !
 getResourceBundleHandler:!public! !
+initialize!public! !
 on_before_command_line_processing!**compiled accessors**!public! !
 on_before_command_line_processing:!**compiled accessors**!public! !
 on_register_custom_schemes!**compiled accessors**!public! !
 on_register_custom_schemes:!**compiled accessors**!public! !
+onBeforeCommandLineProcessing:processType:commandLine:!public! !
+onRegisterCustomSchemes:registrar:!public! !
 !
 
 !CefApp class methodsFor!
@@ -115,23 +128,23 @@ defineFields
 
 	super defineFields.
 	self
-		defineField: #on_before_command_line_processing type: LPVOIDField new;
-		defineField: #on_register_custom_schemes type: LPVOIDField new;
-		defineField: #get_resource_bundle_handler type: LPVOIDField new;
-		defineField: #get_browser_process_handler type: LPVOIDField new;
-		defineField: #get_render_process_handler type: LPVOIDField new
-	"type: (CallbackField
+		defineField: #on_before_command_line_processing
+			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefApp* CefString* CefCommandLine*')
-					smalltalkName: #onBeforeCommandLineProcessing:processType:commandLine:);"
-	"type: (CallbackField
+					smalltalkName: #onBeforeCommandLineProcessing:processType:commandLine:);
+		defineField: #on_register_custom_schemes
+			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefApp* CefSchemeRegistrar*')
-					smalltalkName: #onRegisterCustomSchemes:registrar:);"
-	"type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: CefResourceBundleHandler* CefApp*'));"
-	"type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: CefBrowserProcessHandler* CefApp*'));"
-	"type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRenderProcessHandler* CefApp*'))"!
+					smalltalkName: #onRegisterCustomSchemes:registrar:);
+		defineField: #get_resource_bundle_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefResourceBundleHandler* CefApp*'));
+		defineField: #get_browser_process_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefBrowserProcessHandler* CefApp*'));
+		defineField: #get_render_process_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRenderProcessHandler* CefApp*'))!
 
 getFieldNames
 	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_before_command_line_processing #on_register_custom_schemes #get_resource_bundle_handler #get_browser_process_handler #get_render_process_handler)! !
