@@ -79,7 +79,7 @@ hasOneReference: aCefReferenceCountedObject
 
 initialize
 	super initialize.
-	referenceCount := 100.
+	referenceCount := 1.
 	self cefSize: self class byteSize!
 
 referenceCount
