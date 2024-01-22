@@ -84,14 +84,24 @@ defineFields
 
 	super defineFields.
 	self
-		defineField: #on_register_custom_preferences type: LPVOIDField new;
-		defineField: #on_context_initialized type: LPVOIDField new;
-			"type: (CallbackField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserProcessHandler*'));"
-		defineField: #on_before_child_process_launch type: LPVOIDField new;
-			"type: (CallbackField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserProcessHandler* CefCommandLine*')
-					smalltalkName: #onBeforeChildProcessLaunch_commandLine:);"
-		defineField: #on_schedule_message_pump_work type: LPVOIDField new;
-		defineField: #get_default_client type: LPVOIDField new!
+		defineField: #on_register_custom_preferences
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: void CefBrowserProcessHandler* sdword CefPreferencesRegistrar*')
+					smalltalkName: #onRegisterCustomPreferences:type:registrar:);
+		defineField: #on_context_initialized
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserProcessHandler*'));
+		defineField: #on_before_child_process_launch
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserProcessHandler* CefCommandLine*')
+					smalltalkName: #onBeforeChildProcessLaunch:commandLine:);
+		defineField: #on_schedule_message_pump_work
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserProcessHandler* qword')
+					smalltalkName: #onScheduleMessagePumpWork:delayMs:);
+		defineField: #get_default_client
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefClient* CefBrowserProcessHandler*'))!
 
 getFieldNames
 	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_register_custom_preferences #on_context_initialized #on_before_child_process_launch #on_schedule_message_pump_work #get_default_client)! !
