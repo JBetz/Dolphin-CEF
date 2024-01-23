@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #CefSettings
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_browser_subprocess_path _OffsetOf_cache_path _OffsetOf_cefSize _OffsetOf_chrome_policy_id _OffsetOf_chrome_runtime _OffsetOf_command_line_args_disabled _OffsetOf_cookieable_scheme_list _OffsetOf_cookieable_schemes_exclude_defaults _OffsetOf_external_message_pump _OffsetOf_framework_dir_path _OffsetOf_javascript_flags _OffsetOf_locale _OffsetOf_locales_dir_path _OffsetOf_log_file _OffsetOf_log_items _OffsetOf_log_severity _OffsetOf_main_bundle_path _OffsetOf_multi_threaded_message_loop _OffsetOf_no_sandbox _OffsetOf_pack_loading_disabled _OffsetOf_persist_session_cookies _OffsetOf_persist_user_preferences _OffsetOf_remote_debugging_port _OffsetOf_resources_dir_path _OffsetOf_root_cache_path _OffsetOf_uncaught_exception_stack_size _OffsetOf_user_agent _OffsetOf_user_agent_product _OffsetOf_windowless_rendering_enabled'
+	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_browser_subprocess_path _OffsetOf_cache_path _OffsetOf_cefSize _OffsetOf_chrome_app_icon_id _OffsetOf_chrome_policy_id _OffsetOf_chrome_runtime _OffsetOf_command_line_args_disabled _OffsetOf_cookieable_scheme_list _OffsetOf_cookieable_schemes_exclude_defaults _OffsetOf_external_message_pump _OffsetOf_framework_dir_path _OffsetOf_javascript_flags _OffsetOf_locale _OffsetOf_locales_dir_path _OffsetOf_log_file _OffsetOf_log_items _OffsetOf_log_severity _OffsetOf_main_bundle_path _OffsetOf_multi_threaded_message_loop _OffsetOf_no_sandbox _OffsetOf_pack_loading_disabled _OffsetOf_persist_session_cookies _OffsetOf_persist_user_preferences _OffsetOf_remote_debugging_port _OffsetOf_resources_dir_path _OffsetOf_root_cache_path _OffsetOf_uncaught_exception_stack_size _OffsetOf_user_agent _OffsetOf_user_agent_product _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefSettings guid: (GUID fromString: '{321503ef-cca4-4525-bfb6-ff089d57929c}')!
@@ -11,6 +11,7 @@ CefSettings addClassConstant: '_OffsetOf_background_color' value: 16rC8!
 CefSettings addClassConstant: '_OffsetOf_browser_subprocess_path' value: 16r8!
 CefSettings addClassConstant: '_OffsetOf_cache_path' value: 16r40!
 CefSettings addClassConstant: '_OffsetOf_cefSize' value: 16r0!
+CefSettings addClassConstant: '_OffsetOf_chrome_app_icon_id' value: 16rF4!
 CefSettings addClassConstant: '_OffsetOf_chrome_policy_id' value: 16rE8!
 CefSettings addClassConstant: '_OffsetOf_chrome_runtime' value: 16r2C!
 CefSettings addClassConstant: '_OffsetOf_command_line_args_disabled' value: 16r3C!
@@ -102,6 +103,16 @@ cefSize: anInteger
 	"Set the receiver's 'cefSize' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_cefSize put: anInteger!
+
+chrome_app_icon_id
+	"Answer the <Integer> value of the receiver's 'chrome_app_icon_id' field."
+
+	^bytes sdwordAtOffset: _OffsetOf_chrome_app_icon_id!
+
+chrome_app_icon_id: anInteger
+	"Set the receiver's 'chrome_app_icon_id' field to the value of the argument, anInteger"
+
+	bytes sdwordAtOffset: _OffsetOf_chrome_app_icon_id put: anInteger!
 
 chrome_policy_id
 	"Answer the <CefString> value of the receiver's 'chrome_policy_id' field."
@@ -425,6 +436,8 @@ cache_path!**compiled accessors**!public! !
 cache_path:!**compiled accessors**!public! !
 cefSize!**compiled accessors**!public! !
 cefSize:!**compiled accessors**!public! !
+chrome_app_icon_id!**compiled accessors**!public! !
+chrome_app_icon_id:!**compiled accessors**!public! !
 chrome_policy_id!**compiled accessors**!public! !
 chrome_policy_id:!**compiled accessors**!public! !
 chrome_runtime!**compiled accessors**!public! !
@@ -516,10 +529,11 @@ defineFields
 		defineField: #accept_language_list type: (StructureField type: CefString);
 		defineField: #cookieable_scheme_list type: (StructureField type: CefString);
 		defineField: #cookieable_schemes_exclude_defaults type: SDWORDField new;
-		defineField: #chrome_policy_id type: (StructureField type: CefString)!
+		defineField: #chrome_policy_id type: (StructureField type: CefString);
+		defineField: #chrome_app_icon_id type: SDWORDField new!
 
 getFieldNames
-	^#(#cefSize #no_sandbox #browser_subprocess_path #framework_dir_path #main_bundle_path #chrome_runtime #multi_threaded_message_loop #external_message_pump #windowless_rendering_enabled #command_line_args_disabled #cache_path #root_cache_path #persist_session_cookies #persist_user_preferences #user_agent #user_agent_product #locale #log_file #log_severity #log_items #javascript_flags #resources_dir_path #locales_dir_path #pack_loading_disabled #remote_debugging_port #uncaught_exception_stack_size #background_color #accept_language_list #cookieable_scheme_list #cookieable_schemes_exclude_defaults #chrome_policy_id)! !
+	^#(#cefSize #no_sandbox #browser_subprocess_path #framework_dir_path #main_bundle_path #chrome_runtime #multi_threaded_message_loop #external_message_pump #windowless_rendering_enabled #command_line_args_disabled #cache_path #root_cache_path #persist_session_cookies #persist_user_preferences #user_agent #user_agent_product #locale #log_file #log_severity #log_items #javascript_flags #resources_dir_path #locales_dir_path #pack_loading_disabled #remote_debugging_port #uncaught_exception_stack_size #background_color #accept_language_list #cookieable_scheme_list #cookieable_schemes_exclude_defaults #chrome_policy_id #chrome_app_icon_id)! !
 !CefSettings class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
