@@ -10,11 +10,6 @@ CefBrowserProcessRunner comment: ''!
 !CefBrowserProcessRunner categoriesForClass!Kernel-Objects! !
 !CefBrowserProcessRunner methodsFor!
 
-configureProcessPriority
-	| process |
-	process := KernelLibrary default getCurrentProcess.
-	KernelLibrary default setPriorityClass: process dwPriorityClass: 32!
-
 ensureRunning
 	isRunning ifFalse: [self runMainProcess]!
 
@@ -23,7 +18,6 @@ executeCefProcess
 	handle := VMLibrary default applicationHandle.
 	args := CefMainArgs new.
 	args instance: handle.
-	self initializeApp.
 	resultCode := self library
 				executeProcess_args: args
 				application: nil
@@ -48,17 +42,18 @@ initialize
 
 initializeApp
 	app := CefApp new.
-	app delegate: self!
+	app enableBrowserProcessHandlerAndDelegateTo: self!
 
 initializeCef
-	| resultCode |
-	self initializeSettings.
+	
+	[| resultCode |
 	resultCode := self library
 				initialize_args: args
 				settings: settings
-				application: nil
-				windowsSandboxInfo: 0.
-	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF']!
+				application: app
+				windowsSandboxInfo: nil.
+	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF']]
+			fork!
 
 initializeSettings
 	| subprocessPath logFile cachePath |
@@ -69,28 +64,35 @@ initializeSettings
 	settings := CefSettings new.
 	settings
 		browser_subprocess_path: subprocessPath asCefString;
-		log_severity: 0;
+		log_severity: 1;
 		log_file: logFile asCefString;
 		cache_path: cachePath asCefString;
 		no_sandbox: true;
-		multi_threaded_message_loop: true;
-		windowless_rendering_enabled: true!
+		windowless_rendering_enabled: true;
+		multi_threaded_message_loop: true!
 
 library
 	^CefLibrary default!
 
-onBeforeCommandLineProcessing: cefApp processType: processType commandLine: commandLine
-	commandLine
-		appendSwitch_name: 'process-per-site' asCefString;
-		appendSwitchWithValue_name: 'renderer-process-limit' asCefString value: '1' asCefString!
+onBeforeChildProcessLaunch: aCefBrowserProcessHandler commandLine: aCefCommandLine !
 
-onRegisterCustomSchemes: cefApp registrar: registrar!
+onBeforeCommandLineProcessing: cefApp processType: processType commandLine: commandLine!
+
+onContextInitialized: aCefBrowserProcessHandler!
+
+onRegisterCustomPreferences: aCefBrowserProcessHandler type: anInteger registrar: aCefPreferencesRegistrar
+	!
+
+onRegisterCustomSchemes: cefApp registrar: registrar
+	!
 
 onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs!
 
 runMainProcess
 	self
 		executeCefProcess;
+		initializeApp;
+		initializeSettings;
 		initializeCef.
 	isRunning := true!
 
@@ -103,9 +105,8 @@ stop
 	app := nil.
 	settings := nil! !
 !CefBrowserProcessRunner categoriesForMethods!
-configureProcessPriority!private! !
 ensureRunning!public! !
-executeCefProcess!public! !
+executeCefProcess!private! !
 getBrowserProcessHandler:!cef event handler!private! !
 getDefaultClient:!cef event handler!private! !
 getRenderProcessHandler:!cef event handler!private! !
@@ -115,7 +116,10 @@ initializeApp!private! !
 initializeCef!private! !
 initializeSettings!private! !
 library!private! !
+onBeforeChildProcessLaunch:commandLine:!private! !
 onBeforeCommandLineProcessing:processType:commandLine:!cef event handler!private! !
+onContextInitialized:!private! !
+onRegisterCustomPreferences:type:registrar:!private! !
 onRegisterCustomSchemes:registrar:!cef event handler!private! !
 onScheduleMessagePumpWork:delayMs:!cef event handler!private! !
 runMainProcess!public! !
@@ -148,7 +152,8 @@ onShutdown
 	Current := nil!
 
 onStartup
-	Current := nil! !
+	Current := nil.
+	self new ensureRunning! !
 !CefBrowserProcessRunner class categoriesForMethods!
 initialize!public! !
 new!public! !
