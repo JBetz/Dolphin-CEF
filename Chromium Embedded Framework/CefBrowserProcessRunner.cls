@@ -64,7 +64,7 @@ initializeSettings
 	settings := CefSettings new.
 	settings
 		browser_subprocess_path: subprocessPath asCefString;
-		log_severity: 1;
+		log_severity: 0;
 		log_file: logFile asCefString;
 		cache_path: cachePath asCefString;
 		no_sandbox: true;
