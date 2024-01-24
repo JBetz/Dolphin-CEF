@@ -147,7 +147,7 @@ defineFields
 		defineField: #on_process_message_received type: LPVOIDField new!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_web_kit_initialized #on_browser_created #on_browser_destroyed #get_load_handler #on_context_created #on_context_released #on_uncaught_exception #on_focused_node_changed #on_process_message_received)! !
+	^#(#base #on_web_kit_initialized #on_browser_created #on_browser_destroyed #get_load_handler #on_context_created #on_context_released #on_uncaught_exception #on_focused_node_changed #on_process_message_received)! !
 !CefRenderProcessHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -89,7 +89,7 @@ defineFields
 					smalltalkName: #onMainFrameChanged:browser:oldFrame:newFrame:)!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_frame_created #on_frame_attached #on_frame_detached #on_main_frame_changed)! !
+	^#(#base #on_frame_created #on_frame_attached #on_frame_detached #on_main_frame_changed)! !
 !CefFrameHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

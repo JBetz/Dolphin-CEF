@@ -54,7 +54,7 @@ defineFields
 				smalltalkName: #addCustomScheme_schemeName:options:)!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #add_custom_scheme)! !
+	^#(#base #add_custom_scheme)! !
 !CefSchemeRegistrar class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

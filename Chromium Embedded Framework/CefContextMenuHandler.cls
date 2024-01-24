@@ -140,7 +140,7 @@ defineFields
 					smalltalkName: #onQuickMenuDismissed:browser:frame:)!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_before_context_menu #run_context_menu #on_context_menu_command #on_context_menu_dismissed #run_quick_menu #on_quick_menu_command #on_quick_menu_dismissed)! !
+	^#(#base #on_before_context_menu #run_context_menu #on_context_menu_command #on_context_menu_dismissed #run_quick_menu #on_quick_menu_command #on_quick_menu_dismissed)! !
 !CefContextMenuHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

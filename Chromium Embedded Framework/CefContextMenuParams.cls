@@ -586,7 +586,7 @@ defineFields
 					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefContextMenuParams*'))!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #get_xcoord #get_ycoord #get_type_flags #get_link_url #get_unfiltered_link_url #get_source_url #has_image_contents #get_title_text #get_page_url #get_frame_url #get_frame_charset #get_media_type #get_media_state_flags #get_selection_text #get_misspelled_word #get_dictionary_suggestions #is_editable #is_spell_check_enabled #get_edit_state_flags #is_custom_menu)! !
+	^#(#base #get_xcoord #get_ycoord #get_type_flags #get_link_url #get_unfiltered_link_url #get_source_url #has_image_contents #get_title_text #get_page_url #get_frame_url #get_frame_charset #get_media_type #get_media_state_flags #get_selection_text #get_misspelled_word #get_dictionary_suggestions #is_editable #is_spell_check_enabled #get_edit_state_flags #is_custom_menu)! !
 !CefContextMenuParams class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

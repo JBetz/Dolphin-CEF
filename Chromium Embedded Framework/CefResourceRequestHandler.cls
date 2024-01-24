@@ -142,7 +142,7 @@ defineFields
 		defineField: #on_protocol_execution type: LPVOIDField new!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #get_cookie_access_filter #on_before_resource_load #get_resource_handler #on_resource_redirect #on_resource_response #get_resource_response_filter #on_resource_load_complete #on_protocol_execution)! !
+	^#(#base #get_cookie_access_filter #on_before_resource_load #get_resource_handler #on_resource_redirect #on_resource_response #get_resource_response_filter #on_resource_load_complete #on_protocol_execution)! !
 !CefResourceRequestHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

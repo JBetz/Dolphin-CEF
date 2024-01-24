@@ -356,7 +356,7 @@ defineFields
 		defineField: #get_identifier type: DWORDField new!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #is_read_only #get_url #set_url #get_method #set_method #set_referrer #get_referrer_url #get_referrer_policy #get_post_data #set_post_data #get_header_map #set_header_map #get_header_by_name #set_header_by_name #set #get_flags #set_flags #get_first_party_for_cookies #set_first_party_for_cookies #get_resource_type #get_transition_type #get_identifier)! !
+	^#(#base #is_read_only #get_url #set_url #get_method #set_method #set_referrer #get_referrer_url #get_referrer_policy #get_post_data #set_post_data #get_header_map #set_header_map #get_header_by_name #set_header_by_name #set #get_flags #set_flags #get_first_party_for_cookies #set_first_party_for_cookies #get_resource_type #get_transition_type #get_identifier)! !
 !CefRequest class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

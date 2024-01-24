@@ -21,6 +21,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
 package classNames
 	add: #CefApp;
 	add: #CefAuthCallback;
+	add: #CefBaseRefCounted;
 	add: #CefBinaryValue;
 	add: #CefBrowser;
 	add: #CefBrowserHost;
@@ -231,9 +232,14 @@ CefString subclass: #CefStringUserfree
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-ExtendedExternalStructure subclass: #CefReferenceCountedObject
-	instanceVariableNames: 'delegate referenceCount'
+ExtendedExternalStructure subclass: #CefBaseRefCounted
+	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_add_ref _OffsetOf_cefSize _OffsetOf_has_at_least_one_ref _OffsetOf_has_one_ref _OffsetOf_release'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExtendedExternalStructure subclass: #CefReferenceCountedObject
+	instanceVariableNames: 'delegate'
+	classVariableNames: '_OffsetOf_base'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefApp

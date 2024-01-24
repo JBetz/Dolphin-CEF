@@ -69,10 +69,6 @@ getRenderProcessHandler: aCefApp
 getResourceBundleHandler: aCefApp
 	^resourceBundleHandler ifNotNil: [resourceBundleHandler yourAddress]!
 
-initialize
-	super initialize.
-	self disableReferenceCounting!
-
 on_before_command_line_processing
 	"Answer the <ExternalAddress> value of the receiver's 'on_before_command_line_processing' field."
 
@@ -112,7 +108,6 @@ get_resource_bundle_handler:!**compiled accessors**!public! !
 getBrowserProcessHandler:!public! !
 getRenderProcessHandler:!public! !
 getResourceBundleHandler:!public! !
-initialize!public! !
 on_before_command_line_processing!**compiled accessors**!public! !
 on_before_command_line_processing:!**compiled accessors**!public! !
 on_register_custom_schemes!**compiled accessors**!public! !
@@ -147,7 +142,7 @@ defineFields
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRenderProcessHandler* CefApp*'))!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_before_command_line_processing #on_register_custom_schemes #get_resource_bundle_handler #get_browser_process_handler #get_render_process_handler)! !
+	^#(#base #on_before_command_line_processing #on_register_custom_schemes #get_resource_bundle_handler #get_browser_process_handler #get_render_process_handler)! !
 !CefApp class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

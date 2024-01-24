@@ -37,7 +37,7 @@ defineFields
 				smalltalkName: #onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:)!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_find_result)! !
+	^#(#base #on_find_result)! !
 !CefFindHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -89,7 +89,7 @@ defineFields
 					smalltalkName: #onLoadError:browser:frame:errorCode:errorText:failedUrl:)!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_loading_state_change #on_load_start #on_load_end #on_load_error)! !
+	^#(#base #on_loading_state_change #on_load_start #on_load_end #on_load_error)! !
 !CefLoadHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

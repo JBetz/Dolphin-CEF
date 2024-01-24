@@ -311,10 +311,6 @@ getRenderHandler: aCefClient
 getRequestHandler: aCefClient
 	^requestHandler ifNotNil: [requestHandler yourAddress]!
 
-initialize
-	super initialize.
-	self disableReferenceCounting!
-
 on_process_message_received
 	"Answer the <ExternalAddress> value of the receiver's 'on_process_message_received' field."
 
@@ -403,7 +399,6 @@ getLifeSpanHandler:!public! !
 getLoadHandler:!public! !
 getRenderHandler:!public! !
 getRequestHandler:!public! !
-initialize!public! !
 on_process_message_received!**compiled accessors**!public! !
 on_process_message_received:!**compiled accessors**!public! !
 onProcessMessageReceived:browser:frame:sourceProcess:message:!public! !
@@ -461,7 +456,7 @@ defineFields
 					smalltalkName: #onProcessMessageReceived:browser:frame:sourceProcess:message:)!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #get_audio_handler #get_command_handler #get_context_menu_handler #get_dialog_handler #get_display_handler #get_download_handler #get_drag_handler #get_find_handler #get_focus_handler #get_frame_handler #get_permission_handler #get_jsdialog_handler #get_keyboard_handler #get_life_span_handler #get_load_handler #get_print_handler #get_render_handler #get_request_handler #on_process_message_received)! !
+	^#(#base #get_audio_handler #get_command_handler #get_context_menu_handler #get_dialog_handler #get_display_handler #get_download_handler #get_drag_handler #get_find_handler #get_focus_handler #get_frame_handler #get_permission_handler #get_jsdialog_handler #get_keyboard_handler #get_life_span_handler #get_load_handler #get_print_handler #get_render_handler #get_request_handler #on_process_message_received)! !
 !CefClient class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

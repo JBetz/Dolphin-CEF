@@ -121,7 +121,7 @@ defineFields
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefClient* CefBrowserProcessHandler*'))!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_register_custom_preferences #on_context_initialized #on_before_child_process_launch #on_already_running_app_relaunch #on_schedule_message_pump_work #get_default_client)! !
+	^#(#base #on_register_custom_preferences #on_context_initialized #on_before_child_process_launch #on_already_running_app_relaunch #on_schedule_message_pump_work #get_default_client)! !
 !CefBrowserProcessHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -103,7 +103,7 @@ defineFields
 					smalltalkName: #onBeforeClose:browser:)!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #on_before_popup #on_before_dev_tools_popup #on_after_created #do_close #on_before_close)! !
+	^#(#base #on_before_popup #on_before_dev_tools_popup #on_after_created #do_close #on_before_close)! !
 !CefLifeSpanHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

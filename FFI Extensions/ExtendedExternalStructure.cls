@@ -81,8 +81,8 @@ defineField: fieldName type: anExternalField
 
 externalMethodAt: aSymbol ifAbsentBindTo: anExternalAddress
 	| compiledMethod |
-	compiledMethod := (self compiledMethodAt: aSymbol) copy.
-	^compiledMethod bindTo: anExternalAddress!
+	compiledMethod := self compiledMethodAt: aSymbol ifAbsent: [^nil].
+	^compiledMethod copy bindTo: anExternalAddress!
 
 getInstance: anInteger
 	^Instances at: anInteger ifAbsent: [nil]!

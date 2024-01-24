@@ -327,7 +327,7 @@ defineFields
 		defineField: #set_url type: DWORDField new!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #is_read_only #get_error #set_error #get_status #set_status #get_status_text #set_status_text #get_mime_type #set_mime_type #get_charset #set_charset #get_header_by_name #set_header_by_name #get_header_map #set_header_map #get_url #set_url)! !
+	^#(#base #is_read_only #get_error #set_error #get_status #set_status #get_status_text #set_status_text #get_mime_type #set_mime_type #get_charset #set_charset #get_header_by_name #set_header_by_name #get_header_map #set_header_map #get_url #set_url)! !
 !CefResponse class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

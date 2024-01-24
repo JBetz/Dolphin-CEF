@@ -379,7 +379,7 @@ defineFields
 		defineField: #prepend_wrapper type: DWORDField new!
 
 getFieldNames
-	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref #is_valid #is_read_only #copy #init_from_argv #init_from_string #reset #get_argv #get_command_line_string #get_program #set_program #has_switches #has_switch #get_switch_value #get_switches #append_switch #append_switch_with_value #has_arguments #get_arguments #append_argument #prepend_wrapper)! !
+	^#(#base #is_valid #is_read_only #copy #init_from_argv #init_from_string #reset #get_argv #get_command_line_string #get_program #set_program #has_switches #has_switch #get_switch_value #get_switches #append_switch #append_switch_with_value #has_arguments #get_arguments #append_argument #prepend_wrapper)! !
 !CefCommandLine class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
