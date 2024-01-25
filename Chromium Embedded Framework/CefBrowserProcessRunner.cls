@@ -42,18 +42,22 @@ initialize
 
 initializeApp
 	app := CefApp new.
-	app enableBrowserProcessHandlerAndDelegateTo: self!
+	app
+		delegate: self;
+		enableBrowserProcessHandlerAndDelegateTo: self!
 
 initializeCef
-	
-	[| resultCode |
+	| useMultiThreadedMessageLoop resultCode |
+	useMultiThreadedMessageLoop := settings multi_threaded_message_loop asBoolean.
+	useMultiThreadedMessageLoop ifFalse: [self initializeApp].
 	resultCode := self library
 				initialize_args: args
 				settings: settings
 				application: app
 				windowsSandboxInfo: nil.
-	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF']]
-			fork!
+	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF'].
+	useMultiThreadedMessageLoop
+		ifFalse: [SessionManager inputState registerExternalMessageLoop: [self iterate]]!
 
 initializeSettings
 	| subprocessPath logFile cachePath |
@@ -70,6 +74,9 @@ initializeSettings
 		no_sandbox: true;
 		windowless_rendering_enabled: true;
 		multi_threaded_message_loop: true!
+
+iterate
+	isRunning ifTrue: [self library doMessageLoopWork]!
 
 library
 	^CefLibrary default!
@@ -91,7 +98,6 @@ onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs!
 runMainProcess
 	self
 		executeCefProcess;
-		initializeApp;
 		initializeSettings;
 		initializeCef.
 	isRunning := true!
@@ -115,6 +121,7 @@ initialize!private! !
 initializeApp!private! !
 initializeCef!private! !
 initializeSettings!private! !
+iterate!public! !
 library!private! !
 onBeforeChildProcessLaunch:commandLine:!private! !
 onBeforeCommandLineProcessing:processType:commandLine:!cef event handler!private! !
@@ -128,6 +135,9 @@ stop!public! !
 
 !CefBrowserProcessRunner class methodsFor!
 
+ensureRunning
+	self new ensureRunning!
+
 initialize
 	"self initialize"
 
@@ -138,6 +148,9 @@ initialize
 		when: #sessionStopped
 			send: #onShutdown
 			to: self!
+
+iterate
+	Current iterate!
 
 new
 	Current
@@ -152,10 +165,11 @@ onShutdown
 	Current := nil!
 
 onStartup
-	Current := nil.
-	self new ensureRunning! !
+	Current := nil! !
 !CefBrowserProcessRunner class categoriesForMethods!
+ensureRunning!public! !
 initialize!public! !
+iterate!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !

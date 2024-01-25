@@ -123,7 +123,7 @@ initialize_args: args settings: settings application: application windowsSandbox
 				      cef_app_t* application,
 				      void* windows_sandbox_info);"
 
-	<overlap cdecl: sdword cef_initialize CefMainArgs* CefSettings* CefApp* void*>
+	<cdecl: sdword cef_initialize CefMainArgs* CefSettings* CefApp* void*>
 	^self invalidCall: _failureCode!
 
 parseUrl_url: url parts: parts
