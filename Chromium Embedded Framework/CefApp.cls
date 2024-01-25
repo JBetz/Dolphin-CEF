@@ -87,13 +87,7 @@ on_register_custom_schemes
 on_register_custom_schemes: anExternalAddress
 	"Set the receiver's 'on_register_custom_schemes' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_on_register_custom_schemes put: anExternalAddress!
-
-onBeforeCommandLineProcessing: aCefApp processType: aCefString commandLine: aCefCommandLine 
-	Transcript display: #onBeforeCommandLineProcessing -> aCefString; cr!
-
-onRegisterCustomSchemes: aCefApp registrar: aCefSchemeRegistrar
-	Transcript display: #onRegisterCustomSchemes; cr! !
+	bytes uintPtrAtOffset: _OffsetOf_on_register_custom_schemes put: anExternalAddress! !
 !CefApp categoriesForMethods!
 enableBrowserProcessHandler!public! !
 enableBrowserProcessHandlerAndDelegateTo:!public! !
@@ -112,8 +106,6 @@ on_before_command_line_processing!**compiled accessors**!public! !
 on_before_command_line_processing:!**compiled accessors**!public! !
 on_register_custom_schemes!**compiled accessors**!public! !
 on_register_custom_schemes:!**compiled accessors**!public! !
-onBeforeCommandLineProcessing:processType:commandLine:!public! !
-onRegisterCustomSchemes:registrar:!public! !
 !
 
 !CefApp class methodsFor!
