@@ -114,7 +114,7 @@ defineFields
 					smalltalkName: #onAlreadyRunningAppRelaunch:commandLine:currentDirectory:);
 		defineField: #on_schedule_message_pump_work
 			type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserProcessHandler* qword')
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserProcessHandler* sqword')
 					smalltalkName: #onScheduleMessagePumpWork:delayMs:);
 		defineField: #get_default_client
 			type: (CallbackField
