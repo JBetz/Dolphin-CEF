@@ -201,7 +201,7 @@ stringListValue_list:index:value:!parser!public! !
 !CefLibrary class methodsFor!
 
 fileName
-	^'libcef.dll'! !
+	^'libcef'! !
 !CefLibrary class categoriesForMethods!
 fileName!public! !
 !
