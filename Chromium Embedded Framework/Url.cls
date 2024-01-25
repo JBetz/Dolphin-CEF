@@ -89,9 +89,12 @@ username!public! !
 !Url class methodsFor!
 
 fromString: aString
-	| parts resultCode |
+	| cef parts resultCode |
+	cef := CefLibrary default.
 	parts := CefUrlParts new.
-	resultCode := CefLibrary default parseUrl_url: aString asCefString parts: parts.
+	resultCode := cef parseUrl_url: aString asCefString parts: parts.
+	resultCode = 0
+		ifTrue: [resultCode := cef parseUrl_url: ('http://' , aString) asCefString parts: parts].
 	^resultCode = 0
 		ifTrue: [nil]
 		ifFalse: 
