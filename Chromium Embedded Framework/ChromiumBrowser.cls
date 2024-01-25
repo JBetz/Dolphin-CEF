@@ -33,12 +33,11 @@ copy
 	cefBrowser getFocusedFrame callCopy!
 
 createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
-	| processRunner windowInfo browserSettings resultCode |
+	| windowInfo browserSettings resultCode |
+	CefBrowserProcessRunner ensureRunning.
 	(aRectangle width <= 0 or: [aRectangle height <= 0])
 		ifTrue: [Error signal: ('Invalid rectangle extent: <1d>' expandMacrosWith: aRectangle extent)].
 	rectangle := aRectangle.
-	processRunner := CefBrowserProcessRunner new.
-	processRunner ensureRunning.
 	self initializeOffscreenClient.
 	windowInfo := CefWindowInfo new
 				bounds: rectangle asCefRect;
@@ -273,13 +272,14 @@ onBeforeClose: lifeSpanHandler browser: browser
 	^0!
 
 onBeforeContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel
-!
+	aCefContextMenuParams base callRelease.
+	aCefMenuModel base callRelease!
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
-	Transcript display: #onBeforePopup -> targetDisposition; cr.
 	^1!
 
 onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: anInteger eventFlags: anInteger2 
+	aCefContextMenuParams base callRelease.
 	^0!
 
 onContextMenuDismissed: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame !
@@ -440,6 +440,8 @@ removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url!
 
 runContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel callback: aCefRunContextMenuCallback 
+	aCefContextMenuParams base callRelease.
+	aCefMenuModel base callRelease.
 	^false!
 
 scrollOffset
