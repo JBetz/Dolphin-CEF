@@ -1,6 +1,10 @@
 # Dolphin-CEF
 
-Dolphin Smalltalk language bindings to the Chromium Embedded Framework (CEF). This package is a rewrite and expansion of https://github.com/amaurel/dolphin-chrome-embedded, updated for Dolphin 7 and the current stable version of CEF (6099).
+[Dolphin Smalltalk](https://github.com/dolphinsmalltalk/Dolphin) language bindings to the [Chromium Embedded Framework (CEF)](https://bitbucket.org/chromiumembedded/workspace/projects/CEF). 
+
+**Dolphin Version**: 7.2
+
+**CEF Version**: 6099
 
 ## Why Dolphin-CEF?
 For creating a custom browser on top of Chromium, or otherwise embedding web content inside of a native Windows app.
