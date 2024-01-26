@@ -15,10 +15,11 @@ Currently, this library provides minimal support for use with Win32 widgets and 
 ## Getting Started
 * Install [Dolphin Smalltalk 7.1](https://github.com/dolphinsmalltalk/Dolphin)
 * Install `Chromium Embedded Framework.pax` in a Dolphin image
-* Download [CEF Windows 32-bit binaries](https://cef-builds.spotifycdn.com/index.html)
-* Unpack the zip file and copy everything inside the Release and Resources into the same directory as the image
-* Also copy `CefSubprocessRunner.exe` into the same directory
+* Copy everything inside this repo's `cef` directory into the same directory as your image, then extract the `libcef.dll.zip` file in the same directory (it needs to be compressed to get around GitHub's 100mb file limit)
 * Inside the image, run `WebBrowserView example` to open a window with the Dolphin Github page
+
+Alternatively, you can download [CEF Windows 32-bit binaries](https://cef-builds.spotifycdn.com/index.html), then unpack the zip file and copy everything inside the Release and Resources into the same directory as the image. In that case, you'll either need to use `cefclient.exe` from the sample application build or use `CefSubrocessRunner.exe` from this repo as the subprocess executable. From Dolphin's perspective, the only difference between them is that `CefSubprocessRunner.exe` sends an additional event to the browser process for tracking mouse over events.
+
 
 ## Example
 
