@@ -95,7 +95,8 @@ initialize
 			to: self;
 		when: #sessionStopped
 			send: #onShutdown
-			to: self!
+			to: self.
+	self onStartup!
 
 onShutdown
 	Instances := nil.
