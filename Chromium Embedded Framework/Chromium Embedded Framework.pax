@@ -22,6 +22,7 @@ package classNames
 	add: #CefApp;
 	add: #CefAuthCallback;
 	add: #CefBaseRefCounted;
+	add: #CefBasetime;
 	add: #CefBinaryValue;
 	add: #CefBrowser;
 	add: #CefBrowserHost;
@@ -53,6 +54,8 @@ package classNames
 	add: #CefMenuModel;
 	add: #CefMessageCallback;
 	add: #CefMouseEvent;
+	add: #CefNavigationEntry;
+	add: #CefNavigationEntryVisitor;
 	add: #CefPoint;
 	add: #CefPopupFeatures;
 	add: #CefPreferencesRegistrar;
@@ -74,6 +77,7 @@ package classNames
 	add: #CefSchemeRegistrar;
 	add: #CefScreenInfo;
 	add: #CefSettings;
+	add: #CefSslStatus;
 	add: #CefString;
 	add: #CefStringList;
 	add: #CefStringUserfree;
@@ -83,6 +87,7 @@ package classNames
 	add: #CefValue;
 	add: #CefVisitor;
 	add: #CefWindowInfo;
+	add: #CefX509Certificate;
 	add: #ChromiumBrowser;
 	add: #Url;
 	add: #WebBrowserView;
@@ -145,6 +150,11 @@ DelegatedMessageCallback subclass: #CefMessageCallback
 ExternalLibrary subclass: #CefLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #CefBasetime
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_val'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ExternalStructure subclass: #CefBrowserSettings
@@ -317,6 +327,11 @@ CefReferenceCountedObject subclass: #CefMenuModel
 	classVariableNames: '_OffsetOf_add_check_item _OffsetOf_add_item _OffsetOf_add_radio_item _OffsetOf_add_separator _OffsetOf_add_sub_menu _OffsetOf_clear _OffsetOf_get_accelerator _OffsetOf_get_accelerator_at _OffsetOf_get_color _OffsetOf_get_color_at _OffsetOf_get_command_id_at _OffsetOf_get_count _OffsetOf_get_group_id _OffsetOf_get_group_id_at _OffsetOf_get_index_of _OffsetOf_get_label _OffsetOf_get_label_at _OffsetOf_get_sub_menu _OffsetOf_get_sub_menu_at _OffsetOf_get_type _OffsetOf_get_type_at _OffsetOf_has_accelerator _OffsetOf_has_accelerator_at _OffsetOf_insert_check_item_at _OffsetOf_insert_item_at _OffsetOf_insert_radio_item_at _OffsetOf_insert_separator_at _OffsetOf_insert_sub_menu_at _OffsetOf_is_checked _OffsetOf_is_checked_at _OffsetOf_is_enabled _OffsetOf_is_enabled_at _OffsetOf_is_sub_menu _OffsetOf_is_visible _OffsetOf_is_visible_at _OffsetOf_remove _OffsetOf_remove_accelerator _OffsetOf_remove_accelerator_at _OffsetOf_remove_at _OffsetOf_set_accelerator _OffsetOf_set_accelerator_at _OffsetOf_set_checked _OffsetOf_set_checked_at _OffsetOf_set_color _OffsetOf_set_color_at _OffsetOf_set_command_id_at _OffsetOf_set_enabled _OffsetOf_set_enabled_at _OffsetOf_set_font_list _OffsetOf_set_font_list_at _OffsetOf_set_group_id _OffsetOf_set_group_id_at _OffsetOf_set_label _OffsetOf_set_label_at _OffsetOf_set_visible _OffsetOf_set_visible_at'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefNavigationEntry
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_completion_time _OffsetOf_get_display_url _OffsetOf_get_http_status_code _OffsetOf_get_original_url _OffsetOf_get_sslstatus _OffsetOf_get_title _OffsetOf_get_transition_type _OffsetOf_get_url _OffsetOf_has_post_data _OffsetOf_is_valid'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefPreferencesRegistrar
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -357,12 +372,22 @@ CefReferenceCountedObject subclass: #CefSchemeRegistrar
 	classVariableNames: '_OffsetOf_add_custom_scheme'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefSslStatus
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_cert_status _OffsetOf_get_content_status _OffsetOf_get_sslversion _OffsetOf_get_x509certificate _OffsetOf_is_secure_connection'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefValue
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefVisitor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefReferenceCountedObject subclass: #CefX509Certificate
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -440,6 +465,11 @@ CefEventHandler subclass: #CefResourceHandler
 CefEventHandler subclass: #CefResourceRequestHandler
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_get_cookie_access_filter _OffsetOf_get_resource_handler _OffsetOf_get_resource_response_filter _OffsetOf_on_before_resource_load _OffsetOf_on_protocol_execution _OffsetOf_on_resource_load_complete _OffsetOf_on_resource_redirect _OffsetOf_on_resource_response'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+CefVisitor subclass: #CefNavigationEntryVisitor
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_visit'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefVisitor subclass: #CefStringVisitor
