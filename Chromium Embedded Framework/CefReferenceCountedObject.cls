@@ -11,6 +11,9 @@ CefReferenceCountedObject comment: ''!
 !CefReferenceCountedObject categoriesForClass!External-Data-Structured! !
 !CefReferenceCountedObject methodsFor!
 
+addRef
+	^self base addRef!
+
 base
 	"Answer the <CefBaseRefCounted> value of the receiver's 'base' field."
 
@@ -25,11 +28,23 @@ base: aCefBaseRefCounted
 		to: ##(_OffsetOf_base + CefBaseRefCounted basicByteSize)
 		startingAt: 1!
 
+callRelease
+	^self base callRelease!
+
 delegate
 	^delegate!
 
 delegate: anObject
 	delegate := anObject!
+
+disableReferenceCounting
+	self base disableReferenceCounting!
+
+hasAtLeastOneRef
+	^self base hasAtLeastOneRef!
+
+hasOneRef
+	^self base hasOneRef!
 
 initialize
 	super initialize.
@@ -37,10 +52,15 @@ initialize
 		cefSize: self class byteSize;
 		disableReferenceCounting! !
 !CefReferenceCountedObject categoriesForMethods!
+addRef!public! !
 base!**compiled accessors**!public! !
 base:!**compiled accessors**!public! !
+callRelease!public! !
 delegate!public! !
 delegate:!public! !
+disableReferenceCounting!public! !
+hasAtLeastOneRef!public! !
+hasOneRef!public! !
 initialize!public! !
 !
 

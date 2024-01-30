@@ -273,14 +273,14 @@ onBeforeClose: lifeSpanHandler browser: browser
 	^0!
 
 onBeforeContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel
-	aCefContextMenuParams base callRelease.
-	aCefMenuModel base callRelease!
+	aCefContextMenuParams callRelease.
+	aCefMenuModel callRelease!
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
 	^1!
 
 onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: anInteger eventFlags: anInteger2 
-	aCefContextMenuParams base callRelease.
+	aCefContextMenuParams callRelease.
 	^0!
 
 onContextMenuDismissed: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame !
@@ -441,8 +441,8 @@ removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url!
 
 runContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel callback: aCefRunContextMenuCallback 
-	aCefContextMenuParams base callRelease.
-	aCefMenuModel base callRelease.
+	aCefContextMenuParams callRelease.
+	aCefMenuModel callRelease.
 	^false!
 
 scrollOffset
