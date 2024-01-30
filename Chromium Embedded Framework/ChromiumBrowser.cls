@@ -57,6 +57,7 @@ createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
 
 createWindowedBrowser: aUrl rectangle: aRectangle window: aHandle
 	| windowInfo browserSettings |
+	CefBrowserProcessRunner ensureRunning.
 	windowInfo := CefWindowInfo new
 				style: self cefWindowStyle;
 				ex_style: self cefWindowExStyle;
