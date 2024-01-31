@@ -56,8 +56,7 @@ initializeCef
 				application: app
 				windowsSandboxInfo: nil.
 	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF'].
-	useMultiThreadedMessageLoop
-		ifFalse: [SessionManager inputState registerExternalMessageLoop: [self iterate]]!
+	useMultiThreadedMessageLoop ifFalse: [self iterate]!
 
 initializeSettings
 	| subprocessPath logFile cachePath |
@@ -76,7 +75,8 @@ initializeSettings
 		multi_threaded_message_loop: true!
 
 iterate
-	isRunning ifTrue: [self library doMessageLoopWork]!
+	isRunning ifTrue: [self library doMessageLoopWork].
+	[self iterate] postToInputQueue!
 
 library
 	^CefLibrary default!
