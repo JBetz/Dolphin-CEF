@@ -56,7 +56,7 @@ createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
 	resultCode = 0 ifTrue: [Error signal: 'Error creating CEF browser']!
 
 createWindowedBrowser: aUrl rectangle: aRectangle window: aHandle
-	| windowInfo browserSettings |
+	| windowInfo browserSettings resultCode |
 	CefBrowserProcessRunner ensureRunning.
 	windowInfo := CefWindowInfo new
 				style: self cefWindowStyle;
@@ -65,13 +65,14 @@ createWindowedBrowser: aUrl rectangle: aRectangle window: aHandle
 				bounds: aRectangle asCefRect.
 	browserSettings := CefBrowserSettings new.
 	self initializeWindowedClient.
-	CefLibrary default
-		browserHostCreateBrowser_windowInfo: windowInfo
-		client: cefClient
-		url: aUrl asCefString
-		settings: browserSettings
-		extraInfo: nil
-		requestContext: nil!
+	resultCode := self library
+				browserHostCreateBrowser_windowInfo: windowInfo
+				client: cefClient
+				url: aUrl asCefString
+				settings: browserSettings
+				extraInfo: nil
+				requestContext: nil.
+	resultCode = 0 ifTrue: [Error signal: 'Error creating CEF browser']!
 
 cut
 	cefBrowser getFocusedFrame callCut!
