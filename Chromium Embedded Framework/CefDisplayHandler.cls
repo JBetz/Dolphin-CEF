@@ -32,14 +32,14 @@ on_address_change: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_on_address_change put: anExternalAddress!
 
 on_auto_resize
-	"Answer the <Integer> value of the receiver's 'on_auto_resize' field."
+	"Answer the <ExternalAddress> value of the receiver's 'on_auto_resize' field."
 
-	^bytes dwordAtOffset: _OffsetOf_on_auto_resize!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_auto_resize) asExternalAddress!
 
-on_auto_resize: anInteger
-	"Set the receiver's 'on_auto_resize' field to the value of the argument, anInteger"
+on_auto_resize: anExternalAddress
+	"Set the receiver's 'on_auto_resize' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_on_auto_resize put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_on_auto_resize put: anExternalAddress!
 
 on_console_message
 	"Answer the <ExternalAddress> value of the receiver's 'on_console_message' field."
@@ -72,14 +72,14 @@ on_favicon_urlchange: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_on_favicon_urlchange put: anExternalAddress!
 
 on_fullscreen_mode_change
-	"Answer the <Integer> value of the receiver's 'on_fullscreen_mode_change' field."
+	"Answer the <ExternalAddress> value of the receiver's 'on_fullscreen_mode_change' field."
 
-	^bytes dwordAtOffset: _OffsetOf_on_fullscreen_mode_change!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_fullscreen_mode_change) asExternalAddress!
 
-on_fullscreen_mode_change: anInteger
-	"Set the receiver's 'on_fullscreen_mode_change' field to the value of the argument, anInteger"
+on_fullscreen_mode_change: anExternalAddress
+	"Set the receiver's 'on_fullscreen_mode_change' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_on_fullscreen_mode_change put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_on_fullscreen_mode_change put: anExternalAddress!
 
 on_loading_progess_change
 	"Answer the <ExternalAddress> value of the receiver's 'on_loading_progess_change' field."
@@ -92,14 +92,14 @@ on_loading_progess_change: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_on_loading_progess_change put: anExternalAddress!
 
 on_media_access_change
-	"Answer the <Integer> value of the receiver's 'on_media_access_change' field."
+	"Answer the <ExternalAddress> value of the receiver's 'on_media_access_change' field."
 
-	^bytes dwordAtOffset: _OffsetOf_on_media_access_change!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_media_access_change) asExternalAddress!
 
-on_media_access_change: anInteger
-	"Set the receiver's 'on_media_access_change' field to the value of the argument, anInteger"
+on_media_access_change: anExternalAddress
+	"Set the receiver's 'on_media_access_change' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_on_media_access_change put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_on_media_access_change put: anExternalAddress!
 
 on_status_message
 	"Answer the <ExternalAddress> value of the receiver's 'on_status_message' field."
@@ -122,14 +122,14 @@ on_title_change: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_on_title_change put: anExternalAddress!
 
 on_tooltip
-	"Answer the <Integer> value of the receiver's 'on_tooltip' field."
+	"Answer the <ExternalAddress> value of the receiver's 'on_tooltip' field."
 
-	^bytes dwordAtOffset: _OffsetOf_on_tooltip!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_tooltip) asExternalAddress!
 
-on_tooltip: anInteger
-	"Set the receiver's 'on_tooltip' field to the value of the argument, anInteger"
+on_tooltip: anExternalAddress
+	"Set the receiver's 'on_tooltip' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_on_tooltip put: anInteger! !
+	bytes uintPtrAtOffset: _OffsetOf_on_tooltip put: anExternalAddress! !
 !CefDisplayHandler categoriesForMethods!
 on_address_change!**compiled accessors**!public! !
 on_address_change:!**compiled accessors**!public! !
@@ -174,17 +174,26 @@ defineFields
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: void CefDisplayHandler* CefBrowser* CefStringList*')
 					smalltalkName: #onFaviconUrlChange:browser:iconUrls:);
-		defineField: #on_fullscreen_mode_change type: DWORDField new;
-		defineField: #on_tooltip type: DWORDField new;
+		defineField: #on_fullscreen_mode_change
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefDisplayHandler* CefBrowser* sdword')
+					smalltalkName: #onFullscreenModeChange:browser:fullscreen:);
+		defineField: #on_tooltip
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: sdword CefDisplayHandler* CefBrowser* CefString*')
+					smalltalkName: #onTooltip:browser:text:);
 		defineField: #on_status_message
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefDisplayHandler* CefBrowser* CefString*')
 					smalltalkName: #onStatusMessage:browser:value:);
 		defineField: #on_console_message
-			type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefDisplayHandler* CefBrowser* sdword CefString* CefString* sdword')
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: sdword CefDisplayHandler* CefBrowser* sdword CefString* CefString* sdword')
 					smalltalkName: #onConsoleMessage:browser:level:message:source:line:);
-		defineField: #on_auto_resize type: DWORDField new;
+		defineField: #on_auto_resize
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefDisplayHandler* CefBrowser* dword*')
+					smalltalkName: #onAutoResize:browser:newSize:);
 		defineField: #on_loading_progess_change
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefDisplayHandler* CefBrowser* double')
@@ -193,7 +202,10 @@ defineFields
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: sdword CefDisplayHandler* CefBrowser* handle sdword CefCursorInfo*')
 					smalltalkName: #onCursorChange:browser:cursor:type:customCursorInfo:);
-		defineField: #on_media_access_change type: DWORDField new!
+		defineField: #on_media_access_change
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: void CefDisplayHandler* CefBrowser* sdword sdword')
+					smalltalkName: #onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:)!
 
 getFieldNames
 	^#(#base #on_address_change #on_title_change #on_favicon_urlchange #on_fullscreen_mode_change #on_tooltip #on_status_message #on_console_message #on_auto_resize #on_loading_progess_change #on_cursor_change #on_media_access_change)! !
