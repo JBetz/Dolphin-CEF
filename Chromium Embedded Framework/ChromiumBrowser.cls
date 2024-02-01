@@ -275,6 +275,9 @@ onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
 			queuedUrl := nil].
 	^0!
 
+onAutoResize: displayHandler browser: browser newSize: newSize 
+	^0!
+
 onBeforeBrowse: aCefRequestHandler browser: aCefBrowser frame: aCefFrame request: aCefRequest userGesture: anInteger isRedirect: anInteger2 
 	^0!
 
@@ -331,6 +334,9 @@ onFrameCreated: frameHandler browser: browser frame: frame
 onFrameDetached: frameHandler browser: browser frame: frame
 	^0!
 
+onFullscreenModeChange: displayHandler browser: browser fullscreen: fullscreen
+	!
+
 onKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress 
 	^false!
 
@@ -350,6 +356,8 @@ onLoadStart: aCefLoadHandler browser: aCefBrowser frame: aCefFrame transitionTyp
 onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
 	host ifNotNil: [host hasFocus ifTrue: [browser getHost setFocus_focus: 1]].
 	^0!
+
+onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess !
 
 onOpenUrlFromTab: aCefRequestHandler browser: aCefBrowser frame: aCefFrame targetUrl: aCefString targetDisposition: targetDisposition userGesture: userGesture
 	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
@@ -407,6 +415,9 @@ onTextSelectionChanged: aCefRenderHandler browser: aCefBrowser selectedText: aCe
 
 onTitleChange: displayHandler browser: browser title: title
 	host ifNotNil: [title isNull ifFalse: [host onTitleChange: title str]].
+	^0!
+
+onTooltip: aCefDisplayHandler browser: aCefBrowser text: aCefString 
 	^0!
 
 onViewClosed
@@ -552,8 +563,9 @@ library!public! !
 loadHtml:forUrl:!public! !
 loadUrl:!public! !
 onAcceleratedPaint:browser:type:dirtyRectsCount:sharedHandle:!cef event handler!private!render handler! !
-onAddressChange:browser:frame:url:!cef event handler!private! !
+onAddressChange:browser:frame:url:!cef event handler!display handler!private! !
 onAfterCreated:browser:!cef event handler!life span handler!private! !
+onAutoResize:browser:newSize:!cef event handler!display handler!private! !
 onBeforeBrowse:browser:frame:request:userGesture:isRedirect:!cef event handler!private!request handler! !
 onBeforeClose:browser:!cef event handler!life span handler!private! !
 onBeforeContextMenu:browser:frame:params:model:!cef event handler!context menu handler!private! !
@@ -562,11 +574,12 @@ onConsoleMessage:browser:level:message:source:line:!cef event handler!display ha
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
 onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
-onFaviconUrlChange:browser:iconUrls:!cef event handler!private! !
+onFaviconUrlChange:browser:iconUrls:!cef event handler!display handler!private! !
 onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
+onFullscreenModeChange:browser:fullscreen:!cef event handler!display handler!private! !
 onKeyEvent:browser:event:osEvent:!cef event handler!keyboard handler!private! !
 onLoadEnd:browser:frame:httpStatusCode:!cef event handler!load handler!private! !
 onLoadError:browser:frame:errorCode:errorText:failedUrl:!cef event handler!load handler!private! !
@@ -574,6 +587,7 @@ onLoadingProgressChange:browser:progress:!cef event handler!display handler!priv
 onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler!load handler!private! !
 onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
+onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:!cef event handler!display handler!private! !
 onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
 onPopupShow:browser:show:!popup!private! !
@@ -584,7 +598,8 @@ onResize:!public! !
 onScrollOffsetChanged:browser:x:y:!cef event handler!private!render handler! !
 onStatusMessage:browser:value:!cef event handler!display handler!private! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
-onTitleChange:browser:title:!cef event handler!private! !
+onTitleChange:browser:title:!cef event handler!display handler!private! !
+onTooltip:browser:text:!cef event handler!display handler!private! !
 onViewClosed!public! !
 onViewDestroyed!public! !
 onVirtualKeyboardRequested:browser:inputMode:!cef event handler!private!render handler! !
