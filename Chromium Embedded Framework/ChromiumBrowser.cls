@@ -228,10 +228,11 @@ initializeOffscreenClient
 initializeWindowedClient
 	cefClient := CefClient new.
 	cefClient
+		enableContextMenuHandlerAndDelegateTo: self;
+		enableDisplayHandlerAndDelegateTo: self;
+		enableKeyboardHandlerAndDelegateTo: self;
 		enableLifeSpanHandlerAndDelegateTo: self;
 		enableRequestHandlerAndDelegateTo: self;
-		enableKeyboardHandlerAndDelegateTo: self;
-		enableContextMenuHandlerAndDelegateTo: self;
 		processMessageDelegate: self!
 
 isFocusedElementEditable
@@ -287,6 +288,9 @@ onBeforeContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFram
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
 	^1!
+
+onConsoleMessage: aCefDisplayHandler browser: aCefBrowser level: anInteger message: aCefString source: aCefString2 line: anInteger2 
+!
 
 onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: anInteger eventFlags: anInteger2 
 	aCefContextMenuParams callRelease.
@@ -554,6 +558,7 @@ onBeforeBrowse:browser:frame:request:userGesture:isRedirect:!cef event handler!p
 onBeforeClose:browser:!cef event handler!life span handler!private! !
 onBeforeContextMenu:browser:frame:params:model:!cef event handler!context menu handler!private! !
 onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGesture:popupFeatures:windowInfo:client:settings:extraInfo:noJavascriptAccess:!cef event handler!life span handler!popup!private! !
+onConsoleMessage:browser:level:message:source:line:!cef event handler!display handler!private! !
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
 onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !

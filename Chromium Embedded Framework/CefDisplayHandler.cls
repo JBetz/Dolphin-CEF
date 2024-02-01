@@ -42,14 +42,14 @@ on_auto_resize: anInteger
 	bytes dwordAtOffset: _OffsetOf_on_auto_resize put: anInteger!
 
 on_console_message
-	"Answer the <Integer> value of the receiver's 'on_console_message' field."
+	"Answer the <ExternalAddress> value of the receiver's 'on_console_message' field."
 
-	^bytes dwordAtOffset: _OffsetOf_on_console_message!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_console_message) asExternalAddress!
 
-on_console_message: anInteger
-	"Set the receiver's 'on_console_message' field to the value of the argument, anInteger"
+on_console_message: anExternalAddress
+	"Set the receiver's 'on_console_message' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_on_console_message put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_on_console_message put: anExternalAddress!
 
 on_cursor_change
 	"Answer the <ExternalAddress> value of the receiver's 'on_cursor_change' field."
@@ -180,7 +180,10 @@ defineFields
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefDisplayHandler* CefBrowser* CefString*')
 					smalltalkName: #onStatusMessage:browser:value:);
-		defineField: #on_console_message type: DWORDField new;
+		defineField: #on_console_message
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefDisplayHandler* CefBrowser* sdword CefString* CefString* sdword')
+					smalltalkName: #onConsoleMessage:browser:level:message:source:line:);
 		defineField: #on_auto_resize type: DWORDField new;
 		defineField: #on_loading_progess_change
 			type: (CallbackField
