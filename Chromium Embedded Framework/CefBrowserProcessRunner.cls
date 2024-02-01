@@ -3,7 +3,7 @@
 Object subclass: #CefBrowserProcessRunner
 	instanceVariableNames: 'isRunning args app settings'
 	classVariableNames: ''
-	poolDictionaries: ''
+	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: 'Current'!
 CefBrowserProcessRunner guid: (GUID fromString: '{a2d64bd2-4dd7-431d-a764-321e2869bfba}')!
 CefBrowserProcessRunner comment: ''!
@@ -67,7 +67,7 @@ initializeSettings
 	settings := CefSettings new.
 	settings
 		browser_subprocess_path: subprocessPath asCefString;
-		log_severity: 0;
+		log_severity: LOGSEVERITY_DEFAULT;
 		log_file: logFile asCefString;
 		cache_path: cachePath asCefString;
 		no_sandbox: true;

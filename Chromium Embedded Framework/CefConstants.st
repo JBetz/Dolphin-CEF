@@ -104,6 +104,13 @@ CefConstants at: 'KEYEVENT_CHAR' put: 16r3!
 CefConstants at: 'KEYEVENT_KEYDOWN' put: 16r1!
 CefConstants at: 'KEYEVENT_KEYUP' put: 16r2!
 CefConstants at: 'KEYEVENT_RAWKEYDOWN' put: 16r0!
+CefConstants at: 'LOGSEVERITY_DEBUG' put: 16r1!
+CefConstants at: 'LOGSEVERITY_DEFAULT' put: 16r0!
+CefConstants at: 'LOGSEVERITY_DISABLE' put: 16r63!
+CefConstants at: 'LOGSEVERITY_ERROR' put: 16r4!
+CefConstants at: 'LOGSEVERITY_INFO' put: 16r2!
+CefConstants at: 'LOGSEVERITY_VERBOSE' put: 16r1!
+CefConstants at: 'LOGSEVERITY_WARNING' put: 16r3!
 CefConstants at: 'MBT_LEFT' put: 16r0!
 CefConstants at: 'MBT_MIDDLE' put: 16r1!
 CefConstants at: 'MBT_RIGHT' put: 16r2!
