@@ -86,6 +86,15 @@ delete
 doClose: lifeSpanHandler browser: browser
 	^0!
 
+executeJavaScript: aString
+	| mainFrame |
+	cefBrowser ifNil: [^self].
+	mainFrame := cefBrowser getMainFrame.
+	mainFrame
+		executeJavaScript_code: aString asCefString
+		scriptUrl: nil
+		startLine: nil!
+
 find: aString
 	cefBrowser ifNil: [^self].
 	cefBrowser getHost
@@ -321,8 +330,7 @@ onFrameDetached: frameHandler browser: browser frame: frame
 onKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress 
 	^false!
 
-onLoadEnd: aCefLoadHandler browser: aCefBrowser frame: aCefFrame httpStatusCode: anInteger 
-!
+onLoadEnd: aCefLoadHandler browser: aCefBrowser frame: aCefFrame httpStatusCode: anInteger!
 
 onLoadError: aCefLoadHandler browser: aCefBrowser frame: aCefFrame errorCode: anInteger  errorText: aString failedUrl: aUrl
 !
@@ -513,6 +521,7 @@ cut!public! !
 defocus!public! !
 delete!public! !
 doClose:browser:!cef event handler!life span handler!private! !
+executeJavaScript:!public! !
 find:!public! !
 focus!public! !
 focusedElement!public! !
