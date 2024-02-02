@@ -219,7 +219,6 @@ initializeOffscreenClient
 		enableDisplayHandlerAndDelegateTo: self;
 		enableFindHandlerAndDelegateTo: self;
 		enableFrameHandlerAndDelegateTo: self;
-		enableKeyboardHandlerAndDelegateTo: self;
 		enableLifeSpanHandlerAndDelegateTo: self;
 		enableLoadHandlerAndDelegateTo: self;
 		enableRequestHandlerAndDelegateTo: self;
@@ -231,7 +230,6 @@ initializeWindowedClient
 	cefClient
 		enableContextMenuHandlerAndDelegateTo: self;
 		enableDisplayHandlerAndDelegateTo: self;
-		enableKeyboardHandlerAndDelegateTo: self;
 		enableLifeSpanHandlerAndDelegateTo: self;
 		enableRequestHandlerAndDelegateTo: self;
 		processMessageDelegate: self!
@@ -338,9 +336,6 @@ onFrameDetached: frameHandler browser: browser frame: frame
 onFullscreenModeChange: displayHandler browser: browser fullscreen: fullscreen
 	!
 
-onKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress 
-	^false!
-
 onLoadEnd: aCefLoadHandler browser: aCefBrowser frame: aCefFrame httpStatusCode: anInteger!
 
 onLoadError: aCefLoadHandler browser: aCefBrowser frame: aCefFrame errorCode: anInteger  errorText: aString failedUrl: aUrl
@@ -384,9 +379,6 @@ onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
 
 onPopupSize: aCefRenderHandler browser: aCefBrowser rect: aCefRect
 	host onPopupSize: aCefRect asRectangle!
-
-onPreKeyEvent: aCefKeyboardHandler browser: aCefBrowser event: aCefKeyEvent osEvent: anExternalAddress isKeyboardShortcut: aBoolean
-	^false!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
 	| messageName arguments eventInfo |
@@ -581,7 +573,6 @@ onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!privat
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
 onFullscreenModeChange:browser:fullscreen:!cef event handler!display handler!private! !
-onKeyEvent:browser:event:osEvent:!cef event handler!keyboard handler!private! !
 onLoadEnd:browser:frame:httpStatusCode:!cef event handler!load handler!private! !
 onLoadError:browser:frame:errorCode:errorText:failedUrl:!cef event handler!load handler!private! !
 onLoadingProgressChange:browser:progress:!cef event handler!display handler!private! !
@@ -593,7 +584,6 @@ onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef even
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
 onPopupShow:browser:show:!popup!private! !
 onPopupSize:browser:rect:!popup!private! !
-onPreKeyEvent:browser:event:osEvent:isKeyboardShortcut:!cef event handler!keyboard handler!private! !
 onProcessMessageReceived:browser:frame:sourceProcess:message:!private! !
 onResize:!public! !
 onScrollOffsetChanged:browser:x:y:!cef event handler!private!render handler! !
