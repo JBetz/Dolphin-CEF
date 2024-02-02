@@ -125,7 +125,7 @@ package!
 Object subclass: #CefBrowserProcessRunner
 	instanceVariableNames: 'isRunning args app settings'
 	classVariableNames: ''
-	poolDictionaries: ''
+	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: 'Current'!
 Object subclass: #CefContentProvider
 	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler chromiumBrowser'
