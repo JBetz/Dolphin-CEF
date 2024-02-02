@@ -10,6 +10,8 @@ WebBrowserView comment: ''!
 !WebBrowserView categoriesForClass!MVP-Resources-Misc! !
 !WebBrowserView methodsFor!
 
+cursor: aSymbol!
+
 loadUrl: aString
 	chromiumBrowser loadUrl: aString!
 
@@ -39,6 +41,7 @@ onViewDestroyed
 pushCloseEvent
 ! !
 !WebBrowserView categoriesForMethods!
+cursor:!public! !
 loadUrl:!public! !
 onAddressChange:!public! !
 onTitleChange:!public! !
@@ -61,12 +64,13 @@ example
 		extent: 1200 @ 1000;
 		show.
 	view := WebBrowserView new.
-	view
+	^view
 		parentView: shell;
 		arrangement: 1;
 		create;
-		show.
-	view loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin'! !
+		show;
+		loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin';
+		yourself! !
 !WebBrowserView class categoriesForMethods!
 example!public! !
 !
