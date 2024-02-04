@@ -94,7 +94,7 @@ fromString: aString
 	parts := CefUrlParts new.
 	resultCode := cef parseUrl_url: aString asCefString parts: parts.
 	resultCode = 0
-		ifTrue: [resultCode := cef parseUrl_url: ('http://' , aString) asCefString parts: parts].
+		ifTrue: [resultCode := cef parseUrl_url: ('https://' , aString) asCefString parts: parts].
 	^resultCode = 0
 		ifTrue: [nil]
 		ifFalse: 
