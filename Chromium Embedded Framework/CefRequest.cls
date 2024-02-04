@@ -36,6 +36,10 @@ _getReferrerUrl_cefRequest: cefRequest
 	<stdcall: CefStringUserfree* get_referrer_url CefRequest*>
 	^self invalidCall: _failureCode!
 
+_getTransitionType_cefRequest: cefRequest
+	<stdcall: sdword get_transition_type CefRequest*>
+	^self invalidCall: _failureCode!
+
 _getUrl_cefRequest: cefRequest
 	<stdcall: CefStringUserfree* get_url CefRequest*>
 	^self invalidCall: _failureCode!
@@ -141,14 +145,14 @@ get_resource_type: anInteger
 	bytes dwordAtOffset: _OffsetOf_get_resource_type put: anInteger!
 
 get_transition_type
-	"Answer the <Integer> value of the receiver's 'get_transition_type' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_transition_type' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_transition_type!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_transition_type) asExternalAddress!
 
-get_transition_type: anInteger
-	"Set the receiver's 'get_transition_type' field to the value of the argument, anInteger"
+get_transition_type: anExternalAddress
+	"Set the receiver's 'get_transition_type' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_transition_type put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_transition_type put: anExternalAddress!
 
 get_url
 	"Answer the <ExternalAddress> value of the receiver's 'get_url' field."
@@ -164,6 +168,12 @@ getReferrerUrl
 	| method |
 	method := self class externalMethodAt: #_getReferrerUrl_cefRequest:
 				ifAbsentBindTo: self get_referrer_url.
+	^method value: self withArguments: (Array with: self)!
+
+getTransitionType
+	| method |
+	method := self class externalMethodAt: #_getTransitionType_cefRequest:
+				ifAbsentBindTo: self get_transition_type.
 	^method value: self withArguments: (Array with: self)!
 
 getUrl
@@ -272,6 +282,7 @@ set_url: anInteger
 	bytes dwordAtOffset: _OffsetOf_set_url put: anInteger! !
 !CefRequest categoriesForMethods!
 _getReferrerUrl_cefRequest:!**compiled accessors**!private! !
+_getTransitionType_cefRequest:!**compiled accessors**!private! !
 _getUrl_cefRequest:!**compiled accessors**!private! !
 get_first_party_for_cookies!**compiled accessors**!public! !
 get_first_party_for_cookies:!**compiled accessors**!public! !
@@ -298,6 +309,7 @@ get_transition_type:!**compiled accessors**!public! !
 get_url!**compiled accessors**!public! !
 get_url:!**compiled accessors**!public! !
 getReferrerUrl!**compiled accessors**!public! !
+getTransitionType!**compiled accessors**!public! !
 getUrl!**compiled accessors**!public! !
 is_read_only!**compiled accessors**!public! !
 is_read_only:!**compiled accessors**!public! !
@@ -352,7 +364,8 @@ defineFields
 		defineField: #get_first_party_for_cookies type: DWORDField new;
 		defineField: #set_first_party_for_cookies type: DWORDField new;
 		defineField: #get_resource_type type: DWORDField new;
-		defineField: #get_transition_type type: DWORDField new;
+		defineField: #get_transition_type
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefRequest*'));
 		defineField: #get_identifier type: DWORDField new!
 
 getFieldNames

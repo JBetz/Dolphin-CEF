@@ -83,6 +83,7 @@ package classNames
 	add: #CefStringUserfree;
 	add: #CefStringVisitor;
 	add: #CefTouchHandleState;
+	add: #CefTransitionType;
 	add: #CefUrlParts;
 	add: #CefValue;
 	add: #CefVisitor;
@@ -99,6 +100,7 @@ package methodNames
 	add: #Rectangle -> #asCefRect;
 	add: #String -> #asCefString;
 	add: #String -> #fromSnakeCaseToCamelCase;
+	add: #String -> #looksLikeUrl;
 	add: #String -> #uncapitalized;
 	yourself.
 
@@ -113,9 +115,9 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\..\..\Desktop\Dolphin Images\Dolphin 7.1.30 - Copy\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\..\Desktop\Dolphin Images\Dolphin 7.1.30 - Copy\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\..\Desktop\Dolphin Images\Dolphin 7.1.30 - Copy\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\FFI Extensions\FFI Extensions').
 
 package!
@@ -129,6 +131,11 @@ Object subclass: #CefBrowserProcessRunner
 	classInstanceVariableNames: 'Current'!
 Object subclass: #CefContentProvider
 	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler chromiumBrowser'
+	classVariableNames: ''
+	poolDictionaries: 'CefConstants'
+	classInstanceVariableNames: ''!
+Object subclass: #CefTransitionType
+	instanceVariableNames: 'code'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
@@ -539,6 +546,9 @@ fromSnakeCaseToCamelCase
 	words := '_' split: self.
 	^words allButFirst inject: words first into: [:total :currentWord | total , currentWord capitalized]!
 
+looksLikeUrl
+	^((self contains: '.') or: [self contains: ':/']) and: [(self includes: Character space) not]!
+
 uncapitalized
 	"Answer a <readableString> which is a copy of the receiver but with 
 	the first character converted to its lowercase equivalent."
@@ -554,7 +564,9 @@ uncapitalized
 !String categoriesForMethods!
 asCefString!public! !
 fromSnakeCaseToCamelCase!public! !
+looksLikeUrl!public! !
 uncapitalized!public! !
 !
 
 "End of package definition"!
+
