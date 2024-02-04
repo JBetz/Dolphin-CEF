@@ -69,7 +69,7 @@ example
 		arrangement: 1;
 		create;
 		show;
-		loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin';
+		loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin' asUrl;
 		yourself! !
 !WebBrowserView class categoriesForMethods!
 example!public! !

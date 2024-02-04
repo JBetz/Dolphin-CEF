@@ -163,7 +163,11 @@ getSource: aMonadicValuable
 	| mainFrame cefSourceStringVisitor |
 	mainFrame := cefBrowser getMainFrame.
 	cefSourceStringVisitor := CefStringVisitor new.
-	cefSourceStringVisitor visitCallback: [:aCefStringVisitor :aCefString | aMonadicValuable value: aCefString str].
+	cefSourceStringVisitor visitCallback: 
+			[:aCefStringVisitor :aCefString |
+			| string |
+			string := aCefString isNull ifTrue: [nil] ifFalse: [aCefString str].
+			aMonadicValuable value: string].
 	mainFrame getSource_visitor: cefSourceStringVisitor!
 
 getTitle
@@ -248,13 +252,13 @@ loadHtml: aString forUrl: aUrl
 		provideHtml: aString forUrl: aUrl;
 		loadUrl: aUrl!
 
-loadUrl: aString
+loadUrl: aUrl
 	cefBrowser
-		ifNil: [queuedUrl := aString]
+		ifNil: [queuedUrl := aUrl]
 		ifNotNil: 
 			[| mainFrame |
 			mainFrame := cefBrowser getMainFrame.
-			mainFrame loadUrl_url: aString asCefString]!
+			mainFrame loadUrl_url: aUrl string asCefString]!
 
 onAcceleratedPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount sharedHandle: sharedHandle
 !
@@ -269,16 +273,16 @@ onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
 	cefBrowser := aCefBrowser.
 	queuedUrl
 		ifNotNil: 
-			[:aString |
-			self loadUrl: aString.
+			[:aUrl |
+			self loadUrl: aUrl.
 			queuedUrl := nil].
 	^0!
 
 onAutoResize: displayHandler browser: browser newSize: newSize 
 	^0!
 
-onBeforeBrowse: aCefRequestHandler browser: aCefBrowser frame: aCefFrame request: aCefRequest userGesture: anInteger isRedirect: anInteger2 
-	^0!
+onBeforeBrowse: aCefRequestHandler browser: aCefBrowser frame: aCefFrame request: aCefRequest userGesture: userGesture isRedirect: isRedirect
+	host onBeforeBrowse: aCefRequest isRedirect: isRedirect asBoolean!
 
 onBeforeClose: lifeSpanHandler browser: browser
 	readyToClose := true.
@@ -336,7 +340,8 @@ onFrameDetached: frameHandler browser: browser frame: frame
 onFullscreenModeChange: displayHandler browser: browser fullscreen: fullscreen
 	!
 
-onLoadEnd: aCefLoadHandler browser: aCefBrowser frame: aCefFrame httpStatusCode: anInteger!
+onLoadEnd: aCefLoadHandler browser: aCefBrowser frame: aCefFrame httpStatusCode: anInteger
+	host onLoadEnd: anInteger!
 
 onLoadError: aCefLoadHandler browser: aCefBrowser frame: aCefFrame errorCode: anInteger  errorText: aString failedUrl: aUrl
 !

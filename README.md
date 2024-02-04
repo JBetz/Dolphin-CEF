@@ -35,10 +35,11 @@ shell
     extent: 1200 @ 1000;
     show.
 view := WebBrowserView new.
-view
+^view
     parentView: shell;
     arrangement: 1;
     create;
-    show.
-view loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin'
+    show;
+    loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin' asUrl;
+    yourself
 ```
