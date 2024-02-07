@@ -104,6 +104,9 @@ resume
 	isRunning := true!
 
 runMainProcess
+	| cefMask |
+	cefMask := Float exceptionMask | CRTConstants._EM_ZERODIVIDE | CRTConstants._EM_INVALID.
+	Float exceptionMask: cefMask.
 	self
 		executeCefProcess;
 		initializeSettings;
