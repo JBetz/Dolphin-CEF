@@ -52,7 +52,6 @@ package classNames
 	add: #CefLoadHandler;
 	add: #CefMainArgs;
 	add: #CefMenuModel;
-	add: #CefMessageCallback;
 	add: #CefMouseEvent;
 	add: #CefNavigationEntry;
 	add: #CefNavigationEntryVisitor;
@@ -115,9 +114,9 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\..\..\Desktop\Dolphin Images\Dolphin 7.1.30 - Copy\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\..\..\Desktop\Dolphin Images\Dolphin 7.1.30 - Copy\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\..\..\Desktop\Dolphin Images\Dolphin 7.1.30 - Copy\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
 	'..\FFI Extensions\FFI Extensions').
 
 package!
@@ -146,11 +145,6 @@ Object subclass: #ChromiumBrowser
 	classInstanceVariableNames: ''!
 Object subclass: #Url
 	instanceVariableNames: 'string parts'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-DelegatedMessageCallback subclass: #CefMessageCallback
-	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -569,4 +563,3 @@ uncapitalized!public! !
 !
 
 "End of package definition"!
-
