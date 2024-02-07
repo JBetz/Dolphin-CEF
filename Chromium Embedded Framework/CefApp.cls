@@ -61,13 +61,13 @@ get_resource_bundle_handler: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_resource_bundle_handler put: anExternalAddress!
 
 getBrowserProcessHandler: aCefApp
-	^browserProcessHandler ifNotNil: [browserProcessHandler yourAddress]!
+	^browserProcessHandler ifNotNil: [browserProcessHandler yourAddress] ifNil: [0]!
 
 getRenderProcessHandler: aCefApp
-	^renderProcessHandler ifNotNil: [renderProcessHandler yourAddress]!
+	^renderProcessHandler ifNotNil: [renderProcessHandler yourAddress] ifNil: [0]!
 
 getResourceBundleHandler: aCefApp
-	^resourceBundleHandler ifNotNil: [resourceBundleHandler yourAddress]!
+	^resourceBundleHandler ifNotNil: [resourceBundleHandler yourAddress] ifNil: [0]!
 
 on_before_command_line_processing
 	"Answer the <ExternalAddress> value of the receiver's 'on_before_command_line_processing' field."

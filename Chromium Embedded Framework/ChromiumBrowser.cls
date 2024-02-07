@@ -122,29 +122,27 @@ getResourceRequestHandler: requestHandler browser: browser frame: frame request:
 	url := request getUrl.
 	contentProvider := contentProviders at: url str ifAbsent: [nil].
 	url free.
+	contentProvider ifNil: [^0].
 	^contentProvider
-		ifNil: [nil]
-		ifNotNil: 
-			[contentProvider
-				getResourceRequestHandler: requestHandler
-				browser: browser
-				frame: frame
-				request: request
-				isNavigation: isNavigation
-				isDownload: isDownload
-				requestInitiator: requestInitiator
-				disableDefaultHandling: disableDefaultHandling]!
+		getResourceRequestHandler: requestHandler
+		browser: browser
+		frame: frame
+		request: request
+		isNavigation: isNavigation
+		isDownload: isDownload
+		requestInitiator: requestInitiator
+		disableDefaultHandling: disableDefaultHandling!
 
 getRootScreenRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
-	host
-		ifNotNil: 
-			[| rootRectangle |
-			rootRectangle := host rootRectangle.
-			aCefRect
-				x: rootRectangle left;
-				y: rootRectangle top;
-				width: rootRectangle width;
-				height: rootRectangle height]!
+	| rootRectangle |
+	host ifNil: [^0].
+	rootRectangle := host rootRectangle.
+	aCefRect
+		x: rootRectangle left;
+		y: rootRectangle top;
+		width: rootRectangle width;
+		height: rootRectangle height.
+	^0!
 
 getScreenInfo: aCefRenderHandler browser: aCefBrowser screenInfo: aCefScreenInfo 
 	^0!
@@ -195,7 +193,8 @@ getViewRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
 		x: rectangle left;
 		y: rectangle top;
 		width: rectangle width;
-		height: rectangle height!
+		height: rectangle height.
+	^1!
 
 hasTextSelected
 	^selectedText notNil!
@@ -261,13 +260,14 @@ loadUrl: aUrl
 			mainFrame loadUrl_url: aUrl string asCefString]!
 
 onAcceleratedPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount sharedHandle: sharedHandle
-!
+	^0!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
 	| urlParts |
 	urlParts := CefUrlParts new.
 	CefLibrary default parseUrl_url: url parts: urlParts.
-	host ifNotNil: [frame isMain ifTrue: [host onAddressChange: urlParts]]!
+	host ifNotNil: [frame isMain ifTrue: [host onAddressChange: urlParts]].
+	^0!
 
 onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
 	cefBrowser := aCefBrowser.
@@ -282,7 +282,8 @@ onAutoResize: displayHandler browser: browser newSize: newSize
 	^0!
 
 onBeforeBrowse: aCefRequestHandler browser: aCefBrowser frame: aCefFrame request: aCefRequest userGesture: userGesture isRedirect: isRedirect
-	host onBeforeBrowse: aCefRequest isRedirect: isRedirect asBoolean!
+	host onBeforeBrowse: aCefRequest isRedirect: isRedirect asBoolean.
+	^0!
 
 onBeforeClose: lifeSpanHandler browser: browser
 	readyToClose := true.
@@ -290,29 +291,29 @@ onBeforeClose: lifeSpanHandler browser: browser
 
 onBeforeContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel
 	aCefContextMenuParams callRelease.
-	aCefMenuModel callRelease!
+	aCefMenuModel callRelease.
+	^0!
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
 	^1!
 
 onConsoleMessage: aCefDisplayHandler browser: aCefBrowser level: anInteger message: aCefString source: aCefString2 line: anInteger2 
+	^0
 !
 
 onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: anInteger eventFlags: anInteger2 
 	aCefContextMenuParams callRelease.
 	^0!
 
-onContextMenuDismissed: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame !
+onContextMenuDismissed: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame 
+	^0!
 
 onCursorChange: displayHandler browser: browser cursor: cursor type: type customCursorInfo: customCursorInfo
 	| cursorSelector |
 	host ifNil: [^0].
-	cursorSelector := CursorMap at: type ifAbsent: [nil].
-	^cursorSelector
-		ifNotNil: 
-			[host cursor: cursorSelector.
-			1]
-		ifNil: [0]!
+	cursorSelector := CursorMap at: type ifAbsent: [^0].
+	host cursor: cursorSelector.
+	^1!
 
 onFaviconUrlChange: displayHandler browser: browser iconUrls: iconUrls
 	^0!
@@ -326,7 +327,8 @@ onFindResult: aCefFindHandler browser: browser identifier: identifier count: cou
 	search
 		resultCount: count;
 		currentPosition: activeMatchOrdinal;
-		selectionRectangle: selectionRect asRectangle!
+		selectionRectangle: selectionRect asRectangle.
+	^0!
 
 onFrameAttached: frameHandler browser: browser frame: frame reattached: reattched
 	^0!
@@ -338,27 +340,31 @@ onFrameDetached: frameHandler browser: browser frame: frame
 	^0!
 
 onFullscreenModeChange: displayHandler browser: browser fullscreen: fullscreen
-	!
+	^0!
 
 onLoadEnd: aCefLoadHandler browser: aCefBrowser frame: aCefFrame httpStatusCode: anInteger
-	host onLoadEnd: anInteger!
+	host onLoadEnd: anInteger.
+	^0!
 
 onLoadError: aCefLoadHandler browser: aCefBrowser frame: aCefFrame errorCode: anInteger  errorText: aString failedUrl: aUrl
+	^0
 !
 
 onLoadingProgressChange: aCefDisplayHandler browser: aCefBrowser progress: aFloat 
-!
+	^0!
 
 onLoadingStateChange: aCefLoadHandler browser: aCefBrowser isLoading: aBoolean canGoBack: aBoolean2 canGoForward: aBoolean3 
-	!
+	^0!
 
-onLoadStart: aCefLoadHandler browser: aCefBrowser frame: aCefFrame transitionType: anInteger!
+onLoadStart: aCefLoadHandler browser: aCefBrowser frame: aCefFrame transitionType: anInteger
+	^0!
 
 onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
 	host ifNotNil: [host hasFocus ifTrue: [browser getHost setFocus_focus: 1]].
 	^0!
 
-onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess !
+onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess 
+	^0!
 
 onOpenUrlFromTab: aCefRequestHandler browser: aCefBrowser frame: aCefFrame targetUrl: aCefString targetDisposition: targetDisposition userGesture: userGesture
 	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
@@ -377,7 +383,8 @@ onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCo
 		ifTrue: [^0].
 	pitch := width * 4.
 	targetTexture updatePixels: buffer pitch: pitch.
-	host pushRenderEvent!
+	host pushRenderEvent.
+	^0!
 
 onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
 	anInteger asBoolean ifTrue: [host onShowPopup] ifFalse: [host onHidePopup]!
@@ -404,7 +411,8 @@ onScrollOffsetChanged: renderHandler browser: browser x: x y: y
 		y: y.
 	^0!
 
-onStatusMessage: aCefDisplayHandler browser: aCefBrowser value: aCefString!
+onStatusMessage: aCefDisplayHandler browser: aCefBrowser value: aCefString
+	^0!
 
 onTextSelectionChanged: aCefRenderHandler browser: aCefBrowser selectedText: aCefString selectedRange: aCefRange
 	selectedRange := Interval from: aCefRange from to: aCefRange to.
@@ -464,7 +472,7 @@ removeContentProvider: aContentProvider
 runContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel callback: aCefRunContextMenuCallback 
 	aCefContextMenuParams callRelease.
 	aCefMenuModel callRelease.
-	^false!
+	^0!
 
 scrollOffset
 	^host ifNotNil: [host scrollOffset] ifNil: [0 @ 0]!
@@ -548,7 +556,7 @@ getSource:!public! !
 getTitle!public! !
 getUrl!public! !
 getViewRect:browser:rect:!cef event handler!private!render handler! !
-hasTextSelected!cef event handler!private! !
+hasTextSelected!private! !
 hide!public! !
 host:!public! !
 hoveredElement!public! !
@@ -556,7 +564,7 @@ initialize!public! !
 initializeOffscreenClient!private! !
 initializeWindowedClient!private! !
 isFocusedElementEditable!public! !
-isReadyToClose!cef event handler!life span handler!public! !
+isReadyToClose!public! !
 library!public! !
 loadHtml:forUrl:!public! !
 loadUrl:!public! !

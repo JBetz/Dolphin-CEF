@@ -11,7 +11,8 @@ CefBrowserProcessRunner comment: ''!
 !CefBrowserProcessRunner methodsFor!
 
 ensureRunning
-	isRunning ifFalse: [self runMainProcess]!
+	settings ifNil: [self runMainProcess].
+	isRunning := true!
 
 executeCefProcess
 	| handle resultCode |
@@ -47,16 +48,14 @@ initializeApp
 		enableBrowserProcessHandlerAndDelegateTo: self!
 
 initializeCef
-	| useMultiThreadedMessageLoop resultCode |
-	useMultiThreadedMessageLoop := settings multi_threaded_message_loop asBoolean.
-	useMultiThreadedMessageLoop ifFalse: [self initializeApp].
+	| resultCode |
+	self useMultiThreadedMessageLoop ifFalse: [self initializeApp].
 	resultCode := self library
 				initialize_args: args
 				settings: settings
 				application: app
 				windowsSandboxInfo: nil.
-	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF'].
-	useMultiThreadedMessageLoop ifFalse: [self iterate]!
+	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF']!
 
 initializeSettings
 	| subprocessPath logFile cachePath |
@@ -71,8 +70,7 @@ initializeSettings
 		log_file: logFile asCefString;
 		cache_path: cachePath asCefString;
 		no_sandbox: true;
-		windowless_rendering_enabled: true;
-		multi_threaded_message_loop: true!
+		windowless_rendering_enabled: true!
 
 iterate
 	isRunning ifTrue: [self library doMessageLoopWork].
@@ -81,26 +79,36 @@ iterate
 library
 	^CefLibrary default!
 
-onBeforeChildProcessLaunch: aCefBrowserProcessHandler commandLine: aCefCommandLine !
+onBeforeChildProcessLaunch: aCefBrowserProcessHandler commandLine: aCefCommandLine 
+	^0!
 
-onBeforeCommandLineProcessing: cefApp processType: processType commandLine: commandLine!
+onBeforeCommandLineProcessing: cefApp processType: processType commandLine: commandLine
+	^0!
 
-onContextInitialized: aCefBrowserProcessHandler!
+onContextInitialized: aCefBrowserProcessHandler
+	^0!
 
 onRegisterCustomPreferences: aCefBrowserProcessHandler type: anInteger registrar: aCefPreferencesRegistrar
-	!
+	^0!
 
 onRegisterCustomSchemes: cefApp registrar: registrar
-	!
+	^0!
 
-onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs!
+onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs
+	^0!
+
+pause
+	isRunning := false!
+
+resume
+	isRunning := true!
 
 runMainProcess
 	self
 		executeCefProcess;
 		initializeSettings;
 		initializeCef.
-	isRunning := true!
+	self useMultiThreadedMessageLoop ifFalse: [self iterate]!
 
 stop
 	isRunning
@@ -109,7 +117,10 @@ stop
 			isRunning := false].
 	args := nil.
 	app := nil.
-	settings := nil! !
+	settings := nil!
+
+useMultiThreadedMessageLoop
+	^settings multi_threaded_message_loop asBoolean! !
 !CefBrowserProcessRunner categoriesForMethods!
 ensureRunning!public! !
 executeCefProcess!private! !
@@ -121,16 +132,19 @@ initialize!private! !
 initializeApp!private! !
 initializeCef!private! !
 initializeSettings!private! !
-iterate!public! !
+iterate!private! !
 library!private! !
-onBeforeChildProcessLaunch:commandLine:!private! !
+onBeforeChildProcessLaunch:commandLine:!cef event handler!private! !
 onBeforeCommandLineProcessing:processType:commandLine:!cef event handler!private! !
-onContextInitialized:!private! !
-onRegisterCustomPreferences:type:registrar:!private! !
+onContextInitialized:!cef event handler!private! !
+onRegisterCustomPreferences:type:registrar:!cef event handler!private! !
 onRegisterCustomSchemes:registrar:!cef event handler!private! !
 onScheduleMessagePumpWork:delayMs:!cef event handler!private! !
+pause!public! !
+resume!public! !
 runMainProcess!public! !
 stop!public! !
+useMultiThreadedMessageLoop!private! !
 !
 
 !CefBrowserProcessRunner class methodsFor!
@@ -165,7 +179,10 @@ onShutdown
 	Current := nil!
 
 onStartup
-	Current := nil! !
+	Current := nil!
+
+pause
+	self new pause! !
 !CefBrowserProcessRunner class categoriesForMethods!
 ensureRunning!public! !
 initialize!public! !
@@ -173,5 +190,6 @@ iterate!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !
+pause!public! !
 !
 

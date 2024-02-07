@@ -282,34 +282,34 @@ get_request_handler: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_get_request_handler put: anExternalAddress!
 
 getContextMenuHandler: aCefClient
-	^contextMenuHandler ifNotNil: [contextMenuHandler yourAddress]!
+	^contextMenuHandler ifNotNil: [contextMenuHandler yourAddress] ifNil: [0]!
 
 getDisplayHandler: aCefClient
-	^displayHandler ifNotNil: [displayHandler yourAddress]!
+	^displayHandler ifNotNil: [displayHandler yourAddress] ifNil: [0]!
 
 getFindHandler: aCefClient
-	^findHandler ifNotNil: [findHandler yourAddress]!
+	^findHandler ifNotNil: [findHandler yourAddress] ifNil: [0]!
 
 getFocusHandler: aCefClient
-	^focusHandler ifNotNil: [focusHandler yourAddress]!
+	^focusHandler ifNotNil: [focusHandler yourAddress] ifNil: [0]!
 
 getFrameHandler: aCefClient
-	^frameHandler ifNotNil: [frameHandler yourAddress]!
+	^frameHandler ifNotNil: [frameHandler yourAddress] ifNil: [0]!
 
 getKeyboardHandler: aCefClient
-	^keyboardHandler ifNotNil: [keyboardHandler yourAddress]!
+	^keyboardHandler ifNotNil: [keyboardHandler yourAddress] ifNil: [0]!
 
 getLifeSpanHandler: aCefClient
-	^lifeSpanHandler ifNotNil: [lifeSpanHandler yourAddress]!
+	^lifeSpanHandler ifNotNil: [lifeSpanHandler yourAddress] ifNil: [0]!
 
 getLoadHandler: aCefClient
-	^loadHandler ifNotNil: [loadHandler yourAddress]!
+	^loadHandler ifNotNil: [loadHandler yourAddress] ifNil: [0]!
 
 getRenderHandler: aCefClient
-	^renderHandler ifNotNil: [renderHandler yourAddress]!
+	^renderHandler ifNotNil: [renderHandler yourAddress] ifNil: [0]!
 
 getRequestHandler: aCefClient
-	^requestHandler ifNotNil: [requestHandler yourAddress]!
+	^requestHandler ifNotNil: [requestHandler yourAddress] ifNil: [0]!
 
 on_process_message_received
 	"Answer the <ExternalAddress> value of the receiver's 'on_process_message_received' field."
@@ -329,7 +329,8 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 				browser: aCefBrowser
 				frame: aCefFrame
 				sourceProcess: anInteger
-				message: aCefProcessMessage]!
+				message: aCefProcessMessage].
+	^0!
 
 processMessageDelegate: anObject
 	processMessageDelegate := anObject! !

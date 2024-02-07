@@ -19,7 +19,7 @@ getResourceHandler: resourceRequestHandler browser: browser frame: frame request
 	^resourceHandler yourAddress!
 
 getResourceRequestHandler: requestHandler browser: browser frame: frame request: request isNavigation: isNavigation isDownload: isDownload requestInitiator: requestInitiator disableDefaultHandling: disableDefaultHandling
-	^resourceRequestHandler yourAddress!
+	^resourceRequestHandler ifNotNil: [resourceRequestHandler yourAddress] ifNil: [0]!
 
 getResponseHeaders: resourceHandler response: response responseLength: responseLength redirectUrl: redirectUrl
 	response
