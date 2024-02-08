@@ -416,6 +416,12 @@ is_spell_check_enabled: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_is_spell_check_enabled put: anExternalAddress!
 
+isAudio
+	^self getMediaType bitOr: CM_MEDIATYPE_AUDIO!
+
+isCanvas
+	^self getMediaType bitOr: CM_MEDIATYPE_CANVAS!
+
 isCustomMenu
 	| method |
 	method := self class externalMethodAt: #_isCustomMenu_cefContextMenuParams:
@@ -428,11 +434,38 @@ isEditable
 				ifAbsentBindTo: self is_editable.
 	^method value: self withArguments: (Array with: self)!
 
+isFile
+	^self getMediaType bitOr: CM_MEDIATYPE_FILE!
+
+isFrame
+	^self getTypeFlags bitOr: CM_TYPEFLAG_FRAME!
+
+isImage
+	^self getMediaType bitOr: CM_MEDIATYPE_IMAGE!
+
+isLink
+	^self getTypeFlags bitOr: CM_TYPEFLAG_LINK!
+
+isMedia
+	^self getTypeFlags bitOr: CM_TYPEFLAG_MEDIA!
+
+isPage
+	^self getTypeFlags bitOr: CM_TYPEFLAG_PAGE!
+
+isPlugin
+	^self getMediaType bitOr: CM_MEDIATYPE_PLUGIN!
+
+isSelection
+	^self getTypeFlags bitOr: CM_TYPEFLAG_SELECTION!
+
 isSpellCheckEnabled
 	| method |
 	method := self class externalMethodAt: #_isSpellCheckEnabled_cefContextMenuParams:
 				ifAbsentBindTo: self is_spell_check_enabled.
-	^method value: self withArguments: (Array with: self)! !
+	^method value: self withArguments: (Array with: self)!
+
+isVideo
+	^self getMediaType bitOr: CM_MEDIATYPE_VIDEO! !
 !CefContextMenuParams categoriesForMethods!
 _getDictionarySuggestions_cefContextMenuParams:suggestions:!**compiled accessors**!private! !
 _getEditStateFlags_cefContextMenuParams:!**compiled accessors**!private! !
@@ -511,9 +544,20 @@ is_editable!public! !
 is_editable:!public! !
 is_spell_check_enabled!public! !
 is_spell_check_enabled:!public! !
+isAudio!public! !
+isCanvas!public! !
 isCustomMenu!**compiled accessors**!public! !
 isEditable!**compiled accessors**!public! !
+isFile!public! !
+isFrame!public! !
+isImage!public! !
+isLink!public! !
+isMedia!public! !
+isPage!public! !
+isPlugin!public! !
+isSelection!public! !
 isSpellCheckEnabled!**compiled accessors**!public! !
+isVideo!public! !
 !
 
 !CefContextMenuParams class methodsFor!
