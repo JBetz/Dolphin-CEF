@@ -125,10 +125,10 @@ package!
 "Class Definitions"!
 
 Object subclass: #CefBrowserProcessRunner
-	instanceVariableNames: 'isRunning args app settings'
+	instanceVariableNames: 'args app settings isRunning messageLoopProcess'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
-	classInstanceVariableNames: 'Current'!
+	classInstanceVariableNames: 'Singleton'!
 Object subclass: #CefContentProvider
 	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler chromiumBrowser'
 	classVariableNames: ''
@@ -252,7 +252,7 @@ ExtendedExternalStructure subclass: #CefBaseRefCounted
 ExtendedExternalStructure subclass: #CefReferenceCountedObject
 	instanceVariableNames: 'delegate'
 	classVariableNames: '_OffsetOf_base'
-	poolDictionaries: ''
+	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefApp
 	instanceVariableNames: 'browserProcessHandler resourceBundleHandler renderProcessHandler'
