@@ -3,7 +3,7 @@
 ExtendedExternalStructure subclass: #CefReferenceCountedObject
 	instanceVariableNames: 'delegate'
 	classVariableNames: '_OffsetOf_base'
-	poolDictionaries: ''
+	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject guid: (GUID fromString: '{de1a3d3a-824e-487b-877b-7541844e5886}')!
 CefReferenceCountedObject addClassConstant: '_OffsetOf_base' value: 16r0!
