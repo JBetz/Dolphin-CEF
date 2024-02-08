@@ -330,6 +330,8 @@ onFindResult: aCefFindHandler browser: browser identifier: identifier count: cou
 		selectionRectangle: selectionRect asRectangle.
 	^0!
 
+onFocus: aCefDictionaryValue!
+
 onFrameAttached: frameHandler browser: browser frame: frame reattached: reattched
 	^0!
 
@@ -365,6 +367,8 @@ onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: n
 
 onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess 
 	^0!
+
+onMouseOver: aCefDictionaryValue!
 
 onOpenUrlFromTab: aCefRequestHandler browser: aCefBrowser frame: aCefFrame targetUrl: aCefString targetDisposition: targetDisposition userGesture: userGesture
 	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
@@ -582,6 +586,7 @@ onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!pri
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
 onFaviconUrlChange:browser:iconUrls:!cef event handler!display handler!private! !
 onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
+onFocus:!public! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
@@ -593,6 +598,7 @@ onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler
 onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
 onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:!cef event handler!display handler!private! !
+onMouseOver:!public! !
 onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
 onPopupShow:browser:show:!popup!private! !
@@ -688,4 +694,3 @@ new
 initialize!public! !
 new!public! !
 !
-

@@ -18,6 +18,8 @@ loadUrl: aString
 onAddressChange: aCefUrlParts
 	!
 
+onBeforeBrowse: aCefRequest isRedirect: aBoolean !
+
 onTitleChange: aString
 	!
 
@@ -44,6 +46,7 @@ pushCloseEvent
 cursor:!public! !
 loadUrl:!public! !
 onAddressChange:!public! !
+onBeforeBrowse:isRedirect:!public! !
 onTitleChange:!public! !
 onViewClosed!public! !
 onViewCreated!public! !
@@ -74,4 +77,3 @@ example
 !WebBrowserView class categoriesForMethods!
 example!public! !
 !
-
