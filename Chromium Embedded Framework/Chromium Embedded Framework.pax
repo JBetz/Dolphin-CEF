@@ -98,6 +98,7 @@ package methodNames
 	add: #KernelLibrary -> #setProcessDEPPolicy:;
 	add: #Rectangle -> #asCefRect;
 	add: #String -> #asCefString;
+	add: #String -> #asUrl;
 	add: #String -> #fromSnakeCaseToCamelCase;
 	add: #String -> #looksLikeUrl;
 	add: #String -> #uncapitalized;
@@ -535,6 +536,9 @@ asCefString
 		output: output.
 	^output!
 
+asUrl
+	^Url fromString: self!
+
 fromSnakeCaseToCamelCase
 	| words |
 	words := '_' split: self.
@@ -557,6 +561,7 @@ uncapitalized
 	^write contents! !
 !String categoriesForMethods!
 asCefString!public! !
+asUrl!converting!public! !
 fromSnakeCaseToCamelCase!public! !
 looksLikeUrl!public! !
 uncapitalized!public! !
