@@ -26,6 +26,7 @@ addInstance: anObject
 	Instances at: anObject yourAddress put: anObject!
 
 callbackRegistry
+	CallbackRegistry ifNil: [self initializeCallbackRegistry].
 	^CallbackRegistry!
 
 compileExternalMethodForField: anExternalField
@@ -95,8 +96,13 @@ initialize
 			to: self;
 		when: #sessionStopped
 			send: #onShutdown
-			to: self.
-	self onStartup!
+			to: self!
+
+initializeCallbackRegistry
+	CallbackRegistry := LookupTable new.
+	Instances := WeakLookupTable new.
+	self registerCallbacks.
+	self subBehaviors do: [:each | each onStartup]!
 
 onShutdown
 	Instances := nil.
@@ -104,10 +110,7 @@ onShutdown
 	self subBehaviors do: [:each | each onShutdown]!
 
 onStartup
-	CallbackRegistry := LookupTable new.
-	Instances := WeakLookupTable new.
-	self registerCallbacks.
-	self subBehaviors do: [:each | each onStartup]!
+	self initializeCallbackRegistry!
 
 recompileDefinition
 	"Private - Recompiles the existing template for the receiver"
@@ -141,6 +144,7 @@ defineField:type:!public! !
 externalMethodAt:ifAbsentBindTo:!private! !
 getInstance:!public! !
 initialize!public! !
+initializeCallbackRegistry!public! !
 onShutdown!public! !
 onStartup!public! !
 recompileDefinition!private! !
