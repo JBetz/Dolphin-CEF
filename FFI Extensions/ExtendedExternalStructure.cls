@@ -53,7 +53,7 @@ compileNewFields
 			field isWriteable
 				ifTrue: 
 					[| setSelector |
-					setSelector := (getSelector copyWith: ':') asSymbol.
+					setSelector := (getSelector copyWith: $:) asSymbol.
 					(self shouldCompile: setSelector forField: field)
 						ifTrue: [self compileSetMethod: setSelector forField: field]]]!
 
@@ -150,4 +150,3 @@ onStartup!public! !
 recompileDefinition!private! !
 registerCallbacks!private! !
 !
-
