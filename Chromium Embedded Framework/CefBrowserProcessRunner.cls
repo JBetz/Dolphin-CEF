@@ -1,10 +1,10 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #CefBrowserProcessRunner
-	instanceVariableNames: 'isRunning args app settings'
+	instanceVariableNames: 'args app settings isRunning messageLoopProcess'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
-	classInstanceVariableNames: 'Current'!
+	classInstanceVariableNames: 'Singleton'!
 CefBrowserProcessRunner guid: (GUID fromString: '{a2d64bd2-4dd7-431d-a764-321e2869bfba}')!
 CefBrowserProcessRunner comment: ''!
 !CefBrowserProcessRunner categoriesForClass!Kernel-Objects! !
@@ -12,7 +12,9 @@ CefBrowserProcessRunner comment: ''!
 
 ensureRunning
 	settings ifNil: [self runMainProcess].
-	isRunning := true!
+	(messageLoopProcess notNil and: [messageLoopProcess isAlive])
+		ifFalse: [self startMessageLoopProcess].
+	self resume!
 
 executeCefProcess
 	| handle resultCode |
@@ -73,8 +75,10 @@ initializeSettings
 		windowless_rendering_enabled: true!
 
 iterate
-	isRunning ifTrue: [self library doMessageLoopWork].
-	[self iterate] postToInputQueue!
+	isRunning
+		ifTrue: 
+			[self library doMessageLoopWork.
+			[self iterate] postToInputQueue]!
 
 library
 	^CefLibrary default!
@@ -98,10 +102,12 @@ onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs
 	^0!
 
 pause
-	isRunning := false!
+	isRunning := false.
+	messageLoopProcess priority: Processor systemBasePriority!
 
 resume
-	isRunning := true!
+	isRunning := true.
+	messageLoopProcess priority: Processor userSchedulingPriority - 1!
 
 runMainProcess
 	| cefMask |
@@ -111,16 +117,30 @@ runMainProcess
 		executeCefProcess;
 		initializeSettings;
 		initializeCef.
-	self useMultiThreadedMessageLoop ifFalse: [self iterate]!
+	isRunning := true!
+
+startMessageLoopProcess
+	| delay |
+	delay := Delay forMilliseconds: 1000 / 30.
+	messageLoopProcess := 
+			[
+			[isRunning ifTrue: [self library doMessageLoopWork].
+			delay wait] repeat]
+					forkAt: Processor userSchedulingPriority - 1.
+	messageLoopProcess name: 'CEF'!
 
 stop
-	isRunning
-		ifTrue: 
-			[self library shutdown.
-			isRunning := false].
+	self stopMessageLoopProcess.
+	self library shutdown.
 	args := nil.
 	app := nil.
 	settings := nil!
+
+stopMessageLoopProcess
+	messageLoopProcess
+		ifNotNil: 
+			[messageLoopProcess isAlive ifTrue: [messageLoopProcess terminate].
+			messageLoopProcess := nil]!
 
 useMultiThreadedMessageLoop
 	^settings multi_threaded_message_loop asBoolean! !
@@ -146,7 +166,9 @@ onScheduleMessagePumpWork:delayMs:!cef event handler!private! !
 pause!public! !
 resume!public! !
 runMainProcess!public! !
+startMessageLoopProcess!private! !
 stop!public! !
+stopMessageLoopProcess!public! !
 useMultiThreadedMessageLoop!private! !
 !
 
@@ -166,30 +188,28 @@ initialize
 			send: #onShutdown
 			to: self!
 
-iterate
-	Current iterate!
-
 new
-	Current
+	Singleton
 		ifNil: 
-			[Current := super new.
-			Current initialize].
-	^Current!
+			[Singleton := super new.
+			Singleton initialize].
+	^Singleton!
 
 onShutdown
-	Current ifNil: [^self].
-	Current stop.
-	Current := nil!
+	Singleton ifNil: [^self].
+	Singleton stop.
+	Singleton := nil!
 
 onStartup
-	Current := nil!
+	Singleton ifNil: [^self].
+	Singleton stop.
+	Singleton := nil!
 
 pause
 	self new pause! !
 !CefBrowserProcessRunner class categoriesForMethods!
 ensureRunning!public! !
 initialize!public! !
-iterate!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !
