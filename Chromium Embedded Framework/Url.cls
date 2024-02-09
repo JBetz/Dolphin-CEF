@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Url
-	instanceVariableNames: 'string parts'
+	instanceVariableNames: 'string fragment host origin password path port query scheme spec username'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,38 +14,46 @@ displayString
 	^string!
 
 domain
-	^self host str!
+	^self host!
 
 fragment
-	^parts fragment!
+	^fragment!
 
 host
-	^parts host!
+	^host!
 
 origin
-	^parts origin!
+	^origin!
 
 parse
-	parts := CefUrlParts new. 
-	CefLibrary default parseUrl_url: string asCefString parts: parts!
-
-parts: aCefUrlParts
-	parts := aCefUrlParts!
+	| parts |
+	parts := CefUrlParts new.
+	CefLibrary default parseUrl_url: string asCefString parts: parts.
+	fragment := parts fragment str.
+	host := parts host str.
+	origin := parts origin str.
+	password := parts password str.
+	path := parts path str.
+	port := parts port str.
+	query := parts query str.
+	scheme := parts scheme str.
+	spec := parts spec str.
+	username := parts username str!
 
 password
-	^parts password!
+	^password!
 
 path
-	^parts path!
+	^path!
 
 port
-	^parts port!
+	^port!
 
 query
-	^parts query!
+	^query!
 
 scheme
-	^parts scheme!
+	^scheme!
 
 secureString
 	| cefSecureString secureString |
@@ -55,7 +63,7 @@ secureString
 	^secureString!
 
 spec
-	^parts spec!
+	^spec!
 
 string
 	^string!
@@ -65,7 +73,7 @@ string: aString
 	self parse!
 
 username
-	^parts username! !
+	^username! !
 !Url categoriesForMethods!
 displayString!public! !
 domain!public! !
@@ -73,7 +81,6 @@ fragment!public! !
 host!public! !
 origin!public! !
 parse!private! !
-parts:!private! !
 password!public! !
 path!public! !
 port!public! !
@@ -95,12 +102,7 @@ fromString: aString
 	resultCode := cef parseUrl_url: aString asCefString parts: parts.
 	resultCode = 0
 		ifTrue: [resultCode := cef parseUrl_url: ('https://' , aString) asCefString parts: parts].
-	^resultCode = 0
-		ifTrue: [nil]
-		ifFalse: 
-			[self new
-				string: aString;
-				parts: parts]! !
+	^resultCode = 0 ifTrue: [nil] ifFalse: [self new string: aString]! !
 !Url class categoriesForMethods!
 fromString:!public! !
 !
