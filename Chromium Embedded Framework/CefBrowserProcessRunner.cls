@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #CefBrowserProcessRunner
-	instanceVariableNames: 'args app settings isRunning messageLoopProcess'
+	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning isProcessing messageLoopProcess framesPerSecond'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: 'Singleton'!
@@ -11,7 +11,7 @@ CefBrowserProcessRunner comment: ''!
 !CefBrowserProcessRunner methodsFor!
 
 ensureRunning
-	settings ifNil: [self runMainProcess].
+	cefSettings ifNil: [self runMainProcess].
 	(messageLoopProcess notNil and: [messageLoopProcess isAlive])
 		ifFalse: [self startMessageLoopProcess].
 	self resume!
@@ -19,33 +19,35 @@ ensureRunning
 executeCefProcess
 	| handle resultCode |
 	handle := VMLibrary default applicationHandle.
-	args := CefMainArgs new.
-	args instance: handle.
+	cefMainArgs := CefMainArgs new.
+	cefMainArgs instance: handle.
 	resultCode := self library
-				executeProcess_args: args
+				executeProcess_args: cefMainArgs
 				application: nil
 				windowsSandboxInfo: nil.
 	resultCode ~= -1 ifTrue: [self error: 'Error executing CEF process']!
 
 getBrowserProcessHandler: aCefApp
-	^app getBrowserProcessHandler: aCefApp!
+	^cefApp getBrowserProcessHandler: aCefApp!
 
 getDefaultClient: browserProcessHandler
 	^0!
 
 getRenderProcessHandler: aCefApp
-	^app getRenderProcessHandler: aCefApp!
+	^cefApp getRenderProcessHandler: aCefApp!
 
 getResourceBundleHandler: aCefApp
-	^app getResourceBundleHandler: aCefApp!
+	^cefApp getResourceBundleHandler: aCefApp!
 
 initialize
 	super initialize.
-	isRunning := false!
+	isRunning := false.
+	isProcessing := false.
+	framesPerSecond := 30!
 
 initializeApp
-	app := CefApp new.
-	app
+	cefApp := CefApp new.
+	cefApp
 		delegate: self;
 		enableBrowserProcessHandlerAndDelegateTo: self!
 
@@ -53,9 +55,9 @@ initializeCef
 	| resultCode |
 	self useMultiThreadedMessageLoop ifFalse: [self initializeApp].
 	resultCode := self library
-				initialize_args: args
-				settings: settings
-				application: app
+				initialize_args: cefMainArgs
+				settings: cefSettings
+				application: cefApp
 				windowsSandboxInfo: nil.
 	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF']!
 
@@ -65,8 +67,8 @@ initializeSettings
 	logFile := FileLocator imageRelative localFileSpecFor: 'cef.log'.
 	cachePath := FileLocator imageRelative localFileSpecFor: 'cef-cache'.
 	File createDirectoryPath: cachePath.
-	settings := CefSettings new.
-	settings
+	cefSettings := CefSettings new.
+	cefSettings
 		browser_subprocess_path: subprocessPath asCefString;
 		log_severity: LOGSEVERITY_DEFAULT;
 		log_file: logFile asCefString;
@@ -75,10 +77,9 @@ initializeSettings
 		windowless_rendering_enabled: true!
 
 iterate
-	isRunning
-		ifTrue: 
-			[self library doMessageLoopWork.
-			[self iterate] postToInputQueue]!
+	(isRunning not or: [isProcessing]) ifTrue: [^self].
+	isProcessing := true.
+	[self library doMessageLoopWork] ensure: [isProcessing := false]!
 
 library
 	^CefLibrary default!
@@ -120,21 +121,20 @@ runMainProcess
 	isRunning := true!
 
 startMessageLoopProcess
-	| delay |
-	delay := Delay forMilliseconds: 1000 / 30.
 	messageLoopProcess := 
 			[
-			[isRunning ifTrue: [self library doMessageLoopWork].
-			delay wait] repeat]
+			[[self iterate] postToMessageQueue.
+			(Delay forMilliseconds: 1000 / framesPerSecond) wait]
+					repeat]
 					forkAt: Processor userSchedulingPriority - 1.
 	messageLoopProcess name: 'CEF'!
 
 stop
 	self stopMessageLoopProcess.
 	self library shutdown.
-	args := nil.
-	app := nil.
-	settings := nil!
+	cefMainArgs := nil.
+	cefApp := nil.
+	cefSettings := nil!
 
 stopMessageLoopProcess
 	messageLoopProcess
@@ -143,7 +143,7 @@ stopMessageLoopProcess
 			messageLoopProcess := nil]!
 
 useMultiThreadedMessageLoop
-	^settings multi_threaded_message_loop asBoolean! !
+	^cefSettings multi_threaded_message_loop asBoolean! !
 !CefBrowserProcessRunner categoriesForMethods!
 ensureRunning!public! !
 executeCefProcess!private! !
@@ -168,7 +168,7 @@ resume!public! !
 runMainProcess!public! !
 startMessageLoopProcess!private! !
 stop!public! !
-stopMessageLoopProcess!public! !
+stopMessageLoopProcess!private! !
 useMultiThreadedMessageLoop!private! !
 !
 
