@@ -125,7 +125,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #CefBrowserProcessRunner
-	instanceVariableNames: 'args app settings isRunning messageLoopProcess'
+	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning isProcessing messageLoopProcess framesPerSecond'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: 'Singleton'!
@@ -140,12 +140,12 @@ Object subclass: #CefTransitionType
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose queuedUrl selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose queuedUrl selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
 Object subclass: #Url
-	instanceVariableNames: 'string parts'
+	instanceVariableNames: 'inputString fragment host origin password path port query scheme spec username'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -385,7 +385,7 @@ CefReferenceCountedObject subclass: #CefValue
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 CefReferenceCountedObject subclass: #CefVisitor
-	instanceVariableNames: ''
+	instanceVariableNames: 'blockCallback'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
