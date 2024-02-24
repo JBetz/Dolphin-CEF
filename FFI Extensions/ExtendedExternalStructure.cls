@@ -86,6 +86,7 @@ externalMethodAt: aSymbol ifAbsentBindTo: anExternalAddress
 	^compiledMethod copy bindTo: anExternalAddress!
 
 getInstance: anInteger
+	Instances ifNil: [^nil].
 	^Instances at: anInteger ifAbsent: [nil]!
 
 initialize
@@ -107,7 +108,7 @@ initializeCallbackRegistry
 onShutdown
 	Instances := nil.
 	CallbackRegistry := nil.
-	self subBehaviors do: [:each | each onShutdown]!
+	self allSubBehaviorsDo: [:each | each onShutdown]!
 
 onStartup
 	self initializeCallbackRegistry!
@@ -150,3 +151,4 @@ onStartup!public! !
 recompileDefinition!private! !
 registerCallbacks!private! !
 !
+
