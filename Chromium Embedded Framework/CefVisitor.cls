@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 CefReferenceCountedObject subclass: #CefVisitor
-	instanceVariableNames: ''
+	instanceVariableNames: 'blockCallback'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,12 +10,16 @@ CefVisitor comment: ''!
 !CefVisitor categoriesForClass!External-Data-Structured! !
 !CefVisitor methodsFor!
 
+visit: anExternalAddress
+	self subclassResponsibility!
+
 visitCallback: aBlock
-	| descriptor blockCallback |
+	| descriptor |
 	descriptor := (self class callbackRegistry at: #visit:) descriptor.
 	blockCallback := ExternalCallback block: aBlock descriptor: descriptor.
 	self visit: blockCallback asParameter! !
 !CefVisitor categoriesForMethods!
+visit:!public! !
 visitCallback:!public! !
 !
 
