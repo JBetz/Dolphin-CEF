@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose queuedUrl selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose queuedUrl selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -49,7 +49,7 @@ createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
 	resultCode := self library
 				browserHostCreateBrowser_windowInfo: windowInfo
 				client: cefClient
-				url: aUrl string asCefString
+				url: aUrl spec asCefString
 				settings: browserSettings
 				extraInfo: nil
 				requestContext: nil.
@@ -68,7 +68,7 @@ createWindowedBrowser: aUrl rectangle: aRectangle window: aHandle
 	resultCode := self library
 				browserHostCreateBrowser_windowInfo: windowInfo
 				client: cefClient
-				url: aUrl asCefString
+				url: aUrl spec asCefString
 				settings: browserSettings
 				extraInfo: nil
 				requestContext: nil.
@@ -112,10 +112,14 @@ focusedElement
 	^focusedElement!
 
 forceCloseBrowser
-	cefBrowser ifNotNil: [cefBrowser getHost closeBrowser_forceClose: 1]!
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost closeBrowser_forceClose: 1!
 
 forward
 	cefBrowser goForward!
+
+getAuthCredentials: aCefRequestHandler browser: aCefBrowser originUrl: aCefString isProxy: anInteger host: aCefString2 port: anInteger2 realm: aCefString3 scheme: aCefString4 callback: aCefAuthCallback 
+	^0!
 
 getResourceRequestHandler: requestHandler browser: browser frame: frame request: request isNavigation: isNavigation isDownload: isDownload requestInitiator: requestInitiator disableDefaultHandling: disableDefaultHandling
 	| url contentProvider |
@@ -157,26 +161,18 @@ getScreenPoint: renderHandle browser: browser viewX: viewX viewY: viewY screenX:
 	screenY value: browserOrigin y + viewY.
 	^1!
 
-getSource: aMonadicValuable
+getSource: aBlock
 	| mainFrame cefSourceStringVisitor |
 	mainFrame := cefBrowser getMainFrame.
 	cefSourceStringVisitor := CefStringVisitor new.
+	visitors add: cefSourceStringVisitor.
 	cefSourceStringVisitor visitCallback: 
 			[:aCefStringVisitor :aCefString |
 			| string |
 			string := aCefString isNull ifTrue: [nil] ifFalse: [aCefString str].
-			aMonadicValuable value: string].
+			aBlock value: string.
+			visitors remove: cefSourceStringVisitor].
 	mainFrame getSource_visitor: cefSourceStringVisitor!
-
-getTitle
-	| mainFrame cefUrl url |
-	cefBrowser ifNil: [^nil].
-	mainFrame := cefBrowser getMainFrame.
-	mainFrame ifNil: [^nil].
-	cefUrl := mainFrame getUrl.
-	url := cefUrl str.
-	cefUrl free.
-	^url!
 
 getUrl
 	| mainFrame cefUrl url |
@@ -213,7 +209,8 @@ initialize
 	contentProviders := Dictionary new.
 	rectangle := Rectangle new.
 	readyToClose := false.
-	searches := LookupTable new!
+	searches := LookupTable new.
+	visitors := OrderedCollection new!
 
 initializeOffscreenClient
 	cefClient := CefClient new.
@@ -257,7 +254,7 @@ loadUrl: aUrl
 		ifNotNil: 
 			[| mainFrame |
 			mainFrame := cefBrowser getMainFrame.
-			mainFrame loadUrl_url: aUrl string asCefString]!
+			mainFrame loadUrl_url: aUrl spec asCefString]!
 
 onAcceleratedPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount sharedHandle: sharedHandle
 	^0!
@@ -301,7 +298,7 @@ onConsoleMessage: aCefDisplayHandler browser: aCefBrowser level: anInteger messa
 	^0
 !
 
-onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: anInteger eventFlags: anInteger2 
+onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: commandId eventFlags: eventFlags
 	aCefContextMenuParams callRelease.
 	^0!
 
@@ -329,8 +326,6 @@ onFindResult: aCefFindHandler browser: browser identifier: identifier count: cou
 		currentPosition: activeMatchOrdinal;
 		selectionRectangle: selectionRect asRectangle.
 	^0!
-
-onFocus: aCefDictionaryValue!
 
 onFrameAttached: frameHandler browser: browser frame: frame reattached: reattched
 	^0!
@@ -368,8 +363,6 @@ onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: n
 onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess 
 	^0!
 
-onMouseOver: aCefDictionaryValue!
-
 onOpenUrlFromTab: aCefRequestHandler browser: aCefBrowser frame: aCefFrame targetUrl: aCefString targetDisposition: targetDisposition userGesture: userGesture
 	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
 		ifTrue: 
@@ -387,14 +380,17 @@ onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCo
 		ifTrue: [^0].
 	pitch := width * 4.
 	targetTexture updatePixels: buffer pitch: pitch.
+	targetTexture isPainted: true.
 	host pushRenderEvent.
 	^0!
 
 onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
-	anInteger asBoolean ifTrue: [host onShowPopup] ifFalse: [host onHidePopup]!
+	anInteger asBoolean ifTrue: [host onShowPopup] ifFalse: [host onHidePopup].
+	^0!
 
 onPopupSize: aCefRenderHandler browser: aCefBrowser rect: aCefRect
-	host onPopupSize: aCefRect asRectangle!
+	host onPopupSize: aCefRect asRectangle.
+	^0!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
 	| messageName arguments eventInfo |
@@ -459,7 +455,7 @@ provideHtml: aString forUrl: aUrl
 	| contentProvider |
 	contentProvider := CefContentProvider new.
 	contentProvider
-		url: aUrl string;
+		url: aUrl spec;
 		html: aString;
 		chromiumBrowser: self.
 	contentProviders at: aUrl put: contentProvider!
@@ -513,6 +509,9 @@ sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
 		deltaX: aPoint x asInteger
 		deltaY: aPoint y asInteger!
 
+show
+	self wasHidden: false!
+
 startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData allowedOps: anInteger x: anInteger2 y: anInteger3 
 	^0!
 
@@ -552,12 +551,12 @@ focus!public! !
 focusedElement!public! !
 forceCloseBrowser!public! !
 forward!public! !
+getAuthCredentials:browser:originUrl:isProxy:host:port:realm:scheme:callback:!private! !
 getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:!cef event handler!private!request handler! !
 getRootScreenRect:browser:rect:!cef event handler!private!render handler! !
 getScreenInfo:browser:screenInfo:!cef event handler!private!render handler! !
 getScreenPoint:browser:viewX:viewY:screenX:screenY:!cef event handler!private!render handler! !
 getSource:!public! !
-getTitle!public! !
 getUrl!public! !
 getViewRect:browser:rect:!cef event handler!private!render handler! !
 hasTextSelected!private! !
@@ -586,7 +585,6 @@ onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!pri
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
 onFaviconUrlChange:browser:iconUrls:!cef event handler!display handler!private! !
 onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
-onFocus:!public! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
@@ -598,7 +596,6 @@ onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler
 onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
 onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:!cef event handler!display handler!private! !
-onMouseOver:!public! !
 onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
 onPopupShow:browser:show:!popup!private! !
@@ -628,6 +625,7 @@ sendKeyEvent:!public! !
 sendMouseClickEvent:mouseButtonType:mouseUp:clickCount:!public! !
 sendMouseMoveEvent:mouseLeave:!public! !
 sendMouseWheelEvent:delta:!public! !
+show!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
 stopFinding!public! !
 texture!public! !
@@ -694,3 +692,4 @@ new
 initialize!public! !
 new!public! !
 !
+
