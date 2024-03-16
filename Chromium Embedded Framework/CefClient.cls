@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 CefReferenceCountedObject subclass: #CefClient
-	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler findHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler contextMenuHandler processMessageDelegate'
+	instanceVariableNames: 'lifeSpanHandler renderHandler displayHandler findHandler focusHandler frameHandler requestHandler loadHandler keyboardHandler contextMenuHandler processMessageDelegate audioHandler'
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -28,6 +28,14 @@ CefClient addClassConstant: '_OffsetOf_on_process_message_received' value: 16r5C
 CefClient comment: ''!
 !CefClient categoriesForClass!External-Data-Structured! !
 !CefClient methodsFor!
+
+enableAudioHandler
+	audioHandler := CefAudioHandler new.
+	audioHandler delegate: self!
+
+enableAudioHandlerAndDelegateTo: anObject
+	audioHandler := CefAudioHandler new.
+	audioHandler delegate: anObject!
 
 enableContextMenuHandler
 	contextMenuHandler := CefContextMenuHandler new.
@@ -281,6 +289,9 @@ get_request_handler: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_get_request_handler put: anExternalAddress!
 
+getAudioHandler: aCefClient
+	^audioHandler ifNotNil: [audioHandler yourAddress] ifNil: [0]!
+
 getContextMenuHandler: aCefClient
 	^contextMenuHandler ifNotNil: [contextMenuHandler yourAddress] ifNil: [0]!
 
@@ -321,20 +332,22 @@ on_process_message_received: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_on_process_message_received put: anExternalAddress!
 
-onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
+onProcessMessageReceived: client browser: browser frame: frame sourceProcess: sourceProcess message: message
 	processMessageDelegate
 		ifNotNil: 
 			[processMessageDelegate
-				onProcessMessageReceived: aCefClient
-				browser: aCefBrowser
-				frame: aCefFrame
-				sourceProcess: anInteger
-				message: aCefProcessMessage].
+				onProcessMessageReceived: client
+				browser: browser
+				frame: frame
+				sourceProcess: sourceProcess
+				message: message].
 	^0!
 
 processMessageDelegate: anObject
 	processMessageDelegate := anObject! !
 !CefClient categoriesForMethods!
+enableAudioHandler!public! !
+enableAudioHandlerAndDelegateTo:!public! !
 enableContextMenuHandler!public! !
 enableContextMenuHandlerAndDelegateTo:!public! !
 enableDisplayHandler!public! !
@@ -390,6 +403,7 @@ get_render_handler!**compiled accessors**!public! !
 get_render_handler:!**compiled accessors**!public! !
 get_request_handler!**compiled accessors**!public! !
 get_request_handler:!**compiled accessors**!public! !
+getAudioHandler:!public! !
 getContextMenuHandler:!public! !
 getDisplayHandler:!public! !
 getFindHandler:!public! !
@@ -413,7 +427,9 @@ defineFields
 
 	super defineFields.
 	self
-		defineField: #get_audio_handler type: LPVOIDField new;
+		defineField: #get_audio_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefAudioHandler* CefClient*'));
 		defineField: #get_command_handler type: LPVOIDField new;
 		defineField: #get_context_menu_handler
 			type: (CallbackField

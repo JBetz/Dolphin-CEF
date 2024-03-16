@@ -120,6 +120,10 @@ _hasView_cefBrowserHost: cefBrowserHost
 	<stdcall: sdword has_view CefBrowserHost*>
 	^self invalidCall: _failureCode!
 
+_isAudioMuted_cefBrowserHost: cefBrowserHost
+	<stdcall: sdword is_audio_muted CefBrowserHost*>
+	^self invalidCall: _failureCode!
+
 _sendKeyEvent_cefBrowserHost: cefBrowserHost event: event
 	<stdcall: void send_key_event CefBrowserHost* CefKeyEvent*>
 	^self invalidCall: _failureCode!
@@ -134,6 +138,10 @@ _sendMouseMoveEvent_cefBrowserHost: cefBrowserHost event: event mouseLeave: mous
 
 _sendMouseWheelEvent_cefBrowserHost: cefBrowserHost event: event deltaX: deltaX deltaY: deltaY
 	<stdcall: void send_mouse_wheel_event CefBrowserHost* CefMouseEvent* sdword sdword>
+	^self invalidCall: _failureCode!
+
+_setAudioMuted_cefBrowserHost: cefBrowserHost mute: mute
+	<stdcall: void set_audio_muted CefBrowserHost* sdword>
 	^self invalidCall: _failureCode!
 
 _setFocus_cefBrowserHost: cefBrowserHost focus: focus
@@ -627,6 +635,12 @@ is_window_rendering_disabled: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_is_window_rendering_disabled put: anExternalAddress!
 
+isAudioMuted
+	| method |
+	method := self class externalMethodAt: #_isAudioMuted_cefBrowserHost:
+				ifAbsentBindTo: self is_audio_muted.
+	^method value: self withArguments: (Array with: self)!
+
 notify_move_or_resize_started
 	"Answer the <ExternalAddress> value of the receiver's 'notify_move_or_resize_started' field."
 
@@ -874,6 +888,16 @@ set_zoom_level: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_set_zoom_level put: anExternalAddress!
 
+setAudioMuted_mute: mute
+	| method arguments |
+	method := self class externalMethodAt: #_setAudioMuted_cefBrowserHost:mute:
+				ifAbsentBindTo: self set_audio_muted.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: mute.
+	^method value: self withArguments: arguments!
+
 setFocus_focus: focus
 	| method arguments |
 	method := self class externalMethodAt: #_setFocus_cefBrowserHost:focus:
@@ -1015,10 +1039,12 @@ _getRequestContext_cefBrowserHost:!**compiled accessors**!private! !
 _getWindowHandle_cefBrowserHost:!**compiled accessors**!private! !
 _getZoomLevel_cefBrowserHost:!**compiled accessors**!private! !
 _hasView_cefBrowserHost:!**compiled accessors**!private! !
+_isAudioMuted_cefBrowserHost:!**compiled accessors**!private! !
 _sendKeyEvent_cefBrowserHost:event:!**compiled accessors**!private! !
 _sendMouseClickEvent_cefBrowserHost:event:mouseButtonType:mouseUp:clickCount:!**compiled accessors**!private! !
 _sendMouseMoveEvent_cefBrowserHost:event:mouseLeave:!**compiled accessors**!private! !
 _sendMouseWheelEvent_cefBrowserHost:event:deltaX:deltaY:!**compiled accessors**!private! !
+_setAudioMuted_cefBrowserHost:mute:!**compiled accessors**!private! !
 _setFocus_cefBrowserHost:focus:!**compiled accessors**!private! !
 _setZoomLevel_cefBrowserHost:zoomLevel:!**compiled accessors**!private! !
 _stopFinding_cefBrowserHost:clearSelection:!**compiled accessors**!private! !
@@ -1115,6 +1141,7 @@ is_fullscreen!**compiled accessors**!public! !
 is_fullscreen:!**compiled accessors**!public! !
 is_window_rendering_disabled!**compiled accessors**!public! !
 is_window_rendering_disabled:!**compiled accessors**!public! !
+isAudioMuted!**compiled accessors**!public! !
 notify_move_or_resize_started!**compiled accessors**!public! !
 notify_move_or_resize_started:!**compiled accessors**!public! !
 notify_screen_info_changed!**compiled accessors**!public! !
@@ -1159,6 +1186,7 @@ set_windowless_frame_frate!**compiled accessors**!public! !
 set_windowless_frame_frate:!**compiled accessors**!public! !
 set_zoom_level!**compiled accessors**!public! !
 set_zoom_level:!**compiled accessors**!public! !
+setAudioMuted_mute:!**compiled accessors**!public! !
 setFocus_focus:!**compiled accessors**!public! !
 setZoomLevel_zoomLevel:!**compiled accessors**!public! !
 show_dev_tools!**compiled accessors**!public! !
@@ -1295,8 +1323,12 @@ defineFields
 		defineField: #set_auto_resize_enabled type: LPVOIDField new;
 		defineField: #get_extension type: LPVOIDField new;
 		defineField: #is_background_host type: LPVOIDField new;
-		defineField: #set_audio_muted type: LPVOIDField new;
-		defineField: #is_audio_muted type: LPVOIDField new;
+		defineField: #set_audio_muted
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost* sdword')
+					smalltalkName: #setAudioMuted_mute:);
+		defineField: #is_audio_muted
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBrowserHost*'));
 		defineField: #is_fullscreen type: LPVOIDField new;
 		defineField: #exit_fullscreen type: LPVOIDField new;
 		defineField: #can_execute_chrome_command type: LPVOIDField new;

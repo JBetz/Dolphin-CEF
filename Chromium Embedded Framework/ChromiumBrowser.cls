@@ -118,7 +118,10 @@ forceCloseBrowser
 forward
 	cefBrowser goForward!
 
-getAuthCredentials: aCefRequestHandler browser: aCefBrowser originUrl: aCefString isProxy: anInteger host: aCefString2 port: anInteger2 realm: aCefString3 scheme: aCefString4 callback: aCefAuthCallback 
+getAudioParameters: audioHandler browser: browser params: params 
+	^0!
+
+getAuthCredentials: requestHandler browser: browser originUrl: originUrl isProxy: isProxy host: host port: port realm: realm scheme: scheme callback: callback 
 	^0!
 
 getResourceRequestHandler: requestHandler browser: browser frame: frame request: request isNavigation: isNavigation isDownload: isDownload requestInitiator: requestInitiator disableDefaultHandling: disableDefaultHandling
@@ -137,18 +140,18 @@ getResourceRequestHandler: requestHandler browser: browser frame: frame request:
 		requestInitiator: requestInitiator
 		disableDefaultHandling: disableDefaultHandling!
 
-getRootScreenRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
+getRootScreenRect: renderHandler browser: browser rect: rect
 	| rootRectangle |
 	host ifNil: [^0].
 	rootRectangle := host rootRectangle.
-	aCefRect
+	rect
 		x: rootRectangle left;
 		y: rootRectangle top;
 		width: rootRectangle width;
 		height: rootRectangle height.
 	^0!
 
-getScreenInfo: aCefRenderHandler browser: aCefBrowser screenInfo: aCefScreenInfo 
+getScreenInfo: renderHandler browser: browser screenInfo: screenInfo
 	^0!
 
 getScreenPoint: renderHandle browser: browser viewX: viewX viewY: viewY screenX: screenX screenY: screenY
@@ -156,7 +159,7 @@ getScreenPoint: renderHandle browser: browser viewX: viewX viewY: viewY screenX:
 	host ifNil: [^0].
 	windowOrigin := host windowPosition.
 	windowOrigin ifNil: [^0].
-	browserOrigin := windowOrigin + host rectangle origin.
+	browserOrigin := windowOrigin + host rendered rectangle origin.
 	screenX value: browserOrigin x + viewX.
 	screenY value: browserOrigin y + viewY.
 	^1!
@@ -184,8 +187,8 @@ getUrl
 	cefUrl free.
 	^url!
 
-getViewRect: aCefRenderHandler browser: aCefBrowser rect: aCefRect
-	aCefRect
+getViewRect: renderHandler browser: browser rect: rect
+	rect
 		x: rectangle left;
 		y: rectangle top;
 		width: rectangle width;
@@ -215,6 +218,7 @@ initialize
 initializeOffscreenClient
 	cefClient := CefClient new.
 	cefClient
+		enableAudioHandlerAndDelegateTo: self;
 		enableContextMenuHandlerAndDelegateTo: self;
 		enableDisplayHandlerAndDelegateTo: self;
 		enableFindHandlerAndDelegateTo: self;
@@ -266,8 +270,8 @@ onAddressChange: displayHandler browser: browser frame: frame url: url
 	host ifNotNil: [frame isMain ifTrue: [host onAddressChange: urlParts]].
 	^0!
 
-onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
-	cefBrowser := aCefBrowser.
+onAfterCreated: lifeSpanHandler browser: browser
+	cefBrowser := browser.
 	queuedUrl
 		ifNotNil: 
 			[:aUrl |
@@ -275,34 +279,47 @@ onAfterCreated: aCefLifeSpanHandler browser: aCefBrowser
 			queuedUrl := nil].
 	^0!
 
+onAudioStreamError: audioHandler browser: browser mesage: message
+	^0!
+
+onAudioStreamPacket: audioHandler browser: browser data: data frames: frames pts: pts 
+	^0!
+
+onAudioStreamStarted: audioHandler browser: browser params: params channels: channels 
+	^0!
+
+onAudioStreamStopped: audioHandler browser: browser
+	^0!
+
 onAutoResize: displayHandler browser: browser newSize: newSize 
 	^0!
 
-onBeforeBrowse: aCefRequestHandler browser: aCefBrowser frame: aCefFrame request: aCefRequest userGesture: userGesture isRedirect: isRedirect
-	host onBeforeBrowse: aCefRequest isRedirect: isRedirect asBoolean.
+onBeforeBrowse: requestHandler browser: browser frame: frame request: request userGesture: userGesture isRedirect: isRedirect
+	host onBeforeBrowse: request isRedirect: isRedirect asBoolean.
 	^0!
 
 onBeforeClose: lifeSpanHandler browser: browser
+	cefBrowser := nil.
 	readyToClose := true.
 	^0!
 
-onBeforeContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel
-	aCefContextMenuParams callRelease.
-	aCefMenuModel callRelease.
+onBeforeContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model
+	params callRelease.
+	model callRelease.
 	^0!
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
 	^1!
 
-onConsoleMessage: aCefDisplayHandler browser: aCefBrowser level: anInteger message: aCefString source: aCefString2 line: anInteger2 
+onConsoleMessage: displayHandler browser: browser level: level message: message source: source line: line
 	^0
 !
 
-onContextMenuCommand: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams commandId: commandId eventFlags: eventFlags
-	aCefContextMenuParams callRelease.
+onContextMenuCommand: contextMenuHandler browser: browser frame: frame params: params commandId: commandId eventFlags: eventFlags
+	params callRelease.
 	^0!
 
-onContextMenuDismissed: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame 
+onContextMenuDismissed: contextMenuHandler browser: browser frame: frame 
 	^0!
 
 onCursorChange: displayHandler browser: browser cursor: cursor type: type customCursorInfo: customCursorInfo
@@ -320,7 +337,7 @@ onFindResult: aCefFindHandler browser: browser identifier: identifier count: cou
 	  search, |count| is the number of matches currently identified, |selectionRect| is the location of where the match was found (in window
 	  coordinates), |activeMatchOrdinal| is the current position in the search results, and |finalUpdate| is true (1) if this is the last find notification."
 
-	search ifNil: [^self].
+	search ifNil: [^0].
 	search
 		resultCount: count;
 		currentPosition: activeMatchOrdinal;
@@ -334,40 +351,41 @@ onFrameCreated: frameHandler browser: browser frame: frame
 	^0!
 
 onFrameDetached: frameHandler browser: browser frame: frame
+	browser callRelease.
 	^0!
 
 onFullscreenModeChange: displayHandler browser: browser fullscreen: fullscreen
 	^0!
 
-onLoadEnd: aCefLoadHandler browser: aCefBrowser frame: aCefFrame httpStatusCode: anInteger
-	host onLoadEnd: anInteger.
+onLoadEnd: loadHandler browser: browser frame: frame httpStatusCode: httpStatusCode
+	host onLoadEnd: httpStatusCode.
 	^0!
 
-onLoadError: aCefLoadHandler browser: aCefBrowser frame: aCefFrame errorCode: anInteger  errorText: aString failedUrl: aUrl
-	^0
-!
-
-onLoadingProgressChange: aCefDisplayHandler browser: aCefBrowser progress: aFloat 
+onLoadError: loadHandler browser: browser frame: frame errorCode: errorCode errorText: errorText failedUrl: failedUrl
 	^0!
 
-onLoadingStateChange: aCefLoadHandler browser: aCefBrowser isLoading: aBoolean canGoBack: aBoolean2 canGoForward: aBoolean3 
+onLoadingProgressChange: displayHandler browser: browser progress: progress
 	^0!
 
-onLoadStart: aCefLoadHandler browser: aCefBrowser frame: aCefFrame transitionType: anInteger
+onLoadingStateChange: loadHandler browser: browser isLoading: isLoading canGoBack: canGoBack canGoForward: canGoForward
+	^0!
+
+onLoadStart: loadHandler browser: browser frame: frame transitionType: transitionType
 	^0!
 
 onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
+	browser callRelease.
 	host ifNotNil: [host hasFocus ifTrue: [browser getHost setFocus_focus: 1]].
 	^0!
 
-onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess 
+onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess
 	^0!
 
-onOpenUrlFromTab: aCefRequestHandler browser: aCefBrowser frame: aCefFrame targetUrl: aCefString targetDisposition: targetDisposition userGesture: userGesture
+onOpenUrlFromTab: requestHandler browser: browser frame: frame targetUrl: targetUrl targetDisposition: targetDisposition userGesture: userGesture
 	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
 		ifTrue: 
 			[| url |
-			url := Url fromString: aCefString str.
+			url := Url fromString: targetUrl str.
 			host openUrlOnNewPage: url.
 			^1].
 	^0!
@@ -388,8 +406,8 @@ onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
 	anInteger asBoolean ifTrue: [host onShowPopup] ifFalse: [host onHidePopup].
 	^0!
 
-onPopupSize: aCefRenderHandler browser: aCefBrowser rect: aCefRect
-	host onPopupSize: aCefRect asRectangle.
+onPopupSize: renderHandler browser: browser rect: rect
+	host onPopupSize: rect asRectangle.
 	^0!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
@@ -411,10 +429,10 @@ onScrollOffsetChanged: renderHandler browser: browser x: x y: y
 		y: y.
 	^0!
 
-onStatusMessage: aCefDisplayHandler browser: aCefBrowser value: aCefString
+onStatusMessage: displayHandler browser: browser value: value
 	^0!
 
-onTextSelectionChanged: aCefRenderHandler browser: aCefBrowser selectedText: aCefString selectedRange: aCefRange
+onTextSelectionChanged: renderHandler browser: browser selectedText: aCefString selectedRange: aCefRange
 	selectedRange := Interval from: aCefRange from to: aCefRange to.
 	selectedText := aCefString isNull ifTrue: [nil] ifFalse: [aCefString str].
 	^0!
@@ -423,7 +441,7 @@ onTitleChange: displayHandler browser: browser title: title
 	host ifNotNil: [title isNull ifFalse: [host onTitleChange: title str]].
 	^0!
 
-onTooltip: aCefDisplayHandler browser: aCefBrowser text: aCefString 
+onTooltip: displayHandler browser: browser text: text
 	^0!
 
 onViewClosed
@@ -433,13 +451,12 @@ onViewClosed
 onViewDestroyed
 	
 	[| delay delayCount |
-	delay := Delay forMilliseconds: 200.
+	delay := Delay forMilliseconds: 1000.
 	delayCount := 0.
 	[readyToClose or: [delayCount > 10]] whileFalse: 
 			[delay wait.
 			delayCount := delayCount + 1].
-	readyToClose ifFalse: [self forceCloseBrowser].
-	cefBrowser ifNotNil: [cefBrowser := nil]]
+	readyToClose ifFalse: [self forceCloseBrowser]]
 			forkAt: Processor userBackgroundPriority!
 
 onVirtualKeyboardRequested: renderHandler browser: browser inputMode: inputMode
@@ -469,9 +486,9 @@ reload
 removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url!
 
-runContextMenu: aCefContextMenuHandler browser: aCefBrowser frame: aCefFrame params: aCefContextMenuParams model: aCefMenuModel callback: aCefRunContextMenuCallback 
-	aCefContextMenuParams callRelease.
-	aCefMenuModel callRelease.
+runContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model callback: callback 
+	params callRelease.
+	model callRelease.
 	^0!
 
 scrollOffset
@@ -512,7 +529,7 @@ sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
 show
 	self wasHidden: false!
 
-startDragging: aCefRenderHandler browser: aCefBrowser dragData: aCefDragData allowedOps: anInteger x: anInteger2 y: anInteger3 
+startDragging: renderHandler browser: browser dragData: dragData allowedOps: allowedOps x: x y: y
 	^0!
 
 stopFinding
@@ -551,6 +568,7 @@ focus!public! !
 focusedElement!public! !
 forceCloseBrowser!public! !
 forward!public! !
+getAudioParameters:browser:params:!audio handler!cef event handler!private! !
 getAuthCredentials:browser:originUrl:isProxy:host:port:realm:scheme:callback:!private! !
 getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:!cef event handler!private!request handler! !
 getRootScreenRect:browser:rect:!cef event handler!private!render handler! !
@@ -574,6 +592,10 @@ loadUrl:!public! !
 onAcceleratedPaint:browser:type:dirtyRectsCount:sharedHandle:!cef event handler!private!render handler! !
 onAddressChange:browser:frame:url:!cef event handler!display handler!private! !
 onAfterCreated:browser:!cef event handler!life span handler!private! !
+onAudioStreamError:browser:mesage:!audio handler!cef event handler!private! !
+onAudioStreamPacket:browser:data:frames:pts:!audio handler!cef event handler!private! !
+onAudioStreamStarted:browser:params:channels:!audio handler!cef event handler!private! !
+onAudioStreamStopped:browser:!audio handler!cef event handler!private! !
 onAutoResize:browser:newSize:!cef event handler!display handler!private! !
 onBeforeBrowse:browser:frame:request:userGesture:isRedirect:!cef event handler!private!request handler! !
 onBeforeClose:browser:!cef event handler!life span handler!private! !
