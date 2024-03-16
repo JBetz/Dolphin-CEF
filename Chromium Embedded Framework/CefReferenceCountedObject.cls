@@ -72,9 +72,16 @@ defineFields
 	self defineField: #base type: (StructureField type: CefBaseRefCounted)!
 
 getFieldNames
-	^#(#base)! !
+	^#(#base)!
+
+instanceCounts
+	| counts |
+	counts := Dictionary new.
+	self allSubclassesDo: [:each | counts at: each put: each allInstances size].
+	^counts! !
 !CefReferenceCountedObject class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
+instanceCounts!public! !
 !
 
