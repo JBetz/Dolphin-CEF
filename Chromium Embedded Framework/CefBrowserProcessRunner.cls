@@ -43,7 +43,7 @@ initialize
 	super initialize.
 	isRunning := false.
 	isProcessing := false.
-	framesPerSecond := 30!
+	framesPerSecond := 60!
 
 initializeApp
 	cefApp := CefApp new.
@@ -123,7 +123,7 @@ runMainProcess
 startMessageLoopProcess
 	messageLoopProcess := 
 			[
-			[[self iterate] postToMessageQueue.
+			[[self iterate] postToInputQueue.
 			(Delay forMilliseconds: 1000 / framesPerSecond) wait]
 					repeat]
 					forkAt: Processor userSchedulingPriority - 1.
