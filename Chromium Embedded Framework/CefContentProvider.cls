@@ -67,8 +67,8 @@ skip: resourceHandler bytesToSkip: bytesToSkip bytesSkipped: bytesSkipped callba
 url
 	^url!
 
-url: anObject
-	url := anObject! !
+url: aUrl
+	url := aUrl! !
 !CefContentProvider categoriesForMethods!
 cancel:!private! !
 chromiumBrowser:!accessing!public! !
