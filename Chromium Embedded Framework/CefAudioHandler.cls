@@ -80,7 +80,7 @@ on_audio_stream_stopped:!**compiled accessors**!public! !
 !CefAudioHandler class methodsFor!
 
 defineFields
-	"CefAudioHandler  compileDefinition"
+	"CefAudioHandler compileDefinition"
 
 	super defineFields.
 	self
@@ -92,17 +92,17 @@ defineFields
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: void CefAudioHandler* CefBrowser* CefAudioParameters* sdword')
 					smalltalkName: #onAudioStreamStarted:browser:params:channels:);
-		defineField: #on_audio_stream_packet type: LPVOIDField new;
-			"type: (CallbackField descriptor: (ExternalDescriptor
-							fromString: 'stdcall: void CefAudioHandler* CefBrowser* float** sdword sqword')
-					smalltalkName: #onAudioStreamPacket:browser:data:frames:pts:);"
-		defineField: #on_audio_stream_stopped
+		defineField: #on_audio_stream_packet
 			type: (CallbackField descriptor: (ExternalDescriptor
-							fromString: 'stdcall: void CefAudioHandler* CefBrowser*')
+							fromString: 'stdcall: void CefAudioHandler* CefBrowser* void* sdword sqword')
+					smalltalkName: #onAudioStreamPacket:browser:data:frames:pts:);
+		defineField: #on_audio_stream_stopped
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefAudioHandler* CefBrowser*')
 					smalltalkName: #onAudioStreamStopped:browser:);
 		defineField: #on_audio_stream_error
-			type: (CallbackField descriptor: (ExternalDescriptor
-							fromString: 'stdcall: void CefAudioHandler* CefBrowser* CefString*')
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefAudioHandler* CefBrowser* CefString*')
 					smalltalkName: #onAudioStreamError:browser:message:)!
 
 getFieldNames
