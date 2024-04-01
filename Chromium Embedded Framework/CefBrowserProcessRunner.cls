@@ -123,13 +123,14 @@ runMainProcess
 startMessageLoopProcess
 	messageLoopProcess := 
 			[
-			[[self iterate] postToInputQueue.
+			[[self iterate] postToMessageQueue.
 			(Delay forMilliseconds: 1000 / framesPerSecond) wait]
 					repeat]
 					forkAt: Processor userSchedulingPriority - 1.
 	messageLoopProcess name: 'CEF'!
 
 stop
+	isRunning := false.
 	self stopMessageLoopProcess.
 	self library shutdown.
 	cefMainArgs := nil.
