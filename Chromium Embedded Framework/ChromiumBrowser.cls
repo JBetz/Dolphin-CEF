@@ -444,7 +444,8 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 	arguments := aCefProcessMessage getArgumentList.
 	eventInfo := arguments getDictionary_index: 0.
 	messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: eventInfo].
-	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: eventInfo]!
+	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: eventInfo].
+	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: eventInfo]!
 
 onResize: aRectangle
 	rectangle := aRectangle.

@@ -108,6 +108,10 @@ _getRequestContext_cefBrowserHost: cefBrowserHost
 	<stdcall: CefRequestContext* get_request_context CefBrowserHost*>
 	^self invalidCall: _failureCode!
 
+_getVisibleNavigationEntry_cefBrowserHost: cefBrowserHost
+	<stdcall: CefNavigationEntry* get_visible_navigation_entry CefBrowserHost*>
+	^self invalidCall: _failureCode!
+
 _getWindowHandle_cefBrowserHost: cefBrowserHost
 	<stdcall: handle get_window_handle CefBrowserHost*>
 	^self invalidCall: _failureCode!
@@ -506,6 +510,12 @@ getRequestContext
 	| method |
 	method := self class externalMethodAt: #_getRequestContext_cefBrowserHost:
 				ifAbsentBindTo: self get_request_context.
+	^method value: self withArguments: (Array with: self)!
+
+getVisibleNavigationEntry
+	| method |
+	method := self class externalMethodAt: #_getVisibleNavigationEntry_cefBrowserHost:
+				ifAbsentBindTo: self get_visible_navigation_entry.
 	^method value: self withArguments: (Array with: self)!
 
 getWindowHandle
@@ -1036,6 +1046,7 @@ _getClient_cefBrowserHost:!**compiled accessors**!private! !
 _getDefaultZoomLevel_cefBrowserHost:!**compiled accessors**!private! !
 _getOpenerWindowHandle_cefBrowserHost:!**compiled accessors**!private! !
 _getRequestContext_cefBrowserHost:!**compiled accessors**!private! !
+_getVisibleNavigationEntry_cefBrowserHost:!**compiled accessors**!private! !
 _getWindowHandle_cefBrowserHost:!**compiled accessors**!private! !
 _getZoomLevel_cefBrowserHost:!**compiled accessors**!private! !
 _hasView_cefBrowserHost:!**compiled accessors**!private! !
@@ -1116,6 +1127,7 @@ getClient!**compiled accessors**!public! !
 getDefaultZoomLevel!**compiled accessors**!public! !
 getOpenerWindowHandle!**compiled accessors**!public! !
 getRequestContext!**compiled accessors**!public! !
+getVisibleNavigationEntry!**compiled accessors**!public! !
 getWindowHandle!**compiled accessors**!public! !
 getZoomLevel!**compiled accessors**!public! !
 has_dev_tools!**compiled accessors**!public! !
@@ -1318,7 +1330,9 @@ defineFields
 		defineField: #drag_target_drop type: LPVOIDField new;
 		defineField: #drag_source_ended_at type: LPVOIDField new;
 		defineField: #drag_source_system_drag_ended type: LPVOIDField new;
-		defineField: #get_visible_navigation_entry type: LPVOIDField new;
+		defineField: #get_visible_navigation_entry
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefNavigationEntry* CefBrowserHost*'));
 		defineField: #set_accessibility_state type: LPVOIDField new;
 		defineField: #set_auto_resize_enabled type: LPVOIDField new;
 		defineField: #get_extension type: LPVOIDField new;
