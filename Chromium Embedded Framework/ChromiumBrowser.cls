@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose queuedUrl selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose queuedUrl selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -118,8 +118,8 @@ forceCloseBrowser
 forward
 	cefBrowser goForward!
 
-getAudioParameters: audioHandler browser: browser params: params 
-	^0!
+getAudioParameters: audioHandler browser: browser params: params
+	^1!
 
 getAuthCredentials: requestHandler browser: browser originUrl: originUrl isProxy: isProxy host: host port: port realm: realm scheme: scheme callback: callback 
 	^0!
@@ -225,8 +225,8 @@ initializeOffscreenClient
 		enableFrameHandlerAndDelegateTo: self;
 		enableLifeSpanHandlerAndDelegateTo: self;
 		enableLoadHandlerAndDelegateTo: self;
-		enableRequestHandlerAndDelegateTo: self;
 		enableRenderHandlerAndDelegateTo: self;
+		enableRequestHandlerAndDelegateTo: self;
 		processMessageDelegate: self!
 
 initializeWindowedClient
@@ -279,23 +279,51 @@ onAfterCreated: lifeSpanHandler browser: browser
 			queuedUrl := nil].
 	^0!
 
-onAudioStreamError: audioHandler browser: browser mesage: message
+onAudioStreamError: aCefAudioHandler browser: aCefBrowser message: aCefString 
 	^0!
 
-onAudioStreamPacket: audioHandler browser: browser data: data frames: frames pts: pts 
+onAudioStreamPacket: audioHandler browser: browser data: data frames: frames pts: pts
+	| channelCount leftChannelAddress rightChannelAddress leftChannelData rightChannelData interlacedData |
+	channelCount := 2.
+	leftChannelAddress := data value uintPtrAtOffset: 0.
+	rightChannelAddress := data value uintPtrAtOffset: 4.
+	leftChannelData := FLOATArray fromAddress: leftChannelAddress length: frames.
+	rightChannelData := FLOATArray fromAddress: rightChannelAddress length: frames.
+	interlacedData := FLOATArray new: frames * channelCount.
+	1 to: frames
+		do: 
+			[:frame |
+			| index |
+			index := frame * channelCount - 1.
+			interlacedData
+				at: index put: (leftChannelData at: frame);
+				at: index + 1 put: (rightChannelData at: frame)].
+	audioStream putData: interlacedData.
 	^0!
 
-onAudioStreamStarted: audioHandler browser: browser params: params channels: channels 
+onAudioStreamStarted: audioHandler browser: browser params: params channels: channels
+	| sdl sourceSpec |
+	sdl := SDL3Library default.
+	sourceSpec := SDL_AudioSpec new
+				format: 16r8120;
+				channels: channels;
+				freq: params sample_rate.
+	audioStream := sdl
+				openAudioDeviceStream_devid: 16rFFFFFFFF
+				spec: sourceSpec
+				callback: nil
+				userdata: nil.
+	sdl resumeAudioDevice_devid: audioStream getAudioDevice.
 	^0!
 
 onAudioStreamStopped: audioHandler browser: browser
+	audioStream := nil.
 	^0!
 
 onAutoResize: displayHandler browser: browser newSize: newSize 
 	^0!
 
 onBeforeBrowse: requestHandler browser: browser frame: frame request: request userGesture: userGesture isRedirect: isRedirect
-	host onBeforeBrowse: request isRedirect: isRedirect asBoolean.
 	^0!
 
 onBeforeClose: lifeSpanHandler browser: browser
@@ -592,7 +620,7 @@ loadUrl:!public! !
 onAcceleratedPaint:browser:type:dirtyRectsCount:sharedHandle:!cef event handler!private!render handler! !
 onAddressChange:browser:frame:url:!cef event handler!display handler!private! !
 onAfterCreated:browser:!cef event handler!life span handler!private! !
-onAudioStreamError:browser:mesage:!audio handler!cef event handler!private! !
+onAudioStreamError:browser:message:!audio handler!private! !
 onAudioStreamPacket:browser:data:frames:pts:!audio handler!cef event handler!private! !
 onAudioStreamStarted:browser:params:channels:!audio handler!cef event handler!private! !
 onAudioStreamStopped:browser:!audio handler!cef event handler!private! !
@@ -714,4 +742,3 @@ new
 initialize!public! !
 new!public! !
 !
-
