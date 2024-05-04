@@ -13,6 +13,9 @@ ChromiumBrowser comment: ''!
 back
 	cefBrowser goBack!
 
+back: anInteger
+	self go: anInteger negated!
+
 canGoBack
 	^cefBrowser ifNotNil: [cefBrowser canGoBack] ifNil: [false]!
 
@@ -118,6 +121,9 @@ forceCloseBrowser
 forward
 	cefBrowser goForward!
 
+forward: anInteger
+	self go: anInteger!
+
 getAudioParameters: audioHandler browser: browser params: params
 	^1!
 
@@ -194,6 +200,9 @@ getViewRect: renderHandler browser: browser rect: rect
 		width: rectangle width;
 		height: rectangle height.
 	^1!
+
+go: anInteger
+	self executeJavaScript: ('window.history.go(<1D>)' expandMacrosWith: anInteger)!
 
 hasTextSelected
 	^selectedText notNil!
@@ -345,6 +354,14 @@ onConsoleMessage: displayHandler browser: browser level: level message: message 
 
 onContextMenuCommand: contextMenuHandler browser: browser frame: frame params: params commandId: commandId eventFlags: eventFlags
 	params callRelease.
+	commandId = MENU_ID_BACK
+		ifTrue: 
+			[host back.
+			^1].
+	commandId = MENU_ID_FORWARD
+		ifTrue: 
+			[host forward.
+			^1].
 	^0!
 
 onContextMenuDismissed: contextMenuHandler browser: browser frame: frame 
@@ -571,6 +588,9 @@ texture
 texture: aSDLTexture
 	texture := aSDLTexture!
 
+traverseTo: aString
+	self executeJavaScript: ('navigation.traverseTo(<1S>)' expandMacrosWith: aString)!
+
 undo
 	cefBrowser getFocusedFrame callUndo!
 
@@ -579,6 +599,7 @@ wasHidden: aBoolean
 	cefBrowser getHost wasHidden_hidden: aBoolean asInteger! !
 !ChromiumBrowser categoriesForMethods!
 back!public! !
+back:!public! !
 canGoBack!public! !
 canGoForward!public! !
 cefWindowExStyle!private! !
@@ -597,6 +618,7 @@ focus!public! !
 focusedElement!public! !
 forceCloseBrowser!public! !
 forward!public! !
+forward:!public! !
 getAudioParameters:browser:params:!audio handler!cef event handler!private! !
 getAuthCredentials:browser:originUrl:isProxy:host:port:realm:scheme:callback:!private! !
 getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:!cef event handler!private!request handler! !
@@ -606,6 +628,7 @@ getScreenPoint:browser:viewX:viewY:screenX:screenY:!cef event handler!private!re
 getSource:!public! !
 getUrl!public! !
 getViewRect:browser:rect:!cef event handler!private!render handler! !
+go:!public! !
 hasTextSelected!private! !
 hide!public! !
 host:!public! !
@@ -681,6 +704,7 @@ startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
 stopFinding!public! !
 texture!public! !
 texture:!public! !
+traverseTo:!public! !
 undo!public! !
 wasHidden:!public! !
 !
@@ -743,3 +767,4 @@ new
 initialize!public! !
 new!public! !
 !
+
