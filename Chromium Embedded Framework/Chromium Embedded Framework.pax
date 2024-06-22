@@ -18,6 +18,7 @@ YnByb2Nlc3MuZXhlEgEAAA4AAABQcm9kdWN0VmVyc2lvbhIBAAAKAAAAMSwgMCwgMCwgMcoAAADQ
 AAAAYgAAAAEAAAAGAgoARFdPUkRBcnJheXIAAAAEAAAACQSwBAMAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=').
 package classNames
+	add: #CefAcceleratedPaintInfo;
 	add: #CefApp;
 	add: #CefAudioHandler;
 	add: #CefAudioParameters;
@@ -172,6 +173,12 @@ Object subclass: #Url
 ExternalLibrary subclass: #CefLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #CefAcceleratedPaintInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_format _OffsetOf_shared_texture_handle'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 

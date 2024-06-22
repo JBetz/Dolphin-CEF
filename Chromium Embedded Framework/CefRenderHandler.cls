@@ -278,8 +278,8 @@ defineFields
 					smalltalkName: #onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:);
 		defineField: #on_accelerated_paint
 			type: (CallbackField descriptor: (ExternalDescriptor
-							fromString: 'stdcall: void CefRenderHandler* CefBrowser* sdword dword CefRect* lpvoid')
-					smalltalkName: #onAcceleratedPaint:browser:type:dirtyRectsCount:dirtyRects:sharedHandle:);
+							fromString: 'stdcall: void CefRenderHandler* CefBrowser* sdword dword CefRect* CefAcceleratedPaintInfo*')
+					smalltalkName: #onAcceleratedPaint:browser:type:dirtyRectsCount:dirtyRects:info:);
 		defineField: #get_touch_handle_size
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: void CefRenderHandler* CefBrowser* sdword dword*')
