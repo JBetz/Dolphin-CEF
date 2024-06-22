@@ -5,11 +5,16 @@ CefReferenceCountedObject subclass: #CefRunQuickMenuCallback
 	classVariableNames: '_OffsetOf_cancel _OffsetOf_cont'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefRunQuickMenuCallback guid: (GUID fromString: '{75b7b53c-9ae0-4471-a573-308446ce7372}')!
+
 CefRunQuickMenuCallback addClassConstant: '_OffsetOf_cancel' value: 16r18!
 CefRunQuickMenuCallback addClassConstant: '_OffsetOf_cont' value: 16r14!
+
 CefRunQuickMenuCallback comment: ''!
+
 !CefRunQuickMenuCallback categoriesForClass!Unclassified! !
+
 !CefRunQuickMenuCallback methodsFor!
 
 _callCancel_cefRunQuickMenuCallback: cefRunQuickMenuCallback
@@ -56,6 +61,7 @@ cont_commandId: commandId eventFlags: eventFlags
 		at: 2 put: commandId;
 		at: 3 put: eventFlags.
 	^method value: self withArguments: arguments! !
+
 !CefRunQuickMenuCallback categoriesForMethods!
 _callCancel_cefRunQuickMenuCallback:!**compiled accessors**!private! !
 _cont_cefRunQuickMenuCallback:commandId:eventFlags:!**compiled accessors**!private! !
@@ -83,6 +89,7 @@ defineFields
 
 getFieldNames
 	^#(#base #cont #cancel)! !
+
 !CefRunQuickMenuCallback class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

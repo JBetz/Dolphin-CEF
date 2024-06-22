@@ -5,7 +5,9 @@ ExternalStructure subclass: #CefUrlParts
 	classVariableNames: '_OffsetOf_fragment _OffsetOf_host _OffsetOf_origin _OffsetOf_password _OffsetOf_path _OffsetOf_port _OffsetOf_query _OffsetOf_scheme _OffsetOf_spec _OffsetOf_username'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefUrlParts guid: (GUID fromString: '{5835f6f5-3db0-474a-b530-b50df424ad5a}')!
+
 CefUrlParts addClassConstant: '_OffsetOf_fragment' value: 16r6C!
 CefUrlParts addClassConstant: '_OffsetOf_host' value: 16r30!
 CefUrlParts addClassConstant: '_OffsetOf_origin' value: 16r48!
@@ -16,8 +18,11 @@ CefUrlParts addClassConstant: '_OffsetOf_query' value: 16r60!
 CefUrlParts addClassConstant: '_OffsetOf_scheme' value: 16rC!
 CefUrlParts addClassConstant: '_OffsetOf_spec' value: 16r0!
 CefUrlParts addClassConstant: '_OffsetOf_username' value: 16r18!
+
 CefUrlParts comment: ''!
+
 !CefUrlParts categoriesForClass!External-Data-Structured! !
+
 !CefUrlParts methodsFor!
 
 fragment
@@ -159,6 +164,7 @@ username: aCefString
 		from: ##(_OffsetOf_username + 1)
 		to: ##(_OffsetOf_username + CefString basicByteSize)
 		startingAt: 1! !
+
 !CefUrlParts categoriesForMethods!
 fragment!**compiled accessors**!public! !
 fragment:!**compiled accessors**!public! !
@@ -201,6 +207,7 @@ defineFields
 
 getFieldNames
 	^#(#spec #scheme #username #password #host #port #origin #path #query #fragment)! !
+
 !CefUrlParts class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

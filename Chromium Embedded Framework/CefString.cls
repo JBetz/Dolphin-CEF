@@ -5,12 +5,17 @@ ExternalStructure subclass: #CefString
 	classVariableNames: '_OffsetOf_dtor _OffsetOf_length _OffsetOf_str'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefString guid: (GUID fromString: '{5f1e8988-454b-4846-8dcc-80cfb7507bbd}')!
+
 CefString addClassConstant: '_OffsetOf_dtor' value: 16r8!
 CefString addClassConstant: '_OffsetOf_length' value: 16r4!
 CefString addClassConstant: '_OffsetOf_str' value: 16r0!
+
 CefString comment: ''!
+
 !CefString categoriesForClass!External-Data-Structured! !
+
 !CefString methodsFor!
 
 dtor
@@ -42,6 +47,7 @@ str: anUtf16String
 	"Set the receiver's 'str' field to the value of the argument, anUtf16String"
 
 	bytes uintPtrAtOffset: _OffsetOf_str put: anUtf16String yourAddress! !
+
 !CefString categoriesForMethods!
 dtor!**compiled accessors**!public! !
 dtor:!**compiled accessors**!public! !
@@ -63,6 +69,7 @@ defineFields
 
 getFieldNames
 	^#(#str #length #dtor)! !
+
 !CefString class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

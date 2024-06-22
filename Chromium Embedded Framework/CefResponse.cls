@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefResponse
 	classVariableNames: '_OffsetOf_get_charset _OffsetOf_get_error _OffsetOf_get_header_by_name _OffsetOf_get_header_map _OffsetOf_get_mime_type _OffsetOf_get_status _OffsetOf_get_status_text _OffsetOf_get_url _OffsetOf_is_read_only _OffsetOf_set_charset _OffsetOf_set_error _OffsetOf_set_header_by_name _OffsetOf_set_header_map _OffsetOf_set_mime_type _OffsetOf_set_status _OffsetOf_set_status_text _OffsetOf_set_url'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefResponse guid: (GUID fromString: '{e42a8806-2a63-4135-8987-e2c737d15776}')!
+
 CefResponse addClassConstant: '_OffsetOf_get_charset' value: 16r38!
 CefResponse addClassConstant: '_OffsetOf_get_error' value: 16r18!
 CefResponse addClassConstant: '_OffsetOf_get_header_by_name' value: 16r40!
@@ -23,8 +25,11 @@ CefResponse addClassConstant: '_OffsetOf_set_mime_type' value: 16r34!
 CefResponse addClassConstant: '_OffsetOf_set_status' value: 16r24!
 CefResponse addClassConstant: '_OffsetOf_set_status_text' value: 16r2C!
 CefResponse addClassConstant: '_OffsetOf_set_url' value: 16r54!
+
 CefResponse comment: ''!
+
 !CefResponse categoriesForClass!External-Data-Structured! !
+
 !CefResponse methodsFor!
 
 _getStatus_cefResponse: cefResponse
@@ -247,6 +252,7 @@ setStatusText_statusText: statusText
 		at: 1 put: self;
 		at: 2 put: statusText.
 	^method value: self withArguments: arguments! !
+
 !CefResponse categoriesForMethods!
 _getStatus_cefResponse:!**compiled accessors**!private! !
 _setMimeType_cefResponse:mimeType:!**compiled accessors**!private! !
@@ -328,6 +334,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_read_only #get_error #set_error #get_status #set_status #get_status_text #set_status_text #get_mime_type #set_mime_type #get_charset #set_charset #get_header_by_name #set_header_by_name #get_header_map #set_header_map #get_url #set_url)! !
+
 !CefResponse class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

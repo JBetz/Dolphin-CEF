@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefClient
 	classVariableNames: '_OffsetOf_get_audio_handler _OffsetOf_get_command_handler _OffsetOf_get_context_menu_handler _OffsetOf_get_dialog_handler _OffsetOf_get_display_handler _OffsetOf_get_download_handler _OffsetOf_get_drag_handler _OffsetOf_get_find_handler _OffsetOf_get_focus_handler _OffsetOf_get_frame_handler _OffsetOf_get_jsdialog_handler _OffsetOf_get_keyboard_handler _OffsetOf_get_life_span_handler _OffsetOf_get_load_handler _OffsetOf_get_permission_handler _OffsetOf_get_print_handler _OffsetOf_get_render_handler _OffsetOf_get_request_handler _OffsetOf_on_process_message_received'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefClient guid: (GUID fromString: '{905d94ab-e229-4a3d-9ebf-d8df04b0856a}')!
+
 CefClient addClassConstant: '_OffsetOf_get_audio_handler' value: 16r14!
 CefClient addClassConstant: '_OffsetOf_get_command_handler' value: 16r18!
 CefClient addClassConstant: '_OffsetOf_get_context_menu_handler' value: 16r1C!
@@ -25,8 +27,11 @@ CefClient addClassConstant: '_OffsetOf_get_print_handler' value: 16r50!
 CefClient addClassConstant: '_OffsetOf_get_render_handler' value: 16r54!
 CefClient addClassConstant: '_OffsetOf_get_request_handler' value: 16r58!
 CefClient addClassConstant: '_OffsetOf_on_process_message_received' value: 16r5C!
+
 CefClient comment: ''!
+
 !CefClient categoriesForClass!External-Data-Structured! !
+
 !CefClient methodsFor!
 
 enableAudioHandler
@@ -345,6 +350,7 @@ onProcessMessageReceived: client browser: browser frame: frame sourceProcess: so
 
 processMessageDelegate: anObject
 	processMessageDelegate := anObject! !
+
 !CefClient categoriesForMethods!
 enableAudioHandler!public! !
 enableAudioHandlerAndDelegateTo:!public! !
@@ -474,6 +480,7 @@ defineFields
 
 getFieldNames
 	^#(#base #get_audio_handler #get_command_handler #get_context_menu_handler #get_dialog_handler #get_display_handler #get_download_handler #get_drag_handler #get_find_handler #get_focus_handler #get_frame_handler #get_permission_handler #get_jsdialog_handler #get_keyboard_handler #get_life_span_handler #get_load_handler #get_print_handler #get_render_handler #get_request_handler #on_process_message_received)! !
+
 !CefClient class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

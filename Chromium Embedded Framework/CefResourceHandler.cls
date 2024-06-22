@@ -5,7 +5,9 @@ CefEventHandler subclass: #CefResourceHandler
 	classVariableNames: '_OffsetOf_cancel _OffsetOf_get_response_headers _OffsetOf_open _OffsetOf_process_request _OffsetOf_read _OffsetOf_read_response _OffsetOf_skip'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefResourceHandler guid: (GUID fromString: '{390981df-51e3-4a20-bbff-9be047172008}')!
+
 CefResourceHandler addClassConstant: '_OffsetOf_cancel' value: 16r2C!
 CefResourceHandler addClassConstant: '_OffsetOf_get_response_headers' value: 16r1C!
 CefResourceHandler addClassConstant: '_OffsetOf_open' value: 16r14!
@@ -13,8 +15,11 @@ CefResourceHandler addClassConstant: '_OffsetOf_process_request' value: 16r18!
 CefResourceHandler addClassConstant: '_OffsetOf_read' value: 16r24!
 CefResourceHandler addClassConstant: '_OffsetOf_read_response' value: 16r28!
 CefResourceHandler addClassConstant: '_OffsetOf_skip' value: 16r20!
+
 CefResourceHandler comment: ''!
+
 !CefResourceHandler categoriesForClass!External-Data-Structured! !
+
 !CefResourceHandler methodsFor!
 
 cancel
@@ -86,6 +91,7 @@ skip: anExternalAddress
 	"Set the receiver's 'skip' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_skip put: anExternalAddress! !
+
 !CefResourceHandler categoriesForMethods!
 cancel!**compiled accessors**!public! !
 cancel:!**compiled accessors**!public! !
@@ -133,6 +139,7 @@ defineFields
 
 getFieldNames
 	^#(#base #open #process_request #get_response_headers #skip #read #read_response #cancel)! !
+
 !CefResourceHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

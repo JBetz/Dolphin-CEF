@@ -5,13 +5,18 @@ ExternalStructure subclass: #CefRect
 	classVariableNames: '_OffsetOf_height _OffsetOf_width _OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefRect guid: (GUID fromString: '{44f24338-49cd-4a75-b186-b09fb46eebb9}')!
+
 CefRect addClassConstant: '_OffsetOf_height' value: 16rC!
 CefRect addClassConstant: '_OffsetOf_width' value: 16r8!
 CefRect addClassConstant: '_OffsetOf_x' value: 16r0!
 CefRect addClassConstant: '_OffsetOf_y' value: 16r4!
+
 CefRect comment: ''!
+
 !CefRect categoriesForClass!External-Data-Structured! !
+
 !CefRect methodsFor!
 
 asRectangle
@@ -74,6 +79,7 @@ y: anInteger
 	"Set the receiver's 'y' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
+
 !CefRect categoriesForMethods!
 asRectangle!public! !
 bottom!public! !
@@ -105,6 +111,7 @@ defineFields
 
 getFieldNames
 	^#(#x #y #width #height)! !
+
 !CefRect class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -1,6 +1,6 @@
 [Dolphin Smalltalk](https://github.com/dolphinsmalltalk/Dolphin) language bindings to the [Chromium Embedded Framework (CEF)](https://bitbucket.org/chromiumembedded/workspace/projects/CEF). 
 
-**Dolphin Version**: 7.1.30
+**Dolphin Version**: 7.2.0
 
 **CEF Version**: 126.0.6478.115
 

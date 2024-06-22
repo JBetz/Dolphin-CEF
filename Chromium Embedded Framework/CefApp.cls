@@ -5,14 +5,19 @@ CefReferenceCountedObject subclass: #CefApp
 	classVariableNames: '_OffsetOf_get_browser_process_handler _OffsetOf_get_render_process_handler _OffsetOf_get_resource_bundle_handler _OffsetOf_on_before_command_line_processing _OffsetOf_on_register_custom_schemes'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefApp guid: (GUID fromString: '{c46f0bfa-128e-436c-9e11-fa56f2448190}')!
+
 CefApp addClassConstant: '_OffsetOf_get_browser_process_handler' value: 16r20!
 CefApp addClassConstant: '_OffsetOf_get_render_process_handler' value: 16r24!
 CefApp addClassConstant: '_OffsetOf_get_resource_bundle_handler' value: 16r1C!
 CefApp addClassConstant: '_OffsetOf_on_before_command_line_processing' value: 16r14!
 CefApp addClassConstant: '_OffsetOf_on_register_custom_schemes' value: 16r18!
+
 CefApp comment: ''!
+
 !CefApp categoriesForClass!External-Data-Structured! !
+
 !CefApp methodsFor!
 
 enableBrowserProcessHandler
@@ -88,6 +93,7 @@ on_register_custom_schemes: anExternalAddress
 	"Set the receiver's 'on_register_custom_schemes' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_register_custom_schemes put: anExternalAddress! !
+
 !CefApp categoriesForMethods!
 enableBrowserProcessHandler!public! !
 enableBrowserProcessHandlerAndDelegateTo:!public! !
@@ -135,6 +141,7 @@ defineFields
 
 getFieldNames
 	^#(#base #on_before_command_line_processing #on_register_custom_schemes #get_resource_bundle_handler #get_browser_process_handler #get_render_process_handler)! !
+
 !CefApp class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

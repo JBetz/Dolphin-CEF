@@ -5,14 +5,19 @@ CefReferenceCountedObject subclass: #CefSslStatus
 	classVariableNames: '_OffsetOf_get_cert_status _OffsetOf_get_content_status _OffsetOf_get_sslversion _OffsetOf_get_x509certificate _OffsetOf_is_secure_connection'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefSslStatus guid: (GUID fromString: '{f772cafd-c958-4e3e-a8c2-48a43718f3b4}')!
+
 CefSslStatus addClassConstant: '_OffsetOf_get_cert_status' value: 16r18!
 CefSslStatus addClassConstant: '_OffsetOf_get_content_status' value: 16r20!
 CefSslStatus addClassConstant: '_OffsetOf_get_sslversion' value: 16r1C!
 CefSslStatus addClassConstant: '_OffsetOf_get_x509certificate' value: 16r24!
 CefSslStatus addClassConstant: '_OffsetOf_is_secure_connection' value: 16r14!
+
 CefSslStatus comment: ''!
+
 !CefSslStatus categoriesForClass!External-Data-Structured! !
+
 !CefSslStatus methodsFor!
 
 _getCertStatus_cefSslStatus: cefSslStatus
@@ -114,6 +119,7 @@ isSecureConnection
 	method := self class externalMethodAt: #_isSecureConnection_cefSslStatus:
 				ifAbsentBindTo: self is_secure_connection.
 	^method value: self withArguments: (Array with: self)! !
+
 !CefSslStatus categoriesForMethods!
 _getCertStatus_cefSslStatus:!**compiled accessors**!private! !
 _getContentStatus_cefSslStatus:!**compiled accessors**!private! !
@@ -157,6 +163,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_secure_connection #get_cert_status #get_sslversion #get_content_status #get_x509certificate)! !
+
 !CefSslStatus class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

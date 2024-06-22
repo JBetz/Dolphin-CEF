@@ -5,10 +5,15 @@ CefReferenceCountedObject subclass: #CefSchemeRegistrar
 	classVariableNames: '_OffsetOf_add_custom_scheme'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefSchemeRegistrar guid: (GUID fromString: '{1a166904-f1c1-4eed-9ed1-aca8dd2ca7fb}')!
+
 CefSchemeRegistrar addClassConstant: '_OffsetOf_add_custom_scheme' value: 16r14!
+
 CefSchemeRegistrar comment: ''!
+
 !CefSchemeRegistrar categoriesForClass!External-Data-Structured! !
+
 !CefSchemeRegistrar methodsFor!
 
 _addCustomScheme_cefSchemeRegistrar: cefSchemeRegistrar schemeName: schemeName options: options
@@ -35,6 +40,7 @@ addCustomScheme_schemeName: schemeName options: options
 		at: 2 put: schemeName;
 		at: 3 put: options.
 	^method value: self withArguments: arguments! !
+
 !CefSchemeRegistrar categoriesForMethods!
 _addCustomScheme_cefSchemeRegistrar:schemeName:options:!**compiled accessors**!private! !
 add_custom_scheme!**compiled accessors**!public! !
@@ -55,6 +61,7 @@ defineFields
 
 getFieldNames
 	^#(#base #add_custom_scheme)! !
+
 !CefSchemeRegistrar class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

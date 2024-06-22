@@ -5,9 +5,13 @@ Object subclass: #Url
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 Url guid: (GUID fromString: '{2d068995-1667-4e79-9b1d-ffc0a15aa089}')!
+
 Url comment: ''!
+
 !Url categoriesForClass!Kernel-Objects! !
+
 !Url methodsFor!
 
 displayString
@@ -100,6 +104,7 @@ username
 
 username: anObject
 	username := anObject! !
+
 !Url categoriesForMethods!
 displayString!public! !
 domain!public! !
@@ -156,6 +161,7 @@ parseString: aString
 	resultCode = 0
 		ifTrue: [resultCode := cef parseUrl_url: ('https://' , aString) asCefString parts: parts].
 	^resultCode = 0 ifTrue: [nil] ifFalse: [parts]! !
+
 !Url class categoriesForMethods!
 fromString:!public! !
 parseString:!private! !

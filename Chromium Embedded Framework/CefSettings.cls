@@ -5,7 +5,9 @@ ExternalStructure subclass: #CefSettings
 	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_browser_subprocess_path _OffsetOf_cache_path _OffsetOf_cefSize _OffsetOf_chrome_app_icon_id _OffsetOf_chrome_policy_id _OffsetOf_chrome_runtime _OffsetOf_command_line_args_disabled _OffsetOf_cookieable_scheme_list _OffsetOf_cookieable_schemes_exclude_defaults _OffsetOf_external_message_pump _OffsetOf_framework_dir_path _OffsetOf_javascript_flags _OffsetOf_locale _OffsetOf_locales_dir_path _OffsetOf_log_file _OffsetOf_log_items _OffsetOf_log_severity _OffsetOf_main_bundle_path _OffsetOf_multi_threaded_message_loop _OffsetOf_no_sandbox _OffsetOf_pack_loading_disabled _OffsetOf_persist_session_cookies _OffsetOf_persist_user_preferences _OffsetOf_remote_debugging_port _OffsetOf_resources_dir_path _OffsetOf_root_cache_path _OffsetOf_uncaught_exception_stack_size _OffsetOf_user_agent _OffsetOf_user_agent_product _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefSettings guid: (GUID fromString: '{321503ef-cca4-4525-bfb6-ff089d57929c}')!
+
 CefSettings addClassConstant: '_OffsetOf_accept_language_list' value: 16rCC!
 CefSettings addClassConstant: '_OffsetOf_background_color' value: 16rC8!
 CefSettings addClassConstant: '_OffsetOf_browser_subprocess_path' value: 16r8!
@@ -38,8 +40,11 @@ CefSettings addClassConstant: '_OffsetOf_uncaught_exception_stack_size' value: 1
 CefSettings addClassConstant: '_OffsetOf_user_agent' value: 16r60!
 CefSettings addClassConstant: '_OffsetOf_user_agent_product' value: 16r6C!
 CefSettings addClassConstant: '_OffsetOf_windowless_rendering_enabled' value: 16r38!
+
 CefSettings comment: ''!
+
 !CefSettings categoriesForClass!External-Data-Structured! !
+
 !CefSettings methodsFor!
 
 accept_language_list
@@ -425,6 +430,7 @@ windowless_rendering_enabled: anInteger
 	"Set the receiver's 'windowless_rendering_enabled' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_windowless_rendering_enabled put: anInteger! !
+
 !CefSettings categoriesForMethods!
 accept_language_list!**compiled accessors**!public! !
 accept_language_list:!**compiled accessors**!public! !
@@ -534,6 +540,7 @@ defineFields
 
 getFieldNames
 	^#(#cefSize #no_sandbox #browser_subprocess_path #framework_dir_path #main_bundle_path #chrome_runtime #multi_threaded_message_loop #external_message_pump #windowless_rendering_enabled #command_line_args_disabled #cache_path #root_cache_path #persist_session_cookies #persist_user_preferences #user_agent #user_agent_product #locale #log_file #log_severity #log_items #javascript_flags #resources_dir_path #locales_dir_path #pack_loading_disabled #remote_debugging_port #uncaught_exception_stack_size #background_color #accept_language_list #cookieable_scheme_list #cookieable_schemes_exclude_defaults #chrome_policy_id #chrome_app_icon_id)! !
+
 !CefSettings class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

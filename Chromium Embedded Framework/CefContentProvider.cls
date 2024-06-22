@@ -5,9 +5,13 @@ Object subclass: #CefContentProvider
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
+
 CefContentProvider guid: (GUID fromString: '{db2e585b-1977-47c0-8567-027604fd81e9}')!
+
 CefContentProvider comment: ''!
+
 !CefContentProvider categoriesForClass!Kernel-Objects! !
+
 !CefContentProvider methodsFor!
 
 cancel: resourceHandler!
@@ -69,6 +73,7 @@ url
 
 url: aUrl
 	url := aUrl! !
+
 !CefContentProvider categoriesForMethods!
 cancel:!private! !
 chromiumBrowser:!accessing!public! !
@@ -91,6 +96,7 @@ url:!accessing!public! !
 
 new
 	^super new initialize! !
+
 !CefContentProvider class categoriesForMethods!
 new!public! !
 !

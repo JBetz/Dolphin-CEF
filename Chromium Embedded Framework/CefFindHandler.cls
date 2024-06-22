@@ -5,10 +5,15 @@ CefEventHandler subclass: #CefFindHandler
 	classVariableNames: '_OffsetOf_on_find_result'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefFindHandler guid: (GUID fromString: '{3e8a1b2f-05dd-44e1-80d3-9e3ba8d3915a}')!
+
 CefFindHandler addClassConstant: '_OffsetOf_on_find_result' value: 16r14!
+
 CefFindHandler comment: ''!
+
 !CefFindHandler categoriesForClass!External-Data-Structured! !
+
 !CefFindHandler methodsFor!
 
 on_find_result
@@ -20,6 +25,7 @@ on_find_result: anExternalAddress
 	"Set the receiver's 'on_find_result' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_find_result put: anExternalAddress! !
+
 !CefFindHandler categoriesForMethods!
 on_find_result!**compiled accessors**!public! !
 on_find_result:!**compiled accessors**!public! !
@@ -38,6 +44,7 @@ defineFields
 
 getFieldNames
 	^#(#base #on_find_result)! !
+
 !CefFindHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

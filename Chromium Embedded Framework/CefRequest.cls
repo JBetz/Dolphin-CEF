@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefRequest
 	classVariableNames: '_OffsetOf_get_first_party_for_cookies _OffsetOf_get_flags _OffsetOf_get_header_by_name _OffsetOf_get_header_map _OffsetOf_get_identifier _OffsetOf_get_method _OffsetOf_get_post_data _OffsetOf_get_referrer_policy _OffsetOf_get_referrer_url _OffsetOf_get_resource_type _OffsetOf_get_transition_type _OffsetOf_get_url _OffsetOf_is_read_only _OffsetOf_set _OffsetOf_set_first_party_for_cookies _OffsetOf_set_flags _OffsetOf_set_header_by_name _OffsetOf_set_header_map _OffsetOf_set_method _OffsetOf_set_post_data _OffsetOf_set_referrer _OffsetOf_set_url'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefRequest guid: (GUID fromString: '{7fd17138-7b13-47ba-8be9-d51b800c562b}')!
+
 CefRequest addClassConstant: '_OffsetOf_get_first_party_for_cookies' value: 16r58!
 CefRequest addClassConstant: '_OffsetOf_get_flags' value: 16r50!
 CefRequest addClassConstant: '_OffsetOf_get_header_by_name' value: 16r44!
@@ -28,8 +30,11 @@ CefRequest addClassConstant: '_OffsetOf_set_method' value: 16r24!
 CefRequest addClassConstant: '_OffsetOf_set_post_data' value: 16r38!
 CefRequest addClassConstant: '_OffsetOf_set_referrer' value: 16r28!
 CefRequest addClassConstant: '_OffsetOf_set_url' value: 16r1C!
+
 CefRequest comment: ''!
+
 !CefRequest categoriesForClass!External-Data-Structured! !
+
 !CefRequest methodsFor!
 
 _getReferrerUrl_cefRequest: cefRequest
@@ -280,6 +285,7 @@ set_url: anInteger
 	"Set the receiver's 'set_url' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_set_url put: anInteger! !
+
 !CefRequest categoriesForMethods!
 _getReferrerUrl_cefRequest:!**compiled accessors**!private! !
 _getTransitionType_cefRequest:!**compiled accessors**!private! !
@@ -370,6 +376,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_read_only #get_url #set_url #get_method #set_method #set_referrer #get_referrer_url #get_referrer_policy #get_post_data #set_post_data #get_header_map #set_header_map #get_header_by_name #set_header_by_name #set #get_flags #set_flags #get_first_party_for_cookies #set_first_party_for_cookies #get_resource_type #get_transition_type #get_identifier)! !
+
 !CefRequest class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -5,15 +5,20 @@ CefEventHandler subclass: #CefBrowserProcessHandler
 	classVariableNames: '_OffsetOf_get_default_client _OffsetOf_on_already_running_app_relaunch _OffsetOf_on_before_child_process_launch _OffsetOf_on_context_initialized _OffsetOf_on_register_custom_preferences _OffsetOf_on_schedule_message_pump_work'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefBrowserProcessHandler guid: (GUID fromString: '{fbea6bee-9ade-4c31-9e32-797284dfef46}')!
+
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_get_default_client' value: 16r28!
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_on_already_running_app_relaunch' value: 16r20!
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_on_before_child_process_launch' value: 16r1C!
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_on_context_initialized' value: 16r18!
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_on_register_custom_preferences' value: 16r14!
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_on_schedule_message_pump_work' value: 16r24!
+
 CefBrowserProcessHandler comment: ''!
+
 !CefBrowserProcessHandler categoriesForClass!Unclassified! !
+
 !CefBrowserProcessHandler methodsFor!
 
 get_default_client
@@ -75,6 +80,7 @@ on_schedule_message_pump_work: anExternalAddress
 	"Set the receiver's 'on_schedule_message_pump_work' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_schedule_message_pump_work put: anExternalAddress! !
+
 !CefBrowserProcessHandler categoriesForMethods!
 get_default_client!**compiled accessors**!public! !
 get_default_client:!**compiled accessors**!public! !
@@ -122,6 +128,7 @@ defineFields
 
 getFieldNames
 	^#(#base #on_register_custom_preferences #on_context_initialized #on_before_child_process_launch #on_already_running_app_relaunch #on_schedule_message_pump_work #get_default_client)! !
+
 !CefBrowserProcessHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

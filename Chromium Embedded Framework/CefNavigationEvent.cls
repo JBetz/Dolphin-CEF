@@ -5,9 +5,13 @@ Object subclass: #CefNavigationEvent
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefNavigationEvent guid: (GUID fromString: '{944e19eb-cccf-472d-89d9-cbcab6225d6f}')!
+
 CefNavigationEvent comment: ''!
+
 !CefNavigationEvent categoriesForClass!Kernel-Objects! !
+
 !CefNavigationEvent methodsFor!
 
 destination
@@ -51,6 +55,7 @@ userInitiated
 
 userInitiated: aBoolean
 	userInitiated := aBoolean! !
+
 !CefNavigationEvent categoriesForMethods!
 destination!accessing!public! !
 destination:!accessing!public! !
@@ -78,6 +83,7 @@ fromCefDictionaryValue: aCefDictionaryValue
 		hashChange: (aCefDictionaryValue at: 'hashChange');
 		navigationType: (aCefDictionaryValue at: 'navigationType');
 		userInitiated: (aCefDictionaryValue at: 'userInitiated')! !
+
 !CefNavigationEvent class categoriesForMethods!
 fromCefDictionaryValue:!public! !
 !

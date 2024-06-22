@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefListValue
 	classVariableNames: '_OffsetOf_clear _OffsetOf_copy _OffsetOf_get_binary _OffsetOf_get_bool _OffsetOf_get_dictionary _OffsetOf_get_double _OffsetOf_get_int _OffsetOf_get_list _OffsetOf_get_size _OffsetOf_get_string _OffsetOf_get_type _OffsetOf_get_value _OffsetOf_is_equal _OffsetOf_is_owned _OffsetOf_is_read_only _OffsetOf_is_same _OffsetOf_is_valid _OffsetOf_remove _OffsetOf_set_binary _OffsetOf_set_bool _OffsetOf_set_dictionary _OffsetOf_set_double _OffsetOf_set_int _OffsetOf_set_list _OffsetOf_set_null _OffsetOf_set_size _OffsetOf_set_string _OffsetOf_set_value'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefListValue guid: (GUID fromString: '{38735dd6-af61-496d-9ca0-8031f2d53a6a}')!
+
 CefListValue addClassConstant: '_OffsetOf_clear' value: 16r34!
 CefListValue addClassConstant: '_OffsetOf_copy' value: 16r28!
 CefListValue addClassConstant: '_OffsetOf_get_binary' value: 16r54!
@@ -34,8 +36,11 @@ CefListValue addClassConstant: '_OffsetOf_set_null' value: 16r64!
 CefListValue addClassConstant: '_OffsetOf_set_size' value: 16r2C!
 CefListValue addClassConstant: '_OffsetOf_set_string' value: 16r74!
 CefListValue addClassConstant: '_OffsetOf_set_value' value: 16r60!
+
 CefListValue comment: ''!
+
 !CefListValue categoriesForClass!External-Data-Structured! !
+
 !CefListValue methodsFor!
 
 _callClear_cefListValue: cefListValue
@@ -677,6 +682,7 @@ setValue_index: index value: value
 		at: 2 put: index;
 		at: 3 put: value.
 	^method value: self withArguments: arguments! !
+
 !CefListValue categoriesForMethods!
 _callClear_cefListValue:!**compiled accessors**!private! !
 _callCopy_cefListValue:!**compiled accessors**!private! !
@@ -898,6 +904,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_valid #is_owned #is_read_only #is_same #is_equal #copy #set_size #get_size #clear #remove #get_type #get_value #get_bool #get_int #get_double #get_string #get_binary #get_dictionary #get_list #set_value #set_null #set_bool #set_int #set_double #set_string #set_binary #set_dictionary #set_list)! !
+
 !CefListValue class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

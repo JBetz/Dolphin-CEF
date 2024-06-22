@@ -5,9 +5,13 @@ Object subclass: #CefTransitionType
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
+
 CefTransitionType guid: (GUID fromString: '{59a3e1ca-af0d-4655-91db-170f6ece0bac}')!
+
 CefTransitionType comment: ''!
+
 !CefTransitionType categoriesForClass!Unclassified! !
+
 !CefTransitionType methodsFor!
 
 code
@@ -195,6 +199,7 @@ sourceMask
 	" General mask defining the bits used for the source values."
 
 	^code bitAnd: 16rFF! !
+
 !CefTransitionType categoriesForMethods!
 code!accessing!public! !
 code:!accessing!public! !
@@ -229,6 +234,7 @@ sourceMask!private! !
 
 fromInteger: anInteger
 	^self new code: anInteger! !
+
 !CefTransitionType class categoriesForMethods!
 fromInteger:!public! !
 !

@@ -5,14 +5,19 @@ CefEventHandler subclass: #CefAudioHandler
 	classVariableNames: '_OffsetOf_get_audio_parameters _OffsetOf_on_audio_stream_error _OffsetOf_on_audio_stream_packet _OffsetOf_on_audio_stream_started _OffsetOf_on_audio_stream_stopped'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefAudioHandler guid: (GUID fromString: '{e397d1c2-ead3-4370-9d2c-4b5ebee6eca2}')!
+
 CefAudioHandler addClassConstant: '_OffsetOf_get_audio_parameters' value: 16r14!
 CefAudioHandler addClassConstant: '_OffsetOf_on_audio_stream_error' value: 16r24!
 CefAudioHandler addClassConstant: '_OffsetOf_on_audio_stream_packet' value: 16r1C!
 CefAudioHandler addClassConstant: '_OffsetOf_on_audio_stream_started' value: 16r18!
 CefAudioHandler addClassConstant: '_OffsetOf_on_audio_stream_stopped' value: 16r20!
+
 CefAudioHandler comment: ''!
+
 !CefAudioHandler categoriesForClass!External-Data-Structured! !
+
 !CefAudioHandler methodsFor!
 
 get_audio_parameters
@@ -64,6 +69,7 @@ on_audio_stream_stopped: anExternalAddress
 	"Set the receiver's 'on_audio_stream_stopped' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_audio_stream_stopped put: anExternalAddress! !
+
 !CefAudioHandler categoriesForMethods!
 get_audio_parameters!**compiled accessors**!public! !
 get_audio_parameters:!**compiled accessors**!public! !
@@ -107,6 +113,7 @@ defineFields
 
 getFieldNames
 	^#(#base #get_audio_parameters #on_audio_stream_started #on_audio_stream_packet #on_audio_stream_stopped #on_audio_stream_error)! !
+
 !CefAudioHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -5,7 +5,9 @@ CefEventHandler subclass: #CefRenderProcessHandler
 	classVariableNames: '_OffsetOf_get_load_handler _OffsetOf_on_browser_created _OffsetOf_on_browser_destroyed _OffsetOf_on_context_created _OffsetOf_on_context_released _OffsetOf_on_focused_node_changed _OffsetOf_on_process_message_received _OffsetOf_on_uncaught_exception _OffsetOf_on_web_kit_initialized'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefRenderProcessHandler guid: (GUID fromString: '{9da427a6-b514-4f67-b4aa-0a1d94a4bbdf}')!
+
 CefRenderProcessHandler addClassConstant: '_OffsetOf_get_load_handler' value: 16r20!
 CefRenderProcessHandler addClassConstant: '_OffsetOf_on_browser_created' value: 16r18!
 CefRenderProcessHandler addClassConstant: '_OffsetOf_on_browser_destroyed' value: 16r1C!
@@ -15,8 +17,11 @@ CefRenderProcessHandler addClassConstant: '_OffsetOf_on_focused_node_changed' va
 CefRenderProcessHandler addClassConstant: '_OffsetOf_on_process_message_received' value: 16r34!
 CefRenderProcessHandler addClassConstant: '_OffsetOf_on_uncaught_exception' value: 16r2C!
 CefRenderProcessHandler addClassConstant: '_OffsetOf_on_web_kit_initialized' value: 16r14!
+
 CefRenderProcessHandler comment: ''!
+
 !CefRenderProcessHandler categoriesForClass!External-Data-Structured! !
+
 !CefRenderProcessHandler methodsFor!
 
 get_load_handler
@@ -108,6 +113,7 @@ on_web_kit_initialized: anExternalAddress
 	"Set the receiver's 'on_web_kit_initialized' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_web_kit_initialized put: anExternalAddress! !
+
 !CefRenderProcessHandler categoriesForMethods!
 get_load_handler!**compiled accessors**!public! !
 get_load_handler:!**compiled accessors**!public! !
@@ -148,6 +154,7 @@ defineFields
 
 getFieldNames
 	^#(#base #on_web_kit_initialized #on_browser_created #on_browser_destroyed #get_load_handler #on_context_created #on_context_released #on_uncaught_exception #on_focused_node_changed #on_process_message_received)! !
+
 !CefRenderProcessHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

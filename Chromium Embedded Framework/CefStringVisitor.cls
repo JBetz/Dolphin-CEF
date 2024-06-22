@@ -5,10 +5,15 @@ CefVisitor subclass: #CefStringVisitor
 	classVariableNames: '_OffsetOf_visit'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefStringVisitor guid: (GUID fromString: '{cd4f01a8-def9-4f37-839e-b25cdb312332}')!
+
 CefStringVisitor addClassConstant: '_OffsetOf_visit' value: 16r14!
+
 CefStringVisitor comment: ''!
+
 !CefStringVisitor categoriesForClass!External-Data-Structured! !
+
 !CefStringVisitor methodsFor!
 
 visit
@@ -20,6 +25,7 @@ visit: anExternalAddress
 	"Set the receiver's 'visit' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_visit put: anExternalAddress! !
+
 !CefStringVisitor categoriesForMethods!
 visit!**compiled accessors**!public! !
 visit:!**compiled accessors**!public! !
@@ -38,6 +44,7 @@ defineFields
 
 getFieldNames
 	^#(#base #visit)! !
+
 !CefStringVisitor class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

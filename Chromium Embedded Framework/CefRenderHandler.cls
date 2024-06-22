@@ -5,7 +5,9 @@ CefEventHandler subclass: #CefRenderHandler
 	classVariableNames: '_OffsetOf_get_accessibility_handler _OffsetOf_get_root_screen_rect _OffsetOf_get_screen_info _OffsetOf_get_screen_point _OffsetOf_get_touch_handle_size _OffsetOf_get_view_rect _OffsetOf_on_accelerated_paint _OffsetOf_on_ime_composition_range_changed _OffsetOf_on_paint _OffsetOf_on_popup_show _OffsetOf_on_popup_size _OffsetOf_on_scroll_offset_changed _OffsetOf_on_text_selection_changed _OffsetOf_on_touch_handle_state_changed _OffsetOf_on_virtual_keyboard_requested _OffsetOf_start_dragging _OffsetOf_update_drag_cursor'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefRenderHandler guid: (GUID fromString: '{a023beac-183d-459f-92d4-7560d6befb2c}')!
+
 CefRenderHandler addClassConstant: '_OffsetOf_get_accessibility_handler' value: 16r14!
 CefRenderHandler addClassConstant: '_OffsetOf_get_root_screen_rect' value: 16r18!
 CefRenderHandler addClassConstant: '_OffsetOf_get_screen_info' value: 16r24!
@@ -23,8 +25,11 @@ CefRenderHandler addClassConstant: '_OffsetOf_on_touch_handle_state_changed' val
 CefRenderHandler addClassConstant: '_OffsetOf_on_virtual_keyboard_requested' value: 16r54!
 CefRenderHandler addClassConstant: '_OffsetOf_start_dragging' value: 16r40!
 CefRenderHandler addClassConstant: '_OffsetOf_update_drag_cursor' value: 16r44!
+
 CefRenderHandler comment: ''!
+
 !CefRenderHandler categoriesForClass!External-Data-Structured! !
+
 !CefRenderHandler methodsFor!
 
 get_accessibility_handler
@@ -196,6 +201,7 @@ update_drag_cursor: anExternalAddress
 	"Set the receiver's 'update_drag_cursor' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_update_drag_cursor put: anExternalAddress! !
+
 !CefRenderHandler categoriesForMethods!
 get_accessibility_handler!**compiled accessors**!public! !
 get_accessibility_handler:!**compiled accessors**!public! !
@@ -309,6 +315,7 @@ defineFields
 
 getFieldNames
 	^#(#base #get_accessibility_handler #get_root_screen_rect #get_view_rect #get_screen_point #get_screen_info #on_popup_show #on_popup_size #on_paint #on_accelerated_paint #get_touch_handle_size #on_touch_handle_state_changed #start_dragging #update_drag_cursor #on_scroll_offset_changed #on_ime_composition_range_changed #on_text_selection_changed #on_virtual_keyboard_requested)! !
+
 !CefRenderHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

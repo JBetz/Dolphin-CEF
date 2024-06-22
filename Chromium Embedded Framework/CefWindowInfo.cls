@@ -5,7 +5,9 @@ ExternalStructure subclass: #CefWindowInfo
 	classVariableNames: '_OffsetOf_bounds _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefWindowInfo guid: (GUID fromString: '{a23737b3-e519-4626-b17a-1af220364c5b}')!
+
 CefWindowInfo addClassConstant: '_OffsetOf_bounds' value: 16r14!
 CefWindowInfo addClassConstant: '_OffsetOf_ex_style' value: 16r0!
 CefWindowInfo addClassConstant: '_OffsetOf_external_begin_frame_enabled' value: 16r34!
@@ -16,8 +18,11 @@ CefWindowInfo addClassConstant: '_OffsetOf_style' value: 16r10!
 CefWindowInfo addClassConstant: '_OffsetOf_window' value: 16r38!
 CefWindowInfo addClassConstant: '_OffsetOf_window_name' value: 16r4!
 CefWindowInfo addClassConstant: '_OffsetOf_windowless_rendering_enabled' value: 16r2C!
+
 CefWindowInfo comment: ''!
+
 !CefWindowInfo categoriesForClass!External-Data-Structured! !
+
 !CefWindowInfo methodsFor!
 
 bounds
@@ -127,6 +132,7 @@ windowless_rendering_enabled: anInteger
 	"Set the receiver's 'windowless_rendering_enabled' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_windowless_rendering_enabled put: anInteger! !
+
 !CefWindowInfo categoriesForMethods!
 bounds!**compiled accessors**!public! !
 bounds:!**compiled accessors**!public! !
@@ -214,6 +220,7 @@ defineFields
 
 getFieldNames
 	^#(#ex_style #window_name #style #bounds #parent_window #menu #windowless_rendering_enabled #shared_texture_enabled #external_begin_frame_enabled #window)! !
+
 !CefWindowInfo class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

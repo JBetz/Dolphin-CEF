@@ -5,7 +5,9 @@ ExternalStructure subclass: #CefPopupFeatures
 	classVariableNames: '_OffsetOf_height _OffsetOf_heightSet _OffsetOf_isPopup _OffsetOf_width _OffsetOf_widthSet _OffsetOf_x _OffsetOf_xSet _OffsetOf_y _OffsetOf_ySet'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefPopupFeatures guid: (GUID fromString: '{423cfa44-42af-4e55-afa7-8cd8414f25d8}')!
+
 CefPopupFeatures addClassConstant: '_OffsetOf_height' value: 16r18!
 CefPopupFeatures addClassConstant: '_OffsetOf_heightSet' value: 16r1C!
 CefPopupFeatures addClassConstant: '_OffsetOf_isPopup' value: 16r20!
@@ -15,8 +17,11 @@ CefPopupFeatures addClassConstant: '_OffsetOf_x' value: 16r0!
 CefPopupFeatures addClassConstant: '_OffsetOf_xSet' value: 16r4!
 CefPopupFeatures addClassConstant: '_OffsetOf_y' value: 16r8!
 CefPopupFeatures addClassConstant: '_OffsetOf_ySet' value: 16rC!
+
 CefPopupFeatures comment: ''!
+
 !CefPopupFeatures categoriesForClass!External-Data-Structured! !
+
 !CefPopupFeatures methodsFor!
 
 height
@@ -108,6 +113,7 @@ ySet: anInteger
 	"Set the receiver's 'ySet' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_ySet put: anInteger! !
+
 !CefPopupFeatures categoriesForMethods!
 height!**compiled accessors**!public! !
 height:!**compiled accessors**!public! !
@@ -164,6 +170,7 @@ defineFields
 
 getFieldNames
 	^#(#x #xSet #y #ySet #width #widthSet #height #heightSet #isPopup)! !
+
 !CefPopupFeatures class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

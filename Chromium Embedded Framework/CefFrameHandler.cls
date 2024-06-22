@@ -5,13 +5,18 @@ CefEventHandler subclass: #CefFrameHandler
 	classVariableNames: '_OffsetOf_on_frame_attached _OffsetOf_on_frame_created _OffsetOf_on_frame_detached _OffsetOf_on_main_frame_changed'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefFrameHandler guid: (GUID fromString: '{72e28614-dd18-4eb6-a5ac-b91d9a09a7c7}')!
+
 CefFrameHandler addClassConstant: '_OffsetOf_on_frame_attached' value: 16r18!
 CefFrameHandler addClassConstant: '_OffsetOf_on_frame_created' value: 16r14!
 CefFrameHandler addClassConstant: '_OffsetOf_on_frame_detached' value: 16r1C!
 CefFrameHandler addClassConstant: '_OffsetOf_on_main_frame_changed' value: 16r20!
+
 CefFrameHandler comment: ''!
+
 !CefFrameHandler categoriesForClass!External-Data-Structured! !
+
 !CefFrameHandler methodsFor!
 
 on_frame_attached
@@ -53,6 +58,7 @@ on_main_frame_changed: anExternalAddress
 	"Set the receiver's 'on_main_frame_changed' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_main_frame_changed put: anExternalAddress! !
+
 !CefFrameHandler categoriesForMethods!
 on_frame_attached!**compiled accessors**!public! !
 on_frame_attached:!**compiled accessors**!public! !
@@ -90,6 +96,7 @@ defineFields
 
 getFieldNames
 	^#(#base #on_frame_created #on_frame_attached #on_frame_detached #on_main_frame_changed)! !
+
 !CefFrameHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

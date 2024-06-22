@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefCommandLine
 	classVariableNames: '_OffsetOf_append_argument _OffsetOf_append_switch _OffsetOf_append_switch_with_value _OffsetOf_copy _OffsetOf_get_arguments _OffsetOf_get_argv _OffsetOf_get_command_line_string _OffsetOf_get_program _OffsetOf_get_switch_value _OffsetOf_get_switches _OffsetOf_has_arguments _OffsetOf_has_switch _OffsetOf_has_switches _OffsetOf_init_from_argv _OffsetOf_init_from_string _OffsetOf_is_read_only _OffsetOf_is_valid _OffsetOf_prepend_wrapper _OffsetOf_reset _OffsetOf_set_program'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefCommandLine guid: (GUID fromString: '{18fecbba-af2b-4ba6-9a49-6d2b537236f3}')!
+
 CefCommandLine addClassConstant: '_OffsetOf_append_argument' value: 16r5C!
 CefCommandLine addClassConstant: '_OffsetOf_append_switch' value: 16r4C!
 CefCommandLine addClassConstant: '_OffsetOf_append_switch_with_value' value: 16r50!
@@ -26,8 +28,11 @@ CefCommandLine addClassConstant: '_OffsetOf_is_valid' value: 16r14!
 CefCommandLine addClassConstant: '_OffsetOf_prepend_wrapper' value: 16r60!
 CefCommandLine addClassConstant: '_OffsetOf_reset' value: 16r28!
 CefCommandLine addClassConstant: '_OffsetOf_set_program' value: 16r38!
+
 CefCommandLine comment: ''!
+
 !CefCommandLine categoriesForClass!Unclassified! !
+
 !CefCommandLine methodsFor!
 
 _appendSwitch_cefCommandLine: cefCommandLine name: name
@@ -287,6 +292,7 @@ set_program: anInteger
 	"Set the receiver's 'set_program' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_set_program put: anInteger! !
+
 !CefCommandLine categoriesForMethods!
 _appendSwitch_cefCommandLine:name:!**compiled accessors**!private! !
 _appendSwitchWithValue_cefCommandLine:name:value:!**compiled accessors**!private! !
@@ -380,6 +386,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_valid #is_read_only #copy #init_from_argv #init_from_string #reset #get_argv #get_command_line_string #get_program #set_program #has_switches #has_switch #get_switch_value #get_switches #append_switch #append_switch_with_value #has_arguments #get_arguments #append_argument #prepend_wrapper)! !
+
 !CefCommandLine class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

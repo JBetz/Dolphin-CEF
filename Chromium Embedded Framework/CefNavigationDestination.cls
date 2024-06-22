@@ -5,9 +5,13 @@ Object subclass: #CefNavigationDestination
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefNavigationDestination guid: (GUID fromString: '{5ee17834-8dc7-4e46-b905-e51b1b15a15c}')!
+
 CefNavigationDestination comment: ''!
+
 !CefNavigationDestination categoriesForClass!Kernel-Objects! !
+
 !CefNavigationDestination methodsFor!
 
 id
@@ -39,6 +43,7 @@ url
 
 url: anObject
 	url := anObject! !
+
 !CefNavigationDestination categoriesForMethods!
 id!accessing!public! !
 id:!accessing!public! !
@@ -61,6 +66,7 @@ fromCefDictionaryValue: aCefDictionaryValue
 		key: (aCefDictionaryValue at: 'key');
 		sameDocument: (aCefDictionaryValue at: 'sameDocument');
 		url: (aCefDictionaryValue at: 'url')! !
+
 !CefNavigationDestination class categoriesForMethods!
 fromCefDictionaryValue:!public! !
 !

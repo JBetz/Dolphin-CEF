@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefMenuModel
 	classVariableNames: '_OffsetOf_add_check_item _OffsetOf_add_item _OffsetOf_add_radio_item _OffsetOf_add_separator _OffsetOf_add_sub_menu _OffsetOf_clear _OffsetOf_get_accelerator _OffsetOf_get_accelerator_at _OffsetOf_get_color _OffsetOf_get_color_at _OffsetOf_get_command_id_at _OffsetOf_get_count _OffsetOf_get_group_id _OffsetOf_get_group_id_at _OffsetOf_get_index_of _OffsetOf_get_label _OffsetOf_get_label_at _OffsetOf_get_sub_menu _OffsetOf_get_sub_menu_at _OffsetOf_get_type _OffsetOf_get_type_at _OffsetOf_has_accelerator _OffsetOf_has_accelerator_at _OffsetOf_insert_check_item_at _OffsetOf_insert_item_at _OffsetOf_insert_radio_item_at _OffsetOf_insert_separator_at _OffsetOf_insert_sub_menu_at _OffsetOf_is_checked _OffsetOf_is_checked_at _OffsetOf_is_enabled _OffsetOf_is_enabled_at _OffsetOf_is_sub_menu _OffsetOf_is_visible _OffsetOf_is_visible_at _OffsetOf_remove _OffsetOf_remove_accelerator _OffsetOf_remove_accelerator_at _OffsetOf_remove_at _OffsetOf_set_accelerator _OffsetOf_set_accelerator_at _OffsetOf_set_checked _OffsetOf_set_checked_at _OffsetOf_set_color _OffsetOf_set_color_at _OffsetOf_set_command_id_at _OffsetOf_set_enabled _OffsetOf_set_enabled_at _OffsetOf_set_font_list _OffsetOf_set_font_list_at _OffsetOf_set_group_id _OffsetOf_set_group_id_at _OffsetOf_set_label _OffsetOf_set_label_at _OffsetOf_set_visible _OffsetOf_set_visible_at'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefMenuModel guid: (GUID fromString: '{30c27b48-09c9-497e-a671-138609d3a346}')!
+
 CefMenuModel addClassConstant: '_OffsetOf_add_check_item' value: 16r28!
 CefMenuModel addClassConstant: '_OffsetOf_add_item' value: 16r24!
 CefMenuModel addClassConstant: '_OffsetOf_add_radio_item' value: 16r2C!
@@ -62,8 +64,11 @@ CefMenuModel addClassConstant: '_OffsetOf_set_label' value: 16r64!
 CefMenuModel addClassConstant: '_OffsetOf_set_label_at' value: 16r68!
 CefMenuModel addClassConstant: '_OffsetOf_set_visible' value: 16r94!
 CefMenuModel addClassConstant: '_OffsetOf_set_visible_at' value: 16r98!
+
 CefMenuModel comment: ''!
+
 !CefMenuModel categoriesForClass!External-Data-Structured! !
+
 !CefMenuModel methodsFor!
 
 _addCheckItem_cefMenuModel: cefMenuModel commandId: commandId label: label
@@ -1218,6 +1223,7 @@ setVisibleAt_index: index visible: visible
 		at: 2 put: index;
 		at: 3 put: visible.
 	^method value: self withArguments: arguments! !
+
 !CefMenuModel categoriesForMethods!
 _addCheckItem_cefMenuModel:commandId:label:!**compiled accessors**!private! !
 _addItem_cefMenuModel:commandId:label:!**compiled accessors**!private! !
@@ -1595,6 +1601,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_sub_menu #clear #get_count #add_separator #add_item #add_check_item #add_radio_item #add_sub_menu #insert_separator_at #insert_item_at #insert_check_item_at #insert_radio_item_at #insert_sub_menu_at #remove #remove_at #get_index_of #get_command_id_at #set_command_id_at #get_label #get_label_at #set_label #set_label_at #get_type #get_type_at #get_group_id #get_group_id_at #set_group_id #set_group_id_at #get_sub_menu #get_sub_menu_at #is_visible #is_visible_at #set_visible #set_visible_at #is_enabled #is_enabled_at #set_enabled #set_enabled_at #is_checked #is_checked_at #set_checked #set_checked_at #has_accelerator #has_accelerator_at #set_accelerator #set_accelerator_at #remove_accelerator #remove_accelerator_at #get_accelerator #get_accelerator_at #set_color #set_color_at #get_color #get_color_at #set_font_list #set_font_list_at)! !
+
 !CefMenuModel class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

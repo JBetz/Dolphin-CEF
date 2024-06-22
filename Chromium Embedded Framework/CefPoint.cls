@@ -5,11 +5,16 @@ ExternalStructure subclass: #CefPoint
 	classVariableNames: '_OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefPoint guid: (GUID fromString: '{9149e9a1-b159-4bd3-81df-008d0c9cd03a}')!
+
 CefPoint addClassConstant: '_OffsetOf_x' value: 16r0!
 CefPoint addClassConstant: '_OffsetOf_y' value: 16r4!
+
 CefPoint comment: ''!
+
 !CefPoint categoriesForClass!External-Data-Structured! !
+
 !CefPoint methodsFor!
 
 x
@@ -31,6 +36,7 @@ y: anInteger
 	"Set the receiver's 'y' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
+
 !CefPoint categoriesForMethods!
 x!**compiled accessors**!public! !
 x:!**compiled accessors**!public! !
@@ -57,6 +63,7 @@ defineFields
 
 getFieldNames
 	^#(#x #y)! !
+
 !CefPoint class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

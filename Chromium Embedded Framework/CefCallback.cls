@@ -5,11 +5,16 @@ CefReferenceCountedObject subclass: #CefCallback
 	classVariableNames: '_OffsetOf_cancel _OffsetOf_cont'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefCallback guid: (GUID fromString: '{a5fdbd72-5c6e-4ebd-b158-f9d392ac4f75}')!
+
 CefCallback addClassConstant: '_OffsetOf_cancel' value: 16r18!
 CefCallback addClassConstant: '_OffsetOf_cont' value: 16r14!
+
 CefCallback comment: ''!
+
 !CefCallback categoriesForClass!External-Data-Structured! !
+
 !CefCallback methodsFor!
 
 _callCancel_cefCallback: cefCallback
@@ -49,6 +54,7 @@ cont: anExternalAddress
 	"Set the receiver's 'cont' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_cont put: anExternalAddress! !
+
 !CefCallback categoriesForMethods!
 _callCancel_cefCallback:!**compiled accessors**!private! !
 _callCont_cefCallback:!**compiled accessors**!private! !
@@ -76,6 +82,7 @@ defineFields
 
 getFieldNames
 	^#(#base #cont #cancel)! !
+
 !CefCallback class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefContextMenuParams
 	classVariableNames: '_OffsetOf_get_dictionary_suggestions _OffsetOf_get_edit_state_flags _OffsetOf_get_frame_charset _OffsetOf_get_frame_url _OffsetOf_get_link_url _OffsetOf_get_media_state_flags _OffsetOf_get_media_type _OffsetOf_get_misspelled_word _OffsetOf_get_page_url _OffsetOf_get_selection_text _OffsetOf_get_source_url _OffsetOf_get_title_text _OffsetOf_get_type_flags _OffsetOf_get_unfiltered_link_url _OffsetOf_get_xcoord _OffsetOf_get_ycoord _OffsetOf_has_image_contents _OffsetOf_is_custom_menu _OffsetOf_is_editable _OffsetOf_is_spell_check_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefContextMenuParams guid: (GUID fromString: '{f02a1c25-bcde-4aba-a936-035480364d6e}')!
+
 CefContextMenuParams addClassConstant: '_OffsetOf_get_dictionary_suggestions' value: 16r50!
 CefContextMenuParams addClassConstant: '_OffsetOf_get_edit_state_flags' value: 16r5C!
 CefContextMenuParams addClassConstant: '_OffsetOf_get_frame_charset' value: 16r3C!
@@ -26,8 +28,11 @@ CefContextMenuParams addClassConstant: '_OffsetOf_has_image_contents' value: 16r
 CefContextMenuParams addClassConstant: '_OffsetOf_is_custom_menu' value: 16r60!
 CefContextMenuParams addClassConstant: '_OffsetOf_is_editable' value: 16r54!
 CefContextMenuParams addClassConstant: '_OffsetOf_is_spell_check_enabled' value: 16r58!
+
 CefContextMenuParams comment: ''!
+
 !CefContextMenuParams categoriesForClass!External-Data-Structured! !
+
 !CefContextMenuParams methodsFor!
 
 _getDictionarySuggestions_cefContextMenuParams: cefContextMenuParams suggestions: suggestions
@@ -466,6 +471,7 @@ isSpellCheckEnabled
 
 isVideo
 	^self getMediaType bitOr: CM_MEDIATYPE_VIDEO! !
+
 !CefContextMenuParams categoriesForMethods!
 _getDictionarySuggestions_cefContextMenuParams:suggestions:!**compiled accessors**!private! !
 _getEditStateFlags_cefContextMenuParams:!**compiled accessors**!private! !
@@ -631,6 +637,7 @@ defineFields
 
 getFieldNames
 	^#(#base #get_xcoord #get_ycoord #get_type_flags #get_link_url #get_unfiltered_link_url #get_source_url #has_image_contents #get_title_text #get_page_url #get_frame_url #get_frame_charset #get_media_type #get_media_state_flags #get_selection_text #get_misspelled_word #get_dictionary_suggestions #is_editable #is_spell_check_enabled #get_edit_state_flags #is_custom_menu)! !
+
 !CefContextMenuParams class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

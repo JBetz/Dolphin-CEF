@@ -5,7 +5,9 @@ CefEventHandler subclass: #CefDisplayHandler
 	classVariableNames: '_OffsetOf_on_address_change _OffsetOf_on_auto_resize _OffsetOf_on_console_message _OffsetOf_on_cursor_change _OffsetOf_on_favicon_urlchange _OffsetOf_on_fullscreen_mode_change _OffsetOf_on_loading_progess_change _OffsetOf_on_media_access_change _OffsetOf_on_status_message _OffsetOf_on_title_change _OffsetOf_on_tooltip'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefDisplayHandler guid: (GUID fromString: '{428ca646-07e0-42af-af5c-516369c3ad11}')!
+
 CefDisplayHandler addClassConstant: '_OffsetOf_on_address_change' value: 16r14!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_auto_resize' value: 16r30!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_console_message' value: 16r2C!
@@ -17,8 +19,11 @@ CefDisplayHandler addClassConstant: '_OffsetOf_on_media_access_change' value: 16
 CefDisplayHandler addClassConstant: '_OffsetOf_on_status_message' value: 16r28!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_title_change' value: 16r18!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_tooltip' value: 16r24!
+
 CefDisplayHandler comment: ''!
+
 !CefDisplayHandler categoriesForClass!External-Data-Structured! !
+
 !CefDisplayHandler methodsFor!
 
 on_address_change
@@ -130,6 +135,7 @@ on_tooltip: anExternalAddress
 	"Set the receiver's 'on_tooltip' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_tooltip put: anExternalAddress! !
+
 !CefDisplayHandler categoriesForMethods!
 on_address_change!**compiled accessors**!public! !
 on_address_change:!**compiled accessors**!public! !
@@ -209,6 +215,7 @@ defineFields
 
 getFieldNames
 	^#(#base #on_address_change #on_title_change #on_favicon_urlchange #on_fullscreen_mode_change #on_tooltip #on_status_message #on_console_message #on_auto_resize #on_loading_progess_change #on_cursor_change #on_media_access_change)! !
+
 !CefDisplayHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

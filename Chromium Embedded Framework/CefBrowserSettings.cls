@@ -5,7 +5,9 @@ ExternalStructure subclass: #CefBrowserSettings
 	classVariableNames: '_OffsetOf_background_color _OffsetOf_cefSize _OffsetOf_chrome_status_bubble _OffsetOf_chrome_zoom_bubble _OffsetOf_cursive_font_family _OffsetOf_databases _OffsetOf_default_encoding _OffsetOf_default_fixed_font_size _OffsetOf_default_font_size _OffsetOf_fantasy_font_family _OffsetOf_fixed_font_family _OffsetOf_image_loading _OffsetOf_image_shrink_standalone_to_fit _OffsetOf_javascript _OffsetOf_javascript_access_clipboard _OffsetOf_javascript_close_windows _OffsetOf_javascript_dom_paste _OffsetOf_local_storage _OffsetOf_minimum_font_size _OffsetOf_minimum_logical_font_size _OffsetOf_remote_fonts _OffsetOf_sans_serif_font_family _OffsetOf_serif_font_family _OffsetOf_standard_font_family _OffsetOf_tab_to_links _OffsetOf_text_area_resize _OffsetOf_webgl _OffsetOf_windowless_frame_rate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefBrowserSettings guid: (GUID fromString: '{3f490dc9-740b-4b95-b9e7-b4d5eae00e91}')!
+
 CefBrowserSettings addClassConstant: '_OffsetOf_background_color' value: 16r9C!
 CefBrowserSettings addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefBrowserSettings addClassConstant: '_OffsetOf_chrome_status_bubble' value: 16rA0!
@@ -34,8 +36,11 @@ CefBrowserSettings addClassConstant: '_OffsetOf_tab_to_links' value: 16r8C!
 CefBrowserSettings addClassConstant: '_OffsetOf_text_area_resize' value: 16r88!
 CefBrowserSettings addClassConstant: '_OffsetOf_webgl' value: 16r98!
 CefBrowserSettings addClassConstant: '_OffsetOf_windowless_frame_rate' value: 16r4!
+
 CefBrowserSettings comment: ''!
+
 !CefBrowserSettings categoriesForClass!External-Libraries! !
+
 !CefBrowserSettings methodsFor!
 
 background_color
@@ -349,6 +354,7 @@ windowless_frame_rate: anInteger
 	"Set the receiver's 'windowless_frame_rate' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_windowless_frame_rate put: anInteger! !
+
 !CefBrowserSettings categoriesForMethods!
 background_color!**compiled accessors**!public! !
 background_color:!**compiled accessors**!public! !
@@ -446,6 +452,7 @@ defineFields
 
 getFieldNames
 	^#(#cefSize #windowless_frame_rate #standard_font_family #fixed_font_family #serif_font_family #sans_serif_font_family #cursive_font_family #fantasy_font_family #default_font_size #default_fixed_font_size #minimum_font_size #minimum_logical_font_size #default_encoding #remote_fonts #javascript #javascript_close_windows #javascript_access_clipboard #javascript_dom_paste #image_loading #image_shrink_standalone_to_fit #text_area_resize #tab_to_links #local_storage #databases #webgl #background_color #chrome_status_bubble #chrome_zoom_bubble)! !
+
 !CefBrowserSettings class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

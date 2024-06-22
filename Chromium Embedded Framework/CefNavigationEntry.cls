@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefNavigationEntry
 	classVariableNames: '_OffsetOf_get_completion_time _OffsetOf_get_display_url _OffsetOf_get_http_status_code _OffsetOf_get_original_url _OffsetOf_get_sslstatus _OffsetOf_get_title _OffsetOf_get_transition_type _OffsetOf_get_url _OffsetOf_has_post_data _OffsetOf_is_valid'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefNavigationEntry guid: (GUID fromString: '{bc4d832a-c859-46ef-86b3-7203b7652865}')!
+
 CefNavigationEntry addClassConstant: '_OffsetOf_get_completion_time' value: 16r30!
 CefNavigationEntry addClassConstant: '_OffsetOf_get_display_url' value: 16r1C!
 CefNavigationEntry addClassConstant: '_OffsetOf_get_http_status_code' value: 16r34!
@@ -16,8 +18,11 @@ CefNavigationEntry addClassConstant: '_OffsetOf_get_transition_type' value: 16r2
 CefNavigationEntry addClassConstant: '_OffsetOf_get_url' value: 16r18!
 CefNavigationEntry addClassConstant: '_OffsetOf_has_post_data' value: 16r2C!
 CefNavigationEntry addClassConstant: '_OffsetOf_is_valid' value: 16r14!
+
 CefNavigationEntry comment: ''!
+
 !CefNavigationEntry categoriesForClass!External-Data-Structured! !
+
 !CefNavigationEntry methodsFor!
 
 _getCompletionTime_cefNavigationEntry: cefNavigationEntry
@@ -216,6 +221,7 @@ isValid
 	| method |
 	method := self class externalMethodAt: #_isValid_cefNavigationEntry: ifAbsentBindTo: self is_valid.
 	^method value: self withArguments: (Array with: self)! !
+
 !CefNavigationEntry categoriesForMethods!
 _getCompletionTime_cefNavigationEntry:!**compiled accessors**!private! !
 _getDisplayUrl_cefNavigationEntry:!**compiled accessors**!private! !
@@ -294,6 +300,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_valid #get_url #get_display_url #get_original_url #get_title #get_transition_type #has_post_data #get_completion_time #get_http_status_code #get_sslstatus)! !
+
 !CefNavigationEntry class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

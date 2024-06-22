@@ -5,13 +5,18 @@ ExternalStructure subclass: #CefCursorInfo
 	classVariableNames: '_OffsetOf_buffer _OffsetOf_hotspot _OffsetOf_image_scale_factor _OffsetOf_size'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefCursorInfo guid: (GUID fromString: '{41e8c531-c677-4524-b7a3-21824a6e22bd}')!
+
 CefCursorInfo addClassConstant: '_OffsetOf_buffer' value: 16rC!
 CefCursorInfo addClassConstant: '_OffsetOf_hotspot' value: 16r0!
 CefCursorInfo addClassConstant: '_OffsetOf_image_scale_factor' value: 16r8!
 CefCursorInfo addClassConstant: '_OffsetOf_size' value: 16r10!
+
 CefCursorInfo comment: ''!
+
 !CefCursorInfo categoriesForClass!External-Data-Structured! !
+
 !CefCursorInfo methodsFor!
 
 buffer
@@ -57,6 +62,7 @@ size: anInteger
 	"Set the receiver's 'size' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_size put: anInteger! !
+
 !CefCursorInfo categoriesForMethods!
 buffer!**compiled accessors**!public! !
 buffer:!**compiled accessors**!public! !
@@ -93,6 +99,7 @@ defineFields
 
 getFieldNames
 	^#(#hotspot #image_scale_factor #buffer #size)! !
+
 !CefCursorInfo class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

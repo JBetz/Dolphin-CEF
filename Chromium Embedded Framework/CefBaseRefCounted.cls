@@ -5,14 +5,19 @@ ExtendedExternalStructure subclass: #CefBaseRefCounted
 	classVariableNames: '_OffsetOf_add_ref _OffsetOf_cefSize _OffsetOf_has_at_least_one_ref _OffsetOf_has_one_ref _OffsetOf_release'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefBaseRefCounted guid: (GUID fromString: '{30cef58a-166e-43e1-b838-2bed36062965}')!
+
 CefBaseRefCounted addClassConstant: '_OffsetOf_add_ref' value: 16r4!
 CefBaseRefCounted addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefBaseRefCounted addClassConstant: '_OffsetOf_has_at_least_one_ref' value: 16r10!
 CefBaseRefCounted addClassConstant: '_OffsetOf_has_one_ref' value: 16rC!
 CefBaseRefCounted addClassConstant: '_OffsetOf_release' value: 16r8!
+
 CefBaseRefCounted comment: ''!
+
 !CefBaseRefCounted categoriesForClass!External-Data-Structured! !
+
 !CefBaseRefCounted methodsFor!
 
 _addRef_cefBaseRefCounted: cefBaseRefCounted
@@ -109,6 +114,7 @@ release: anExternalAddress
 	"Set the receiver's 'release' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_release put: anExternalAddress! !
+
 !CefBaseRefCounted categoriesForMethods!
 _addRef_cefBaseRefCounted:!**compiled accessors**!private! !
 _callRelease_cefBaseRefCounted:!**compiled accessors**!private! !
@@ -153,6 +159,7 @@ defineFields
 
 getFieldNames
 	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref)! !
+
 !CefBaseRefCounted class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

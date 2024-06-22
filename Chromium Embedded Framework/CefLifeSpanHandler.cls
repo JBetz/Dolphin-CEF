@@ -5,14 +5,19 @@ CefEventHandler subclass: #CefLifeSpanHandler
 	classVariableNames: '_OffsetOf_do_close _OffsetOf_on_after_created _OffsetOf_on_before_close _OffsetOf_on_before_dev_tools_popup _OffsetOf_on_before_popup'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefLifeSpanHandler guid: (GUID fromString: '{5f052d4e-3838-4451-922c-b95695377d92}')!
+
 CefLifeSpanHandler addClassConstant: '_OffsetOf_do_close' value: 16r20!
 CefLifeSpanHandler addClassConstant: '_OffsetOf_on_after_created' value: 16r1C!
 CefLifeSpanHandler addClassConstant: '_OffsetOf_on_before_close' value: 16r24!
 CefLifeSpanHandler addClassConstant: '_OffsetOf_on_before_dev_tools_popup' value: 16r18!
 CefLifeSpanHandler addClassConstant: '_OffsetOf_on_before_popup' value: 16r14!
+
 CefLifeSpanHandler comment: ''!
+
 !CefLifeSpanHandler categoriesForClass!External-Data-Structured! !
+
 !CefLifeSpanHandler methodsFor!
 
 do_close
@@ -64,6 +69,7 @@ on_before_popup: anExternalAddress
 	"Set the receiver's 'on_before_popup' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_before_popup put: anExternalAddress! !
+
 !CefLifeSpanHandler categoriesForMethods!
 do_close!**compiled accessors**!public! !
 do_close:!**compiled accessors**!public! !
@@ -104,6 +110,7 @@ defineFields
 
 getFieldNames
 	^#(#base #on_before_popup #on_before_dev_tools_popup #on_after_created #do_close #on_before_close)! !
+
 !CefLifeSpanHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

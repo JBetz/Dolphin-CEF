@@ -5,9 +5,13 @@ Object subclass: #CefBrowserProcessRunner
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: 'Singleton'!
+
 CefBrowserProcessRunner guid: (GUID fromString: '{a2d64bd2-4dd7-431d-a764-321e2869bfba}')!
+
 CefBrowserProcessRunner comment: ''!
+
 !CefBrowserProcessRunner categoriesForClass!Kernel-Objects! !
+
 !CefBrowserProcessRunner methodsFor!
 
 ensureRunning
@@ -145,6 +149,7 @@ stopMessageLoopProcess
 
 useMultiThreadedMessageLoop
 	^cefSettings multi_threaded_message_loop asBoolean! !
+
 !CefBrowserProcessRunner categoriesForMethods!
 ensureRunning!public! !
 executeCefProcess!private! !
@@ -208,6 +213,7 @@ onStartup
 
 pause
 	self new pause! !
+
 !CefBrowserProcessRunner class categoriesForMethods!
 ensureRunning!public! !
 initialize!public! !

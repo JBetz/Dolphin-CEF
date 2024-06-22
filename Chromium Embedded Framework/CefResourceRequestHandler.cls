@@ -5,7 +5,9 @@ CefEventHandler subclass: #CefResourceRequestHandler
 	classVariableNames: '_OffsetOf_get_cookie_access_filter _OffsetOf_get_resource_handler _OffsetOf_get_resource_response_filter _OffsetOf_on_before_resource_load _OffsetOf_on_protocol_execution _OffsetOf_on_resource_load_complete _OffsetOf_on_resource_redirect _OffsetOf_on_resource_response'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefResourceRequestHandler guid: (GUID fromString: '{7b01d548-a9df-4d53-9d05-332ab8b06460}')!
+
 CefResourceRequestHandler addClassConstant: '_OffsetOf_get_cookie_access_filter' value: 16r14!
 CefResourceRequestHandler addClassConstant: '_OffsetOf_get_resource_handler' value: 16r1C!
 CefResourceRequestHandler addClassConstant: '_OffsetOf_get_resource_response_filter' value: 16r28!
@@ -14,8 +16,11 @@ CefResourceRequestHandler addClassConstant: '_OffsetOf_on_protocol_execution' va
 CefResourceRequestHandler addClassConstant: '_OffsetOf_on_resource_load_complete' value: 16r2C!
 CefResourceRequestHandler addClassConstant: '_OffsetOf_on_resource_redirect' value: 16r20!
 CefResourceRequestHandler addClassConstant: '_OffsetOf_on_resource_response' value: 16r24!
+
 CefResourceRequestHandler comment: ''!
+
 !CefResourceRequestHandler categoriesForClass!External-Data-Structured! !
+
 !CefResourceRequestHandler methodsFor!
 
 get_cookie_access_filter
@@ -97,6 +102,7 @@ on_resource_response: anExternalAddress
 	"Set the receiver's 'on_resource_response' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_resource_response put: anExternalAddress! !
+
 !CefResourceRequestHandler categoriesForMethods!
 get_cookie_access_filter!**compiled accessors**!public! !
 get_cookie_access_filter:!**compiled accessors**!public! !
@@ -143,6 +149,7 @@ defineFields
 
 getFieldNames
 	^#(#base #get_cookie_access_filter #on_before_resource_load #get_resource_handler #on_resource_redirect #on_resource_response #get_resource_response_filter #on_resource_load_complete #on_protocol_execution)! !
+
 !CefResourceRequestHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

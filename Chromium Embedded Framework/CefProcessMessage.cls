@@ -5,15 +5,20 @@ CefReferenceCountedObject subclass: #CefProcessMessage
 	classVariableNames: '_OffsetOf_copy _OffsetOf_get_argument_list _OffsetOf_get_name _OffsetOf_get_shared_memory_region _OffsetOf_is_read_only _OffsetOf_is_valid'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefProcessMessage guid: (GUID fromString: '{cfe04cb9-de18-4201-a0af-f102739f3dd9}')!
+
 CefProcessMessage addClassConstant: '_OffsetOf_copy' value: 16r1C!
 CefProcessMessage addClassConstant: '_OffsetOf_get_argument_list' value: 16r24!
 CefProcessMessage addClassConstant: '_OffsetOf_get_name' value: 16r20!
 CefProcessMessage addClassConstant: '_OffsetOf_get_shared_memory_region' value: 16r28!
 CefProcessMessage addClassConstant: '_OffsetOf_is_read_only' value: 16r18!
 CefProcessMessage addClassConstant: '_OffsetOf_is_valid' value: 16r14!
+
 CefProcessMessage comment: ''!
+
 !CefProcessMessage categoriesForClass!External-Data-Structured! !
+
 !CefProcessMessage methodsFor!
 
 _callCopy_cefProcessMessage: cefProcessMessage
@@ -122,6 +127,7 @@ isValid
 	| method |
 	method := self class externalMethodAt: #_isValid_cefProcessMessage: ifAbsentBindTo: self is_valid.
 	^method value: self withArguments: (Array with: self)! !
+
 !CefProcessMessage categoriesForMethods!
 _callCopy_cefProcessMessage:!**compiled accessors**!private! !
 _getArgumentList_cefProcessMessage:!**compiled accessors**!private! !
@@ -172,6 +178,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_valid #is_read_only #copy #get_name #get_argument_list #get_shared_memory_region)! !
+
 !CefProcessMessage class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

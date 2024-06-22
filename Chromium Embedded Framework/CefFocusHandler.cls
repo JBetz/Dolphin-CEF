@@ -5,12 +5,17 @@ CefEventHandler subclass: #CefFocusHandler
 	classVariableNames: '_OffsetOf_on_got_focus _OffsetOf_on_set_focus _OffsetOf_on_take_focus'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefFocusHandler guid: (GUID fromString: '{180ddfb8-f6ca-4b49-a643-1435064da908}')!
+
 CefFocusHandler addClassConstant: '_OffsetOf_on_got_focus' value: 16r1C!
 CefFocusHandler addClassConstant: '_OffsetOf_on_set_focus' value: 16r18!
 CefFocusHandler addClassConstant: '_OffsetOf_on_take_focus' value: 16r14!
+
 CefFocusHandler comment: ''!
+
 !CefFocusHandler categoriesForClass!External-Data-Structured! !
+
 !CefFocusHandler methodsFor!
 
 on_got_focus
@@ -42,6 +47,7 @@ on_take_focus: anExternalAddress
 	"Set the receiver's 'on_take_focus' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_take_focus put: anExternalAddress! !
+
 !CefFocusHandler categoriesForMethods!
 on_got_focus!**compiled accessors**!public! !
 on_got_focus:!**compiled accessors**!public! !
@@ -73,6 +79,7 @@ defineFields
 
 getFieldNames
 	^#(#base #on_take_focus #on_set_focus #on_got_focus)! !
+
 !CefFocusHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

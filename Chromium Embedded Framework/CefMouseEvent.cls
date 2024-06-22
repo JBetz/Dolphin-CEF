@@ -5,12 +5,17 @@ ExternalStructure subclass: #CefMouseEvent
 	classVariableNames: '_OffsetOf_modifiers _OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefMouseEvent guid: (GUID fromString: '{1fe34822-b03a-454c-b7cd-acae8f6ca85f}')!
+
 CefMouseEvent addClassConstant: '_OffsetOf_modifiers' value: 16r8!
 CefMouseEvent addClassConstant: '_OffsetOf_x' value: 16r0!
 CefMouseEvent addClassConstant: '_OffsetOf_y' value: 16r4!
+
 CefMouseEvent comment: ''!
+
 !CefMouseEvent categoriesForClass!External-Data-Structured! !
+
 !CefMouseEvent methodsFor!
 
 modifiers
@@ -42,6 +47,7 @@ y: anInteger
 	"Set the receiver's 'y' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
+
 !CefMouseEvent categoriesForMethods!
 modifiers!public! !
 modifiers:!public! !
@@ -84,6 +90,7 @@ defineFields
 
 getFieldNames
 	^#(#x #y #modifiers)! !
+
 !CefMouseEvent class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

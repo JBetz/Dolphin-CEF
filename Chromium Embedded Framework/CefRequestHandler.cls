@@ -5,7 +5,9 @@ CefEventHandler subclass: #CefRequestHandler
 	classVariableNames: '_OffsetOf_get_auth_credentials _OffsetOf_get_resource_request_handler _OffsetOf_on_before_browse _OffsetOf_on_certificate_error _OffsetOf_on_document_available_in_main_frame _OffsetOf_on_open_urlfrom_tab _OffsetOf_on_render_process_terminated _OffsetOf_on_render_view_ready _OffsetOf_on_select_client_certificate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefRequestHandler guid: (GUID fromString: '{cc61b184-defe-45ef-9e7c-17aa5f9fb29c}')!
+
 CefRequestHandler addClassConstant: '_OffsetOf_get_auth_credentials' value: 16r20!
 CefRequestHandler addClassConstant: '_OffsetOf_get_resource_request_handler' value: 16r1C!
 CefRequestHandler addClassConstant: '_OffsetOf_on_before_browse' value: 16r14!
@@ -15,8 +17,11 @@ CefRequestHandler addClassConstant: '_OffsetOf_on_open_urlfrom_tab' value: 16r18
 CefRequestHandler addClassConstant: '_OffsetOf_on_render_process_terminated' value: 16r30!
 CefRequestHandler addClassConstant: '_OffsetOf_on_render_view_ready' value: 16r2C!
 CefRequestHandler addClassConstant: '_OffsetOf_on_select_client_certificate' value: 16r28!
+
 CefRequestHandler comment: ''!
+
 !CefRequestHandler categoriesForClass!External-Data-Structured! !
+
 !CefRequestHandler methodsFor!
 
 get_auth_credentials
@@ -108,6 +113,7 @@ on_select_client_certificate: anExternalAddress
 	"Set the receiver's 'on_select_client_certificate' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_select_client_certificate put: anExternalAddress! !
+
 !CefRequestHandler categoriesForMethods!
 get_auth_credentials!**compiled accessors**!public! !
 get_auth_credentials:!**compiled accessors**!public! !
@@ -160,6 +166,7 @@ defineFields
 
 getFieldNames
 	^#(#base #on_before_browse #on_open_urlfrom_tab #get_resource_request_handler #get_auth_credentials #on_certificate_error #on_select_client_certificate #on_render_view_ready #on_render_process_terminated #on_document_available_in_main_frame)! !
+
 !CefRequestHandler class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefFrame
 	classVariableNames: '_OffsetOf_copy _OffsetOf_create_urlrequest _OffsetOf_cut _OffsetOf_del _OffsetOf_execute_java_script _OffsetOf_get_browser _OffsetOf_get_identifier _OffsetOf_get_name _OffsetOf_get_parent _OffsetOf_get_source _OffsetOf_get_text _OffsetOf_get_url _OffsetOf_get_v8context _OffsetOf_is_focused _OffsetOf_is_main _OffsetOf_is_valid _OffsetOf_load_request _OffsetOf_load_url _OffsetOf_paste _OffsetOf_redo _OffsetOf_select_all _OffsetOf_send_process_message _OffsetOf_undo _OffsetOf_view_source _OffsetOf_visit_dom'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefFrame guid: (GUID fromString: '{7b6301e0-a539-4aa5-a87a-7fe57cce10b5}')!
+
 CefFrame addClassConstant: '_OffsetOf_copy' value: 16r24!
 CefFrame addClassConstant: '_OffsetOf_create_urlrequest' value: 16r70!
 CefFrame addClassConstant: '_OffsetOf_cut' value: 16r20!
@@ -31,8 +33,11 @@ CefFrame addClassConstant: '_OffsetOf_send_process_message' value: 16r74!
 CefFrame addClassConstant: '_OffsetOf_undo' value: 16r18!
 CefFrame addClassConstant: '_OffsetOf_view_source' value: 16r34!
 CefFrame addClassConstant: '_OffsetOf_visit_dom' value: 16r6C!
+
 CefFrame comment: ''!
+
 !CefFrame categoriesForClass!External-Data-Structured! !
+
 !CefFrame methodsFor!
 
 _callCopy_cefFrame: cefFrame
@@ -458,6 +463,7 @@ visit_dom: anExternalAddress
 	"Set the receiver's 'visit_dom' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_visit_dom put: anExternalAddress! !
+
 !CefFrame categoriesForMethods!
 _callCopy_cefFrame:!**compiled accessors**!private! !
 _callCut_cefFrame:!**compiled accessors**!private! !
@@ -612,6 +618,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_valid #undo #redo #cut #copy #paste #del #select_all #view_source #get_source #get_text #load_request #load_url #execute_java_script #is_main #is_focused #get_name #get_identifier #get_parent #get_url #get_browser #get_v8context #visit_dom #create_urlrequest #send_process_message)! !
+
 !CefFrame class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

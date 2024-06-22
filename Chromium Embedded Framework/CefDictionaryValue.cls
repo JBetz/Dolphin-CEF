@@ -5,7 +5,9 @@ CefReferenceCountedObject subclass: #CefDictionaryValue
 	classVariableNames: '_OffsetOf_clear _OffsetOf_copy _OffsetOf_get_binary _OffsetOf_get_bool _OffsetOf_get_dictionary _OffsetOf_get_double _OffsetOf_get_int _OffsetOf_get_keys _OffsetOf_get_list _OffsetOf_get_size _OffsetOf_get_string _OffsetOf_get_type _OffsetOf_get_value _OffsetOf_has_key _OffsetOf_is_equal _OffsetOf_is_owned _OffsetOf_is_read_only _OffsetOf_is_same _OffsetOf_is_valid _OffsetOf_remove _OffsetOf_set_binary _OffsetOf_set_bool _OffsetOf_set_dictionary _OffsetOf_set_double _OffsetOf_set_int _OffsetOf_set_list _OffsetOf_set_null _OffsetOf_set_string _OffsetOf_set_value'
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
+
 CefDictionaryValue guid: (GUID fromString: '{859f8717-86af-4fe4-8484-7078c1c9fce7}')!
+
 CefDictionaryValue addClassConstant: '_OffsetOf_clear' value: 16r30!
 CefDictionaryValue addClassConstant: '_OffsetOf_copy' value: 16r28!
 CefDictionaryValue addClassConstant: '_OffsetOf_get_binary' value: 16r58!
@@ -35,8 +37,11 @@ CefDictionaryValue addClassConstant: '_OffsetOf_set_list' value: 16r84!
 CefDictionaryValue addClassConstant: '_OffsetOf_set_null' value: 16r68!
 CefDictionaryValue addClassConstant: '_OffsetOf_set_string' value: 16r78!
 CefDictionaryValue addClassConstant: '_OffsetOf_set_value' value: 16r64!
+
 CefDictionaryValue comment: ''!
+
 !CefDictionaryValue categoriesForClass!External-Data-Structured! !
+
 !CefDictionaryValue methodsFor!
 
 _callClear_cefDictionaryValue: cefDictionaryValue
@@ -494,6 +499,9 @@ is_valid: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_is_valid put: anExternalAddress!
 
+isEmpty
+	^self getSize = 0!
+
 isEqual_that: that
 	| method arguments |
 	method := self class externalMethodAt: #_isEqual_cefDictionaryValue:that:
@@ -736,6 +744,7 @@ setValue_key: key value: value
 		at: 2 put: key;
 		at: 3 put: value.
 	^method value: self withArguments: arguments! !
+
 !CefDictionaryValue categoriesForMethods!
 _callClear_cefDictionaryValue:!**compiled accessors**!private! !
 _copy_cefDictionaryValue:excludeEmptyChildren:!**compiled accessors**!private! !
@@ -819,6 +828,7 @@ is_same!**compiled accessors**!public! !
 is_same:!**compiled accessors**!public! !
 is_valid!**compiled accessors**!public! !
 is_valid:!**compiled accessors**!public! !
+isEmpty!public! !
 isEqual_that:!**compiled accessors**!public! !
 isOwned!**compiled accessors**!public! !
 isReadOnly!**compiled accessors**!public! !
@@ -965,6 +975,7 @@ defineFields
 
 getFieldNames
 	^#(#base #is_valid #is_owned #is_read_only #is_same #is_equal #copy #get_size #clear #has_key #get_keys #remove #get_type #get_value #get_bool #get_int #get_double #get_string #get_binary #get_dictionary #get_list #set_value #set_null #set_bool #set_int #set_double #set_string #set_binary #set_dictionary #set_list)! !
+
 !CefDictionaryValue class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -5,9 +5,13 @@ ContainerView subclass: #WebBrowserView
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 WebBrowserView guid: (GUID fromString: '{8dd4867b-32a5-40c8-86f3-8e9e7be0b4ea}')!
+
 WebBrowserView comment: ''!
+
 !WebBrowserView categoriesForClass!MVP-Resources-Misc! !
+
 !WebBrowserView methodsFor!
 
 cursor: aSymbol!
@@ -42,6 +46,7 @@ onViewDestroyed
 
 pushCloseEvent
 ! !
+
 !WebBrowserView categoriesForMethods!
 cursor:!public! !
 loadUrl:!public! !
@@ -74,6 +79,8 @@ example
 		show;
 		loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin' asUrl;
 		yourself! !
+
 !WebBrowserView class categoriesForMethods!
 example!public! !
 !
+
