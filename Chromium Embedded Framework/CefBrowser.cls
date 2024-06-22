@@ -2,15 +2,17 @@
 
 CefReferenceCountedObject subclass: #CefBrowser
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_can_go_back _OffsetOf_can_go_forward _OffsetOf_get_focused_frame _OffsetOf_get_frame _OffsetOf_get_frame_byident _OffsetOf_get_frame_count _OffsetOf_get_frame_identifiers _OffsetOf_get_frame_names _OffsetOf_get_host _OffsetOf_get_identifier _OffsetOf_get_main_frame _OffsetOf_go_back _OffsetOf_go_forward _OffsetOf_has_document _OffsetOf_is_loading _OffsetOf_is_popup _OffsetOf_is_same _OffsetOf_is_valid _OffsetOf_reload _OffsetOf_reload_ignore_cache _OffsetOf_stop_load'
+	classVariableNames: '_OffsetOf_can_go_back _OffsetOf_can_go_forward _OffsetOf_get_focused_frame _OffsetOf_get_frame_by_identifier _OffsetOf_get_frame_by_name _OffsetOf_get_frame_count _OffsetOf_get_frame_identifiers _OffsetOf_get_frame_names _OffsetOf_get_host _OffsetOf_get_identifier _OffsetOf_get_main_frame _OffsetOf_go_back _OffsetOf_go_forward _OffsetOf_has_document _OffsetOf_is_loading _OffsetOf_is_popup _OffsetOf_is_same _OffsetOf_is_valid _OffsetOf_reload _OffsetOf_reload_ignore_cache _OffsetOf_stop_load'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefBrowser guid: (GUID fromString: '{d434de6f-00d9-4cee-9953-fbfbd09ffa9b}')!
+
 CefBrowser addClassConstant: '_OffsetOf_can_go_back' value: 16r1C!
 CefBrowser addClassConstant: '_OffsetOf_can_go_forward' value: 16r24!
 CefBrowser addClassConstant: '_OffsetOf_get_focused_frame' value: 16r50!
-CefBrowser addClassConstant: '_OffsetOf_get_frame' value: 16r58!
-CefBrowser addClassConstant: '_OffsetOf_get_frame_byident' value: 16r54!
+CefBrowser addClassConstant: '_OffsetOf_get_frame_by_identifier' value: 16r54!
+CefBrowser addClassConstant: '_OffsetOf_get_frame_by_name' value: 16r58!
 CefBrowser addClassConstant: '_OffsetOf_get_frame_count' value: 16r5C!
 CefBrowser addClassConstant: '_OffsetOf_get_frame_identifiers' value: 16r60!
 CefBrowser addClassConstant: '_OffsetOf_get_frame_names' value: 16r64!
@@ -27,8 +29,11 @@ CefBrowser addClassConstant: '_OffsetOf_is_valid' value: 16r14!
 CefBrowser addClassConstant: '_OffsetOf_reload' value: 16r30!
 CefBrowser addClassConstant: '_OffsetOf_reload_ignore_cache' value: 16r34!
 CefBrowser addClassConstant: '_OffsetOf_stop_load' value: 16r38!
+
 CefBrowser comment: ''!
+
 !CefBrowser categoriesForClass!External-Data-Structured! !
+
 !CefBrowser methodsFor!
 
 _callReload_cefBrowser: cefBrowser
@@ -51,20 +56,20 @@ _getFocusedFrame_cefBrowser: cefBrowser
 	<stdcall: CefFrame* get_focused_frame CefBrowser*>
 	^self invalidCall: _failureCode!
 
-_getFrame_cefBrowser: cefBrowser name: name
-	<stdcall: CefFrame* get_frame CefBrowser* CefString*>
+_getFrameByIdentifier_cefBrowser: cefBrowser identifier: identifier
+	<stdcall: CefFrame* get_frame_by_identifier CefBrowser* CefString*>
 	^self invalidCall: _failureCode!
 
-_getFrameByident_cefBrowser: cefBrowser identifier: identifier
-	<stdcall: CefFrame* get_frame_byident CefBrowser* sqword>
+_getFrameByName_cefBrowser: cefBrowser name: name
+	<stdcall: CefFrame* get_frame_by_name CefBrowser* CefString*>
 	^self invalidCall: _failureCode!
 
 _getFrameCount_cefBrowser: cefBrowser
 	<stdcall: dword get_frame_count CefBrowser*>
 	^self invalidCall: _failureCode!
 
-_getFrameIdentifiers_cefBrowser: cefBrowser identifiersCount: identifiersCount identifiers: identifiers
-	<stdcall: void get_frame_identifiers CefBrowser* dword* sqword*>
+_getFrameIdentifiers_cefBrowser: cefBrowser identifiers: identifiers
+	<stdcall: void get_frame_identifiers CefBrowser* CefStringList*>
 	^self invalidCall: _failureCode!
 
 _getFrameNames_cefBrowser: cefBrowser names: names
@@ -167,25 +172,25 @@ get_focused_frame: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_get_focused_frame put: anExternalAddress!
 
-get_frame
-	"Answer the <ExternalAddress> value of the receiver's 'get_frame' field."
+get_frame_by_identifier
+	"Answer the <ExternalAddress> value of the receiver's 'get_frame_by_identifier' field."
 
-	^(bytes uintPtrAtOffset: _OffsetOf_get_frame) asExternalAddress!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_frame_by_identifier) asExternalAddress!
 
-get_frame: anExternalAddress
-	"Set the receiver's 'get_frame' field to the value of the argument, anExternalAddress"
+get_frame_by_identifier: anExternalAddress
+	"Set the receiver's 'get_frame_by_identifier' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_get_frame put: anExternalAddress!
+	bytes uintPtrAtOffset: _OffsetOf_get_frame_by_identifier put: anExternalAddress!
 
-get_frame_byident
-	"Answer the <ExternalAddress> value of the receiver's 'get_frame_byident' field."
+get_frame_by_name
+	"Answer the <ExternalAddress> value of the receiver's 'get_frame_by_name' field."
 
-	^(bytes uintPtrAtOffset: _OffsetOf_get_frame_byident) asExternalAddress!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_frame_by_name) asExternalAddress!
 
-get_frame_byident: anExternalAddress
-	"Set the receiver's 'get_frame_byident' field to the value of the argument, anExternalAddress"
+get_frame_by_name: anExternalAddress
+	"Set the receiver's 'get_frame_by_name' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_get_frame_byident put: anExternalAddress!
+	bytes uintPtrAtOffset: _OffsetOf_get_frame_by_name put: anExternalAddress!
 
 get_frame_count
 	"Answer the <ExternalAddress> value of the receiver's 'get_frame_count' field."
@@ -253,23 +258,24 @@ getFocusedFrame
 				ifAbsentBindTo: self get_focused_frame.
 	^method value: self withArguments: (Array with: self)!
 
-getFrame_name: name
+getFrameByIdentifier_identifier: identifier
 	| method arguments |
-	method := self class externalMethodAt: #_getFrame_cefBrowser:name: ifAbsentBindTo: self get_frame.
-	arguments := Array new: 2.
-	arguments
-		at: 1 put: self;
-		at: 2 put: name.
-	^method value: self withArguments: arguments!
-
-getFrameByident_identifier: identifier
-	| method arguments |
-	method := self class externalMethodAt: #_getFrameByident_cefBrowser:identifier:
-				ifAbsentBindTo: self get_frame_byident.
+	method := self class externalMethodAt: #_getFrameByIdentifier_cefBrowser:identifier:
+				ifAbsentBindTo: self get_frame_by_identifier.
 	arguments := Array new: 2.
 	arguments
 		at: 1 put: self;
 		at: 2 put: identifier.
+	^method value: self withArguments: arguments!
+
+getFrameByName_name: name
+	| method arguments |
+	method := self class externalMethodAt: #_getFrameByName_cefBrowser:name:
+				ifAbsentBindTo: self get_frame_by_name.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: name.
 	^method value: self withArguments: arguments!
 
 getFrameCount
@@ -278,16 +284,14 @@ getFrameCount
 				ifAbsentBindTo: self get_frame_count.
 	^method value: self withArguments: (Array with: self)!
 
-getFrameIdentifiers_identifiersCount: identifiersCount identifiers: identifiers
+getFrameIdentifiers_identifiers: identifiers
 	| method arguments |
-	method := self class
-				externalMethodAt: #_getFrameIdentifiers_cefBrowser:identifiersCount:identifiers:
+	method := self class externalMethodAt: #_getFrameIdentifiers_cefBrowser:identifiers:
 				ifAbsentBindTo: self get_frame_identifiers.
-	arguments := Array new: 3.
+	arguments := Array new: 2.
 	arguments
 		at: 1 put: self;
-		at: 2 put: identifiersCount;
-		at: 3 put: identifiers.
+		at: 2 put: identifiers.
 	^method value: self withArguments: arguments!
 
 getFrameNames_names: names
@@ -460,16 +464,17 @@ stopLoad
 	| method |
 	method := self class externalMethodAt: #_stopLoad_cefBrowser: ifAbsentBindTo: self stop_load.
 	^method value: self withArguments: (Array with: self)! !
+
 !CefBrowser categoriesForMethods!
 _callReload_cefBrowser:!**compiled accessors**!private! !
 _callReloadIgnoreCache_cefBrowser:!**compiled accessors**!private! !
 _canGoBack_cefBrowser:!**compiled accessors**!private! !
 _canGoForward_cefBrowser:!**compiled accessors**!private! !
 _getFocusedFrame_cefBrowser:!**compiled accessors**!private! !
-_getFrame_cefBrowser:name:!**compiled accessors**!private! !
-_getFrameByident_cefBrowser:identifier:!**compiled accessors**!private! !
+_getFrameByIdentifier_cefBrowser:identifier:!**compiled accessors**!private! !
+_getFrameByName_cefBrowser:name:!**compiled accessors**!private! !
 _getFrameCount_cefBrowser:!**compiled accessors**!private! !
-_getFrameIdentifiers_cefBrowser:identifiersCount:identifiers:!**compiled accessors**!private! !
+_getFrameIdentifiers_cefBrowser:identifiers:!**compiled accessors**!private! !
 _getFrameNames_cefBrowser:names:!**compiled accessors**!private! !
 _getHost_cefBrowser:!**compiled accessors**!private! !
 _getIdentifier_cefBrowser:!**compiled accessors**!private! !
@@ -492,10 +497,10 @@ canGoBack!**compiled accessors**!public! !
 canGoForward!**compiled accessors**!public! !
 get_focused_frame!**compiled accessors**!public! !
 get_focused_frame:!**compiled accessors**!public! !
-get_frame!**compiled accessors**!public! !
-get_frame:!**compiled accessors**!public! !
-get_frame_byident!**compiled accessors**!public! !
-get_frame_byident:!**compiled accessors**!public! !
+get_frame_by_identifier!**compiled accessors**!public! !
+get_frame_by_identifier:!**compiled accessors**!public! !
+get_frame_by_name!**compiled accessors**!public! !
+get_frame_by_name:!**compiled accessors**!public! !
 get_frame_count!**compiled accessors**!public! !
 get_frame_count:!**compiled accessors**!public! !
 get_frame_identifiers!**compiled accessors**!public! !
@@ -509,10 +514,10 @@ get_identifier:!**compiled accessors**!public! !
 get_main_frame!**compiled accessors**!public! !
 get_main_frame:!**compiled accessors**!public! !
 getFocusedFrame!**compiled accessors**!public! !
-getFrame_name:!**compiled accessors**!public! !
-getFrameByident_identifier:!**compiled accessors**!public! !
+getFrameByIdentifier_identifier:!**compiled accessors**!public! !
+getFrameByName_name:!**compiled accessors**!public! !
 getFrameCount!**compiled accessors**!public! !
-getFrameIdentifiers_identifiersCount:identifiers:!**compiled accessors**!public! !
+getFrameIdentifiers_identifiers:!**compiled accessors**!public! !
 getFrameNames_names:!**compiled accessors**!public! !
 getHost!**compiled accessors**!public! !
 getIdentifier!**compiled accessors**!public! !
@@ -591,27 +596,28 @@ defineFields
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrame* CefBrowser*'));
 		defineField: #get_focused_frame
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrame* CefBrowser*'));
-		defineField: #get_frame_byident
-			type: (MethodField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrame* CefBrowser* sqword')
-					smalltalkName: #getFrameByident_identifier:);
-		defineField: #get_frame
+		defineField: #get_frame_by_identifier
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrame* CefBrowser* CefString*')
-					smalltalkName: #getFrame_name:);
+					smalltalkName: #getFrameByIdentifier_identifier:);
+		defineField: #get_frame_by_name
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefFrame* CefBrowser* CefString*')
+					smalltalkName: #getFrameByName_name:);
 		defineField: #get_frame_count
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: dword CefBrowser*'));
 		defineField: #get_frame_identifiers
 			type: (MethodField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser* dword* sqword*')
-					smalltalkName: #getFrameIdentifiers_identifiersCount:identifiers:);
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser* CefStringList*')
+					smalltalkName: #getFrameIdentifiers_identifiers:);
 		defineField: #get_frame_names
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowser* CefStringList*')
 					smalltalkName: #getFrameNames_names:)!
 
 getFieldNames
-	^#(#base #is_valid #get_host #can_go_back #go_back #can_go_forward #go_forward #is_loading #reload #reload_ignore_cache #stop_load #get_identifier #is_same #is_popup #has_document #get_main_frame #get_focused_frame #get_frame_byident #get_frame #get_frame_count #get_frame_identifiers #get_frame_names)! !
+	^#(#base #is_valid #get_host #can_go_back #go_back #can_go_forward #go_forward #is_loading #reload #reload_ignore_cache #stop_load #get_identifier #is_same #is_popup #has_document #get_main_frame #get_focused_frame #get_frame_by_identifier #get_frame_by_name #get_frame_count #get_frame_identifiers #get_frame_names)! !
+
 !CefBrowser class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

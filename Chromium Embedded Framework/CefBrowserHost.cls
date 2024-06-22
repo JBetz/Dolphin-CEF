@@ -2,10 +2,12 @@
 
 CefReferenceCountedObject subclass: #CefBrowserHost
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_add_dev_tools_message_observer _OffsetOf_add_word_to_dictionary _OffsetOf_can_execute_chrome_command _OffsetOf_can_zoom _OffsetOf_close_browser _OffsetOf_close_dev_tools _OffsetOf_download_image _OffsetOf_drag_source_ended_at _OffsetOf_drag_source_system_drag_ended _OffsetOf_drag_target_drag_enter _OffsetOf_drag_target_drag_leave _OffsetOf_drag_target_drag_over _OffsetOf_drag_target_drop _OffsetOf_execute_chrome_command _OffsetOf_execute_dev_tools_method _OffsetOf_exit_fullscreen _OffsetOf_find _OffsetOf_get_browser _OffsetOf_get_client _OffsetOf_get_default_zoom_level _OffsetOf_get_extension _OffsetOf_get_navigation_entries _OffsetOf_get_opener_window_handle _OffsetOf_get_request_context _OffsetOf_get_visible_navigation_entry _OffsetOf_get_window_handle _OffsetOf_get_windowless_frame_rate _OffsetOf_get_zoom_level _OffsetOf_has_dev_tools _OffsetOf_has_view _OffsetOf_ime_cancel_composition _OffsetOf_ime_commit_text _OffsetOf_ime_finish_composing_text _OffsetOf_ime_set_composition _OffsetOf_invalidate _OffsetOf_is_audio_muted _OffsetOf_is_background_host _OffsetOf_is_fullscreen _OffsetOf_is_window_rendering_disabled _OffsetOf_notify_move_or_resize_started _OffsetOf_notify_screen_info_changed _OffsetOf_print _OffsetOf_print_to_pdf _OffsetOf_replace_misspelling _OffsetOf_run_file_dialog _OffsetOf_send_capture_lost_event _OffsetOf_send_dev_tools_message _OffsetOf_send_external_begin_frame _OffsetOf_send_key_event _OffsetOf_send_mouse_click_event _OffsetOf_send_mouse_move_event _OffsetOf_send_mouse_wheel_event _OffsetOf_send_touch_event _OffsetOf_set_accessibility_state _OffsetOf_set_audio_muted _OffsetOf_set_auto_resize_enabled _OffsetOf_set_focus _OffsetOf_set_windowless_frame_frate _OffsetOf_set_zoom_level _OffsetOf_show_dev_tools _OffsetOf_start_download _OffsetOf_stop_finding _OffsetOf_try_close_browser _OffsetOf_was_hidden _OffsetOf_was_resized _OffsetOf_zoom'
+	classVariableNames: '_OffsetOf_add_dev_tools_message_observer _OffsetOf_add_word_to_dictionary _OffsetOf_can_execute_chrome_command _OffsetOf_can_zoom _OffsetOf_close_browser _OffsetOf_close_dev_tools _OffsetOf_download_image _OffsetOf_drag_source_ended_at _OffsetOf_drag_source_system_drag_ended _OffsetOf_drag_target_drag_enter _OffsetOf_drag_target_drag_leave _OffsetOf_drag_target_drag_over _OffsetOf_drag_target_drop _OffsetOf_execute_chrome_command _OffsetOf_execute_dev_tools_method _OffsetOf_exit_fullscreen _OffsetOf_find _OffsetOf_get_browser _OffsetOf_get_client _OffsetOf_get_default_zoom_level _OffsetOf_get_extension _OffsetOf_get_navigation_entries _OffsetOf_get_opener_window_handle _OffsetOf_get_request_context _OffsetOf_get_runtime_style _OffsetOf_get_visible_navigation_entry _OffsetOf_get_window_handle _OffsetOf_get_windowless_frame_rate _OffsetOf_get_zoom_level _OffsetOf_has_dev_tools _OffsetOf_has_view _OffsetOf_ime_cancel_composition _OffsetOf_ime_commit_text _OffsetOf_ime_finish_composing_text _OffsetOf_ime_set_composition _OffsetOf_invalidate _OffsetOf_is_audio_muted _OffsetOf_is_background_host _OffsetOf_is_fullscreen _OffsetOf_is_render_process_unresponsive _OffsetOf_is_window_rendering_disabled _OffsetOf_notify_move_or_resize_started _OffsetOf_notify_screen_info_changed _OffsetOf_print _OffsetOf_print_to_pdf _OffsetOf_replace_misspelling _OffsetOf_run_file_dialog _OffsetOf_send_capture_lost_event _OffsetOf_send_dev_tools_message _OffsetOf_send_external_begin_frame _OffsetOf_send_key_event _OffsetOf_send_mouse_click_event _OffsetOf_send_mouse_move_event _OffsetOf_send_mouse_wheel_event _OffsetOf_send_touch_event _OffsetOf_set_accessibility_state _OffsetOf_set_audio_muted _OffsetOf_set_auto_resize_enabled _OffsetOf_set_focus _OffsetOf_set_windowless_frame_frate _OffsetOf_set_zoom_level _OffsetOf_show_dev_tools _OffsetOf_start_download _OffsetOf_stop_finding _OffsetOf_try_close_browser _OffsetOf_was_hidden _OffsetOf_was_resized _OffsetOf_zoom'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefBrowserHost guid: (GUID fromString: '{8832c51e-bf20-4226-b13c-02fae84854d9}')!
+
 CefBrowserHost addClassConstant: '_OffsetOf_add_dev_tools_message_observer' value: 16r7C!
 CefBrowserHost addClassConstant: '_OffsetOf_add_word_to_dictionary' value: 16r88!
 CefBrowserHost addClassConstant: '_OffsetOf_can_execute_chrome_command' value: 16r114!
@@ -30,6 +32,7 @@ CefBrowserHost addClassConstant: '_OffsetOf_get_extension' value: 16rFC!
 CefBrowserHost addClassConstant: '_OffsetOf_get_navigation_entries' value: 16r80!
 CefBrowserHost addClassConstant: '_OffsetOf_get_opener_window_handle' value: 16r28!
 CefBrowserHost addClassConstant: '_OffsetOf_get_request_context' value: 16r34!
+CefBrowserHost addClassConstant: '_OffsetOf_get_runtime_style' value: 16r120!
 CefBrowserHost addClassConstant: '_OffsetOf_get_visible_navigation_entry' value: 16rF0!
 CefBrowserHost addClassConstant: '_OffsetOf_get_window_handle' value: 16r24!
 CefBrowserHost addClassConstant: '_OffsetOf_get_windowless_frame_rate' value: 16rC0!
@@ -44,6 +47,7 @@ CefBrowserHost addClassConstant: '_OffsetOf_invalidate' value: 16r9C!
 CefBrowserHost addClassConstant: '_OffsetOf_is_audio_muted' value: 16r108!
 CefBrowserHost addClassConstant: '_OffsetOf_is_background_host' value: 16r100!
 CefBrowserHost addClassConstant: '_OffsetOf_is_fullscreen' value: 16r10C!
+CefBrowserHost addClassConstant: '_OffsetOf_is_render_process_unresponsive' value: 16r11C!
 CefBrowserHost addClassConstant: '_OffsetOf_is_window_rendering_disabled' value: 16r8C!
 CefBrowserHost addClassConstant: '_OffsetOf_notify_move_or_resize_started' value: 16rBC!
 CefBrowserHost addClassConstant: '_OffsetOf_notify_screen_info_changed' value: 16r98!
@@ -72,8 +76,11 @@ CefBrowserHost addClassConstant: '_OffsetOf_try_close_browser' value: 16r1C!
 CefBrowserHost addClassConstant: '_OffsetOf_was_hidden' value: 16r94!
 CefBrowserHost addClassConstant: '_OffsetOf_was_resized' value: 16r90!
 CefBrowserHost addClassConstant: '_OffsetOf_zoom' value: 16r3C!
+
 CefBrowserHost comment: ''!
+
 !CefBrowserHost categoriesForClass!External-Data-Structured! !
+
 !CefBrowserHost methodsFor!
 
 _canZoom_cefBrowserHost: cefBrowserHost
@@ -126,6 +133,10 @@ _hasView_cefBrowserHost: cefBrowserHost
 
 _isAudioMuted_cefBrowserHost: cefBrowserHost
 	<stdcall: sdword is_audio_muted CefBrowserHost*>
+	^self invalidCall: _failureCode!
+
+_isRenderProcessUnresponsive_cefBrowserHost: cefBrowserHost
+	<stdcall: sdword is_render_process_unresponsive CefBrowserHost*>
 	^self invalidCall: _failureCode!
 
 _sendKeyEvent_cefBrowserHost: cefBrowserHost event: event
@@ -444,6 +455,16 @@ get_request_context: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_get_request_context put: anExternalAddress!
 
+get_runtime_style
+	"Answer the <ExternalAddress> value of the receiver's 'get_runtime_style' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_get_runtime_style) asExternalAddress!
+
+get_runtime_style: anExternalAddress
+	"Set the receiver's 'get_runtime_style' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_get_runtime_style put: anExternalAddress!
+
 get_visible_navigation_entry
 	"Answer the <ExternalAddress> value of the receiver's 'get_visible_navigation_entry' field."
 
@@ -635,6 +656,16 @@ is_fullscreen: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_is_fullscreen put: anExternalAddress!
 
+is_render_process_unresponsive
+	"Answer the <ExternalAddress> value of the receiver's 'is_render_process_unresponsive' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_is_render_process_unresponsive) asExternalAddress!
+
+is_render_process_unresponsive: anExternalAddress
+	"Set the receiver's 'is_render_process_unresponsive' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_is_render_process_unresponsive put: anExternalAddress!
+
 is_window_rendering_disabled
 	"Answer the <ExternalAddress> value of the receiver's 'is_window_rendering_disabled' field."
 
@@ -649,6 +680,12 @@ isAudioMuted
 	| method |
 	method := self class externalMethodAt: #_isAudioMuted_cefBrowserHost:
 				ifAbsentBindTo: self is_audio_muted.
+	^method value: self withArguments: (Array with: self)!
+
+isRenderProcessUnresponsive
+	| method |
+	method := self class externalMethodAt: #_isRenderProcessUnresponsive_cefBrowserHost:
+				ifAbsentBindTo: self is_render_process_unresponsive.
 	^method value: self withArguments: (Array with: self)!
 
 notify_move_or_resize_started
@@ -1037,6 +1074,7 @@ zoom_command: command
 		at: 1 put: self;
 		at: 2 put: command.
 	^method value: self withArguments: arguments! !
+
 !CefBrowserHost categoriesForMethods!
 _canZoom_cefBrowserHost:!**compiled accessors**!private! !
 _closeBrowser_cefBrowserHost:forceClose:!**compiled accessors**!private! !
@@ -1051,6 +1089,7 @@ _getWindowHandle_cefBrowserHost:!**compiled accessors**!private! !
 _getZoomLevel_cefBrowserHost:!**compiled accessors**!private! !
 _hasView_cefBrowserHost:!**compiled accessors**!private! !
 _isAudioMuted_cefBrowserHost:!**compiled accessors**!private! !
+_isRenderProcessUnresponsive_cefBrowserHost:!**compiled accessors**!private! !
 _sendKeyEvent_cefBrowserHost:event:!**compiled accessors**!private! !
 _sendMouseClickEvent_cefBrowserHost:event:mouseButtonType:mouseUp:clickCount:!**compiled accessors**!private! !
 _sendMouseMoveEvent_cefBrowserHost:event:mouseLeave:!**compiled accessors**!private! !
@@ -1114,6 +1153,8 @@ get_opener_window_handle!**compiled accessors**!public! !
 get_opener_window_handle:!**compiled accessors**!public! !
 get_request_context!**compiled accessors**!public! !
 get_request_context:!**compiled accessors**!public! !
+get_runtime_style!**compiled accessors**!public! !
+get_runtime_style:!**compiled accessors**!public! !
 get_visible_navigation_entry!**compiled accessors**!public! !
 get_visible_navigation_entry:!**compiled accessors**!public! !
 get_window_handle!**compiled accessors**!public! !
@@ -1151,9 +1192,12 @@ is_background_host!**compiled accessors**!public! !
 is_background_host:!**compiled accessors**!public! !
 is_fullscreen!**compiled accessors**!public! !
 is_fullscreen:!**compiled accessors**!public! !
+is_render_process_unresponsive!**compiled accessors**!public! !
+is_render_process_unresponsive:!**compiled accessors**!public! !
 is_window_rendering_disabled!**compiled accessors**!public! !
 is_window_rendering_disabled:!**compiled accessors**!public! !
 isAudioMuted!**compiled accessors**!public! !
+isRenderProcessUnresponsive!**compiled accessors**!public! !
 notify_move_or_resize_started!**compiled accessors**!public! !
 notify_move_or_resize_started:!**compiled accessors**!public! !
 notify_screen_info_changed!**compiled accessors**!public! !
@@ -1346,10 +1390,14 @@ defineFields
 		defineField: #is_fullscreen type: LPVOIDField new;
 		defineField: #exit_fullscreen type: LPVOIDField new;
 		defineField: #can_execute_chrome_command type: LPVOIDField new;
-		defineField: #execute_chrome_command type: LPVOIDField new!
+		defineField: #execute_chrome_command type: LPVOIDField new;
+		defineField: #is_render_process_unresponsive
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBrowserHost*'));
+		defineField: #get_runtime_style type: LPVOIDField new!
 
 getFieldNames
-	^#(#base #get_browser #close_browser #try_close_browser #set_focus #get_window_handle #get_opener_window_handle #has_view #get_client #get_request_context #can_zoom #zoom #get_default_zoom_level #get_zoom_level #set_zoom_level #run_file_dialog #start_download #download_image #print #print_to_pdf #find #stop_finding #show_dev_tools #close_dev_tools #has_dev_tools #send_dev_tools_message #execute_dev_tools_method #add_dev_tools_message_observer #get_navigation_entries #replace_misspelling #add_word_to_dictionary #is_window_rendering_disabled #was_resized #was_hidden #notify_screen_info_changed #invalidate #send_external_begin_frame #send_key_event #send_mouse_click_event #send_mouse_move_event #send_mouse_wheel_event #send_touch_event #send_capture_lost_event #notify_move_or_resize_started #get_windowless_frame_rate #set_windowless_frame_frate #ime_set_composition #ime_commit_text #ime_finish_composing_text #ime_cancel_composition #drag_target_drag_enter #drag_target_drag_over #drag_target_drag_leave #drag_target_drop #drag_source_ended_at #drag_source_system_drag_ended #get_visible_navigation_entry #set_accessibility_state #set_auto_resize_enabled #get_extension #is_background_host #set_audio_muted #is_audio_muted #is_fullscreen #exit_fullscreen #can_execute_chrome_command #execute_chrome_command)! !
+	^#(#base #get_browser #close_browser #try_close_browser #set_focus #get_window_handle #get_opener_window_handle #has_view #get_client #get_request_context #can_zoom #zoom #get_default_zoom_level #get_zoom_level #set_zoom_level #run_file_dialog #start_download #download_image #print #print_to_pdf #find #stop_finding #show_dev_tools #close_dev_tools #has_dev_tools #send_dev_tools_message #execute_dev_tools_method #add_dev_tools_message_observer #get_navigation_entries #replace_misspelling #add_word_to_dictionary #is_window_rendering_disabled #was_resized #was_hidden #notify_screen_info_changed #invalidate #send_external_begin_frame #send_key_event #send_mouse_click_event #send_mouse_move_event #send_mouse_wheel_event #send_touch_event #send_capture_lost_event #notify_move_or_resize_started #get_windowless_frame_rate #set_windowless_frame_frate #ime_set_composition #ime_commit_text #ime_finish_composing_text #ime_cancel_composition #drag_target_drag_enter #drag_target_drag_over #drag_target_drag_leave #drag_target_drop #drag_source_ended_at #drag_source_system_drag_ended #get_visible_navigation_entry #set_accessibility_state #set_auto_resize_enabled #get_extension #is_background_host #set_audio_muted #is_audio_muted #is_fullscreen #exit_fullscreen #can_execute_chrome_command #execute_chrome_command #is_render_process_unresponsive #get_runtime_style)! !
+
 !CefBrowserHost class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -5,9 +5,13 @@ ExternalLibrary subclass: #CefLibrary
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 CefLibrary guid: (GUID fromString: '{d15b2fd7-ea09-431a-afc1-20b8d4b218f5}')!
+
 CefLibrary comment: ''!
+
 !CefLibrary categoriesForClass!External-Libraries! !
+
 !CefLibrary methodsFor!
 
 browserHostCreateBrowser_windowInfo: win_info client: client url: url settings: settings extraInfo: extra_info requestContext: request_context
@@ -107,6 +111,20 @@ formatUrlForSecurityDisplay_originUrl: originUrl
 	<cdecl: CefStringUserfree* cef_format_url_for_security_display CefString*>
 	^self invalidCall: _failureCode!
 
+getExitCode
+	"///
+	/// This function can optionally be called on the main application thread after
+	/// CefInitialize to retrieve the initialization exit code. When CefInitialize
+	/// returns true (1) the exit code will be 0 (CEF_RESULT_CODE_NORMAL_EXIT).
+	/// Otherwise, see cef_resultcode_t for possible exit code values including
+	/// browser process initialization errors and normal early exit conditions (such
+	/// as CEF_RESULT_CODE_NORMAL_EXIT_PROCESS_NOTIFIED for process singleton
+	/// relaunch behavior).
+	///"
+
+	<cdecl: sdword cef_shutdown>
+	^self invalidCall: _failureCode!
+
 initialize_args: args settings: settings application: application windowsSandboxInfo: windows_sandbox_info
 	"///
 	/// This function should be called on the main application thread to initialize
@@ -180,6 +198,7 @@ stringListSize_list: list
 stringListValue_list: list index: index value: value
 	<cdecl: sdword cef_string_list_value CefStringList* dword CefString*>
 	^self invalidCall: _failureCode! !
+
 !CefLibrary categoriesForMethods!
 browserHostCreateBrowser_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
 browserHostCreateBrowserSync_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
@@ -187,6 +206,7 @@ createUrl_parts:url:!parser!public! !
 doMessageLoopWork!public! !
 executeProcess_args:application:windowsSandboxInfo:!public! !
 formatUrlForSecurityDisplay_originUrl:!parser!public! !
+getExitCode!public! !
 initialize_args:settings:application:windowsSandboxInfo:!public! !
 parseUrl_url:parts:!parser!public! !
 quitMessageLoop!public! !
@@ -202,6 +222,7 @@ stringListValue_list:index:value:!parser!public! !
 
 fileName
 	^'libcef'! !
+
 !CefLibrary class categoriesForMethods!
 fileName!public! !
 !

@@ -5,9 +5,13 @@ Object subclass: #ChromiumBrowser
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
+
 ChromiumBrowser guid: (GUID fromString: '{dd65169f-edf7-4936-b937-280354337246}')!
+
 ChromiumBrowser comment: ''!
+
 !ChromiumBrowser categoriesForClass!Kernel-Objects! !
+
 !ChromiumBrowser methodsFor!
 
 back
@@ -248,7 +252,8 @@ initializeWindowedClient
 		processMessageDelegate: self!
 
 isFocusedElementEditable
-	^focusedElement ifNotNil: [:aHtmlElement | aHtmlElement isEditable] ifNil: [false]!
+	focusedElement ifNil: [^false].
+	^focusedElement isEditable!
 
 isReadyToClose
 	^readyToClose!
@@ -269,7 +274,7 @@ loadUrl: aUrl
 			mainFrame := cefBrowser getMainFrame.
 			mainFrame loadUrl_url: aUrl spec asCefString]!
 
-onAcceleratedPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount sharedHandle: sharedHandle
+onAcceleratedPaint: aCefRenderHandler browser: aCefBrowser type: anInteger dirtyRectsCount: anInteger2 dirtyRects: aCefRect sharedHandle: anExternalAddress 
 	^0!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
@@ -456,13 +461,13 @@ onPopupSize: renderHandler browser: browser rect: rect
 	^0!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
-	| messageName arguments eventInfo |
+	| messageName arguments |
 	messageName := aCefProcessMessage getName str.
 	arguments := aCefProcessMessage getArgumentList.
-	eventInfo := arguments getDictionary_index: 0.
-	messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: eventInfo].
-	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: eventInfo].
-	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: eventInfo]!
+	messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: arguments].
+	messageName = 'ClientRenderer.OnFocusOut' ifTrue: [self onFocusOut: arguments].
+	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: arguments].
+	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: arguments]!
 
 onResize: aRectangle
 	rectangle := aRectangle.
@@ -597,6 +602,7 @@ undo
 wasHidden: aBoolean
 	cefBrowser ifNil: [^self].
 	cefBrowser getHost wasHidden_hidden: aBoolean asInteger! !
+
 !ChromiumBrowser categoriesForMethods!
 back!public! !
 back:!public! !
@@ -641,7 +647,7 @@ isReadyToClose!public! !
 library!public! !
 loadHtml:forUrl:!public! !
 loadUrl:!public! !
-onAcceleratedPaint:browser:type:dirtyRectsCount:sharedHandle:!cef event handler!private!render handler! !
+onAcceleratedPaint:browser:type:dirtyRectsCount:dirtyRects:sharedHandle:!private! !
 onAddressChange:browser:frame:url:!cef event handler!display handler!private! !
 onAfterCreated:browser:!cef event handler!life span handler!private! !
 onAudioStreamError:browser:message:!audio handler!private! !
@@ -763,6 +769,7 @@ initialize
 
 new
 	^super new initialize! !
+
 !ChromiumBrowser class categoriesForMethods!
 initialize!public! !
 new!public! !
