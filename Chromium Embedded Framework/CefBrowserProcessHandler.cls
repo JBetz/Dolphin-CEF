@@ -2,13 +2,14 @@
 
 CefEventHandler subclass: #CefBrowserProcessHandler
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_default_client _OffsetOf_on_already_running_app_relaunch _OffsetOf_on_before_child_process_launch _OffsetOf_on_context_initialized _OffsetOf_on_register_custom_preferences _OffsetOf_on_schedule_message_pump_work'
+	classVariableNames: '_OffsetOf_get_default_client _OffsetOf_get_default_request_context_handler _OffsetOf_on_already_running_app_relaunch _OffsetOf_on_before_child_process_launch _OffsetOf_on_context_initialized _OffsetOf_on_register_custom_preferences _OffsetOf_on_schedule_message_pump_work'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefBrowserProcessHandler guid: (GUID fromString: '{fbea6bee-9ade-4c31-9e32-797284dfef46}')!
 
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_get_default_client' value: 16r28!
+CefBrowserProcessHandler addClassConstant: '_OffsetOf_get_default_request_context_handler' value: 16r2C!
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_on_already_running_app_relaunch' value: 16r20!
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_on_before_child_process_launch' value: 16r1C!
 CefBrowserProcessHandler addClassConstant: '_OffsetOf_on_context_initialized' value: 16r18!
@@ -30,6 +31,16 @@ get_default_client: anExternalAddress
 	"Set the receiver's 'get_default_client' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_get_default_client put: anExternalAddress!
+
+get_default_request_context_handler
+	"Answer the <ExternalAddress> value of the receiver's 'get_default_request_context_handler' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_get_default_request_context_handler) asExternalAddress!
+
+get_default_request_context_handler: anExternalAddress
+	"Set the receiver's 'get_default_request_context_handler' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_get_default_request_context_handler put: anExternalAddress!
 
 on_already_running_app_relaunch
 	"Answer the <ExternalAddress> value of the receiver's 'on_already_running_app_relaunch' field."
@@ -84,6 +95,8 @@ on_schedule_message_pump_work: anExternalAddress
 !CefBrowserProcessHandler categoriesForMethods!
 get_default_client!**compiled accessors**!public! !
 get_default_client:!**compiled accessors**!public! !
+get_default_request_context_handler!**compiled accessors**!public! !
+get_default_request_context_handler:!**compiled accessors**!public! !
 on_already_running_app_relaunch!**compiled accessors**!public! !
 on_already_running_app_relaunch:!**compiled accessors**!public! !
 on_before_child_process_launch!**compiled accessors**!public! !
@@ -124,10 +137,13 @@ defineFields
 					smalltalkName: #onScheduleMessagePumpWork:delayMs:);
 		defineField: #get_default_client
 			type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: CefClient* CefBrowserProcessHandler*'))!
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefClient* CefBrowserProcessHandler*'));
+		defineField: #get_default_request_context_handler
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRequestContextHandler* CefBrowserProcessHandler*'))!
 
 getFieldNames
-	^#(#base #on_register_custom_preferences #on_context_initialized #on_before_child_process_launch #on_already_running_app_relaunch #on_schedule_message_pump_work #get_default_client)! !
+	^#(#base #on_register_custom_preferences #on_context_initialized #on_before_child_process_launch #on_already_running_app_relaunch #on_schedule_message_pump_work #get_default_client #get_default_request_context_handler)! !
 
 !CefBrowserProcessHandler class categoriesForMethods!
 defineFields!public! !

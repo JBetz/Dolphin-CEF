@@ -274,7 +274,7 @@ loadUrl: aUrl
 			mainFrame := cefBrowser getMainFrame.
 			mainFrame loadUrl_url: aUrl spec asCefString]!
 
-onAcceleratedPaint: aCefRenderHandler browser: aCefBrowser type: anInteger dirtyRectsCount: anInteger2 dirtyRects: aCefRect sharedHandle: anExternalAddress 
+onAcceleratedPaint: aCefRenderHandler browser: aCefBrowser type: anInteger dirtyRectsCount: anInteger2 dirtyRects: aCefRect info: aCefAcceleratedPaintInfo
 	^0!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
@@ -647,7 +647,7 @@ isReadyToClose!public! !
 library!public! !
 loadHtml:forUrl:!public! !
 loadUrl:!public! !
-onAcceleratedPaint:browser:type:dirtyRectsCount:dirtyRects:sharedHandle:!private! !
+onAcceleratedPaint:browser:type:dirtyRectsCount:dirtyRects:info:!private! !
 onAddressChange:browser:frame:url:!cef event handler!display handler!private! !
 onAfterCreated:browser:!cef event handler!life span handler!private! !
 onAudioStreamError:browser:message:!audio handler!private! !
