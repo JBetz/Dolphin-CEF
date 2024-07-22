@@ -221,7 +221,7 @@ stringListValue_list:index:value:!parser!public! !
 !CefLibrary class methodsFor!
 
 fileName
-	^'libcef'! !
+	^FileLocator imageRelative: 'libcef'! !
 
 !CefLibrary class categoriesForMethods!
 fileName!public! !
