@@ -14,7 +14,13 @@ WebBrowserView comment: ''!
 
 !WebBrowserView methodsFor!
 
+back
+	chromiumBrowser back!
+
 cursor: aSymbol!
+
+forward
+	chromiumBrowser forward!
 
 loadUrl: aString
 	chromiumBrowser loadUrl: aString!
@@ -59,7 +65,9 @@ pushCloseEvent
 ! !
 
 !WebBrowserView categoriesForMethods!
+back!public! !
 cursor:!public! !
+forward!public! !
 loadUrl:!public! !
 onAddressChange:!public! !
 onAudioStream!public! !
