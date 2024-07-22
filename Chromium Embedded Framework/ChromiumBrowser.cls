@@ -63,7 +63,7 @@ createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 	resultCode = 0 ifTrue: [Error signal: 'Error creating CEF browser']!
 
 createWindowedBrowser: aUrlOrString rectangle: aRectangle window: aHandle
-	| windowInfo browserSettings resultCode |
+	| windowInfo browserSettings |
 	CefBrowserProcessRunner ensureRunning.
 	windowInfo := CefWindowInfo new
 				style: self cefWindowStyle;
@@ -72,14 +72,13 @@ createWindowedBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 				bounds: aRectangle asCefRect.
 	browserSettings := CefBrowserSettings new.
 	self initializeWindowedClient.
-	resultCode := self library
-				browserHostCreateBrowser_windowInfo: windowInfo
-				client: cefClient
-				url: aUrlOrString asUrl spec asCefString
-				settings: browserSettings
-				extraInfo: nil
-				requestContext: nil.
-	resultCode = 0 ifTrue: [Error signal: 'Error creating CEF browser']!
+	self library
+		browserHostCreateBrowserSync_windowInfo: windowInfo
+		client: cefClient
+		url: aUrlOrString asUrl spec asCefString
+		settings: browserSettings
+		extraInfo: nil
+		requestContext: nil!
 
 cut
 	cefBrowser getFocusedFrame callCut!
@@ -453,10 +452,10 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 	| messageName arguments |
 	messageName := aCefProcessMessage getName str.
 	arguments := aCefProcessMessage getArgumentList.
-	messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: arguments].
+	"messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: arguments].
 	messageName = 'ClientRenderer.OnFocusOut' ifTrue: [self onFocusOut: arguments].
 	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: arguments].
-	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: arguments]!
+	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: arguments]"!
 
 onResize: aRectangle
 	rectangle := aRectangle.
