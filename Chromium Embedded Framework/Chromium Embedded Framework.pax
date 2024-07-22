@@ -70,6 +70,7 @@ package classNames
 	add: #CefRenderProcessHandler;
 	add: #CefRequest;
 	add: #CefRequestContext;
+	add: #CefRequestContextHandler;
 	add: #CefRequestHandler;
 	add: #CefResourceBundleHandler;
 	add: #CefResourceHandler;
@@ -122,7 +123,8 @@ package setPrerequisites: #(
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
-	'..\FFI Extensions\FFI Extensions).
+	'..\FFI Extensions\FFI Extensions'
+	'..\..\Dolphin-SDL\SDL3\SDL3').
 
 package!
 
@@ -484,7 +486,7 @@ CefEventHandler subclass: #CefAudioHandler
 
 CefEventHandler subclass: #CefBrowserProcessHandler
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_default_client _OffsetOf_on_already_running_app_relaunch _OffsetOf_on_before_child_process_launch _OffsetOf_on_context_initialized _OffsetOf_on_register_custom_preferences _OffsetOf_on_schedule_message_pump_work'
+	classVariableNames: '_OffsetOf_get_default_client _OffsetOf_get_default_request_context_handler _OffsetOf_on_already_running_app_relaunch _OffsetOf_on_before_child_process_launch _OffsetOf_on_context_initialized _OffsetOf_on_register_custom_preferences _OffsetOf_on_schedule_message_pump_work'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -545,6 +547,12 @@ CefEventHandler subclass: #CefRenderHandler
 CefEventHandler subclass: #CefRenderProcessHandler
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_get_load_handler _OffsetOf_on_browser_created _OffsetOf_on_browser_destroyed _OffsetOf_on_context_created _OffsetOf_on_context_released _OffsetOf_on_focused_node_changed _OffsetOf_on_process_message_received _OffsetOf_on_uncaught_exception _OffsetOf_on_web_kit_initialized'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+CefEventHandler subclass: #CefRequestContextHandler
+	instanceVariableNames: ''
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
