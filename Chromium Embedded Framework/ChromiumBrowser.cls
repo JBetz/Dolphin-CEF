@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose queuedUrl selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -40,7 +40,7 @@ copy
 	cefBrowser getFocusedFrame callCopy!
 
 createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
-	| windowInfo browserSettings resultCode |
+	| windowInfo browserSettings |
 	CefBrowserProcessRunner ensureRunning.
 	(aRectangle width <= 0 or: [aRectangle height <= 0])
 		ifTrue: [Error signal: ('Invalid rectangle extent: <1d>' expandMacrosWith: aRectangle extent)].
@@ -53,14 +53,13 @@ createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 	browserSettings := CefBrowserSettings new
 				windowless_frame_rate: 60;
 				background_color: Color white argbCode.
-	resultCode := self library
-				browserHostCreateBrowser_windowInfo: windowInfo
-				client: cefClient
-				url: aUrlOrString asUrl spec asCefString
-				settings: browserSettings
-				extraInfo: nil
-				requestContext: nil.
-	resultCode = 0 ifTrue: [Error signal: 'Error creating CEF browser']!
+	self library
+		browserHostCreateBrowserSync_windowInfo: windowInfo
+		client: cefClient
+		url: aUrlOrString asUrl spec asCefString
+		settings: browserSettings
+		extraInfo: nil
+		requestContext: nil!
 
 createWindowedBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 	| windowInfo browserSettings |
@@ -266,12 +265,9 @@ loadHtml: aString forUrl: aUrl
 		loadUrl: aUrl!
 
 loadUrl: aUrlOrString
-	cefBrowser
-		ifNil: [queuedUrl := aUrlOrString asUrl]
-		ifNotNil: 
-			[| mainFrame |
-			mainFrame := cefBrowser getMainFrame.
-			mainFrame loadUrl_url: aUrlOrString asUrl spec asCefString]!
+	| mainFrame |
+	mainFrame := cefBrowser getMainFrame.
+	mainFrame loadUrl_url: aUrlOrString asUrl spec asCefString!
 
 onAcceleratedPaint: aCefRenderHandler browser: aCefBrowser type: anInteger dirtyRectsCount: anInteger2 dirtyRects: aCefRect info: aCefAcceleratedPaintInfo
 	^0!
@@ -285,11 +281,6 @@ onAddressChange: displayHandler browser: browser frame: frame url: url
 
 onAfterCreated: lifeSpanHandler browser: browser
 	cefBrowser := browser.
-	queuedUrl
-		ifNotNil: 
-			[:aUrl |
-			self loadUrl: aUrl.
-			queuedUrl := nil].
 	^0!
 
 onAudioStreamError: aCefAudioHandler browser: aCefBrowser message: aCefString 
