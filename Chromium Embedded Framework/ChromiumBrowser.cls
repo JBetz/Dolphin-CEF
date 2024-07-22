@@ -209,7 +209,7 @@ go: anInteger
 	self executeJavaScript: ('window.history.go(<1D>)' expandMacrosWith: anInteger)!
 
 hasTextSelected
-	^selectedText notNil!
+	^selectedText notNil and: [selectedText notEmpty]!
 
 hide
 	self wasHidden: true!
