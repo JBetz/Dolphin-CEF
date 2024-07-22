@@ -40,6 +40,6 @@ view := WebBrowserView new.
     arrangement: 1;
     create;
     show;
-    loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin' asUrl;
+    loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin';
     yourself
 ```

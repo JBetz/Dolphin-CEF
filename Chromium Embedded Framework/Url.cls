@@ -14,6 +14,9 @@ Url comment: ''!
 
 !Url methodsFor!
 
+asUrl
+	^self!
+
 displayString
 	^self inputString!
 
@@ -106,6 +109,7 @@ username: anObject
 	username := anObject! !
 
 !Url categoriesForMethods!
+asUrl!public! !
 displayString!public! !
 domain!public! !
 extractParts:!private! !

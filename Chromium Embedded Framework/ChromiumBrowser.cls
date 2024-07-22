@@ -39,7 +39,7 @@ closeBrowser
 copy
 	cefBrowser getFocusedFrame callCopy!
 
-createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
+createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 	| windowInfo browserSettings resultCode |
 	CefBrowserProcessRunner ensureRunning.
 	(aRectangle width <= 0 or: [aRectangle height <= 0])
@@ -56,13 +56,13 @@ createOffscreenBrowser: aUrl rectangle: aRectangle window: aHandle
 	resultCode := self library
 				browserHostCreateBrowser_windowInfo: windowInfo
 				client: cefClient
-				url: aUrl spec asCefString
+				url: aUrlOrString asUrl spec asCefString
 				settings: browserSettings
 				extraInfo: nil
 				requestContext: nil.
 	resultCode = 0 ifTrue: [Error signal: 'Error creating CEF browser']!
 
-createWindowedBrowser: aUrl rectangle: aRectangle window: aHandle
+createWindowedBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 	| windowInfo browserSettings resultCode |
 	CefBrowserProcessRunner ensureRunning.
 	windowInfo := CefWindowInfo new
@@ -75,7 +75,7 @@ createWindowedBrowser: aUrl rectangle: aRectangle window: aHandle
 	resultCode := self library
 				browserHostCreateBrowser_windowInfo: windowInfo
 				client: cefClient
-				url: aUrl spec asCefString
+				url: aUrlOrString asUrl spec asCefString
 				settings: browserSettings
 				extraInfo: nil
 				requestContext: nil.
@@ -266,13 +266,13 @@ loadHtml: aString forUrl: aUrl
 		provideHtml: aString forUrl: aUrl;
 		loadUrl: aUrl!
 
-loadUrl: aUrl
+loadUrl: aUrlOrString
 	cefBrowser
-		ifNil: [queuedUrl := aUrl]
+		ifNil: [queuedUrl := aUrlOrString asUrl]
 		ifNotNil: 
 			[| mainFrame |
 			mainFrame := cefBrowser getMainFrame.
-			mainFrame loadUrl_url: aUrl spec asCefString]!
+			mainFrame loadUrl_url: aUrlOrString asUrl spec asCefString]!
 
 onAcceleratedPaint: aCefRenderHandler browser: aCefBrowser type: anInteger dirtyRectsCount: anInteger2 dirtyRects: aCefRect info: aCefAcceleratedPaintInfo
 	^0!
@@ -508,14 +508,15 @@ paste
 popupTexture: aTexture
 	popupTexture := aTexture!
 
-provideHtml: aString forUrl: aUrl
-	| contentProvider |
+provideHtml: aString forUrl: aUrlOrString
+	| contentProvider url |
 	contentProvider := CefContentProvider new.
+	url := aUrlOrString asUrl.
 	contentProvider
-		url: aUrl spec;
+		url: url;
 		html: aString;
 		chromiumBrowser: self.
-	contentProviders at: aUrl put: contentProvider!
+	contentProviders at: url put: contentProvider!
 
 redo
 	cefBrowser getFocusedFrame callRedo!
