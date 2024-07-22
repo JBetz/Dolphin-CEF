@@ -5,9 +5,13 @@ LPVOIDField subclass: #ProcedureField
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 ProcedureField guid: (GUID fromString: '{0ddc0078-0787-4661-aba7-1fd87c10c9b8}')!
+
 ProcedureField comment: ''!
+
 !ProcedureField categoriesForClass!External-Data-Types! !
+
 !ProcedureField methodsFor!
 
 cName
@@ -27,6 +31,7 @@ smalltalkName
 
 smalltalkName: aSymbol
 	smalltalkName := aSymbol! !
+
 !ProcedureField categoriesForMethods!
 cName!accessing!private! !
 cName:!accessing!private! !
@@ -49,6 +54,7 @@ descriptor: anExternalDescriptor smalltalkName: aSymbol
 	^self new
 		descriptor: anExternalDescriptor;
 		smalltalkName: aSymbol! !
+
 !ProcedureField class categoriesForMethods!
 descriptor:!public! !
 descriptor:smalltalkName:!public! !

@@ -5,9 +5,13 @@ MessageCallback subclass: #DelegatedMessageCallback
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 DelegatedMessageCallback guid: (GUID fromString: '{dd2aba9a-96a2-4b7f-8bfb-40cf91461a75}')!
+
 DelegatedMessageCallback comment: ''!
+
 !DelegatedMessageCallback categoriesForClass!System-Support! !
+
 !DelegatedMessageCallback methodsFor!
 
 getReceiver: anAddress
@@ -26,6 +30,7 @@ valueWithArgumentsAt: anAddress
 		perform: selector
 		withArgumentsAt: anAddress
 		descriptor: descriptor! !
+
 !DelegatedMessageCallback categoriesForMethods!
 getReceiver:!private! !
 valueWithArgumentsAt:!private! !
@@ -45,6 +50,7 @@ receiver: anObject selector: aSymbol descriptor: anExternalDescriptor
 		selector: aSymbol;
 		descriptor: anExternalDescriptor;
 		yourself! !
+
 !DelegatedMessageCallback class categoriesForMethods!
 new!public! !
 receiver:selector:descriptor:!public! !

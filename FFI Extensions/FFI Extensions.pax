@@ -3,7 +3,6 @@ package := Package name: 'FFI Extensions'.
 package paxVersion: 1;
 	basicComment: ''.
 
-
 package classNames
 	add: #CallbackField;
 	add: #DelegatedMessageCallback;
@@ -25,7 +24,8 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: #('..\Core\Object Arts\Dolphin\Base\Dolphin').
+package setPrerequisites: #(
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
 
 package!
 
@@ -36,29 +36,30 @@ LPVOIDField subclass: #ProcedureField
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 ProcedureField subclass: #CallbackField
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 ProcedureField subclass: #MethodField
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 MessageCallback subclass: #DelegatedMessageCallback
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 ExternalStructure subclass: #ExtendedExternalStructure
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: 'CallbackRegistry Instances'!
-
-"Global Aliases"!
-
 
 "Loose Methods"!
 
@@ -66,6 +67,7 @@ ExternalStructure subclass: #ExtendedExternalStructure
 
 asInteger
 	^self asParameter! !
+
 !Boolean categoriesForMethods!
 asInteger!public! !
 !
@@ -77,6 +79,7 @@ bindTo: anExternalAddress
 		put: ((self literalAt: 1) copy
 				dwordAtOffset: 0 put: anExternalAddress;
 				yourself)! !
+
 !ExternalMethod categoriesForMethods!
 bindTo:!public! !
 !
@@ -85,6 +88,7 @@ bindTo:!public! !
 
 asArgumentName
 	^(self reject: [:each | each = $*]) uncapitalized! !
+
 !String categoriesForMethods!
 asArgumentName!converting!public! !
 !
@@ -93,8 +97,10 @@ asArgumentName!converting!public! !
 
 isUnary
 	^self argumentCount = 0! !
+
 !Symbol categoriesForMethods!
 isUnary!public! !
 !
 
 "End of package definition"!
+

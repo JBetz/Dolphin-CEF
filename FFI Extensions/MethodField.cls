@@ -5,9 +5,13 @@ ProcedureField subclass: #MethodField
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 MethodField guid: (GUID fromString: '{47b3bc44-832b-4a45-b8a3-5e7135db5c35}')!
+
 MethodField comment: ''!
+
 !MethodField categoriesForClass!External-Data-Types! !
+
 !MethodField methodsFor!
 
 generateExternalMethodHeader
@@ -166,6 +170,7 @@ printWrappedExternalMethodOn: aPuttableStream
 
 selfArgumentName
 	^descriptor argumentTypes first asArgumentName! !
+
 !MethodField categoriesForMethods!
 generateExternalMethodHeader!private! !
 generateExternalMethodSelector!private! !

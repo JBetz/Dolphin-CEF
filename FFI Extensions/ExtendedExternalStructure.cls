@@ -5,9 +5,13 @@ ExternalStructure subclass: #ExtendedExternalStructure
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: 'CallbackRegistry Instances'!
+
 ExtendedExternalStructure guid: (GUID fromString: '{caf21f64-04a0-4659-bed7-fc798d9543b3}')!
+
 ExtendedExternalStructure comment: ''!
+
 !ExtendedExternalStructure categoriesForClass!External-Data-Structured! !
+
 !ExtendedExternalStructure methodsFor!
 
 initialize
@@ -15,6 +19,7 @@ initialize
 	self class callbackRegistry
 		keysAndValuesDo: [:aSymbol :aCallback | self perform: aSymbol with: aCallback asParameter].
 	self class addInstance: self! !
+
 !ExtendedExternalStructure categoriesForMethods!
 initialize!public! !
 !
@@ -135,6 +140,7 @@ registerCallbacks
 								selector: field callbackSelector
 								descriptor: field descriptor.
 					self callbackRegistry at: fieldSetter put: callback]]! !
+
 !ExtendedExternalStructure class categoriesForMethods!
 addInstance:!public! !
 callbackRegistry!public! !
