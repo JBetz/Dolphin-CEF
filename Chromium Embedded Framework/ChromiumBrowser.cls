@@ -312,26 +312,15 @@ onAudioStreamPacket: audioHandler browser: browser data: data frames: frames pts
 			interlacedData
 				at: index put: (leftChannelData at: frame);
 				at: index + 1 put: (rightChannelData at: frame)].
-	audioStream putData: interlacedData.
+	host onAudioStreamPacket: interlacedData.
 	^0!
 
 onAudioStreamStarted: audioHandler browser: browser params: params channels: channels
-	| sdl sourceSpec |
-	sdl := SDL3Library default.
-	sourceSpec := SDL_AudioSpec new
-				format: 16r8120;
-				channels: channels;
-				freq: params sample_rate.
-	audioStream := sdl
-				openAudioDeviceStream_devid: 16rFFFFFFFF
-				spec: sourceSpec
-				callback: nil
-				userdata: nil.
-	sdl resumeAudioDevice_devid: audioStream getAudioDevice.
+	host onAudioStreamStarted: channels sampleRate: params sample_rate.
 	^0!
 
 onAudioStreamStopped: audioHandler browser: browser
-	audioStream := nil.
+	host onAudioStreamStopped.
 	^0!
 
 onAutoResize: displayHandler browser: browser newSize: newSize 

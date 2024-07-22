@@ -123,8 +123,7 @@ package setPrerequisites: #(
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
-	'..\FFI Extensions\FFI Extensions'
-	'..\..\Dolphin-SDL\SDL3\SDL3').
+	'..\FFI Extensions\FFI Extensions').
 
 package!
 
