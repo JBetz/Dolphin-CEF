@@ -160,7 +160,7 @@ Object subclass: #CefTransitionType
 	classInstanceVariableNames: ''!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream queuedUrl'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
