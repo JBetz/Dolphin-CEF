@@ -28,17 +28,6 @@ loadUrl: aString
 onAddressChange: aCefUrlParts
 	!
 
-onAudioStream!
-
-onAudioStreamPacket: aFLOATArray
-	Error notYetImplemented!
-
-onAudioStreamStarted: channels sampleRate: sampleRate
-	Error notYetImplemented!
-
-onAudioStreamStopped
-	Error notYetImplemented!
-
 onBeforeBrowse: aCefRequest isRedirect: aBoolean !
 
 onPositionChanged: aPositionEvent
@@ -86,10 +75,6 @@ cursor:!public! !
 forward!public! !
 loadUrl:!public! !
 onAddressChange:!public! !
-onAudioStream!public! !
-onAudioStreamPacket:!public! !
-onAudioStreamStarted:sampleRate:!public! !
-onAudioStreamStopped!public! !
 onBeforeBrowse:isRedirect:!public! !
 onPositionChanged:!public! !
 onTitleChange:!public! !
