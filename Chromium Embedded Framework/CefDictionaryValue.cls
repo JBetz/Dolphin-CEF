@@ -187,8 +187,8 @@ at: aString put: anObject
 	anObject ifNil: [^self setNull_key: cefKey].
 	(anObject isKindOf: Boolean) ifTrue: [^self setBool_key: cefKey value: anObject].
 	anObject isInteger ifTrue: [^self setInt_key: cefKey value: anObject].
-	anObject isFloat ifTrue: [^self setDouble_key: cefKey value: anObject].
 	anObject isString ifTrue: [^self setString_key: cefKey value: anObject asCefString].
+	anObject isFloat ifTrue: [^self setDouble_key: cefKey value: anObject].
 	anObject isCollection ifTrue: [^self setList_key: cefKey value: anObject asCefList].
 	anObject isDictionary
 		ifTrue: [^self setDictionary_key: cefKey value: anObject asDictionary asCefDictionary].
