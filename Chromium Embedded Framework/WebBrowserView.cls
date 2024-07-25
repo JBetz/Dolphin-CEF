@@ -31,19 +31,18 @@ onAddressChange: aCefUrlParts
 onBeforeBrowse: aCefRequest isRedirect: aBoolean !
 
 onPositionChanged: aPositionEvent
-	| windowHandle rectangle |
+	| windowHandle |
 	super onPositionChanged: aPositionEvent.
 	chromiumBrowser ifNil: [^self].
 	windowHandle := chromiumBrowser windowHandle.
 	windowHandle ifNil: [^self].
-	rectangle := aPositionEvent rectangle.
 	UserLibrary default
 		setWindowPos: windowHandle
 		hWndInsertAfter: nil
-		x: rectangle origin x
-		y: rectangle origin y
-		cx: rectangle extent x
-		cy: rectangle extent y
+		x: 0
+		y: 0
+		cx: self extent x
+		cy: self extent y
 		uFlags: 0!
 
 onTitleChange: aString
