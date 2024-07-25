@@ -145,7 +145,7 @@ _setInt_cefDictionaryValue: cefDictionaryValue key: key value: value
 	^self invalidCall: _failureCode!
 
 _setList_cefDictionaryValue: cefDictionaryValue key: key value: value
-	<stdcall: bool set_list CefDictionaryValue* CefString* CefDictionaryValue*>
+	<stdcall: bool set_list CefDictionaryValue* CefString* CefListValue*>
 	^self invalidCall: _failureCode!
 
 _setNull_cefDictionaryValue: cefDictionaryValue key: key
@@ -180,6 +180,19 @@ at: aString
 	type = VTYPE_DICTIONARY ifTrue: [^self getDictionary_key: cefKey].
 	type = VTYPE_LIST ifTrue: [^self getList_key: cefKey].
 	^nil!
+
+at: aString put: anObject
+	| cefKey |
+	cefKey := aString asCefString.
+	anObject ifNil: [^self setNull_key: cefKey].
+	(anObject isKindOf: Boolean) ifTrue: [^self setBool_key: cefKey value: anObject].
+	anObject isInteger ifTrue: [^self setInt_key: cefKey value: anObject].
+	anObject isFloat ifTrue: [^self setDouble_key: cefKey value: anObject].
+	anObject isString ifTrue: [^self setString_key: cefKey value: anObject asCefString].
+	anObject isCollection ifTrue: [^self setList_key: cefKey value: anObject asCefList].
+	anObject isDictionary
+		ifTrue: [^self setDictionary_key: cefKey value: anObject asDictionary asCefDictionary].
+	^self!
 
 callClear
 	| method |
@@ -448,6 +461,9 @@ hasKey_key: key
 		at: 1 put: self;
 		at: 2 put: key.
 	^method value: self withArguments: arguments!
+
+includesKey: aString
+	^self hasKey_key: aString asCefString!
 
 is_equal
 	"Answer the <ExternalAddress> value of the receiver's 'is_equal' field."
@@ -776,6 +792,7 @@ _setNull_cefDictionaryValue:key:!**compiled accessors**!private! !
 _setString_cefDictionaryValue:key:value:!**compiled accessors**!private! !
 _setValue_cefDictionaryValue:key:value:!**compiled accessors**!private! !
 at:!public! !
+at:put:!public! !
 callClear!**compiled accessors**!public! !
 clear!**compiled accessors**!public! !
 clear:!**compiled accessors**!public! !
@@ -818,6 +835,7 @@ getValue_key:!**compiled accessors**!public! !
 has_key!**compiled accessors**!public! !
 has_key:!**compiled accessors**!public! !
 hasKey_key:!**compiled accessors**!public! !
+includesKey:!public! !
 is_equal!**compiled accessors**!public! !
 is_equal:!**compiled accessors**!public! !
 is_owned!**compiled accessors**!public! !
@@ -970,14 +988,18 @@ defineFields
 					smalltalkName: #setDictionary_key:value:);
 		defineField: #set_list
 			type: (MethodField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefDictionaryValue* CefString* CefDictionaryValue*')
+					descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefDictionaryValue* CefString* CefListValue*')
 					smalltalkName: #setList_key:value:)!
 
 getFieldNames
-	^#(#base #is_valid #is_owned #is_read_only #is_same #is_equal #copy #get_size #clear #has_key #get_keys #remove #get_type #get_value #get_bool #get_int #get_double #get_string #get_binary #get_dictionary #get_list #set_value #set_null #set_bool #set_int #set_double #set_string #set_binary #set_dictionary #set_list)! !
+	^#(#base #is_valid #is_owned #is_read_only #is_same #is_equal #copy #get_size #clear #has_key #get_keys #remove #get_type #get_value #get_bool #get_int #get_double #get_string #get_binary #get_dictionary #get_list #set_value #set_null #set_bool #set_int #set_double #set_string #set_binary #set_dictionary #set_list)!
+
+new
+	^CefLibrary default dictionaryValueCreate! !
 
 !CefDictionaryValue class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
+new!public! !
 !
 

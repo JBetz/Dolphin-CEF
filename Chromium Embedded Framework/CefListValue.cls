@@ -903,10 +903,14 @@ defineFields
 					smalltalkName: #setList_index:value:)!
 
 getFieldNames
-	^#(#base #is_valid #is_owned #is_read_only #is_same #is_equal #copy #set_size #get_size #clear #remove #get_type #get_value #get_bool #get_int #get_double #get_string #get_binary #get_dictionary #get_list #set_value #set_null #set_bool #set_int #set_double #set_string #set_binary #set_dictionary #set_list)! !
+	^#(#base #is_valid #is_owned #is_read_only #is_same #is_equal #copy #set_size #get_size #clear #remove #get_type #get_value #get_bool #get_int #get_double #get_string #get_binary #get_dictionary #get_list #set_value #set_null #set_bool #set_int #set_double #set_string #set_binary #set_dictionary #set_list)!
+
+new
+	^CefLibrary default listValueCreate! !
 
 !CefListValue class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
+new!public! !
 !
 

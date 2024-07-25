@@ -177,10 +177,14 @@ defineFields
 		defineField: #get_shared_memory_region type: DWORDField new!
 
 getFieldNames
-	^#(#base #is_valid #is_read_only #copy #get_name #get_argument_list #get_shared_memory_region)! !
+	^#(#base #is_valid #is_read_only #copy #get_name #get_argument_list #get_shared_memory_region)!
+
+new: aString
+	^CefLibrary default processMessageCreate_name: aString asCefString! !
 
 !CefProcessMessage class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
+new:!public! !
 !
 

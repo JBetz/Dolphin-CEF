@@ -205,6 +205,8 @@ CefConstants at: 'MENU_ID_USER_LAST' put: 16r6F54!
 CefConstants at: 'MENU_ID_VIEW_SOURCE' put: 16r84!
 CefConstants at: 'PET_POPUP' put: 16r1!
 CefConstants at: 'PET_VIEW' put: 16r0!
+CefConstants at: 'PID_BROWSER' put: 16r0!
+CefConstants at: 'PID_RENDERER' put: 16r1!
 CefConstants at: 'RV_CANCEL' put: 16r0!
 CefConstants at: 'RV_CONTINUE' put: 16r1!
 CefConstants at: 'RV_CONTINUE_ASYNC' put: 16r2!

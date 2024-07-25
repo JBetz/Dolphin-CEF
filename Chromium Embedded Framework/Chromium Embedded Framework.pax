@@ -46,6 +46,7 @@ package classNames
 	add: #CefFocusHandler;
 	add: #CefFrame;
 	add: #CefFrameHandler;
+	add: #CefJavaScriptException;
 	add: #CefKeyboardHandler;
 	add: #CefKeyEvent;
 	add: #CefLibrary;
@@ -99,6 +100,8 @@ package classNames
 	yourself.
 
 package methodNames
+	add: #Collection -> #asCefListValue;
+	add: #Dictionary -> #asCefDictionaryValue;
 	add: #KernelLibrary -> #setPriorityClass:dwPriorityClass:;
 	add: #KernelLibrary -> #setProcessDEPPolicy:;
 	add: #Rectangle -> #asCefRect;
@@ -123,6 +126,7 @@ package setPrerequisites: #(
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\Core\Contributions\svenc\STON\STON-Core'
 	'..\FFI Extensions\FFI Extensions').
 
 package!
@@ -160,13 +164,19 @@ Object subclass: #CefTransitionType
 	classInstanceVariableNames: ''!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream queuedUrl'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream queuedUrl evalCallbacks'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
 
 Object subclass: #Url
 	instanceVariableNames: 'inputString fragment host origin password path port query scheme spec username'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Error subclass: #CefJavaScriptException
+	instanceVariableNames: 'endColumn endPosition lineNumber message scriptResourceName sourceLine startColumn startPosition'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -598,6 +608,24 @@ ContainerView subclass: #WebBrowserView
 	classInstanceVariableNames: ''!
 
 "Loose Methods"!
+
+!Collection methodsFor!
+
+asCefListValue
+	Error notYetImplemented! !
+
+!Collection categoriesForMethods!
+asCefListValue!enumerating!public! !
+!
+
+!Dictionary methodsFor!
+
+asCefDictionaryValue
+	Error notYetImplemented! !
+
+!Dictionary categoriesForMethods!
+asCefDictionaryValue!public! !
+!
 
 !KernelLibrary methodsFor!
 

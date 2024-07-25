@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream queuedUrl'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream queuedUrl evalCallbacks'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -92,6 +92,23 @@ delete
 
 doClose: lifeSpanHandler browser: browser
 	^0!
+
+evalJavaScript: aString callback: aBlock
+	| mainFrame uuid message argumentList arguments |
+	cefBrowser ifNil: [^self].
+	mainFrame := cefBrowser getMainFrame.
+	message := CefProcessMessage new: 'Eval'.
+	uuid := GUID newUnique displayString.
+	argumentList := message getArgumentList.
+	arguments := CefDictionaryValue new.
+	arguments
+		at: 'id' put: uuid;
+		at: 'code' put: aString;
+		at: 'scriptUrl' put: 'Dolphin';
+		at: 'startLine' put: 1.
+	argumentList setDictionary_index: 0 value: arguments.
+	mainFrame sendProcessMessage_targetProcess: PID_RENDERER message: message.
+	evalCallbacks at: uuid put: aBlock!
 
 executeJavaScript: aString
 	| mainFrame |
@@ -225,7 +242,8 @@ initialize
 	rectangle := Rectangle new.
 	readyToClose := false.
 	searches := LookupTable new.
-	visitors := OrderedCollection new!
+	visitors := OrderedCollection new.
+	evalCallbacks := LookupTable new!
 
 initializeOffscreenClient
 	cefClient := CefClient new.
@@ -367,6 +385,23 @@ onCursorChange: displayHandler browser: browser cursor: cursor type: type custom
 	host cursor: cursorSelector.
 	^1!
 
+onEval: aCefListValue
+	| result id callback |
+	result := aCefListValue getDictionary_index: 0.
+	id := result at: 'id'.
+	callback := evalCallbacks at: id ifAbsent: [^self].
+	(result includesKey: 'success')
+		ifTrue: 
+			[| jsonResult |
+			jsonResult := STONJSON fromString: (result at: 'success').
+			callback value: jsonResult]
+		ifFalse: 
+			[| errorResult javascriptException |
+			errorResult := result at: 'error'.
+			javascriptException := CefJavaScriptException fromCefDictionary: errorResult.
+			javascriptException signal].
+	evalCallbacks removeKey: id!
+
 onFaviconUrlChange: displayHandler browser: browser iconUrls: iconUrls
 	^0!
 
@@ -455,7 +490,8 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 	"messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: arguments].
 	messageName = 'ClientRenderer.OnFocusOut' ifTrue: [self onFocusOut: arguments].
 	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: arguments].
-	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: arguments]"!
+	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: arguments]."
+	messageName = 'ClientRenderer.OnEval' ifTrue: [self onEval: arguments]!
 
 onResize: aRectangle
 	rectangle := aRectangle.
@@ -611,6 +647,7 @@ cut!public! !
 defocus!public! !
 delete!public! !
 doClose:browser:!cef event handler!life span handler!private! !
+evalJavaScript:callback:!public! !
 executeJavaScript:!public! !
 find:!public! !
 focus!public! !
@@ -656,6 +693,7 @@ onConsoleMessage:browser:level:message:source:line:!cef event handler!display ha
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
 onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
+onEval:!public! !
 onFaviconUrlChange:browser:iconUrls:!cef event handler!display handler!private! !
 onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !

@@ -64,6 +64,10 @@ createUrl_parts: parts url: url
 	<cdecl: sdword cef_create_url CefUrlParts* CefString*>
 	^self invalidCall: _failureCode!
 
+dictionaryValueCreate
+	<cdecl: CefDictionaryValue* cef_dictionary_value_create>
+	^self invalidCall: _failureCode!
+
 doMessageLoopWork
 	"///
 	/// Perform a single iteration of CEF message loop processing. This function is
@@ -144,8 +148,16 @@ initialize_args: args settings: settings application: application windowsSandbox
 	<cdecl: sdword cef_initialize CefMainArgs* CefSettings* CefApp* void*>
 	^self invalidCall: _failureCode!
 
+listValueCreate
+	<cdecl: CefListValue* cef_list_value_create>
+	^self invalidCall: _failureCode!
+
 parseUrl_url: url parts: parts
 	<cdecl: sdword cef_parse_url CefString* CefUrlParts*>
+	^self invalidCall: _failureCode!
+
+processMessageCreate_name: name
+	<cdecl: CefProcessMessage* cef_process_message_create CefString*>
 	^self invalidCall: _failureCode!
 
 quitMessageLoop
@@ -203,12 +215,15 @@ stringListValue_list: list index: index value: value
 browserHostCreateBrowser_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
 browserHostCreateBrowserSync_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
 createUrl_parts:url:!parser!public! !
+dictionaryValueCreate!public! !
 doMessageLoopWork!public! !
 executeProcess_args:application:windowsSandboxInfo:!public! !
 formatUrlForSecurityDisplay_originUrl:!parser!public! !
 getExitCode!public! !
 initialize_args:settings:application:windowsSandboxInfo:!public! !
+listValueCreate!public! !
 parseUrl_url:parts:!parser!public! !
+processMessageCreate_name:!public! !
 quitMessageLoop!public! !
 resolveUrl_baseUrl:relativeUrl:resolvedUrl:!parser!public! !
 runMessageLoop!public! !
