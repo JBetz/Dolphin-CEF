@@ -392,10 +392,9 @@ onEval: aCefListValue
 	callback := evalCallbacks at: id ifAbsent: [^self].
 	(result includesKey: 'success')
 		ifTrue: 
-			[| rawJson json |
-			rawJson := result at: 'sucess'.
-			json := rawJson ifNotNil: [STONJSON fromString: rawJson].
-			callback value: json]
+			[| rawJson |
+			rawJson := result at: 'success'.
+			callback value: (rawJson ifNotNil: [STONJSON fromString: rawJson])]
 		ifFalse: 
 			[| errorResult javascriptException |
 			errorResult := result at: 'error'.
