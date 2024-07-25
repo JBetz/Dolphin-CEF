@@ -101,7 +101,7 @@ example
 		arrangement: 1;
 		create;
 		show;
-		loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin';
+		loadUrl: 'https://github.com/JBetz/Dolphin-CEF';
 		yourself! !
 
 !WebBrowserView class categoriesForMethods!
