@@ -134,6 +134,7 @@ startMessageLoopProcess
 	messageLoopProcess name: 'CEF'!
 
 stop
+	isRunning ifTrue: [^self].
 	isRunning := false.
 	self stopMessageLoopProcess.
 	self library shutdown.
