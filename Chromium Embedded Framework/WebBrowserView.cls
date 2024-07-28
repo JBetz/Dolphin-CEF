@@ -30,6 +30,11 @@ onAddressChange: aCefUrlParts
 
 onBeforeBrowse: aCefRequest isRedirect: aBoolean !
 
+onConsoleMessage: aString level: level source: source line: line
+	Transcript
+		display: aString;
+		cr!
+
 onPositionChanged: aPositionEvent
 	| windowHandle |
 	super onPositionChanged: aPositionEvent.
@@ -65,6 +70,11 @@ onViewCreated
 onViewDestroyed
 	chromiumBrowser onViewDestroyed!
 
+onWindowMessage: anObject source: aString
+	Transcript
+		display: anObject displayString;
+		cr!
+
 pushCloseEvent
 ! !
 
@@ -75,11 +85,13 @@ forward!public! !
 loadUrl:!public! !
 onAddressChange:!public! !
 onBeforeBrowse:isRedirect:!public! !
+onConsoleMessage:level:source:line:!public! !
 onPositionChanged:!public! !
 onTitleChange:!public! !
 onViewClosed!public! !
 onViewCreated!public! !
 onViewDestroyed!public! !
+onWindowMessage:source:!public! !
 pushCloseEvent!public! !
 !
 

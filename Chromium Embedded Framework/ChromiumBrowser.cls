@@ -360,8 +360,12 @@ onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUr
 	^1!
 
 onConsoleMessage: displayHandler browser: browser level: level message: message source: source line: line
-	^0
-!
+	host
+		onConsoleMessage: message
+		level: level
+		source: source
+		line: line.
+	^0!
 
 onContextMenuCommand: contextMenuHandler browser: browser frame: frame params: params commandId: commandId eventFlags: eventFlags
 	params callRelease.
@@ -454,6 +458,14 @@ onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: n
 onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess
 	^0!
 
+onMessage: aCefListValue
+	| arguments source rawData data |
+	arguments := aCefListValue getDictionary_index: 0.
+	source := arguments at: 'source'.
+	rawData := arguments at: 'data'.
+	data := rawData ifNotNil: [STONJSON fromString: rawData].
+	host onWindowMessage: data source: source!
+
 onOpenUrlFromTab: requestHandler browser: browser frame: frame targetUrl: targetUrl targetDisposition: targetDisposition userGesture: userGesture
 	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
 		ifTrue: 
@@ -491,7 +503,8 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 	messageName = 'ClientRenderer.OnFocusOut' ifTrue: [self onFocusOut: arguments].
 	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: arguments].
 	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: arguments]."
-	messageName = 'ClientRenderer.OnEval' ifTrue: [self onEval: arguments]!
+	messageName = 'ClientRenderer.OnEval' ifTrue: [self onEval: arguments].
+	messageName = 'ClientRenderer.OnMessage' ifTrue: [self onMessage: arguments]!
 
 onResize: aRectangle
 	rectangle := aRectangle.
@@ -707,6 +720,7 @@ onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler
 onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
 onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:!cef event handler!display handler!private! !
+onMessage:!public! !
 onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
 onPopupShow:browser:show:!popup!private! !
