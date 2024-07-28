@@ -393,18 +393,18 @@ onEval: aCefListValue
 	| result id callback |
 	result := aCefListValue getDictionary_index: 0.
 	id := result at: 'id'.
-	callback := evalCallbacks at: id ifAbsent: [^self].
+	callback := evalCallbacks removeKey: id ifAbsent: [^self].
 	(result includesKey: 'success')
 		ifTrue: 
-			[| rawJson |
+			[| rawJson json |
 			rawJson := result at: 'success'.
-			callback value: (rawJson ifNotNil: [STONJSON fromString: rawJson])]
+			json := rawJson ifNotNil: [STONJSON fromString: rawJson].
+			callback value: json]
 		ifFalse: 
-			[| errorResult javascriptException |
-			errorResult := result at: 'error'.
-			javascriptException := CefJavaScriptException fromCefDictionary: errorResult.
-			javascriptException signal].
-	evalCallbacks removeKey: id!
+			[| exceptionData javascriptException |
+			exceptionData := result at: 'error'.
+			javascriptException := CefJavaScriptException fromCefDictionary: exceptionData.
+			javascriptException signal]!
 
 onFaviconUrlChange: displayHandler browser: browser iconUrls: iconUrls
 	^0!
