@@ -78,7 +78,8 @@ initializeSettings
 		log_file: logFile asCefString;
 		cache_path: cachePath asCefString;
 		no_sandbox: true;
-		windowless_rendering_enabled: true!
+		windowless_rendering_enabled: true;
+		chrome_runtime: true!
 
 iterate
 	(isRunning not or: [isProcessing]) ifTrue: [^self].
