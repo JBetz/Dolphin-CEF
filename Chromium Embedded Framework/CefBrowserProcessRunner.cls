@@ -78,8 +78,7 @@ initializeSettings
 		log_file: logFile asCefString;
 		cache_path: cachePath asCefString;
 		no_sandbox: true;
-		windowless_rendering_enabled: true;
-		chrome_runtime: true!
+		windowless_rendering_enabled: true!
 
 iterate
 	(isRunning not or: [isProcessing]) ifTrue: [^self].
@@ -135,7 +134,7 @@ startMessageLoopProcess
 	messageLoopProcess name: 'CEF'!
 
 stop
-	isRunning ifTrue: [^self].
+	isRunning ifFalse: [^self].
 	isRunning := false.
 	self stopMessageLoopProcess.
 	self library shutdown.

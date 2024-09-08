@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #CefWindowInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_bounds _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
+	classVariableNames: '_OffsetOf_bounds _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_runtime_style _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -13,6 +13,7 @@ CefWindowInfo addClassConstant: '_OffsetOf_ex_style' value: 16r0!
 CefWindowInfo addClassConstant: '_OffsetOf_external_begin_frame_enabled' value: 16r34!
 CefWindowInfo addClassConstant: '_OffsetOf_menu' value: 16r28!
 CefWindowInfo addClassConstant: '_OffsetOf_parent_window' value: 16r24!
+CefWindowInfo addClassConstant: '_OffsetOf_runtime_style' value: 16r3C!
 CefWindowInfo addClassConstant: '_OffsetOf_shared_texture_enabled' value: 16r30!
 CefWindowInfo addClassConstant: '_OffsetOf_style' value: 16r10!
 CefWindowInfo addClassConstant: '_OffsetOf_window' value: 16r38!
@@ -79,6 +80,16 @@ parent_window: anExternalHandle
 
 	bytes uintPtrAtOffset: _OffsetOf_parent_window put: anExternalHandle!
 
+runtime_style
+	"Answer the <Integer> value of the receiver's 'runtime_style' field."
+
+	^bytes dwordAtOffset: _OffsetOf_runtime_style!
+
+runtime_style: anInteger
+	"Set the receiver's 'runtime_style' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_runtime_style put: anInteger!
+
 shared_texture_enabled
 	"Answer the <Integer> value of the receiver's 'shared_texture_enabled' field."
 
@@ -144,6 +155,8 @@ menu!**compiled accessors**!public! !
 menu:!**compiled accessors**!public! !
 parent_window!**compiled accessors**!public! !
 parent_window:!**compiled accessors**!public! !
+runtime_style!**compiled accessors**!public! !
+runtime_style:!**compiled accessors**!public! !
 shared_texture_enabled!**compiled accessors**!public! !
 shared_texture_enabled:!**compiled accessors**!public! !
 style!**compiled accessors**!public! !
@@ -204,6 +217,13 @@ defineFields
 	  /// Handle for the new browser window. Only used with windowed rendering.
 	  ///
 	  cef_window_handle_t window;
+
+	  ///
+	  /// Optionally change the runtime style. Alloy style will always be used if
+	  /// |windowless_rendering_enabled| is true. See cef_runtime_style_t
+	  /// documentation for details.
+	  ///
+	  cef_runtime_style_t runtime_style;
 	} cef_window_info_t;"
 
 	self
@@ -216,10 +236,11 @@ defineFields
 		defineField: #windowless_rendering_enabled type: SDWORDField new;
 		defineField: #shared_texture_enabled type: SDWORDField new;
 		defineField: #external_begin_frame_enabled type: SDWORDField new;
-		defineField: #window type: HANDLEField new!
+		defineField: #window type: HANDLEField new;
+		defineField: #runtime_style type: DWORDField new!
 
 getFieldNames
-	^#(#ex_style #window_name #style #bounds #parent_window #menu #windowless_rendering_enabled #shared_texture_enabled #external_begin_frame_enabled #window)! !
+	^#(#ex_style #window_name #style #bounds #parent_window #menu #windowless_rendering_enabled #shared_texture_enabled #external_begin_frame_enabled #window #runtime_style)! !
 
 !CefWindowInfo class categoriesForMethods!
 defineFields!public! !

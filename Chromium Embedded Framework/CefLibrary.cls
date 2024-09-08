@@ -126,7 +126,7 @@ getExitCode
 	/// relaunch behavior).
 	///"
 
-	<cdecl: sdword cef_shutdown>
+	<cdecl: sdword cef_get_exit_code>
 	^self invalidCall: _failureCode!
 
 initialize_args: args settings: settings application: application windowsSandboxInfo: windows_sandbox_info
@@ -136,9 +136,9 @@ initialize_args: args settings: settings application: application windowsSandbox
 	/// true (1) if initialization succeeds. Returns false (0) if initialization
 	/// fails or if early exit is desired (for example, due to process singleton
 	/// relaunch behavior). If this function returns false (0) then the application
-	/// should exit immediately without calling any other CEF functions. The
-	/// |windows_sandbox_info| parameter is only used on Windows and may be NULL
-	/// (see cef_sandbox_win.h for details).
+	/// should exit immediately without calling any other CEF functions except,
+	/// optionally, CefGetErrorCode. The |windows_sandbox_info| parameter is only
+	/// used on Windows and may be NULL (see cef_sandbox_win.h for details).
 	///
 	CEF_EXPORT int cef_initialize(const cef_main_args_t* args,
 				      const struct _cef_settings_t* settings,
@@ -209,6 +209,10 @@ stringListSize_list: list
 
 stringListValue_list: list index: index value: value
 	<cdecl: sdword cef_string_list_value CefStringList* dword CefString*>
+	^self invalidCall: _failureCode!
+
+taskManagerGet
+	<cdecl: CefTaskManager* cef_task_manager_get>
 	^self invalidCall: _failureCode! !
 
 !CefLibrary categoriesForMethods!
@@ -231,6 +235,7 @@ shutdown!public! !
 stringFromAscii_src:srcLen:output:!public! !
 stringListSize_list:!parser!public! !
 stringListValue_list:index:value:!parser!public! !
+taskManagerGet!public! !
 !
 
 !CefLibrary class methodsFor!
