@@ -63,7 +63,7 @@ initializeCef
 				settings: cefSettings
 				application: cefApp
 				windowsSandboxInfo: nil.
-	resultCode = 0 ifTrue: [Error signal: 'Error initializing CEF']!
+	resultCode = 0 ifTrue: [self error: 'Error initializing CEF']!
 
 initializeSettings
 	| subprocessPath logFile cachePath |
@@ -181,6 +181,13 @@ useMultiThreadedMessageLoop!private! !
 
 !CefBrowserProcessRunner class methodsFor!
 
+current
+	Singleton
+		ifNil: 
+			[Singleton := super new.
+			Singleton initialize].
+	^Singleton!
+
 ensureRunning
 	self new ensureRunning!
 
@@ -196,11 +203,7 @@ initialize
 			to: self!
 
 new
-	Singleton
-		ifNil: 
-			[Singleton := super new.
-			Singleton initialize].
-	^Singleton!
+	^self shouldNotImplement!
 
 onShutdown
 	Singleton ifNil: [^self].
@@ -216,6 +219,7 @@ pause
 	self new pause! !
 
 !CefBrowserProcessRunner class categoriesForMethods!
+current!public! !
 ensureRunning!public! !
 initialize!public! !
 new!public! !
