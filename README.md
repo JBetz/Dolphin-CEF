@@ -2,7 +2,7 @@
 
 **Dolphin Version**: 7.2.0
 
-**CEF Version**: 127.0.6533.120
+**CEF Version**: 128.0.6613.114
 
 ## Why Dolphin-CEF?
 For creating a custom browser on top of Chromium, or otherwise embedding web content inside of a native Windows app.
