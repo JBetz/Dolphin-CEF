@@ -143,7 +143,7 @@ username:!accessing!private! !
 fromString: aString
 	| urlParts |
 	urlParts := self parseString: aString.
-	urlParts ifNil: [Error signal: ('Invalid URL string: <1s>' expandMacrosWith: aString)].
+	urlParts ifNil: [self error: ('Invalid URL string: <1s>' expandMacrosWith: aString)].
 	^self new
 		inputString: aString;
 		fragment: urlParts fragment str;

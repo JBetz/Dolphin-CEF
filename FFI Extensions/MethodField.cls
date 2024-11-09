@@ -87,7 +87,7 @@ generateWrappedExternalMethodHeader
 printArgumentsDeclarationOn: aPuttableStream
 	| argumentCount argumentNames |
 	smalltalkName
-		ifNil: [Error signal: 'Non-unary method fields require selector to name keyword arguments'].
+		ifNil: [self error: 'Non-unary method fields require selector to name keyword arguments'].
 	argumentCount := smalltalkName argumentCount.
 	argumentNames := ($_ split: smalltalkName) second asSymbol keywords.
 	aPuttableStream

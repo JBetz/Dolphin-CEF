@@ -46,8 +46,8 @@ smalltalkName:!public! !
 descriptor: anExternalDescriptor
 	anExternalDescriptor argumentCount > 1
 		ifTrue: 
-			[Error
-				signal: 'For non-unary C method fields, you need to specify the Smalltalk selector manually. Use MethodField class>>descriptor:smalltalkName when constructing this method field instead of MethodField class>>descriptor.'].
+			[self
+				error: 'For non-unary C method fields, you need to specify the Smalltalk selector manually. Use MethodField class>>descriptor:smalltalkName when constructing this method field instead of MethodField class>>descriptor.'].
 	^self new descriptor: anExternalDescriptor!
 
 descriptor: anExternalDescriptor smalltalkName: aSymbol
