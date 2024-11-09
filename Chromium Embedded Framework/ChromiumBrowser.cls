@@ -34,7 +34,12 @@ cefWindowStyle
 
 closeBrowser
 	cefBrowser ifNil: [^self].
-	cefBrowser getHost closeBrowser_forceClose: 0!
+	[cefBrowser getHost closeBrowser_forceClose: 0] on: Error
+		do: 
+			[:error |
+			Transcript
+				display: 'Error closing browser: ' , error displayString;
+				cr]!
 
 copy
 	cefBrowser getFocusedFrame callCopy!
@@ -43,7 +48,7 @@ createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 	| windowInfo browserSettings |
 	CefBrowserProcessRunner ensureRunning.
 	(aRectangle width <= 0 or: [aRectangle height <= 0])
-		ifTrue: [Error signal: ('Invalid rectangle extent: <1d>' expandMacrosWith: aRectangle extent)].
+		ifTrue: [self error: ('Invalid rectangle extent: <1d>' expandMacrosWith: aRectangle extent)].
 	rectangle := aRectangle.
 	self initializeOffscreenClient.
 	windowInfo := CefWindowInfo new
@@ -78,7 +83,7 @@ createWindowedBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 				settings: browserSettings
 				extraInfo: nil
 				requestContext: nil.
-	resultCode = 0 ifTrue: [Error signal: 'Error creating CEF browser']!
+	resultCode = 0 ifTrue: [self error: 'Error creating CEF browser']!
 
 cut
 	cefBrowser getFocusedFrame callCut!
@@ -482,8 +487,9 @@ onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCo
 	(host isNil or: [targetTexture isNil or: [targetTexture getExtent ~= (width @ height)]])
 		ifTrue: [^0].
 	pitch := width * 4.
-	targetTexture updatePixels: buffer pitch: pitch.
-	targetTexture isPainted: true.
+	targetTexture
+		updatePixels: buffer pitch: pitch;
+		isPainted: true.
 	host pushRenderEvent.
 	^0!
 
@@ -499,10 +505,10 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 	| messageName arguments |
 	messageName := aCefProcessMessage getName str.
 	arguments := aCefProcessMessage getArgumentList.
-	"messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: arguments].
+	messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: arguments].
 	messageName = 'ClientRenderer.OnFocusOut' ifTrue: [self onFocusOut: arguments].
 	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: arguments].
-	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: arguments]."
+	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: arguments].
 	messageName = 'ClientRenderer.OnEval' ifTrue: [self onEval: arguments].
 	messageName = 'ClientRenderer.OnMessage' ifTrue: [self onMessage: arguments]!
 
