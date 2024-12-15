@@ -189,7 +189,7 @@ current
 	^Singleton!
 
 ensureRunning
-	self new ensureRunning!
+	self current ensureRunning!
 
 initialize
 	"self initialize"
