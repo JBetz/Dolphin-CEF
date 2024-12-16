@@ -1,8 +1,8 @@
 [Dolphin Smalltalk](https://github.com/dolphinsmalltalk/Dolphin) language bindings to the [Chromium Embedded Framework (CEF)](https://bitbucket.org/chromiumembedded/workspace/projects/CEF). 
 
-**Dolphin Version**: 7.2.0
+**Dolphin Version**: 7.2.1
 
-**CEF Version**: [128.0.6613.114](https://cef-builds.spotifycdn.com/cef_binary_127.3.5%2Bg114ea2a%2Bchromium-127.0.6533.120_windows32.tar.bz2)
+**CEF Version**: [128.0.6613.114](https://cef-builds.spotifycdn.com/cef_binary_128.4.8%2Bg88b5034%2Bchromium-128.0.6613.114_windows32.tar.bz2)
 
 ## Why Dolphin-CEF?
 For creating a custom browser on top of Chromium, or otherwise embedding web content inside of a native Windows app.
