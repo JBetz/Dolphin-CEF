@@ -2,7 +2,7 @@
 
 **Dolphin Version**: 7.2.0
 
-**CEF Version**: 128.0.6613.114
+**CEF Version**: [128.0.6613.114](https://cef-builds.spotifycdn.com/cef_binary_127.3.5%2Bg114ea2a%2Bchromium-127.0.6533.120_windows32.tar.bz2)
 
 ## Why Dolphin-CEF?
 For creating a custom browser on top of Chromium, or otherwise embedding web content inside of a native Windows app.
@@ -20,7 +20,7 @@ Currently, this library provides minimal support for use with Win32 widgets and 
 * Copy everything inside this repo's `cef` directory into the same directory as your image, then extract the `libcef.zip` folder and move `libcef.dll` into the same directory. It needs to be compressed to get around GitHub's 100mb file limit.
 * Inside the image, run `WebBrowserView example` to open a window with the Dolphin Github page
 
-Alternatively, you can download [CEF Windows 32-bit binaries](https://cef-builds.spotifycdn.com/index.html), then copy everything inside the Release and Resources folders into the same directory as the image. In that case, you'll either need to use `cefclient.exe` from the sample application build or use `CefSubprocessRunner.exe` from this repo as the subprocess executable. From Dolphin's perspective, the only difference between them is that `CefSubprocessRunner.exe` sends an additional event to the browser process for tracking mouse over events.
+Alternatively, you can download [CEF Windows 32-bit binaries](https://cef-builds.spotifycdn.com/index.html), then copy everything inside the Release and Resources folders into the same directory as the image. The version you download will need to be the same as shown on the top of this README. You'll either need to use `cefclient.exe` from the sample application build or use `CefSubprocessRunner.exe` from this repo as the subprocess executable. From Dolphin's perspective, the only difference between them is that `CefSubprocessRunner.exe` sends additional events to the browser process for tracking events that aren't currently exposed by CEF, such as mouse over, focus, and navigation.
 
 The source for `CefSubprocessRunner.exe` can be found in https://github.com/JBetz/CefSubprocessRunner.
 
