@@ -35,6 +35,9 @@ onConsoleMessage: aString level: level source: source line: line
 		display: aString;
 		cr!
 
+onNavigate: aCefNavigationEvent 
+	^self!
+
 onPositionChanged: aPositionEvent
 	| windowHandle |
 	super onPositionChanged: aPositionEvent.
@@ -76,7 +79,10 @@ onWindowMessage: anObject source: aString
 		cr!
 
 pushCloseEvent
-! !
+!
+
+rendered
+	^self! !
 
 !WebBrowserView categoriesForMethods!
 back!public! !
@@ -86,6 +92,7 @@ loadUrl:!public! !
 onAddressChange:!public! !
 onBeforeBrowse:isRedirect:!public! !
 onConsoleMessage:level:source:line:!public! !
+onNavigate:!public! !
 onPositionChanged:!public! !
 onTitleChange:!public! !
 onViewClosed!public! !
@@ -93,6 +100,7 @@ onViewCreated!public! !
 onViewDestroyed!public! !
 onWindowMessage:source:!public! !
 pushCloseEvent!public! !
+rendered!public! !
 !
 
 !WebBrowserView class methodsFor!
