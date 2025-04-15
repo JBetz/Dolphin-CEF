@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Url
-	instanceVariableNames: 'inputString fragment host origin password path port query scheme spec username'
+	instanceVariableNames: 'string parts'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,80 +14,44 @@ Url comment: ''!
 
 !Url methodsFor!
 
+asCefString
+	^string asCefString!
+
 asUrl
 	^self!
 
 displayString
-	^self inputString!
+	^self string!
 
 domain
 	^self host!
 
-extractParts: aCefUrlParts
-	fragment := aCefUrlParts fragment str.
-	host := aCefUrlParts host str.
-	origin := aCefUrlParts origin str.
-	password := aCefUrlParts password str.
-	path := aCefUrlParts path str.
-	port := aCefUrlParts port str.
-	query := aCefUrlParts query str.
-	scheme := aCefUrlParts scheme str.
-	spec := aCefUrlParts spec str.
-	username := aCefUrlParts username str!
-
 fragment
-	^fragment!
-
-fragment: anUndefinedObject 
-	fragment := anUndefinedObject!
+	^parts fragment str!
 
 host
-	^host!
-
-host: anObject
-	host := anObject!
-
-inputString
-	^inputString!
-
-inputString: aString
-	inputString := aString!
+	^parts host str!
 
 origin
-	^origin!
+	^parts origin str!
 
-origin: anObject
-	origin := anObject!
+parts: aCefUrlParts
+	parts := aCefUrlParts!
 
 password
-	^password!
-
-password: anObject
-	password := anObject!
+	^parts password str!
 
 path
-	^path!
-
-path: anObject
-	path := anObject!
+	^parts path str!
 
 port
-	^port!
-
-port: anObject
-	port := anObject!
+	^parts port str!
 
 query
-	^query!
-
-query: anObject
-	query := anObject!
+	^parts query str!
 
 scheme
-	^scheme!
-
-scheme: anObject
-	scheme := anObject!
+	^parts scheme str!
 
 secureString
 	| cefSecureString secureString |
@@ -96,46 +60,33 @@ secureString
 	cefSecureString free.
 	^secureString!
 
-spec
-	^spec!
+string
+	^string!
 
-spec: anObject
-	spec := anObject!
+string: aString
+	string := aString!
 
 username
-	^username!
-
-username: anObject
-	username := anObject! !
+	^parts username str! !
 
 !Url categoriesForMethods!
+asCefString!public! !
 asUrl!public! !
 displayString!public! !
 domain!public! !
-extractParts:!private! !
 fragment!public! !
-fragment:!public! !
 host!public! !
-host:!accessing!private! !
-inputString!public! !
-inputString:!public! !
 origin!public! !
-origin:!accessing!private! !
+parts:!public! !
 password!public! !
-password:!accessing!private! !
 path!public! !
-path:!accessing!private! !
 port!public! !
-port:!accessing!private! !
 query!public! !
-query:!accessing!private! !
 scheme!public! !
-scheme:!accessing!private! !
 secureString!public! !
-spec!public! !
-spec:!accessing!private! !
+string!public! !
+string:!public! !
 username!public! !
-username:!accessing!private! !
 !
 
 !Url class methodsFor!
@@ -145,17 +96,8 @@ fromString: aString
 	urlParts := self parseString: aString.
 	urlParts ifNil: [self error: ('Invalid URL string: <1s>' expandMacrosWith: aString)].
 	^self new
-		inputString: aString;
-		fragment: urlParts fragment str;
-		host: urlParts host str;
-		origin: urlParts origin str;
-		password: urlParts password str;
-		path: urlParts path str;
-		port: urlParts port str;
-		query: urlParts query str;
-		scheme: urlParts scheme str;
-		spec: urlParts spec str;
-		username: urlParts username str!
+		string: aString;
+		parts: urlParts!
 
 parseString: aString
 	| cef parts resultCode |
@@ -164,10 +106,14 @@ parseString: aString
 	resultCode := cef parseUrl_url: aString asCefString parts: parts.
 	resultCode = 0
 		ifTrue: [resultCode := cef parseUrl_url: ('https://' , aString) asCefString parts: parts].
-	^resultCode = 0 ifTrue: [nil] ifFalse: [parts]! !
+	^resultCode = 0 ifTrue: [nil] ifFalse: [parts]!
+
+stonAllInstVarNames
+	^#(#string)! !
 
 !Url class categoriesForMethods!
 fromString:!public! !
 parseString:!private! !
+stonAllInstVarNames!public! !
 !
 
