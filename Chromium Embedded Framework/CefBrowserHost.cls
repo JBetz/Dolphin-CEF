@@ -121,6 +121,10 @@ _getWindowHandle_cefBrowserHost: cefBrowserHost
 	<stdcall: handle get_window_handle CefBrowserHost*>
 	^self invalidCall: _failureCode!
 
+_getWindowlessFrameRate_cefBrowserHost: cefBrowserHost
+	<stdcall: sdword get_windowless_frame_rate CefBrowserHost*>
+	^self invalidCall: _failureCode!
+
 _getZoomLevel_cefBrowserHost: cefBrowserHost
 	<stdcall: double get_zoom_level CefBrowserHost*>
 	^self invalidCall: _failureCode!
@@ -159,6 +163,10 @@ _setAudioMuted_cefBrowserHost: cefBrowserHost mute: mute
 
 _setFocus_cefBrowserHost: cefBrowserHost focus: focus
 	<stdcall: void set_focus CefBrowserHost* sdword>
+	^self invalidCall: _failureCode!
+
+_setWindowlessFrameRate_cefBrowserHost: cefBrowserHost frameRate: frameRate
+	<stdcall: void set_windowless_frame_frate CefBrowserHost* sdword>
 	^self invalidCall: _failureCode!
 
 _setZoomLevel_cefBrowserHost: cefBrowserHost zoomLevel: zoomLevel
@@ -531,6 +539,12 @@ getWindowHandle
 	| method |
 	method := self class externalMethodAt: #_getWindowHandle_cefBrowserHost:
 				ifAbsentBindTo: self get_window_handle.
+	^method value: self withArguments: (Array with: self)!
+
+getWindowlessFrameRate
+	| method |
+	method := self class externalMethodAt: #_getWindowlessFrameRate_cefBrowserHost:
+				ifAbsentBindTo: self get_windowless_frame_rate.
 	^method value: self withArguments: (Array with: self)!
 
 getZoomLevel
@@ -933,6 +947,16 @@ setFocus_focus: focus
 		at: 2 put: focus.
 	^method value: self withArguments: arguments!
 
+setWindowlessFrameRate_frameRate: frameRate
+	| method arguments |
+	method := self class externalMethodAt: #_setWindowlessFrameRate_cefBrowserHost:frameRate:
+				ifAbsentBindTo: self set_windowless_frame_frate.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: frameRate.
+	^method value: self withArguments: arguments!
+
 setZoomLevel_zoomLevel: zoomLevel
 	| method arguments |
 	method := self class externalMethodAt: #_setZoomLevel_cefBrowserHost:zoomLevel:
@@ -1064,6 +1088,7 @@ _getOpenerWindowHandle_cefBrowserHost:!**compiled accessors**!private! !
 _getRequestContext_cefBrowserHost:!**compiled accessors**!private! !
 _getVisibleNavigationEntry_cefBrowserHost:!**compiled accessors**!private! !
 _getWindowHandle_cefBrowserHost:!**compiled accessors**!private! !
+_getWindowlessFrameRate_cefBrowserHost:!**compiled accessors**!private! !
 _getZoomLevel_cefBrowserHost:!**compiled accessors**!private! !
 _hasView_cefBrowserHost:!**compiled accessors**!private! !
 _isAudioMuted_cefBrowserHost:!**compiled accessors**!private! !
@@ -1074,6 +1099,7 @@ _sendMouseMoveEvent_cefBrowserHost:event:mouseLeave:!**compiled accessors**!priv
 _sendMouseWheelEvent_cefBrowserHost:event:deltaX:deltaY:!**compiled accessors**!private! !
 _setAudioMuted_cefBrowserHost:mute:!**compiled accessors**!private! !
 _setFocus_cefBrowserHost:focus:!**compiled accessors**!private! !
+_setWindowlessFrameRate_cefBrowserHost:frameRate:!**compiled accessors**!private! !
 _setZoomLevel_cefBrowserHost:zoomLevel:!**compiled accessors**!private! !
 _stopFinding_cefBrowserHost:clearSelection:!**compiled accessors**!private! !
 _tryCloseBrowser_cefBrowserHost:!**compiled accessors**!private! !
@@ -1146,6 +1172,7 @@ getOpenerWindowHandle!**compiled accessors**!public! !
 getRequestContext!**compiled accessors**!public! !
 getVisibleNavigationEntry!**compiled accessors**!public! !
 getWindowHandle!**compiled accessors**!public! !
+getWindowlessFrameRate!**compiled accessors**!public! !
 getZoomLevel!**compiled accessors**!public! !
 has_dev_tools!**compiled accessors**!public! !
 has_dev_tools:!**compiled accessors**!public! !
@@ -1218,6 +1245,7 @@ set_zoom_level!**compiled accessors**!public! !
 set_zoom_level:!**compiled accessors**!public! !
 setAudioMuted_mute:!**compiled accessors**!public! !
 setFocus_focus:!**compiled accessors**!public! !
+setWindowlessFrameRate_frameRate:!**compiled accessors**!public! !
 setZoomLevel_zoomLevel:!**compiled accessors**!public! !
 show_dev_tools!**compiled accessors**!public! !
 show_dev_tools:!**compiled accessors**!public! !
@@ -1243,7 +1271,7 @@ zoom_command:!**compiled accessors**!public! !
 !CefBrowserHost class methodsFor!
 
 defineFields
-	"CefBrowserHost  compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
@@ -1336,8 +1364,13 @@ defineFields
 		defineField: #send_touch_event type: LPVOIDField new;
 		defineField: #send_capture_lost_event type: LPVOIDField new;
 		defineField: #notify_move_or_resize_started type: LPVOIDField new;
-		defineField: #get_windowless_frame_rate type: LPVOIDField new;
-		defineField: #set_windowless_frame_frate type: LPVOIDField new;
+		defineField: #get_windowless_frame_rate
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBrowserHost*')
+					smalltalkName: #getWindowlessFrameRate);
+		defineField: #set_windowless_frame_frate
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserHost* sdword')
+					smalltalkName: #setWindowlessFrameRate_frameRate:);
 		defineField: #ime_set_composition type: LPVOIDField new;
 		defineField: #ime_commit_text type: LPVOIDField new;
 		defineField: #ime_finish_composing_text type: LPVOIDField new;
