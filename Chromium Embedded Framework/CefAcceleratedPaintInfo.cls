@@ -47,7 +47,7 @@ shared_texture_handle:!**compiled accessors**!public! !
 !CefAcceleratedPaintInfo class methodsFor!
 
 defineFields
-	"CefAcceleratedPaintInfo compileDefinition"
+	"self compileDefinition"
 
 	"///
 	/// Structure containing shared texture information for the OnAcceleratedPaint

@@ -242,7 +242,7 @@ update_drag_cursor:!**compiled accessors**!public! !
 !CefRenderHandler class methodsFor!
 
 defineFields
-	"CefRenderHandler  compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self

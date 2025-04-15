@@ -171,14 +171,14 @@ qualifierMask
 qualifiers
 	| qualifiers |
 	qualifiers := OrderedCollection new.
-	self hasBlockedFlag ifTrue: [ qualifiers add: #blocked ].
-	self hasForwardBackFlag ifTrue: [ qualifiers add: #forwardBack ].
-	self hasDirectLoadFlag ifTrue: [ qualifiers add: #directLoad ].
-	self hasHomePageFlag ifTrue: [ qualifiers add: #homePage ].
-	self hasChainStartFlag ifTrue: [ qualifiers add: #chainStart ].
-	self hasChainEndFlag ifTrue: [ qualifiers add: #chainEnd ].
-	self hasClientRedirectFlag ifTrue: [ qualifiers add: #clientRedirect ].
-	self hasServerRedirectFlag ifTrue: [ qualifiers add: #serverRedirect ].
+	self hasBlockedFlag ifTrue: [qualifiers add: #blocked].
+	self hasForwardBackFlag ifTrue: [qualifiers add: #forwardBack].
+	self hasDirectLoadFlag ifTrue: [qualifiers add: #directLoad].
+	self hasHomePageFlag ifTrue: [qualifiers add: #homePage].
+	self hasChainStartFlag ifTrue: [qualifiers add: #chainStart].
+	self hasChainEndFlag ifTrue: [qualifiers add: #chainEnd].
+	self hasClientRedirectFlag ifTrue: [qualifiers add: #clientRedirect].
+	self hasServerRedirectFlag ifTrue: [qualifiers add: #serverRedirect].
 	^qualifiers asArray!
 
 source

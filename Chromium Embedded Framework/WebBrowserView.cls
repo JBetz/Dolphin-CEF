@@ -30,9 +30,9 @@ onAddressChange: aCefUrlParts
 
 onBeforeBrowse: aCefRequest isRedirect: aBoolean !
 
-onConsoleMessage: aString level: level source: source line: line
+onConsoleMessage: message level: level source: source line: line
 	Transcript
-		display: aString;
+		display: level -> message str;
 		cr!
 
 onNavigate: aCefNavigationEvent 

@@ -50,6 +50,9 @@ navigationType
 navigationType: aString
 	navigationType := aString!
 
+origin
+	^self userInitiated ifTrue: [#user] ifFalse: [#system]!
+
 userInitiated
 	^userInitiated!
 
@@ -69,6 +72,7 @@ isReplace!public! !
 isTraverse!public! !
 navigationType!accessing!public! !
 navigationType:!accessing!public! !
+origin!public! !
 userInitiated!accessing!public! !
 userInitiated:!accessing!public! !
 !
