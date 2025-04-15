@@ -131,16 +131,13 @@ defineFields
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: sdword CefBrowserProcessHandler* CefCommandLine* CefString*')
 					smalltalkName: #onAlreadyRunningAppRelaunch:commandLine:currentDirectory:);
-		defineField: #on_schedule_message_pump_work
-			type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBrowserProcessHandler* sqword')
-					smalltalkName: #onScheduleMessagePumpWork:delayMs:);
+		defineField: #on_schedule_message_pump_work type: LPVOIDField new;
 		defineField: #get_default_client
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefClient* CefBrowserProcessHandler*'));
 		defineField: #get_default_request_context_handler
-			type: (CallbackField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: CefRequestContextHandler* CefBrowserProcessHandler*'))!
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: CefRequestContextHandler* CefBrowserProcessHandler*'))!
 
 getFieldNames
 	^#(#base #on_register_custom_preferences #on_context_initialized #on_before_child_process_launch #on_already_running_app_relaunch #on_schedule_message_pump_work #get_default_client #get_default_request_context_handler)! !

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #CefBrowserProcessRunner
-	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning isProcessing messageLoopProcess framesPerSecond'
+	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning messagePumpCallbackCode'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: 'Singleton'!
@@ -15,10 +15,7 @@ CefBrowserProcessRunner comment: ''!
 !CefBrowserProcessRunner methodsFor!
 
 ensureRunning
-	cefSettings ifNil: [self runMainProcess].
-	(messageLoopProcess notNil and: [messageLoopProcess isAlive])
-		ifFalse: [self startMessageLoopProcess].
-	self resume!
+	cefSettings ifNil: [self run]!
 
 executeCefProcess
 	| handle resultCode |
@@ -45,15 +42,14 @@ getResourceBundleHandler: aCefApp
 
 initialize
 	super initialize.
-	isRunning := false.
-	isProcessing := false.
-	framesPerSecond := 60!
+	isRunning := false!
 
 initializeApp
 	cefApp := CefApp new.
 	cefApp
 		delegate: self;
-		enableBrowserProcessHandlerAndDelegateTo: self!
+		enableBrowserProcessHandlerAndDelegateTo: self.
+	self setupMessagePumpCallback!
 
 initializeCef
 	| resultCode |
@@ -71,22 +67,24 @@ initializeSettings
 	logFile := FileLocator imageRelative localFileSpecFor: 'cef.log'.
 	cachePath := FileLocator imageRelative localFileSpecFor: 'cef-cache'.
 	File createDirectoryPath: cachePath.
-	cefSettings := CefSettings new.
-	cefSettings
-		browser_subprocess_path: subprocessPath asCefString;
-		log_severity: LOGSEVERITY_DEFAULT;
-		log_file: logFile asCefString;
-		cache_path: cachePath asCefString;
-		no_sandbox: true;
-		windowless_rendering_enabled: true!
+	cefSettings := CefSettings new
+				browser_subprocess_path: subprocessPath asCefString;
+				log_severity: LOGSEVERITY_DEFAULT;
+				log_file: logFile asCefString;
+				cache_path: cachePath asCefString;
+				no_sandbox: true;
+				windowless_rendering_enabled: true;
+				external_message_pump: true!
 
 iterate
-	(isRunning not or: [isProcessing]) ifTrue: [^self].
-	isProcessing := true.
-	[self library doMessageLoopWork] ensure: [isProcessing := false]!
+	isRunning ifFalse: [^self].
+	self library doMessageLoopWork!
 
 library
 	^CefLibrary default!
+
+onAlreadyRunningAppRelaunch: aCefBrowserProcessHandler commandLine: aCefCommandLine currentDirectory: aCefString 
+	^Error notYetImplemented!
 
 onBeforeChildProcessLaunch: aCefBrowserProcessHandler commandLine: aCefCommandLine 
 	^0!
@@ -106,15 +104,7 @@ onRegisterCustomSchemes: cefApp registrar: registrar
 onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs
 	^0!
 
-pause
-	isRunning := false.
-	messageLoopProcess priority: Processor systemBasePriority!
-
-resume
-	isRunning := true.
-	messageLoopProcess priority: Processor userSchedulingPriority - 1!
-
-runMainProcess
+run
 	| cefMask |
 	cefMask := Float exceptionMask | CRTConstants._EM_ZERODIVIDE | CRTConstants._EM_INVALID.
 	Float exceptionMask: cefMask.
@@ -124,29 +114,24 @@ runMainProcess
 		initializeCef.
 	isRunning := true!
 
-startMessageLoopProcess
-	messageLoopProcess := 
-			[
-			[[self iterate] postToMessageQueue.
-			(Delay forMilliseconds: 1000 / framesPerSecond) wait]
-					repeat]
-					forkAt: Processor userSchedulingPriority - 1.
-	messageLoopProcess name: 'CEF'!
+setupMessagePumpCallback
+	| cefCallback msgWindow callbackFunction |
+	cefCallback := CefCallbackLibrary default.
+	msgWindow := SessionManager inputState msgWindow.
+	messagePumpCallbackCode := UserLibrary default registerWindowMessage: 'on_schedule_message_pump'.
+	msgWindow cefCallbackCode: messagePumpCallbackCode.
+	cefCallback initialize_hwnd: msgWindow asParameter msgId: messagePumpCallbackCode.
+	callbackFunction := (CefCallbackLibrary lookupMethod: #callback_browserProcessHandler:delayMs:)
+				procAddress.
+	cefApp browserProcessHandler on_schedule_message_pump_work: callbackFunction!
 
 stop
 	isRunning ifFalse: [^self].
 	isRunning := false.
-	self stopMessageLoopProcess.
 	self library shutdown.
 	cefMainArgs := nil.
 	cefApp := nil.
 	cefSettings := nil!
-
-stopMessageLoopProcess
-	messageLoopProcess
-		ifNotNil: 
-			[messageLoopProcess isAlive ifTrue: [messageLoopProcess terminate].
-			messageLoopProcess := nil]!
 
 useMultiThreadedMessageLoop
 	^cefSettings multi_threaded_message_loop asBoolean! !
@@ -158,34 +143,29 @@ getBrowserProcessHandler:!cef event handler!private! !
 getDefaultClient:!cef event handler!private! !
 getRenderProcessHandler:!cef event handler!private! !
 getResourceBundleHandler:!cef event handler!private! !
-initialize!private! !
+initialize!public! !
 initializeApp!private! !
 initializeCef!private! !
 initializeSettings!private! !
-iterate!private! !
+iterate!public! !
 library!private! !
+onAlreadyRunningAppRelaunch:commandLine:currentDirectory:!public! !
 onBeforeChildProcessLaunch:commandLine:!cef event handler!private! !
 onBeforeCommandLineProcessing:processType:commandLine:!cef event handler!private! !
 onContextInitialized:!cef event handler!private! !
 onRegisterCustomPreferences:type:registrar:!cef event handler!private! !
 onRegisterCustomSchemes:registrar:!cef event handler!private! !
 onScheduleMessagePumpWork:delayMs:!cef event handler!private! !
-pause!public! !
-resume!public! !
-runMainProcess!public! !
-startMessageLoopProcess!private! !
+run!public! !
+setupMessagePumpCallback!public! !
 stop!public! !
-stopMessageLoopProcess!private! !
 useMultiThreadedMessageLoop!private! !
 !
 
 !CefBrowserProcessRunner class methodsFor!
 
 current
-	Singleton
-		ifNil: 
-			[Singleton := super new.
-			Singleton initialize].
+	Singleton ifNil: [Singleton := super new initialize].
 	^Singleton!
 
 ensureRunning

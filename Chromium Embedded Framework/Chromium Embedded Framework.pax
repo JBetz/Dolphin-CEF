@@ -32,6 +32,7 @@ package classNames
 	add: #CefBrowserProcessRunner;
 	add: #CefBrowserSettings;
 	add: #CefCallback;
+	add: #CefCallbackLibrary;
 	add: #CefClient;
 	add: #CefCommandLine;
 	add: #CefContentProvider;
@@ -106,6 +107,7 @@ package methodNames
 	add: #Dictionary -> #asCefDictionaryValue;
 	add: #KernelLibrary -> #setPriorityClass:dwPriorityClass:;
 	add: #KernelLibrary -> #setProcessDEPPolicy:;
+	add: #PostedActionWindow -> #cefCallbackCode:;
 	add: #Rectangle -> #asCefRect;
 	add: #String -> #asCefString;
 	add: #String -> #asUrl;
@@ -136,7 +138,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #CefBrowserProcessRunner
-	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning isProcessing messageLoopProcess framesPerSecond'
+	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning messagePumpCallbackCode'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: 'Singleton'!
@@ -172,13 +174,19 @@ Object subclass: #ChromiumBrowser
 	classInstanceVariableNames: ''!
 
 Object subclass: #Url
-	instanceVariableNames: 'inputString fragment host origin password path port query scheme spec username'
+	instanceVariableNames: 'string parts'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 Error subclass: #CefJavaScriptException
 	instanceVariableNames: 'endColumn endPosition lineNumber message scriptResourceName sourceLine startColumn startPosition'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalLibrary subclass: #CefCallbackLibrary
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -663,6 +671,15 @@ setProcessDEPPolicy: dwFlags
 !KernelLibrary categoriesForMethods!
 setPriorityClass:dwPriorityClass:!public! !
 setProcessDEPPolicy:!public! !
+!
+
+!PostedActionWindow methodsFor!
+
+cefCallbackCode: anInteger
+	cefCallbackCode := anInteger! !
+
+!PostedActionWindow categoriesForMethods!
+cefCallbackCode:!public! !
 !
 
 !Rectangle methodsFor!
