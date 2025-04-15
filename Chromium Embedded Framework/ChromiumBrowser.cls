@@ -61,7 +61,7 @@ createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 	self library
 		browserHostCreateBrowserSync_windowInfo: windowInfo
 		client: cefClient
-		url: aUrlOrString asUrl spec asCefString
+		url: aUrlOrString asUrl asCefString
 		settings: browserSettings
 		extraInfo: nil
 		requestContext: nil!
@@ -150,7 +150,7 @@ forward: anInteger
 	self go: anInteger!
 
 getAudioParameters: audioHandler browser: browser params: params
-	^1!
+	^0!
 
 getAuthCredentials: requestHandler browser: browser originUrl: originUrl isProxy: isProxy host: host port: port realm: realm scheme: scheme callback: callback 
 	^0!
@@ -190,7 +190,7 @@ getScreenPoint: renderHandle browser: browser viewX: viewX viewY: viewY screenX:
 	host ifNil: [^0].
 	windowOrigin := host windowPosition.
 	windowOrigin ifNil: [^0].
-	browserOrigin := windowOrigin + host rendered rectangle origin.
+	browserOrigin := windowOrigin + host rectangle origin.
 	screenX value: browserOrigin x + viewX.
 	screenY value: browserOrigin y + viewY.
 	^1!
@@ -296,7 +296,7 @@ loadUrl: aUrlOrString
 			mainFrame := cefBrowser getMainFrame.
 			mainFrame loadUrl_url: aUrlOrString asUrl spec asCefString]!
 
-onAcceleratedPaint: aCefRenderHandler browser: aCefBrowser type: anInteger dirtyRectsCount: anInteger2 dirtyRects: aCefRect info: aCefAcceleratedPaintInfo
+onAcceleratedPaint: aCefRenderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRects info: info
 	^0!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
@@ -357,8 +357,6 @@ onBeforeClose: lifeSpanHandler browser: browser
 	^0!
 
 onBeforeContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model
-	params callRelease.
-	model callRelease.
 	^0!
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
@@ -373,7 +371,6 @@ onConsoleMessage: displayHandler browser: browser level: level message: message 
 	^0!
 
 onContextMenuCommand: contextMenuHandler browser: browser frame: frame params: params commandId: commandId eventFlags: eventFlags
-	params callRelease.
 	commandId = MENU_ID_BACK
 		ifTrue: 
 			[host back.
@@ -433,7 +430,6 @@ onFrameCreated: frameHandler browser: browser frame: frame
 	^0!
 
 onFrameDetached: frameHandler browser: browser frame: frame
-	browser callRelease.
 	^0!
 
 onFullscreenModeChange: displayHandler browser: browser fullscreen: fullscreen
@@ -456,7 +452,6 @@ onLoadStart: loadHandler browser: browser frame: frame transitionType: transitio
 	^0!
 
 onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
-	browser callRelease.
 	host ifNotNil: [host hasFocus ifTrue: [browser getHost setFocus_focus: 1]].
 	^0!
 
@@ -476,7 +471,7 @@ onOpenUrlFromTab: requestHandler browser: browser frame: frame targetUrl: target
 		ifTrue: 
 			[| url |
 			url := Url fromString: targetUrl str.
-			host openUrlOnNewPage: url.
+			host openNewPage: url.
 			^1].
 	^0!
 
@@ -484,13 +479,12 @@ onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCo
 	| targetTexture pitch |
 	type = PET_VIEW ifTrue: [targetTexture := texture].
 	type = PET_POPUP ifTrue: [targetTexture := popupTexture].
-	(host isNil or: [targetTexture isNil or: [targetTexture getExtent ~= (width @ height)]])
-		ifTrue: [^0].
+	(host isNil or: [targetTexture isNil or: [targetTexture extent ~= (width @ height)]]) ifTrue: [^0].
 	pitch := width * 4.
-	targetTexture
-		updatePixels: buffer pitch: pitch;
-		isPainted: true.
-	host pushRenderEvent.
+	host
+		updateTexture: targetTexture
+		pixels: buffer
+		pitch: pitch.
 	^0!
 
 onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
@@ -545,7 +539,7 @@ onViewClosed
 onViewDestroyed
 	
 	[| delay delayCount |
-	delay := Delay forMilliseconds: 1000.
+	delay := Delay forSeconds: 1.
 	delayCount := 0.
 	[readyToClose or: [delayCount > 10]] whileFalse: 
 			[delay wait.
@@ -582,8 +576,6 @@ removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url!
 
 runContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model callback: callback 
-	params callRelease.
-	model callRelease.
 	^0!
 
 scrollOffset
@@ -620,6 +612,10 @@ sendMouseWheelEvent: aMouseWheelEvent delta: aPoint
 		sendMouseWheelEvent_event: aMouseWheelEvent
 		deltaX: aPoint x asInteger
 		deltaY: aPoint y asInteger!
+
+setFrameRate: anInteger
+	cefBrowser ifNil: [^self].
+	cefBrowser getHost setWindowlessFrameRate_frameRate: anInteger!
 
 show
 	self wasHidden: false!
@@ -756,6 +752,7 @@ sendKeyEvent:!public! !
 sendMouseClickEvent:mouseButtonType:mouseUp:clickCount:!public! !
 sendMouseMoveEvent:mouseLeave:!public! !
 sendMouseWheelEvent:delta:!public! !
+setFrameRate:!public! !
 show!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
 stopFinding!public! !
