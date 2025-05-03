@@ -168,7 +168,7 @@ Object subclass: #CefTransitionType
 	classInstanceVariableNames: ''!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream queuedUrl evalCallbacks'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText selectedRange focusedElement hoveredElement searches search visitors audioStream queuedUrl evalCallbacks'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -671,15 +671,6 @@ setProcessDEPPolicy: dwFlags
 !KernelLibrary categoriesForMethods!
 setPriorityClass:dwPriorityClass:!public! !
 setProcessDEPPolicy:!public! !
-!
-
-!PostedActionWindow methodsFor!
-
-cefCallbackCode: anInteger
-	cefCallbackCode := anInteger! !
-
-!PostedActionWindow categoriesForMethods!
-cefCallbackCode:!public! !
 !
 
 !Rectangle methodsFor!

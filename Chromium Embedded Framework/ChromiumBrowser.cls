@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText texture selectedRange focusedElement hoveredElement popupTexture searches search visitors audioStream queuedUrl evalCallbacks'
+	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText selectedRange focusedElement hoveredElement searches search visitors audioStream queuedUrl evalCallbacks'
 	classVariableNames: 'CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -476,15 +476,9 @@ onOpenUrlFromTab: requestHandler browser: browser frame: frame targetUrl: target
 	^0!
 
 onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRects buffer: buffer width: width height: height
-	| targetTexture pitch |
-	type = PET_VIEW ifTrue: [targetTexture := texture].
-	type = PET_POPUP ifTrue: [targetTexture := popupTexture].
-	(host isNil or: [targetTexture isNil or: [targetTexture extent ~= (width @ height)]]) ifTrue: [^0].
-	pitch := width * 4.
-	host
-		updateTexture: targetTexture
-		pixels: buffer
-		pitch: pitch.
+	host ifNil: [^0].
+	type = PET_VIEW ifTrue: [host updatePageTexture: buffer].
+	type = PET_POPUP ifTrue: [host updatePopupTexture: buffer].
 	^0!
 
 onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
@@ -552,9 +546,6 @@ onVirtualKeyboardRequested: renderHandler browser: browser inputMode: inputMode
 
 paste
 	cefBrowser getFocusedFrame callPaste!
-
-popupTexture: aTexture
-	popupTexture := aTexture!
 
 provideHtml: aString forUrl: aUrlOrString
 	| contentProvider url |
@@ -626,12 +617,6 @@ startDragging: renderHandler browser: browser dragData: dragData allowedOps: all
 stopFinding
 	cefBrowser ifNil: [^self].
 	cefBrowser getHost stopFinding_clearSelection: false asInteger!
-
-texture
-	^texture!
-
-texture: aSDLTexture
-	texture := aSDLTexture!
 
 traverseTo: aString
 	self executeJavaScript: ('navigation.traverseTo(<1S>)' expandMacrosWith: aString)!
@@ -738,7 +723,6 @@ onViewClosed!public! !
 onViewDestroyed!public! !
 onVirtualKeyboardRequested:browser:inputMode:!cef event handler!private!render handler! !
 paste!public! !
-popupTexture:!public! !
 provideHtml:forUrl:!public! !
 redo!public! !
 reload!public! !
@@ -756,8 +740,6 @@ setFrameRate:!public! !
 show!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
 stopFinding!public! !
-texture!public! !
-texture:!public! !
 traverseTo:!public! !
 undo!public! !
 wasHidden:!public! !
