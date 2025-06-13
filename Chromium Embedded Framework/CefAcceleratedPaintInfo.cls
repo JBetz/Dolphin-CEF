@@ -28,14 +28,14 @@ format: anInteger
 	bytes sdwordAtOffset: _OffsetOf_format put: anInteger!
 
 shared_texture_handle
-	"Answer the <ExternalHandle> value of the receiver's 'shared_texture_handle' field."
+	"Answer the <ExternalAddress> value of the receiver's 'shared_texture_handle' field."
 
-	^(bytes uintPtrAtOffset: _OffsetOf_shared_texture_handle) asExternalHandle!
+	^(bytes uintPtrAtOffset: _OffsetOf_shared_texture_handle) asExternalAddress!
 
-shared_texture_handle: anExternalHandle
-	"Set the receiver's 'shared_texture_handle' field to the value of the argument, anExternalHandle"
+shared_texture_handle: anExternalAddress
+	"Set the receiver's 'shared_texture_handle' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_shared_texture_handle put: anExternalHandle! !
+	bytes uintPtrAtOffset: _OffsetOf_shared_texture_handle put: anExternalAddress! !
 
 !CefAcceleratedPaintInfo categoriesForMethods!
 format!**compiled accessors**!public! !

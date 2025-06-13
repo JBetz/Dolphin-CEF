@@ -38,7 +38,7 @@ closeBrowser
 		do: 
 			[:error |
 			Transcript
-				display: 'Error closing browser: ' , error displayString;
+				display: ('Error closing browser: <1d>' expandMacrosWith: error);
 				cr]!
 
 copy
@@ -54,7 +54,8 @@ createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 	windowInfo := CefWindowInfo new
 				bounds: rectangle asCefRect;
 				parent_window: aHandle;
-				windowless_rendering_enabled: true.
+				windowless_rendering_enabled: true;
+				shared_texture_enabled: true.
 	browserSettings := CefBrowserSettings new
 				windowless_frame_rate: 60;
 				background_color: Color white argbCode.
@@ -79,7 +80,7 @@ createWindowedBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 	resultCode := self library
 				browserHostCreateBrowserSync_windowInfo: windowInfo
 				client: cefClient
-				url: aUrlOrString asUrl spec asCefString
+				url: aUrlOrString asUrl asCefString
 				settings: browserSettings
 				extraInfo: nil
 				requestContext: nil.
@@ -141,7 +142,12 @@ focusedElement
 
 forceCloseBrowser
 	cefBrowser ifNil: [^self].
-	cefBrowser getHost closeBrowser_forceClose: 1!
+	[cefBrowser getHost closeBrowser_forceClose: 1] on: Error
+		do: 
+			[:error |
+			Transcript
+				display: ('Error force closing browser: <1d>' expandMacrosWith: error);
+				cr]!
 
 forward
 	cefBrowser goForward!
@@ -294,9 +300,24 @@ loadUrl: aUrlOrString
 		ifNotNil: 
 			[| mainFrame |
 			mainFrame := cefBrowser getMainFrame.
-			mainFrame loadUrl_url: aUrlOrString asUrl spec asCefString]!
+			mainFrame loadUrl_url: aUrlOrString asUrl asCefString]!
 
 onAcceleratedPaint: aCefRenderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRects info: info
+	| sharedResource |
+	host ifNil: [^0].
+	sharedResource := info shared_texture_handle.
+	type = PET_VIEW
+		ifTrue: 
+			[host
+				copyPageTexture: sharedResource
+				format: info format
+				extent: dirtyRects extent].
+	type = PET_POPUP
+		ifTrue: 
+			[host
+				copyPopupTexture: sharedResource
+				format: info format
+				extent: dirtyRects extent].
 	^0!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
