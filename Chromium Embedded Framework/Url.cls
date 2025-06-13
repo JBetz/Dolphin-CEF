@@ -27,31 +27,35 @@ domain
 	^self host!
 
 fragment
-	^parts fragment str!
+	^self parts fragment str!
 
 host
-	^parts host str!
+	^self parts host str!
 
 origin
-	^parts origin str!
+	^self parts origin str!
+
+parts
+	parts ifNil: [parts := CefUrlParts fromString: string].
+	^parts!
 
 parts: aCefUrlParts
 	parts := aCefUrlParts!
 
 password
-	^parts password str!
+	^self parts password str!
 
 path
-	^parts path str!
+	^self parts path str!
 
 port
-	^parts port str!
+	^self parts port str!
 
 query
-	^parts query str!
+	^self parts query str!
 
 scheme
-	^parts scheme str!
+	^self parts scheme str!
 
 secureString
 	| cefSecureString secureString |
@@ -67,7 +71,7 @@ string: aString
 	string := aString!
 
 username
-	^parts username str! !
+	^self parts username str! !
 
 !Url categoriesForMethods!
 asCefString!public! !
@@ -77,6 +81,7 @@ domain!public! !
 fragment!public! !
 host!public! !
 origin!public! !
+parts!public! !
 parts:!public! !
 password!public! !
 path!public! !
@@ -93,27 +98,13 @@ username!public! !
 
 fromString: aString
 	| urlParts |
-	urlParts := self parseString: aString.
+	urlParts := CefUrlParts fromString: aString.
 	urlParts ifNil: [self error: ('Invalid URL string: <1s>' expandMacrosWith: aString)].
 	^self new
 		string: aString;
-		parts: urlParts!
-
-parseString: aString
-	| cef parts resultCode |
-	cef := CefLibrary default.
-	parts := CefUrlParts new.
-	resultCode := cef parseUrl_url: aString asCefString parts: parts.
-	resultCode = 0
-		ifTrue: [resultCode := cef parseUrl_url: ('https://' , aString) asCefString parts: parts].
-	^resultCode = 0 ifTrue: [nil] ifFalse: [parts]!
-
-stonAllInstVarNames
-	^#(#string)! !
+		parts: urlParts! !
 
 !Url class categoriesForMethods!
 fromString:!public! !
-parseString:!private! !
-stonAllInstVarNames!public! !
 !
 

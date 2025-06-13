@@ -205,11 +205,21 @@ defineFields
 		defineField: #query type: (StructureField type: CefString);
 		defineField: #fragment type: (StructureField type: CefString)!
 
+fromString: aString
+	| cef parts resultCode |
+	cef := CefLibrary default.
+	parts := CefUrlParts new.
+	resultCode := cef parseUrl_url: aString asCefString parts: parts.
+	resultCode = 0
+		ifTrue: [resultCode := cef parseUrl_url: ('https://' , aString) asCefString parts: parts].
+	^resultCode = 0 ifTrue: [nil] ifFalse: [parts]!
+
 getFieldNames
 	^#(#spec #scheme #username #password #host #port #origin #path #query #fragment)! !
 
 !CefUrlParts class categoriesForMethods!
 defineFields!public! !
+fromString:!public! !
 getFieldNames!**compiled accessors**!constants!private! !
 !
 
