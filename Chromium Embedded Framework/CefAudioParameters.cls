@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefAudioParameters
+CefExternalStructure subclass: #CefAudioParameters
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_channel_layout _OffsetOf_frames_per_buffer _OffsetOf_sample_rate'
 	poolDictionaries: ''
@@ -62,6 +62,7 @@ sample_rate:!**compiled accessors**!public! !
 defineFields
 	"self compileDefinition"
 
+	super defineFields.
 	self
 		defineField: #channel_layout type: SDWORDField new;
 		defineField: #sample_rate type: SDWORDField new;

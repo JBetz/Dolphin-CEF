@@ -199,12 +199,6 @@ ExternalLibrary subclass: #CInteropLibrary
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-ExternalStructure subclass: #CefAudioParameters
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_channel_layout _OffsetOf_frames_per_buffer _OffsetOf_sample_rate'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
 ExternalStructure subclass: #CefBasetime
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_val'
@@ -253,12 +247,6 @@ ExternalStructure subclass: #CefRect
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-ExternalStructure subclass: #CefScreenInfo
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
 ExternalStructure subclass: #CefString
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_dtor _OffsetOf_length _OffsetOf_str'
@@ -266,12 +254,6 @@ ExternalStructure subclass: #CefString
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #CefStringList
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-ExternalStructure subclass: #CefTouchHandleState
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -286,6 +268,12 @@ CefExternalStructure subclass: #CefAcceleratedPaintInfo
 CefExternalStructure subclass: #CefAcceleratedPaintInfoCommon
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_capture_counter _OffsetOf_capture_update_rect _OffsetOf_cefSize _OffsetOf_coded_size _OffsetOf_content_rect _OffsetOf_has_capture_counter _OffsetOf_has_region_capture_rect _OffsetOf_has_source_size _OffsetOf_region_capture_rect _OffsetOf_source_size _OffsetOf_timestamp _OffsetOf_visible_rect'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+CefExternalStructure subclass: #CefAudioParameters
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_channel_layout _OffsetOf_frames_per_buffer _OffsetOf_sample_rate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -307,6 +295,12 @@ CefExternalStructure subclass: #CefPopupFeatures
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+CefExternalStructure subclass: #CefScreenInfo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 CefExternalStructure subclass: #CefSettings
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_browser_subprocess_path _OffsetOf_cache_path _OffsetOf_cefSize _OffsetOf_chrome_app_icon_id _OffsetOf_chrome_policy_id _OffsetOf_command_line_args_disabled _OffsetOf_cookieable_scheme_list _OffsetOf_cookieable_schemes_exclude_defaults _OffsetOf_disable_signal_handlers _OffsetOf_external_message_pump _OffsetOf_framework_dir_path _OffsetOf_javascript_flags _OffsetOf_locale _OffsetOf_locales_dir_path _OffsetOf_log_file _OffsetOf_log_items _OffsetOf_log_severity _OffsetOf_main_bundle_path _OffsetOf_multi_threaded_message_loop _OffsetOf_no_sandbox _OffsetOf_persist_session_cookies _OffsetOf_remote_debugging_port _OffsetOf_resources_dir_path _OffsetOf_root_cache_path _OffsetOf_uncaught_exception_stack_size _OffsetOf_user_agent _OffsetOf_user_agent_product _OffsetOf_windowless_rendering_enabled'
@@ -316,6 +310,12 @@ CefExternalStructure subclass: #CefSettings
 CefExternalStructure subclass: #CefTaskInfo
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_cefSize _OffsetOf_cpu_usage _OffsetOf_gpu_memory _OffsetOf_id _OffsetOf_is_gpu_memory_inflated _OffsetOf_is_killable _OffsetOf_memory _OffsetOf_number_of_processors _OffsetOf_title _OffsetOf_type'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+CefExternalStructure subclass: #CefTouchHandleState
+	instanceVariableNames: ''
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 

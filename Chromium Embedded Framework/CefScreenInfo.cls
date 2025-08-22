@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefScreenInfo
+CefExternalStructure subclass: #CefScreenInfo
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
