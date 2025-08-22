@@ -20,6 +20,9 @@ CefApp comment: ''!
 
 !CefApp methodsFor!
 
+browserProcessHandler
+	^browserProcessHandler!
+
 enableBrowserProcessHandler
 	browserProcessHandler := CefBrowserProcessHandler new.
 	browserProcessHandler delegate: self!
@@ -95,6 +98,7 @@ on_register_custom_schemes: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_on_register_custom_schemes put: anExternalAddress! !
 
 !CefApp categoriesForMethods!
+browserProcessHandler!public! !
 enableBrowserProcessHandler!public! !
 enableBrowserProcessHandlerAndDelegateTo:!public! !
 enableRenderProcessHandler!public! !
@@ -117,7 +121,7 @@ on_register_custom_schemes:!**compiled accessors**!public! !
 !CefApp class methodsFor!
 
 defineFields
-	"CefApp  compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self

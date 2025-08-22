@@ -140,7 +140,7 @@ release:!**compiled accessors**!public! !
 !CefBaseRefCounted class methodsFor!
 
 defineFields
-	"CefBaseRefCounted  compileDefinition"
+	"self compileDefinition"
 
 	self
 		defineField: #cefSize type: DWORDField new;

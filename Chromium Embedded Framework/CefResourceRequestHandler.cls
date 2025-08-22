@@ -125,7 +125,7 @@ on_resource_response:!**compiled accessors**!public! !
 !CefResourceRequestHandler class methodsFor!
 
 defineFields
-	"CefResourceRequestHandler compileDefinition"
+	"self recompileDefinition"
 
 	super defineFields.
 	self
