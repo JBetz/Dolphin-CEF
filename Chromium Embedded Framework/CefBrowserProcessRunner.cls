@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #CefBrowserProcessRunner
-	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning messagePumpCallbackCode'
+	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning messagePumpCallbackCode apiVersion'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: 'Singleton'!
@@ -53,6 +53,9 @@ initializeApp
 
 initializeCef
 	| resultCode |
+	Transcript
+		display: ('CEF Version <D>' expandMacrosWith: apiVersion);
+		cr.
 	self useMultiThreadedMessageLoop ifFalse: [self initializeApp].
 	resultCode := self library
 				initialize_args: cefMainArgs
@@ -68,11 +71,11 @@ initializeSettings
 	cachePath := FileLocator imageRelative localFileSpecFor: 'cef-cache'.
 	File createDirectoryPath: cachePath.
 	cefSettings := CefSettings new
+				no_sandbox: true;
 				browser_subprocess_path: subprocessPath asCefString;
-				log_severity: LOGSEVERITY_DEFAULT;
+				log_severity: LOGSEVERITY_DEBUG;
 				log_file: logFile asCefString;
 				cache_path: cachePath asCefString;
-				no_sandbox: true;
 				windowless_rendering_enabled: true;
 				external_message_pump: true!
 
@@ -104,10 +107,15 @@ onRegisterCustomSchemes: cefApp registrar: registrar
 onScheduleMessagePumpWork: browserProcessHandler delayMs: delayMs
 	^0!
 
+onUnhandledError: anError
+	SessionManager current onUnhandledError: anError!
+
 run
 	| cefMask |
 	cefMask := Float exceptionMask | CRTConstants._EM_ZERODIVIDE | CRTConstants._EM_INVALID.
 	Float exceptionMask: cefMask.
+	apiVersion := self library apiHash_version: CEF_API_VERSION_EXPERIMENTAL
+				entry: CEF_API_HASH_PLATFORM.
 	self
 		executeCefProcess;
 		initializeSettings;
@@ -115,20 +123,19 @@ run
 	isRunning := true!
 
 setupMessagePumpCallback
-	| cefCallback msgWindow callbackFunction |
-	cefCallback := CefCallbackLibrary default.
+	| cInteropLibrary msgWindow callbackFunction |
+	cInteropLibrary := CInteropLibrary default.
 	msgWindow := SessionManager inputState msgWindow.
 	messagePumpCallbackCode := UserLibrary default registerWindowMessage: 'on_schedule_message_pump'.
 	msgWindow cefCallbackCode: messagePumpCallbackCode.
-	cefCallback initialize_hwnd: msgWindow asParameter msgId: messagePumpCallbackCode.
-	callbackFunction := (CefCallbackLibrary lookupMethod: #callback_browserProcessHandler:delayMs:)
+	cInteropLibrary initializeCefCallback_hwnd: msgWindow asParameter msgId: messagePumpCallbackCode.
+	callbackFunction := (CInteropLibrary lookupMethod: #cefCallback_browserProcessHandler:delayMs:)
 				procAddress.
 	cefApp browserProcessHandler on_schedule_message_pump_work: callbackFunction!
 
 stop
 	isRunning ifFalse: [^self].
 	isRunning := false.
-	self library shutdown.
 	cefMainArgs := nil.
 	cefApp := nil.
 	cefSettings := nil!
@@ -156,6 +163,7 @@ onContextInitialized:!cef event handler!private! !
 onRegisterCustomPreferences:type:registrar:!cef event handler!private! !
 onRegisterCustomSchemes:registrar:!cef event handler!private! !
 onScheduleMessagePumpWork:delayMs:!cef event handler!private! !
+onUnhandledError:!public! !
 run!public! !
 setupMessagePumpCallback!public! !
 stop!public! !
@@ -182,6 +190,10 @@ initialize
 			send: #onShutdown
 			to: self!
 
+iterate
+	Singleton ifNil: [^self].
+	[Singleton iterate] on: Error do: [:error | Singleton onUnhandledError: error]!
+
 new
 	^self shouldNotImplement!
 
@@ -192,6 +204,9 @@ onShutdown
 
 onStartup
 	Singleton ifNil: [^self].
+	Transcript
+		display: 'WARNING: CefBrowserProcessRunner wasn''''t stopped on previous shutdown. Stopping now.';
+		cr.
 	Singleton stop.
 	Singleton := nil!
 
@@ -202,6 +217,7 @@ pause
 current!public! !
 ensureRunning!public! !
 initialize!public! !
+iterate!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !

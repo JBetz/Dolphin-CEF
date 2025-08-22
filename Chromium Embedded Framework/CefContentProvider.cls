@@ -29,14 +29,15 @@ getResponseHeaders: resourceHandler response: response responseLength: responseL
 	response
 		setStatus_status: 200;
 		setStatusText_statusText: 'OK' asCefString;
-		setMimeType_mimeType: 'text/html' asCefString.
+		setMimeType_mimeType: 'text/html' asCefString;
+		setCharset_charset: 'utf-16' asCefString.
 	responseLength value: html byteSize!
 
 html
 	^html!
 
-html: anObject
-	html := anObject!
+html: aString
+	html := aString!
 
 initialize
 	super initialize.

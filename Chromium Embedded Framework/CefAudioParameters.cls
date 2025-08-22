@@ -60,28 +60,7 @@ sample_rate:!**compiled accessors**!public! !
 !CefAudioParameters class methodsFor!
 
 defineFields
-	"CefAudioParameters compileDefinition"
-
-	"///
-	/// Structure representing the audio parameters for setting up the audio
-	/// handler.
-	///
-	typedef struct _cef_audio_parameters_t {
-	  ///
-	  /// Layout of the audio channels
-	  ///
-	  cef_channel_layout_t channel_layout;
-
-	  ///
-	  /// Sample rate
-	  //
-	  int sample_rate;
-
-	  ///
-	  /// Number of frames per buffer
-	  ///
-	  int frames_per_buffer;
-	} cef_audio_parameters_t;"
+	"self compileDefinition"
 
 	self
 		defineField: #channel_layout type: SDWORDField new;

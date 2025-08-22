@@ -2,37 +2,38 @@
 
 CefReferenceCountedObject subclass: #CefFrame
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_copy _OffsetOf_create_urlrequest _OffsetOf_cut _OffsetOf_del _OffsetOf_execute_java_script _OffsetOf_get_browser _OffsetOf_get_identifier _OffsetOf_get_name _OffsetOf_get_parent _OffsetOf_get_source _OffsetOf_get_text _OffsetOf_get_url _OffsetOf_get_v8context _OffsetOf_is_focused _OffsetOf_is_main _OffsetOf_is_valid _OffsetOf_load_request _OffsetOf_load_url _OffsetOf_paste _OffsetOf_redo _OffsetOf_select_all _OffsetOf_send_process_message _OffsetOf_undo _OffsetOf_view_source _OffsetOf_visit_dom'
+	classVariableNames: '_OffsetOf_copy _OffsetOf_create_url_request _OffsetOf_cut _OffsetOf_delete _OffsetOf_execute_java_script _OffsetOf_get_browser _OffsetOf_get_identifier _OffsetOf_get_name _OffsetOf_get_parent _OffsetOf_get_source _OffsetOf_get_text _OffsetOf_get_url _OffsetOf_get_v8context _OffsetOf_is_focused _OffsetOf_is_main _OffsetOf_is_valid _OffsetOf_load_request _OffsetOf_load_url _OffsetOf_paste _OffsetOf_paste_and_match_style _OffsetOf_redo _OffsetOf_select_all _OffsetOf_send_process_message _OffsetOf_undo _OffsetOf_view_source _OffsetOf_visit_dom'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefFrame guid: (GUID fromString: '{7b6301e0-a539-4aa5-a87a-7fe57cce10b5}')!
 
 CefFrame addClassConstant: '_OffsetOf_copy' value: 16r24!
-CefFrame addClassConstant: '_OffsetOf_create_urlrequest' value: 16r70!
+CefFrame addClassConstant: '_OffsetOf_create_url_request' value: 16r74!
 CefFrame addClassConstant: '_OffsetOf_cut' value: 16r20!
-CefFrame addClassConstant: '_OffsetOf_del' value: 16r2C!
-CefFrame addClassConstant: '_OffsetOf_execute_java_script' value: 16r48!
-CefFrame addClassConstant: '_OffsetOf_get_browser' value: 16r64!
-CefFrame addClassConstant: '_OffsetOf_get_identifier' value: 16r58!
-CefFrame addClassConstant: '_OffsetOf_get_name' value: 16r54!
-CefFrame addClassConstant: '_OffsetOf_get_parent' value: 16r5C!
-CefFrame addClassConstant: '_OffsetOf_get_source' value: 16r38!
-CefFrame addClassConstant: '_OffsetOf_get_text' value: 16r3C!
-CefFrame addClassConstant: '_OffsetOf_get_url' value: 16r60!
-CefFrame addClassConstant: '_OffsetOf_get_v8context' value: 16r68!
-CefFrame addClassConstant: '_OffsetOf_is_focused' value: 16r50!
-CefFrame addClassConstant: '_OffsetOf_is_main' value: 16r4C!
+CefFrame addClassConstant: '_OffsetOf_delete' value: 16r30!
+CefFrame addClassConstant: '_OffsetOf_execute_java_script' value: 16r4C!
+CefFrame addClassConstant: '_OffsetOf_get_browser' value: 16r68!
+CefFrame addClassConstant: '_OffsetOf_get_identifier' value: 16r5C!
+CefFrame addClassConstant: '_OffsetOf_get_name' value: 16r58!
+CefFrame addClassConstant: '_OffsetOf_get_parent' value: 16r60!
+CefFrame addClassConstant: '_OffsetOf_get_source' value: 16r3C!
+CefFrame addClassConstant: '_OffsetOf_get_text' value: 16r40!
+CefFrame addClassConstant: '_OffsetOf_get_url' value: 16r64!
+CefFrame addClassConstant: '_OffsetOf_get_v8context' value: 16r6C!
+CefFrame addClassConstant: '_OffsetOf_is_focused' value: 16r54!
+CefFrame addClassConstant: '_OffsetOf_is_main' value: 16r50!
 CefFrame addClassConstant: '_OffsetOf_is_valid' value: 16r14!
-CefFrame addClassConstant: '_OffsetOf_load_request' value: 16r40!
-CefFrame addClassConstant: '_OffsetOf_load_url' value: 16r44!
+CefFrame addClassConstant: '_OffsetOf_load_request' value: 16r44!
+CefFrame addClassConstant: '_OffsetOf_load_url' value: 16r48!
 CefFrame addClassConstant: '_OffsetOf_paste' value: 16r28!
+CefFrame addClassConstant: '_OffsetOf_paste_and_match_style' value: 16r2C!
 CefFrame addClassConstant: '_OffsetOf_redo' value: 16r1C!
-CefFrame addClassConstant: '_OffsetOf_select_all' value: 16r30!
-CefFrame addClassConstant: '_OffsetOf_send_process_message' value: 16r74!
+CefFrame addClassConstant: '_OffsetOf_select_all' value: 16r34!
+CefFrame addClassConstant: '_OffsetOf_send_process_message' value: 16r78!
 CefFrame addClassConstant: '_OffsetOf_undo' value: 16r18!
-CefFrame addClassConstant: '_OffsetOf_view_source' value: 16r34!
-CefFrame addClassConstant: '_OffsetOf_visit_dom' value: 16r6C!
+CefFrame addClassConstant: '_OffsetOf_view_source' value: 16r38!
+CefFrame addClassConstant: '_OffsetOf_visit_dom' value: 16r70!
 
 CefFrame comment: ''!
 
@@ -48,8 +49,8 @@ _callCut_cefFrame: cefFrame
 	<stdcall: void cut CefFrame*>
 	^self invalidCall: _failureCode!
 
-_callDel_cefFrame: cefFrame
-	<stdcall: void del CefFrame*>
+_callDelete_cefFrame: cefFrame
+	<stdcall: void delete CefFrame*>
 	^self invalidCall: _failureCode!
 
 _callPaste_cefFrame: cefFrame
@@ -100,6 +101,10 @@ _loadUrl_cefFrame: cefFrame url: url
 	<stdcall: void load_url CefFrame* CefString*>
 	^self invalidCall: _failureCode!
 
+_pasteAndMatchStyle_cefFrame: cefFrame
+	<stdcall: void paste_and_match_style CefFrame*>
+	^self invalidCall: _failureCode!
+
 _selectAll_cefFrame: cefFrame
 	<stdcall: void select_all CefFrame*>
 	^self invalidCall: _failureCode!
@@ -118,9 +123,9 @@ callCut
 	method := self class externalMethodAt: #_callCut_cefFrame: ifAbsentBindTo: self cut.
 	^method value: self withArguments: (Array with: self)!
 
-callDel
+callDelete
 	| method |
-	method := self class externalMethodAt: #_callDel_cefFrame: ifAbsentBindTo: self del.
+	method := self class externalMethodAt: #_callDelete_cefFrame: ifAbsentBindTo: self delete.
 	^method value: self withArguments: (Array with: self)!
 
 callPaste
@@ -148,15 +153,15 @@ copy: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_copy put: anExternalAddress!
 
-create_urlrequest
-	"Answer the <ExternalAddress> value of the receiver's 'create_urlrequest' field."
+create_url_request
+	"Answer the <ExternalAddress> value of the receiver's 'create_url_request' field."
 
-	^(bytes uintPtrAtOffset: _OffsetOf_create_urlrequest) asExternalAddress!
+	^(bytes uintPtrAtOffset: _OffsetOf_create_url_request) asExternalAddress!
 
-create_urlrequest: anExternalAddress
-	"Set the receiver's 'create_urlrequest' field to the value of the argument, anExternalAddress"
+create_url_request: anExternalAddress
+	"Set the receiver's 'create_url_request' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_create_urlrequest put: anExternalAddress!
+	bytes uintPtrAtOffset: _OffsetOf_create_url_request put: anExternalAddress!
 
 cut
 	"Answer the <ExternalAddress> value of the receiver's 'cut' field."
@@ -168,15 +173,15 @@ cut: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_cut put: anExternalAddress!
 
-del
-	"Answer the <ExternalAddress> value of the receiver's 'del' field."
+delete
+	"Answer the <ExternalAddress> value of the receiver's 'delete' field."
 
-	^(bytes uintPtrAtOffset: _OffsetOf_del) asExternalAddress!
+	^(bytes uintPtrAtOffset: _OffsetOf_delete) asExternalAddress!
 
-del: anExternalAddress
-	"Set the receiver's 'del' field to the value of the argument, anExternalAddress"
+delete: anExternalAddress
+	"Set the receiver's 'delete' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_del put: anExternalAddress!
+	bytes uintPtrAtOffset: _OffsetOf_delete put: anExternalAddress!
 
 execute_java_script
 	"Answer the <ExternalAddress> value of the receiver's 'execute_java_script' field."
@@ -388,6 +393,22 @@ paste: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_paste put: anExternalAddress!
 
+paste_and_match_style
+	"Answer the <ExternalAddress> value of the receiver's 'paste_and_match_style' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_paste_and_match_style) asExternalAddress!
+
+paste_and_match_style: anExternalAddress
+	"Set the receiver's 'paste_and_match_style' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_paste_and_match_style put: anExternalAddress!
+
+pasteAndMatchStyle
+	| method |
+	method := self class externalMethodAt: #_pasteAndMatchStyle_cefFrame:
+				ifAbsentBindTo: self paste_and_match_style.
+	^method value: self withArguments: (Array with: self)!
+
 redo
 	"Answer the <ExternalAddress> value of the receiver's 'redo' field."
 
@@ -467,7 +488,7 @@ visit_dom: anExternalAddress
 !CefFrame categoriesForMethods!
 _callCopy_cefFrame:!**compiled accessors**!private! !
 _callCut_cefFrame:!**compiled accessors**!private! !
-_callDel_cefFrame:!**compiled accessors**!private! !
+_callDelete_cefFrame:!**compiled accessors**!private! !
 _callPaste_cefFrame:!**compiled accessors**!private! !
 _callRedo_cefFrame:!**compiled accessors**!private! !
 _callUndo_cefFrame:!**compiled accessors**!private! !
@@ -480,22 +501,23 @@ _isFocused_cefFrame:!**compiled accessors**!private! !
 _isMain_cefFrame:!**compiled accessors**!private! !
 _isValid_cefFrame:!**compiled accessors**!private! !
 _loadUrl_cefFrame:url:!**compiled accessors**!private! !
+_pasteAndMatchStyle_cefFrame:!**compiled accessors**!private! !
 _selectAll_cefFrame:!**compiled accessors**!private! !
 _sendProcessMessage_cefFrame:targetProcess:message:!**compiled accessors**!private! !
 callCopy!**compiled accessors**!public! !
 callCut!**compiled accessors**!public! !
-callDel!**compiled accessors**!public! !
+callDelete!**compiled accessors**!public! !
 callPaste!**compiled accessors**!public! !
 callRedo!**compiled accessors**!public! !
 callUndo!**compiled accessors**!public! !
 copy!**compiled accessors**!public! !
 copy:!**compiled accessors**!public! !
-create_urlrequest!**compiled accessors**!public! !
-create_urlrequest:!**compiled accessors**!public! !
+create_url_request!**compiled accessors**!public! !
+create_url_request:!**compiled accessors**!public! !
 cut!**compiled accessors**!public! !
 cut:!**compiled accessors**!public! !
-del!**compiled accessors**!public! !
-del:!**compiled accessors**!public! !
+delete!**compiled accessors**!public! !
+delete:!**compiled accessors**!public! !
 execute_java_script!**compiled accessors**!public! !
 execute_java_script:!**compiled accessors**!public! !
 executeJavaScript_code:scriptUrl:startLine:!**compiled accessors**!public! !
@@ -535,6 +557,9 @@ load_url:!**compiled accessors**!public! !
 loadUrl_url:!**compiled accessors**!public! !
 paste!**compiled accessors**!public! !
 paste:!**compiled accessors**!public! !
+paste_and_match_style!**compiled accessors**!public! !
+paste_and_match_style:!**compiled accessors**!public! !
+pasteAndMatchStyle!**compiled accessors**!public! !
 redo!**compiled accessors**!public! !
 redo:!**compiled accessors**!public! !
 select_all!**compiled accessors**!public! !
@@ -554,7 +579,7 @@ visit_dom:!**compiled accessors**!public! !
 !CefFrame class methodsFor!
 
 defineFields
-	"CefFrame compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
@@ -575,9 +600,11 @@ defineFields
 		defineField: #paste
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*')
 					smalltalkName: #callPaste);
-		defineField: #del
+		defineField: #paste_and_match_style
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*'));
+		defineField: #delete
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*')
-					smalltalkName: #callDel);
+					smalltalkName: #callDelete);
 		defineField: #select_all
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame*'));
 		defineField: #view_source type: LPVOIDField new;
@@ -610,14 +637,14 @@ defineFields
 		defineField: #get_browser type: LPVOIDField new;
 		defineField: #get_v8context type: LPVOIDField new;
 		defineField: #visit_dom type: LPVOIDField new;
-		defineField: #create_urlrequest type: LPVOIDField new;
+		defineField: #create_url_request type: LPVOIDField new;
 		defineField: #send_process_message
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFrame* dword CefProcessMessage*')
 					smalltalkName: #sendProcessMessage_targetProcess:message:)!
 
 getFieldNames
-	^#(#base #is_valid #undo #redo #cut #copy #paste #del #select_all #view_source #get_source #get_text #load_request #load_url #execute_java_script #is_main #is_focused #get_name #get_identifier #get_parent #get_url #get_browser #get_v8context #visit_dom #create_urlrequest #send_process_message)! !
+	^#(#base #is_valid #undo #redo #cut #copy #paste #paste_and_match_style #delete #select_all #view_source #get_source #get_text #load_request #load_url #execute_java_script #is_main #is_focused #get_name #get_identifier #get_parent #get_url #get_browser #get_v8context #visit_dom #create_url_request #send_process_message)! !
 
 !CefFrame class categoriesForMethods!
 defineFields!public! !

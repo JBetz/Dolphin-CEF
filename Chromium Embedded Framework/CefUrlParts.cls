@@ -1,23 +1,24 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefUrlParts
+CefExternalStructure subclass: #CefUrlParts
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_fragment _OffsetOf_host _OffsetOf_origin _OffsetOf_password _OffsetOf_path _OffsetOf_port _OffsetOf_query _OffsetOf_scheme _OffsetOf_spec _OffsetOf_username'
+	classVariableNames: '_OffsetOf_cefSize _OffsetOf_fragment _OffsetOf_host _OffsetOf_origin _OffsetOf_password _OffsetOf_path _OffsetOf_port _OffsetOf_query _OffsetOf_scheme _OffsetOf_spec _OffsetOf_username'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefUrlParts guid: (GUID fromString: '{5835f6f5-3db0-474a-b530-b50df424ad5a}')!
 
-CefUrlParts addClassConstant: '_OffsetOf_fragment' value: 16r6C!
-CefUrlParts addClassConstant: '_OffsetOf_host' value: 16r30!
-CefUrlParts addClassConstant: '_OffsetOf_origin' value: 16r48!
-CefUrlParts addClassConstant: '_OffsetOf_password' value: 16r24!
-CefUrlParts addClassConstant: '_OffsetOf_path' value: 16r54!
-CefUrlParts addClassConstant: '_OffsetOf_port' value: 16r3C!
-CefUrlParts addClassConstant: '_OffsetOf_query' value: 16r60!
-CefUrlParts addClassConstant: '_OffsetOf_scheme' value: 16rC!
-CefUrlParts addClassConstant: '_OffsetOf_spec' value: 16r0!
-CefUrlParts addClassConstant: '_OffsetOf_username' value: 16r18!
+CefUrlParts addClassConstant: '_OffsetOf_cefSize' value: 16r0!
+CefUrlParts addClassConstant: '_OffsetOf_fragment' value: 16r70!
+CefUrlParts addClassConstant: '_OffsetOf_host' value: 16r34!
+CefUrlParts addClassConstant: '_OffsetOf_origin' value: 16r4C!
+CefUrlParts addClassConstant: '_OffsetOf_password' value: 16r28!
+CefUrlParts addClassConstant: '_OffsetOf_path' value: 16r58!
+CefUrlParts addClassConstant: '_OffsetOf_port' value: 16r40!
+CefUrlParts addClassConstant: '_OffsetOf_query' value: 16r64!
+CefUrlParts addClassConstant: '_OffsetOf_scheme' value: 16r10!
+CefUrlParts addClassConstant: '_OffsetOf_spec' value: 16r4!
+CefUrlParts addClassConstant: '_OffsetOf_username' value: 16r1C!
 
 CefUrlParts comment: ''!
 
@@ -140,7 +141,7 @@ scheme: aCefString
 spec
 	"Answer the <CefString> value of the receiver's 'spec' field."
 
-	^CefString fromAddress: bytes yourAddress!
+	^CefString fromAddress: bytes yourAddress + _OffsetOf_spec!
 
 spec: aCefString
 	"Set the receiver's 'spec' field to the value of the argument, aCefString"
@@ -191,8 +192,9 @@ username:!**compiled accessors**!public! !
 !CefUrlParts class methodsFor!
 
 defineFields
-	"CefUrlParts compileDefinition"
+	"self compileDefinition"
 
+	super defineFields.
 	self
 		defineField: #spec type: (StructureField type: CefString);
 		defineField: #scheme type: (StructureField type: CefString);
@@ -213,7 +215,7 @@ fromString: aString
 	^resultCode = 0 ifTrue: [self fromString: 'https://' , aString] ifFalse: [parts]!
 
 getFieldNames
-	^#(#spec #scheme #username #password #host #port #origin #path #query #fragment)! !
+	^#(#cefSize #spec #scheme #username #password #host #port #origin #path #query #fragment)! !
 
 !CefUrlParts class categoriesForMethods!
 defineFields!public! !

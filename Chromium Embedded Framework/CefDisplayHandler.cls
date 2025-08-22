@@ -2,15 +2,17 @@
 
 CefEventHandler subclass: #CefDisplayHandler
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_on_address_change _OffsetOf_on_auto_resize _OffsetOf_on_console_message _OffsetOf_on_cursor_change _OffsetOf_on_favicon_urlchange _OffsetOf_on_fullscreen_mode_change _OffsetOf_on_loading_progess_change _OffsetOf_on_media_access_change _OffsetOf_on_status_message _OffsetOf_on_title_change _OffsetOf_on_tooltip'
+	classVariableNames: '_OffsetOf_get_root_window_screen_rect _OffsetOf_on_address_change _OffsetOf_on_auto_resize _OffsetOf_on_console_message _OffsetOf_on_contents_bound_change _OffsetOf_on_cursor_change _OffsetOf_on_favicon_urlchange _OffsetOf_on_fullscreen_mode_change _OffsetOf_on_loading_progess_change _OffsetOf_on_media_access_change _OffsetOf_on_status_message _OffsetOf_on_title_change _OffsetOf_on_tooltip'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefDisplayHandler guid: (GUID fromString: '{428ca646-07e0-42af-af5c-516369c3ad11}')!
 
+CefDisplayHandler addClassConstant: '_OffsetOf_get_root_window_screen_rect' value: 16r44!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_address_change' value: 16r14!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_auto_resize' value: 16r30!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_console_message' value: 16r2C!
+CefDisplayHandler addClassConstant: '_OffsetOf_on_contents_bound_change' value: 16r40!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_cursor_change' value: 16r38!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_favicon_urlchange' value: 16r1C!
 CefDisplayHandler addClassConstant: '_OffsetOf_on_fullscreen_mode_change' value: 16r20!
@@ -25,6 +27,16 @@ CefDisplayHandler comment: ''!
 !CefDisplayHandler categoriesForClass!External-Data-Structured! !
 
 !CefDisplayHandler methodsFor!
+
+get_root_window_screen_rect
+	"Answer the <ExternalAddress> value of the receiver's 'get_root_window_screen_rect' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_get_root_window_screen_rect) asExternalAddress!
+
+get_root_window_screen_rect: anExternalAddress
+	"Set the receiver's 'get_root_window_screen_rect' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_get_root_window_screen_rect put: anExternalAddress!
 
 on_address_change
 	"Answer the <ExternalAddress> value of the receiver's 'on_address_change' field."
@@ -55,6 +67,16 @@ on_console_message: anExternalAddress
 	"Set the receiver's 'on_console_message' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_console_message put: anExternalAddress!
+
+on_contents_bound_change
+	"Answer the <ExternalAddress> value of the receiver's 'on_contents_bound_change' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_on_contents_bound_change) asExternalAddress!
+
+on_contents_bound_change: anExternalAddress
+	"Set the receiver's 'on_contents_bound_change' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_on_contents_bound_change put: anExternalAddress!
 
 on_cursor_change
 	"Answer the <ExternalAddress> value of the receiver's 'on_cursor_change' field."
@@ -137,12 +159,16 @@ on_tooltip: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_on_tooltip put: anExternalAddress! !
 
 !CefDisplayHandler categoriesForMethods!
+get_root_window_screen_rect!**compiled accessors**!public! !
+get_root_window_screen_rect:!**compiled accessors**!public! !
 on_address_change!**compiled accessors**!public! !
 on_address_change:!**compiled accessors**!public! !
 on_auto_resize!**compiled accessors**!public! !
 on_auto_resize:!**compiled accessors**!public! !
 on_console_message!**compiled accessors**!public! !
 on_console_message:!**compiled accessors**!public! !
+on_contents_bound_change!**compiled accessors**!public! !
+on_contents_bound_change:!**compiled accessors**!public! !
 on_cursor_change!**compiled accessors**!public! !
 on_cursor_change:!**compiled accessors**!public! !
 on_favicon_urlchange!**compiled accessors**!public! !
@@ -164,7 +190,7 @@ on_tooltip:!**compiled accessors**!public! !
 !CefDisplayHandler class methodsFor!
 
 defineFields
-	"CefDisplayHandler  compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
@@ -211,10 +237,12 @@ defineFields
 		defineField: #on_media_access_change
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: void CefDisplayHandler* CefBrowser* sdword sdword')
-					smalltalkName: #onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:)!
+					smalltalkName: #onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:);
+		defineField: #on_contents_bound_change type: LPVOIDField new;
+		defineField: #get_root_window_screen_rect type: LPVOIDField new!
 
 getFieldNames
-	^#(#base #on_address_change #on_title_change #on_favicon_urlchange #on_fullscreen_mode_change #on_tooltip #on_status_message #on_console_message #on_auto_resize #on_loading_progess_change #on_cursor_change #on_media_access_change)! !
+	^#(#base #on_address_change #on_title_change #on_favicon_urlchange #on_fullscreen_mode_change #on_tooltip #on_status_message #on_console_message #on_auto_resize #on_loading_progess_change #on_cursor_change #on_media_access_change #on_contents_bound_change #get_root_window_screen_rect)! !
 
 !CefDisplayHandler class categoriesForMethods!
 defineFields!public! !

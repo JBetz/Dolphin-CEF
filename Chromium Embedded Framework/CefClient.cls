@@ -429,7 +429,7 @@ processMessageDelegate:!public! !
 !CefClient class methodsFor!
 
 defineFields
-	"CefClient compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self

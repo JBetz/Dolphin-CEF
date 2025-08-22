@@ -2,7 +2,7 @@
 
 CefEventHandler subclass: #CefRequestHandler
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_auth_credentials _OffsetOf_get_resource_request_handler _OffsetOf_on_before_browse _OffsetOf_on_certificate_error _OffsetOf_on_document_available_in_main_frame _OffsetOf_on_open_urlfrom_tab _OffsetOf_on_render_process_terminated _OffsetOf_on_render_view_ready _OffsetOf_on_select_client_certificate'
+	classVariableNames: '_OffsetOf_get_auth_credentials _OffsetOf_get_resource_request_handler _OffsetOf_on_before_browse _OffsetOf_on_certificate_error _OffsetOf_on_document_available_in_main_frame _OffsetOf_on_open_url_from_tab _OffsetOf_on_render_process_responsive _OffsetOf_on_render_process_terminated _OffsetOf_on_render_process_unresponsive _OffsetOf_on_render_view_ready _OffsetOf_on_select_client_certificate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -12,9 +12,11 @@ CefRequestHandler addClassConstant: '_OffsetOf_get_auth_credentials' value: 16r2
 CefRequestHandler addClassConstant: '_OffsetOf_get_resource_request_handler' value: 16r1C!
 CefRequestHandler addClassConstant: '_OffsetOf_on_before_browse' value: 16r14!
 CefRequestHandler addClassConstant: '_OffsetOf_on_certificate_error' value: 16r24!
-CefRequestHandler addClassConstant: '_OffsetOf_on_document_available_in_main_frame' value: 16r34!
-CefRequestHandler addClassConstant: '_OffsetOf_on_open_urlfrom_tab' value: 16r18!
-CefRequestHandler addClassConstant: '_OffsetOf_on_render_process_terminated' value: 16r30!
+CefRequestHandler addClassConstant: '_OffsetOf_on_document_available_in_main_frame' value: 16r3C!
+CefRequestHandler addClassConstant: '_OffsetOf_on_open_url_from_tab' value: 16r18!
+CefRequestHandler addClassConstant: '_OffsetOf_on_render_process_responsive' value: 16r34!
+CefRequestHandler addClassConstant: '_OffsetOf_on_render_process_terminated' value: 16r38!
+CefRequestHandler addClassConstant: '_OffsetOf_on_render_process_unresponsive' value: 16r30!
 CefRequestHandler addClassConstant: '_OffsetOf_on_render_view_ready' value: 16r2C!
 CefRequestHandler addClassConstant: '_OffsetOf_on_select_client_certificate' value: 16r28!
 
@@ -74,15 +76,25 @@ on_document_available_in_main_frame: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_on_document_available_in_main_frame put: anExternalAddress!
 
-on_open_urlfrom_tab
-	"Answer the <ExternalAddress> value of the receiver's 'on_open_urlfrom_tab' field."
+on_open_url_from_tab
+	"Answer the <ExternalAddress> value of the receiver's 'on_open_url_from_tab' field."
 
-	^(bytes uintPtrAtOffset: _OffsetOf_on_open_urlfrom_tab) asExternalAddress!
+	^(bytes uintPtrAtOffset: _OffsetOf_on_open_url_from_tab) asExternalAddress!
 
-on_open_urlfrom_tab: anExternalAddress
-	"Set the receiver's 'on_open_urlfrom_tab' field to the value of the argument, anExternalAddress"
+on_open_url_from_tab: anExternalAddress
+	"Set the receiver's 'on_open_url_from_tab' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_on_open_urlfrom_tab put: anExternalAddress!
+	bytes uintPtrAtOffset: _OffsetOf_on_open_url_from_tab put: anExternalAddress!
+
+on_render_process_responsive
+	"Answer the <ExternalAddress> value of the receiver's 'on_render_process_responsive' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_on_render_process_responsive) asExternalAddress!
+
+on_render_process_responsive: anExternalAddress
+	"Set the receiver's 'on_render_process_responsive' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_on_render_process_responsive put: anExternalAddress!
 
 on_render_process_terminated
 	"Answer the <ExternalAddress> value of the receiver's 'on_render_process_terminated' field."
@@ -93,6 +105,16 @@ on_render_process_terminated: anExternalAddress
 	"Set the receiver's 'on_render_process_terminated' field to the value of the argument, anExternalAddress"
 
 	bytes uintPtrAtOffset: _OffsetOf_on_render_process_terminated put: anExternalAddress!
+
+on_render_process_unresponsive
+	"Answer the <ExternalAddress> value of the receiver's 'on_render_process_unresponsive' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_on_render_process_unresponsive) asExternalAddress!
+
+on_render_process_unresponsive: anExternalAddress
+	"Set the receiver's 'on_render_process_unresponsive' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_on_render_process_unresponsive put: anExternalAddress!
 
 on_render_view_ready
 	"Answer the <ExternalAddress> value of the receiver's 'on_render_view_ready' field."
@@ -125,10 +147,14 @@ on_certificate_error!**compiled accessors**!public! !
 on_certificate_error:!**compiled accessors**!public! !
 on_document_available_in_main_frame!**compiled accessors**!public! !
 on_document_available_in_main_frame:!**compiled accessors**!public! !
-on_open_urlfrom_tab!**compiled accessors**!public! !
-on_open_urlfrom_tab:!**compiled accessors**!public! !
+on_open_url_from_tab!**compiled accessors**!public! !
+on_open_url_from_tab:!**compiled accessors**!public! !
+on_render_process_responsive!**compiled accessors**!public! !
+on_render_process_responsive:!**compiled accessors**!public! !
 on_render_process_terminated!**compiled accessors**!public! !
 on_render_process_terminated:!**compiled accessors**!public! !
+on_render_process_unresponsive!**compiled accessors**!public! !
+on_render_process_unresponsive:!**compiled accessors**!public! !
 on_render_view_ready!**compiled accessors**!public! !
 on_render_view_ready:!**compiled accessors**!public! !
 on_select_client_certificate!**compiled accessors**!public! !
@@ -138,7 +164,7 @@ on_select_client_certificate:!**compiled accessors**!public! !
 !CefRequestHandler class methodsFor!
 
 defineFields
-	"CefRequestHandler compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
@@ -146,7 +172,7 @@ defineFields
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: sdword CefRequestHandler* CefBrowser* CefFrame* CefRequest* sdword sdword')
 					smalltalkName: #onBeforeBrowse:browser:frame:request:userGesture:isRedirect:);
-		defineField: #on_open_urlfrom_tab
+		defineField: #on_open_url_from_tab
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: sdword CefRequestHandler* CefBrowser* CefFrame* CefString* sdword sdword')
 					smalltalkName: #onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:);
@@ -161,11 +187,13 @@ defineFields
 		defineField: #on_certificate_error type: LPVOIDField new;
 		defineField: #on_select_client_certificate type: LPVOIDField new;
 		defineField: #on_render_view_ready type: LPVOIDField new;
+		defineField: #on_render_process_unresponsive type: LPVOIDField new;
+		defineField: #on_render_process_responsive type: LPVOIDField new;
 		defineField: #on_render_process_terminated type: LPVOIDField new;
 		defineField: #on_document_available_in_main_frame type: LPVOIDField new!
 
 getFieldNames
-	^#(#base #on_before_browse #on_open_urlfrom_tab #get_resource_request_handler #get_auth_credentials #on_certificate_error #on_select_client_certificate #on_render_view_ready #on_render_process_terminated #on_document_available_in_main_frame)! !
+	^#(#base #on_before_browse #on_open_url_from_tab #get_resource_request_handler #get_auth_credentials #on_certificate_error #on_select_client_certificate #on_render_view_ready #on_render_process_unresponsive #on_render_process_responsive #on_render_process_terminated #on_document_available_in_main_frame)! !
 
 !CefRequestHandler class categoriesForMethods!
 defineFields!public! !

@@ -47,7 +47,7 @@ to:!**compiled accessors**!public! !
 !CefRange class methodsFor!
 
 defineFields
-	"CefRange compileDefinition"
+	"self compileDefinition"
 
 	self
 		defineField: #from type: DWORDField new;

@@ -14,6 +14,10 @@ CefLibrary comment: ''!
 
 !CefLibrary methodsFor!
 
+apiHash_version: version entry: entry
+	<cdecl: char* cef_api_hash sdword sdword>
+	^self invalidCall: _failureCode!
+
 browserHostCreateBrowser_windowInfo: win_info client: client url: url settings: settings extraInfo: extra_info requestContext: request_context
 	"cef_browser_capi.h
 
@@ -216,6 +220,7 @@ taskManagerGet
 	^self invalidCall: _failureCode! !
 
 !CefLibrary categoriesForMethods!
+apiHash_version:entry:!public! !
 browserHostCreateBrowser_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
 browserHostCreateBrowserSync_windowInfo:client:url:settings:extraInfo:requestContext:!public! !
 createUrl_parts:url:!parser!public! !
@@ -240,10 +245,44 @@ taskManagerGet!public! !
 
 !CefLibrary class methodsFor!
 
+cleanupResources
+	CefReferenceCountedObject
+		allSubclassesDo: [:eachClass | eachClass allInstances do: [:eachInstance | eachInstance oneWayBecome: nil]]!
+
 fileName
-	^FileLocator imageRelative: 'libcef'! !
+	^FileLocator imageRelative: 'libcef'!
+
+getTaskList
+	| taskManager taskCount taskCountResult taskIds result |
+	taskManager := self default taskManagerGet.
+	taskCount := taskManager getTasksCount.
+	taskCountResult := DWORD fromInteger: taskCount.
+	taskIds := QWORDArray new: taskCount.
+	result := taskManager getTaskIdsList_taskIdsCount: taskCountResult yourAddress taskIds: taskIds.
+	result = 0 ifTrue: [^nil].
+	^taskIds collect: 
+			[:each |
+			| taskInfo |
+			taskInfo := CefTaskInfo new.
+			taskManager getTaskInfo_taskId: each info: taskInfo.
+			taskInfo]!
+
+initialize
+	"self initialize"
+
+	SessionManager current
+		when: #sessionStarted
+		send: #onStartup
+		to: self!
+
+onStartup
+	self cleanupResources! !
 
 !CefLibrary class categoriesForMethods!
+cleanupResources!public! !
 fileName!public! !
+getTaskList!public! !
+initialize!public! !
+onStartup!public! !
 !
 

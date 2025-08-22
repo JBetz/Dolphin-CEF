@@ -1,8 +1,8 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefSettings
+CefExternalStructure subclass: #CefSettings
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_browser_subprocess_path _OffsetOf_cache_path _OffsetOf_cefSize _OffsetOf_chrome_app_icon_id _OffsetOf_chrome_policy_id _OffsetOf_command_line_args_disabled _OffsetOf_cookieable_scheme_list _OffsetOf_cookieable_schemes_exclude_defaults _OffsetOf_external_message_pump _OffsetOf_framework_dir_path _OffsetOf_javascript_flags _OffsetOf_locale _OffsetOf_locales_dir_path _OffsetOf_log_file _OffsetOf_log_items _OffsetOf_log_severity _OffsetOf_main_bundle_path _OffsetOf_multi_threaded_message_loop _OffsetOf_no_sandbox _OffsetOf_persist_session_cookies _OffsetOf_remote_debugging_port _OffsetOf_resources_dir_path _OffsetOf_root_cache_path _OffsetOf_uncaught_exception_stack_size _OffsetOf_user_agent _OffsetOf_user_agent_product _OffsetOf_windowless_rendering_enabled'
+	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_browser_subprocess_path _OffsetOf_cache_path _OffsetOf_cefSize _OffsetOf_chrome_app_icon_id _OffsetOf_chrome_policy_id _OffsetOf_command_line_args_disabled _OffsetOf_cookieable_scheme_list _OffsetOf_cookieable_schemes_exclude_defaults _OffsetOf_disable_signal_handlers _OffsetOf_external_message_pump _OffsetOf_framework_dir_path _OffsetOf_javascript_flags _OffsetOf_locale _OffsetOf_locales_dir_path _OffsetOf_log_file _OffsetOf_log_items _OffsetOf_log_severity _OffsetOf_main_bundle_path _OffsetOf_multi_threaded_message_loop _OffsetOf_no_sandbox _OffsetOf_persist_session_cookies _OffsetOf_remote_debugging_port _OffsetOf_resources_dir_path _OffsetOf_root_cache_path _OffsetOf_uncaught_exception_stack_size _OffsetOf_user_agent _OffsetOf_user_agent_product _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -18,6 +18,7 @@ CefSettings addClassConstant: '_OffsetOf_chrome_policy_id' value: 16rDC!
 CefSettings addClassConstant: '_OffsetOf_command_line_args_disabled' value: 16r38!
 CefSettings addClassConstant: '_OffsetOf_cookieable_scheme_list' value: 16rCC!
 CefSettings addClassConstant: '_OffsetOf_cookieable_schemes_exclude_defaults' value: 16rD8!
+CefSettings addClassConstant: '_OffsetOf_disable_signal_handlers' value: 16rEC!
 CefSettings addClassConstant: '_OffsetOf_external_message_pump' value: 16r30!
 CefSettings addClassConstant: '_OffsetOf_framework_dir_path' value: 16r14!
 CefSettings addClassConstant: '_OffsetOf_javascript_flags' value: 16r90!
@@ -96,16 +97,6 @@ cache_path: aCefString
 		to: ##(_OffsetOf_cache_path + CefString basicByteSize)
 		startingAt: 1!
 
-cefSize
-	"Answer the <Integer> value of the receiver's 'cefSize' field."
-
-	^bytes dwordAtOffset: _OffsetOf_cefSize!
-
-cefSize: anInteger
-	"Set the receiver's 'cefSize' field to the value of the argument, anInteger"
-
-	bytes dwordAtOffset: _OffsetOf_cefSize put: anInteger!
-
 chrome_app_icon_id
 	"Answer the <Integer> value of the receiver's 'chrome_app_icon_id' field."
 
@@ -164,6 +155,16 @@ cookieable_schemes_exclude_defaults: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_cookieable_schemes_exclude_defaults put: anInteger!
 
+disable_signal_handlers
+	"Answer the <Integer> value of the receiver's 'disable_signal_handlers' field."
+
+	^bytes sdwordAtOffset: _OffsetOf_disable_signal_handlers!
+
+disable_signal_handlers: anInteger
+	"Set the receiver's 'disable_signal_handlers' field to the value of the argument, anInteger"
+
+	bytes sdwordAtOffset: _OffsetOf_disable_signal_handlers put: anInteger!
+
 external_message_pump
 	"Answer the <Integer> value of the receiver's 'external_message_pump' field."
 
@@ -187,10 +188,6 @@ framework_dir_path: aCefString
 		from: ##(_OffsetOf_framework_dir_path + 1)
 		to: ##(_OffsetOf_framework_dir_path + CefString basicByteSize)
 		startingAt: 1!
-
-initialize
-	super initialize.
-	self cefSize: self class byteSize!
 
 javascript_flags
 	"Answer the <CefString> value of the receiver's 'javascript_flags' field."
@@ -407,8 +404,6 @@ browser_subprocess_path!**compiled accessors**!public! !
 browser_subprocess_path:!**compiled accessors**!public! !
 cache_path!**compiled accessors**!public! !
 cache_path:!**compiled accessors**!public! !
-cefSize!**compiled accessors**!public! !
-cefSize:!**compiled accessors**!public! !
 chrome_app_icon_id!**compiled accessors**!public! !
 chrome_app_icon_id:!**compiled accessors**!public! !
 chrome_policy_id!**compiled accessors**!public! !
@@ -419,11 +414,12 @@ cookieable_scheme_list!**compiled accessors**!public! !
 cookieable_scheme_list:!**compiled accessors**!public! !
 cookieable_schemes_exclude_defaults!**compiled accessors**!public! !
 cookieable_schemes_exclude_defaults:!**compiled accessors**!public! !
+disable_signal_handlers!**compiled accessors**!public! !
+disable_signal_handlers:!**compiled accessors**!public! !
 external_message_pump!**compiled accessors**!public! !
 external_message_pump:!**compiled accessors**!public! !
 framework_dir_path!**compiled accessors**!public! !
 framework_dir_path:!**compiled accessors**!public! !
-initialize!public! !
 javascript_flags!**compiled accessors**!public! !
 javascript_flags:!**compiled accessors**!public! !
 locale!**compiled accessors**!public! !
@@ -465,8 +461,8 @@ windowless_rendering_enabled:!**compiled accessors**!public! !
 defineFields
 	"self compileDefinition"
 
+	super defineFields.
 	self
-		defineField: #cefSize type: DWORDField new;
 		defineField: #no_sandbox type: SDWORDField new;
 		defineField: #browser_subprocess_path type: (StructureField type: CefString);
 		defineField: #framework_dir_path type: (StructureField type: CefString);
@@ -494,10 +490,11 @@ defineFields
 		defineField: #cookieable_scheme_list type: (StructureField type: CefString);
 		defineField: #cookieable_schemes_exclude_defaults type: SDWORDField new;
 		defineField: #chrome_policy_id type: (StructureField type: CefString);
-		defineField: #chrome_app_icon_id type: SDWORDField new!
+		defineField: #chrome_app_icon_id type: SDWORDField new;
+		defineField: #disable_signal_handlers type: SDWORDField new!
 
 getFieldNames
-	^#(#cefSize #no_sandbox #browser_subprocess_path #framework_dir_path #main_bundle_path #multi_threaded_message_loop #external_message_pump #windowless_rendering_enabled #command_line_args_disabled #cache_path #root_cache_path #persist_session_cookies #user_agent #user_agent_product #locale #log_file #log_severity #log_items #javascript_flags #resources_dir_path #locales_dir_path #remote_debugging_port #uncaught_exception_stack_size #background_color #accept_language_list #cookieable_scheme_list #cookieable_schemes_exclude_defaults #chrome_policy_id #chrome_app_icon_id)! !
+	^#(#cefSize #no_sandbox #browser_subprocess_path #framework_dir_path #main_bundle_path #multi_threaded_message_loop #external_message_pump #windowless_rendering_enabled #command_line_args_disabled #cache_path #root_cache_path #persist_session_cookies #user_agent #user_agent_product #locale #log_file #log_severity #log_items #javascript_flags #resources_dir_path #locales_dir_path #remote_debugging_port #uncaught_exception_stack_size #background_color #accept_language_list #cookieable_scheme_list #cookieable_schemes_exclude_defaults #chrome_policy_id #chrome_app_icon_id #disable_signal_handlers)! !
 
 !CefSettings class categoriesForMethods!
 defineFields!public! !

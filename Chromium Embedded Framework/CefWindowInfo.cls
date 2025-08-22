@@ -1,24 +1,25 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefWindowInfo
+CefExternalStructure subclass: #CefWindowInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_bounds _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_runtime_style _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
+	classVariableNames: '_OffsetOf_bounds _OffsetOf_cefSize _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_runtime_style _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefWindowInfo guid: (GUID fromString: '{a23737b3-e519-4626-b17a-1af220364c5b}')!
 
-CefWindowInfo addClassConstant: '_OffsetOf_bounds' value: 16r14!
-CefWindowInfo addClassConstant: '_OffsetOf_ex_style' value: 16r0!
-CefWindowInfo addClassConstant: '_OffsetOf_external_begin_frame_enabled' value: 16r34!
-CefWindowInfo addClassConstant: '_OffsetOf_menu' value: 16r28!
-CefWindowInfo addClassConstant: '_OffsetOf_parent_window' value: 16r24!
-CefWindowInfo addClassConstant: '_OffsetOf_runtime_style' value: 16r3C!
-CefWindowInfo addClassConstant: '_OffsetOf_shared_texture_enabled' value: 16r30!
-CefWindowInfo addClassConstant: '_OffsetOf_style' value: 16r10!
-CefWindowInfo addClassConstant: '_OffsetOf_window' value: 16r38!
-CefWindowInfo addClassConstant: '_OffsetOf_window_name' value: 16r4!
-CefWindowInfo addClassConstant: '_OffsetOf_windowless_rendering_enabled' value: 16r2C!
+CefWindowInfo addClassConstant: '_OffsetOf_bounds' value: 16r18!
+CefWindowInfo addClassConstant: '_OffsetOf_cefSize' value: 16r0!
+CefWindowInfo addClassConstant: '_OffsetOf_ex_style' value: 16r4!
+CefWindowInfo addClassConstant: '_OffsetOf_external_begin_frame_enabled' value: 16r38!
+CefWindowInfo addClassConstant: '_OffsetOf_menu' value: 16r2C!
+CefWindowInfo addClassConstant: '_OffsetOf_parent_window' value: 16r28!
+CefWindowInfo addClassConstant: '_OffsetOf_runtime_style' value: 16r40!
+CefWindowInfo addClassConstant: '_OffsetOf_shared_texture_enabled' value: 16r34!
+CefWindowInfo addClassConstant: '_OffsetOf_style' value: 16r14!
+CefWindowInfo addClassConstant: '_OffsetOf_window' value: 16r3C!
+CefWindowInfo addClassConstant: '_OffsetOf_window_name' value: 16r8!
+CefWindowInfo addClassConstant: '_OffsetOf_windowless_rendering_enabled' value: 16r30!
 
 CefWindowInfo comment: ''!
 
@@ -172,60 +173,9 @@ windowless_rendering_enabled:!**compiled accessors**!public! !
 !CefWindowInfo class methodsFor!
 
 defineFields
-	"CEFWindowInfo  compileDefinition
+	"self compileDefinition"
 
-	///
-	/// Structure representing window information.
-	///
-	typedef struct _cef_window_info_t {
-	  // Standard parameters required by CreateWindowEx()
-	  DWORD ex_style;
-	  cef_string_t window_name;
-	  DWORD style;
-	  cef_rect_t bounds;
-	  cef_window_handle_t parent_window;
-	  HMENU menu;
-
-	  ///
-	  /// Set to true (1) to create the browser using windowless (off-screen)
-	  /// rendering. No window will be created for the browser and all rendering
-	  /// will occur via the CefRenderHandler interface. The |parent_window| value
-	  /// will be used to identify monitor info and to act as the parent window for
-	  /// dialogs, context menus, etc. If |parent_window| is not provided then the
-	  /// main screen monitor will be used and some functionality that requires a
-	  /// parent window may not function correctly. In order to create windowless
-	  /// browsers the CefSettings.windowless_rendering_enabled value must be set to
-	  /// true. Transparent painting is enabled by default but can be disabled by
-	  /// setting CefBrowserSettings.background_color to an opaque value.
-	  ///
-	  int windowless_rendering_enabled;
-
-	  ///
-	  /// Set to true (1) to enable shared textures for windowless rendering. Only
-	  /// valid if windowless_rendering_enabled above is also set to true. Currently
-	  /// only supported on Windows (D3D11).
-	  ///
-	  int shared_texture_enabled;
-
-	  ///
-	  /// Set to true (1) to enable the ability to issue BeginFrame requests from
-	  /// the client application by calling CefBrowserHost::SendExternalBeginFrame.
-	  ///
-	  int external_begin_frame_enabled;
-
-	  ///
-	  /// Handle for the new browser window. Only used with windowed rendering.
-	  ///
-	  cef_window_handle_t window;
-
-	  ///
-	  /// Optionally change the runtime style. Alloy style will always be used if
-	  /// |windowless_rendering_enabled| is true. See cef_runtime_style_t
-	  /// documentation for details.
-	  ///
-	  cef_runtime_style_t runtime_style;
-	} cef_window_info_t;"
-
+	super defineFields.
 	self
 		defineField: #ex_style type: DWORDField new;
 		defineField: #window_name type: (StructureField type: CefString);
@@ -240,7 +190,7 @@ defineFields
 		defineField: #runtime_style type: DWORDField new!
 
 getFieldNames
-	^#(#ex_style #window_name #style #bounds #parent_window #menu #windowless_rendering_enabled #shared_texture_enabled #external_begin_frame_enabled #window #runtime_style)! !
+	^#(#cefSize #ex_style #window_name #style #bounds #parent_window #menu #windowless_rendering_enabled #shared_texture_enabled #external_begin_frame_enabled #window #runtime_style)! !
 
 !CefWindowInfo class categoriesForMethods!
 defineFields!public! !

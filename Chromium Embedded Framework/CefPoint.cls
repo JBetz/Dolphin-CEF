@@ -47,15 +47,7 @@ y:!**compiled accessors**!public! !
 !CefPoint class methodsFor!
 
 defineFields
-	"CefPoint compileDefinition"
-	
-	"///
-	/// Structure representing a point.
-	///
-	typedef struct _cef_point_t {
-	  int x;
-	  int y;
-	} cef_point_t;"
+	"self compileDefinition"
 	
 	self 
 		defineField: #x type: SDWORDField new;

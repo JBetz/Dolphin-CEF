@@ -2,16 +2,17 @@
 
 CefEventHandler subclass: #CefFrameHandler
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_on_frame_attached _OffsetOf_on_frame_created _OffsetOf_on_frame_detached _OffsetOf_on_main_frame_changed'
+	classVariableNames: '_OffsetOf_on_frame_attached _OffsetOf_on_frame_created _OffsetOf_on_frame_destroyed _OffsetOf_on_frame_detached _OffsetOf_on_main_frame_changed'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefFrameHandler guid: (GUID fromString: '{72e28614-dd18-4eb6-a5ac-b91d9a09a7c7}')!
 
-CefFrameHandler addClassConstant: '_OffsetOf_on_frame_attached' value: 16r18!
+CefFrameHandler addClassConstant: '_OffsetOf_on_frame_attached' value: 16r1C!
 CefFrameHandler addClassConstant: '_OffsetOf_on_frame_created' value: 16r14!
-CefFrameHandler addClassConstant: '_OffsetOf_on_frame_detached' value: 16r1C!
-CefFrameHandler addClassConstant: '_OffsetOf_on_main_frame_changed' value: 16r20!
+CefFrameHandler addClassConstant: '_OffsetOf_on_frame_destroyed' value: 16r18!
+CefFrameHandler addClassConstant: '_OffsetOf_on_frame_detached' value: 16r20!
+CefFrameHandler addClassConstant: '_OffsetOf_on_main_frame_changed' value: 16r24!
 
 CefFrameHandler comment: ''!
 
@@ -39,6 +40,16 @@ on_frame_created: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_on_frame_created put: anExternalAddress!
 
+on_frame_destroyed
+	"Answer the <ExternalAddress> value of the receiver's 'on_frame_destroyed' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_on_frame_destroyed) asExternalAddress!
+
+on_frame_destroyed: anExternalAddress
+	"Set the receiver's 'on_frame_destroyed' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_on_frame_destroyed put: anExternalAddress!
+
 on_frame_detached
 	"Answer the <ExternalAddress> value of the receiver's 'on_frame_detached' field."
 
@@ -64,6 +75,8 @@ on_frame_attached!**compiled accessors**!public! !
 on_frame_attached:!**compiled accessors**!public! !
 on_frame_created!**compiled accessors**!public! !
 on_frame_created:!**compiled accessors**!public! !
+on_frame_destroyed!**compiled accessors**!public! !
+on_frame_destroyed:!**compiled accessors**!public! !
 on_frame_detached!**compiled accessors**!public! !
 on_frame_detached:!**compiled accessors**!public! !
 on_main_frame_changed!**compiled accessors**!public! !
@@ -73,7 +86,7 @@ on_main_frame_changed:!**compiled accessors**!public! !
 !CefFrameHandler class methodsFor!
 
 defineFields
-	"CefFrameHandler compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
@@ -81,6 +94,10 @@ defineFields
 			type: (CallbackField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFocusHandler* CefBrowser* CefFrame*')
 					smalltalkName: #onFrameCreated:browser:frame:);
+		defineField: #on_frame_destroyed
+			type: (CallbackField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefFocusHandler* CefBrowser* CefFrame*')
+					smalltalkName: #onFrameDestroyed:browser:frame:);
 		defineField: #on_frame_attached
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: void CefFocusHandler* CefBrowser* CefFrame* sdword')
@@ -95,7 +112,7 @@ defineFields
 					smalltalkName: #onMainFrameChanged:browser:oldFrame:newFrame:)!
 
 getFieldNames
-	^#(#base #on_frame_created #on_frame_attached #on_frame_detached #on_main_frame_changed)! !
+	^#(#base #on_frame_created #on_frame_destroyed #on_frame_attached #on_frame_detached #on_main_frame_changed)! !
 
 !CefFrameHandler class categoriesForMethods!
 defineFields!public! !

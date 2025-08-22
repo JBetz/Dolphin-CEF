@@ -1,8 +1,8 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefBrowserSettings
+CefExternalStructure subclass: #CefBrowserSettings
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_background_color _OffsetOf_cefSize _OffsetOf_chrome_status_bubble _OffsetOf_chrome_zoom_bubble _OffsetOf_cursive_font_family _OffsetOf_databases _OffsetOf_default_encoding _OffsetOf_default_fixed_font_size _OffsetOf_default_font_size _OffsetOf_fantasy_font_family _OffsetOf_fixed_font_family _OffsetOf_image_loading _OffsetOf_image_shrink_standalone_to_fit _OffsetOf_javascript _OffsetOf_javascript_access_clipboard _OffsetOf_javascript_close_windows _OffsetOf_javascript_dom_paste _OffsetOf_local_storage _OffsetOf_minimum_font_size _OffsetOf_minimum_logical_font_size _OffsetOf_remote_fonts _OffsetOf_sans_serif_font_family _OffsetOf_serif_font_family _OffsetOf_standard_font_family _OffsetOf_tab_to_links _OffsetOf_text_area_resize _OffsetOf_webgl _OffsetOf_windowless_frame_rate'
+	classVariableNames: '_OffsetOf_background_color _OffsetOf_cefSize _OffsetOf_chrome_status_bubble _OffsetOf_chrome_zoom_bubble _OffsetOf_cursive_font_family _OffsetOf_databases_deprecated _OffsetOf_default_encoding _OffsetOf_default_fixed_font_size _OffsetOf_default_font_size _OffsetOf_fantasy_font_family _OffsetOf_fixed_font_family _OffsetOf_image_loading _OffsetOf_image_shrink_standalone_to_fit _OffsetOf_javascript _OffsetOf_javascript_access_clipboard _OffsetOf_javascript_close_windows _OffsetOf_javascript_dom_paste _OffsetOf_local_storage _OffsetOf_minimum_font_size _OffsetOf_minimum_logical_font_size _OffsetOf_remote_fonts _OffsetOf_sans_serif_font_family _OffsetOf_serif_font_family _OffsetOf_standard_font_family _OffsetOf_tab_to_links _OffsetOf_text_area_resize _OffsetOf_webgl _OffsetOf_windowless_frame_rate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -13,7 +13,7 @@ CefBrowserSettings addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefBrowserSettings addClassConstant: '_OffsetOf_chrome_status_bubble' value: 16rA0!
 CefBrowserSettings addClassConstant: '_OffsetOf_chrome_zoom_bubble' value: 16rA4!
 CefBrowserSettings addClassConstant: '_OffsetOf_cursive_font_family' value: 16r38!
-CefBrowserSettings addClassConstant: '_OffsetOf_databases' value: 16r94!
+CefBrowserSettings addClassConstant: '_OffsetOf_databases_deprecated' value: 16r94!
 CefBrowserSettings addClassConstant: '_OffsetOf_default_encoding' value: 16r60!
 CefBrowserSettings addClassConstant: '_OffsetOf_default_fixed_font_size' value: 16r54!
 CefBrowserSettings addClassConstant: '_OffsetOf_default_font_size' value: 16r50!
@@ -53,16 +53,6 @@ background_color: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_background_color put: anInteger!
 
-cefSize
-	"Answer the <Integer> value of the receiver's 'cefSize' field."
-
-	^bytes dwordAtOffset: _OffsetOf_cefSize!
-
-cefSize: anInteger
-	"Set the receiver's 'cefSize' field to the value of the argument, anInteger"
-
-	bytes dwordAtOffset: _OffsetOf_cefSize put: anInteger!
-
 chrome_status_bubble
 	"Answer the <Integer> value of the receiver's 'chrome_status_bubble' field."
 
@@ -97,15 +87,15 @@ cursive_font_family: aCefString
 		to: ##(_OffsetOf_cursive_font_family + CefString basicByteSize)
 		startingAt: 1!
 
-databases
-	"Answer the <Integer> value of the receiver's 'databases' field."
+databases_deprecated
+	"Answer the <Integer> value of the receiver's 'databases_deprecated' field."
 
-	^bytes sdwordAtOffset: _OffsetOf_databases!
+	^bytes sdwordAtOffset: _OffsetOf_databases_deprecated!
 
-databases: anInteger
-	"Set the receiver's 'databases' field to the value of the argument, anInteger"
+databases_deprecated: anInteger
+	"Set the receiver's 'databases_deprecated' field to the value of the argument, anInteger"
 
-	bytes sdwordAtOffset: _OffsetOf_databases put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_databases_deprecated put: anInteger!
 
 default_encoding
 	"Answer the <CefString> value of the receiver's 'default_encoding' field."
@@ -188,10 +178,6 @@ image_shrink_standalone_to_fit: anInteger
 	"Set the receiver's 'image_shrink_standalone_to_fit' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_image_shrink_standalone_to_fit put: anInteger!
-
-initialize
-	super initialize.
-	self cefSize: self class byteSize!
 
 javascript
 	"Answer the <Integer> value of the receiver's 'javascript' field."
@@ -358,16 +344,14 @@ windowless_frame_rate: anInteger
 !CefBrowserSettings categoriesForMethods!
 background_color!**compiled accessors**!public! !
 background_color:!**compiled accessors**!public! !
-cefSize!**compiled accessors**!public! !
-cefSize:!**compiled accessors**!public! !
 chrome_status_bubble!**compiled accessors**!public! !
 chrome_status_bubble:!**compiled accessors**!public! !
 chrome_zoom_bubble!**compiled accessors**!public! !
 chrome_zoom_bubble:!**compiled accessors**!public! !
 cursive_font_family!**compiled accessors**!public! !
 cursive_font_family:!**compiled accessors**!public! !
-databases!**compiled accessors**!public! !
-databases:!**compiled accessors**!public! !
+databases_deprecated!**compiled accessors**!public! !
+databases_deprecated:!**compiled accessors**!public! !
 default_encoding!**compiled accessors**!public! !
 default_encoding:!**compiled accessors**!public! !
 default_fixed_font_size!**compiled accessors**!public! !
@@ -382,7 +366,6 @@ image_loading!**compiled accessors**!public! !
 image_loading:!**compiled accessors**!public! !
 image_shrink_standalone_to_fit!**compiled accessors**!public! !
 image_shrink_standalone_to_fit:!**compiled accessors**!public! !
-initialize!public! !
 javascript!**compiled accessors**!public! !
 javascript:!**compiled accessors**!public! !
 javascript_access_clipboard!**compiled accessors**!public! !
@@ -418,10 +401,10 @@ windowless_frame_rate:!**compiled accessors**!public! !
 !CefBrowserSettings class methodsFor!
 
 defineFields
-	"CefBrowserSettings  compileDefinition"
+	"self compileDefinition"
 
+	super defineFields.
 	self
-		defineField: #cefSize type: DWORDField new;
 		defineField: #windowless_frame_rate type: SDWORDField new;
 		defineField: #standard_font_family type: (StructureField type: CefString);
 		defineField: #fixed_font_family type: (StructureField type: CefString);
@@ -444,14 +427,14 @@ defineFields
 		defineField: #text_area_resize type: SDWORDField new;
 		defineField: #tab_to_links type: SDWORDField new;
 		defineField: #local_storage type: SDWORDField new;
-		defineField: #databases type: SDWORDField new;
+		defineField: #databases_deprecated type: SDWORDField new;
 		defineField: #webgl type: SDWORDField new;
 		defineField: #background_color type: DWORDField new;
 		defineField: #chrome_status_bubble type: SDWORDField new;
 		defineField: #chrome_zoom_bubble type: SDWORDField new!
 
 getFieldNames
-	^#(#cefSize #windowless_frame_rate #standard_font_family #fixed_font_family #serif_font_family #sans_serif_font_family #cursive_font_family #fantasy_font_family #default_font_size #default_fixed_font_size #minimum_font_size #minimum_logical_font_size #default_encoding #remote_fonts #javascript #javascript_close_windows #javascript_access_clipboard #javascript_dom_paste #image_loading #image_shrink_standalone_to_fit #text_area_resize #tab_to_links #local_storage #databases #webgl #background_color #chrome_status_bubble #chrome_zoom_bubble)! !
+	^#(#cefSize #windowless_frame_rate #standard_font_family #fixed_font_family #serif_font_family #sans_serif_font_family #cursive_font_family #fantasy_font_family #default_font_size #default_fixed_font_size #minimum_font_size #minimum_logical_font_size #default_encoding #remote_fonts #javascript #javascript_close_windows #javascript_access_clipboard #javascript_dom_paste #image_loading #image_shrink_standalone_to_fit #text_area_resize #tab_to_links #local_storage #databases_deprecated #webgl #background_color #chrome_status_bubble #chrome_zoom_bubble)! !
 
 !CefBrowserSettings class categoriesForMethods!
 defineFields!public! !

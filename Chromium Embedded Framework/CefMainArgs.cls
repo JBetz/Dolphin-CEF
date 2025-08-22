@@ -34,14 +34,7 @@ instance:!**compiled accessors**!public! !
 !CefMainArgs class methodsFor!
 
 defineFields
-	"CefMainArgs  compileDefinition"
-	
-	"///
-	// Structure representing CefExecuteProcess arguments.
-	///
-	typedef struct _cef_main_args_t {
-	  HINSTANCE instance;
-	} cef_main_args_t;"
+	"self compileDefinition"
 
 	self defineField: #instance type: HANDLEField new!
 

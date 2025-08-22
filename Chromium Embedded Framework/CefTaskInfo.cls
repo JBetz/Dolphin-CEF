@@ -1,22 +1,23 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefTaskInfo
+CefExternalStructure subclass: #CefTaskInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cpu_usage _OffsetOf_gpu_memory _OffsetOf_id _OffsetOf_is_gpu_memory_inflated _OffsetOf_is_killable _OffsetOf_memory _OffsetOf_number_of_processors _OffsetOf_title _OffsetOf_type'
+	classVariableNames: '_OffsetOf_cefSize _OffsetOf_cpu_usage _OffsetOf_gpu_memory _OffsetOf_id _OffsetOf_is_gpu_memory_inflated _OffsetOf_is_killable _OffsetOf_memory _OffsetOf_number_of_processors _OffsetOf_title _OffsetOf_type'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefTaskInfo guid: (GUID fromString: '{086868c2-90ff-42fc-8d11-01538ba7d8bc}')!
 
-CefTaskInfo addClassConstant: '_OffsetOf_cpu_usage' value: 16r20!
-CefTaskInfo addClassConstant: '_OffsetOf_gpu_memory' value: 16r38!
-CefTaskInfo addClassConstant: '_OffsetOf_id' value: 16r0!
-CefTaskInfo addClassConstant: '_OffsetOf_is_gpu_memory_inflated' value: 16r40!
-CefTaskInfo addClassConstant: '_OffsetOf_is_killable' value: 16rC!
-CefTaskInfo addClassConstant: '_OffsetOf_memory' value: 16r30!
-CefTaskInfo addClassConstant: '_OffsetOf_number_of_processors' value: 16r28!
-CefTaskInfo addClassConstant: '_OffsetOf_title' value: 16r10!
-CefTaskInfo addClassConstant: '_OffsetOf_type' value: 16r8!
+CefTaskInfo addClassConstant: '_OffsetOf_cefSize' value: 16r0!
+CefTaskInfo addClassConstant: '_OffsetOf_cpu_usage' value: 16r28!
+CefTaskInfo addClassConstant: '_OffsetOf_gpu_memory' value: 16r40!
+CefTaskInfo addClassConstant: '_OffsetOf_id' value: 16r8!
+CefTaskInfo addClassConstant: '_OffsetOf_is_gpu_memory_inflated' value: 16r48!
+CefTaskInfo addClassConstant: '_OffsetOf_is_killable' value: 16r14!
+CefTaskInfo addClassConstant: '_OffsetOf_memory' value: 16r38!
+CefTaskInfo addClassConstant: '_OffsetOf_number_of_processors' value: 16r30!
+CefTaskInfo addClassConstant: '_OffsetOf_title' value: 16r18!
+CefTaskInfo addClassConstant: '_OffsetOf_type' value: 16r10!
 
 CefTaskInfo comment: ''!
 
@@ -142,8 +143,9 @@ type:!**compiled accessors**!public! !
 !CefTaskInfo class methodsFor!
 
 defineFields
-	"CefTaskInfo compileDefinition"
+	"self compileDefinition"
 
+	super defineFields.
 	self
 		defineField: #id type: SQWORDField new;
 		defineField: #type type: SDWORDField new;
@@ -156,7 +158,7 @@ defineFields
 		defineField: #is_gpu_memory_inflated type: SDWORDField new!
 
 getFieldNames
-	^#(#id #type #is_killable #title #cpu_usage #number_of_processors #memory #gpu_memory #is_gpu_memory_inflated)! !
+	^#(#cefSize #id #type #is_killable #title #cpu_usage #number_of_processors #memory #gpu_memory #is_gpu_memory_inflated)! !
 
 !CefTaskInfo class categoriesForMethods!
 defineFields!public! !

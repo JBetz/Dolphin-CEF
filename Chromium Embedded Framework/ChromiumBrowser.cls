@@ -2,7 +2,7 @@
 
 Object subclass: #ChromiumBrowser
 	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText selectedRange focusedElement hoveredElement searches search visitors audioStream queuedUrl evalCallbacks'
-	classVariableNames: 'CursorMap'
+	classVariableNames: 'ContextMenuCommandMap CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
 
@@ -44,7 +44,7 @@ closeBrowser
 copy
 	cefBrowser getFocusedFrame callCopy!
 
-createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
+createOffscreen: aHandle rectangle: aRectangle url: aUrlOrString
 	| windowInfo browserSettings |
 	CefBrowserProcessRunner ensureRunning.
 	(aRectangle width <= 0 or: [aRectangle height <= 0])
@@ -57,7 +57,7 @@ createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 				windowless_rendering_enabled: true;
 				shared_texture_enabled: true.
 	browserSettings := CefBrowserSettings new
-				windowless_frame_rate: 60;
+				windowless_frame_rate: 40;
 				background_color: Color white argbCode.
 	self library
 		browserHostCreateBrowserSync_windowInfo: windowInfo
@@ -67,7 +67,7 @@ createOffscreenBrowser: aUrlOrString rectangle: aRectangle window: aHandle
 		extraInfo: nil
 		requestContext: nil!
 
-createWindowedBrowser: aUrlOrString rectangle: aRectangle window: aHandle
+createWindowed: aHandle rectangle: aRectangle url: aUrlOrString
 	| windowInfo browserSettings resultCode |
 	CefBrowserProcessRunner ensureRunning.
 	windowInfo := CefWindowInfo new
@@ -211,8 +211,19 @@ getSource: aBlock
 			| string |
 			string := aCefString isNull ifTrue: [nil] ifFalse: [aCefString str].
 			aBlock value: string.
+			string free.
 			visitors remove: cefSourceStringVisitor].
 	mainFrame getSource_visitor: cefSourceStringVisitor!
+
+getTaskInfo
+	| taskManager taskId taskInfo result |
+	taskManager := self library taskManagerGet.
+	taskId := taskManager getTaskIdForBrowserId_browserId: cefBrowser getIdentifier.
+	taskId = -1 ifTrue: [^nil].
+	taskInfo := CefTaskInfo new.
+	result := taskManager getTaskInfo_taskId: taskId info: taskInfo.
+	result = 0 ifTrue: [^nil].
+	^taskInfo!
 
 getUrl
 	| mainFrame cefUrl url |
@@ -392,15 +403,10 @@ onConsoleMessage: displayHandler browser: browser level: level message: message 
 	^0!
 
 onContextMenuCommand: contextMenuHandler browser: browser frame: frame params: params commandId: commandId eventFlags: eventFlags
-	commandId = MENU_ID_BACK
-		ifTrue: 
-			[host back.
-			^1].
-	commandId = MENU_ID_FORWARD
-		ifTrue: 
-			[host forward.
-			^1].
-	^0!
+	| selector |
+	selector := ContextMenuCommandMap at: commandId ifAbsent: [^0].
+	host perform: selector.
+	^1!
 
 onContextMenuDismissed: contextMenuHandler browser: browser frame: frame 
 	^0!
@@ -448,6 +454,9 @@ onFrameAttached: frameHandler browser: browser frame: frame reattached: reattche
 	^0!
 
 onFrameCreated: frameHandler browser: browser frame: frame
+	^0!
+
+onFrameDestroyed: frameHandler browser: browser frame: frame
 	^0!
 
 onFrameDetached: frameHandler browser: browser frame: frame
@@ -569,23 +578,25 @@ paste
 	cefBrowser getFocusedFrame callPaste!
 
 provideHtml: aString forUrl: aUrlOrString
-	| contentProvider url |
-	contentProvider := CefContentProvider new.
-	url := aUrlOrString asUrl.
-	contentProvider
-		url: url;
-		html: aString;
-		chromiumBrowser: self.
-	contentProviders at: url put: contentProvider!
+	| contentProvider |
+	contentProvider := CefContentProvider new
+				url: aUrlOrString asUrl;
+				html: aString;
+				chromiumBrowser: self;
+				yourself.
+	self registerContentProvider: contentProvider!
 
 redo
 	cefBrowser getFocusedFrame callRedo!
+
+registerContentProvider: aContentProvider
+	contentProviders at: aContentProvider url displayString put: aContentProvider!
 
 reload
 	cefBrowser callReload!
 
 removeContentProvider: aContentProvider
-	contentProviders removeKey: aContentProvider url!
+	contentProviders removeKey: aContentProvider url displayString!
 
 runContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model callback: callback 
 	^0!
@@ -662,8 +673,8 @@ cefWindowExStyle!private! !
 cefWindowStyle!private! !
 closeBrowser!public! !
 copy!public! !
-createOffscreenBrowser:rectangle:window:!public! !
-createWindowedBrowser:rectangle:window:!public! !
+createOffscreen:rectangle:url:!public! !
+createWindowed:rectangle:url:!public! !
 cut!public! !
 defocus!public! !
 delete!public! !
@@ -683,6 +694,7 @@ getRootScreenRect:browser:rect:!cef event handler!private!render handler! !
 getScreenInfo:browser:screenInfo:!cef event handler!private!render handler! !
 getScreenPoint:browser:viewX:viewY:screenX:screenY:!cef event handler!private!render handler! !
 getSource:!public! !
+getTaskInfo!public! !
 getUrl!public! !
 getViewRect:browser:rect:!cef event handler!private!render handler! !
 go:!public! !
@@ -719,6 +731,7 @@ onFaviconUrlChange:browser:iconUrls:!cef event handler!display handler!private! 
 onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
 onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
+onFrameDestroyed:browser:frame:!cef event handler!frame handler!private! !
 onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
 onFullscreenModeChange:browser:fullscreen:!cef event handler!display handler!private! !
 onLoadEnd:browser:frame:httpStatusCode:!cef event handler!load handler!private! !
@@ -746,6 +759,7 @@ onVirtualKeyboardRequested:browser:inputMode:!cef event handler!private!render h
 paste!public! !
 provideHtml:forUrl:!public! !
 redo!public! !
+registerContentProvider:!public! !
 reload!public! !
 removeContentProvider:!public! !
 runContextMenu:browser:frame:params:model:callback:!cef event handler!context menu handler!private! !
@@ -817,7 +831,12 @@ initialize
 		at: CT_CUSTOM put: #arrow;
 		at: CT_DND_NONE put: #no;
 		at: CT_DND_MOVE put: #arrow;
-		at: CT_DND_LINK put: #hand!
+		at: CT_DND_LINK put: #hand.
+	ContextMenuCommandMap := LookupTable new.
+	ContextMenuCommandMap
+		at: MENU_ID_BACK put: #back;
+		at: MENU_ID_FORWARD put: #forward;
+		at: MENU_ID_RELOAD put: #reload!
 
 new
 	^super new initialize! !

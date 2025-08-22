@@ -73,7 +73,7 @@ on_loading_state_change:!**compiled accessors**!public! !
 !CefLoadHandler class methodsFor!
 
 defineFields
-	"CefLoadHandler compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self

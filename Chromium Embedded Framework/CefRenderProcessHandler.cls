@@ -138,7 +138,7 @@ on_web_kit_initialized:!**compiled accessors**!public! !
 !CefRenderProcessHandler class methodsFor!
 
 defineFields
-	"CefRenderProcessHandler  compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self

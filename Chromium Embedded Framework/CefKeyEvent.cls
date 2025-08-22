@@ -1,21 +1,22 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefKeyEvent
+CefExternalStructure subclass: #CefKeyEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_character _OffsetOf_focus_on_editable_field _OffsetOf_is_system_key _OffsetOf_modifiers _OffsetOf_native_key_code _OffsetOf_type _OffsetOf_unmodified_character _OffsetOf_windows_key_code'
+	classVariableNames: '_OffsetOf_cefSize _OffsetOf_character _OffsetOf_focus_on_editable_field _OffsetOf_is_system_key _OffsetOf_modifiers _OffsetOf_native_key_code _OffsetOf_type _OffsetOf_unmodified_character _OffsetOf_windows_key_code'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefKeyEvent guid: (GUID fromString: '{346aacfd-1ec5-4b61-854e-45f1ee15ab48}')!
 
-CefKeyEvent addClassConstant: '_OffsetOf_character' value: 16r14!
-CefKeyEvent addClassConstant: '_OffsetOf_focus_on_editable_field' value: 16r16!
-CefKeyEvent addClassConstant: '_OffsetOf_is_system_key' value: 16r10!
-CefKeyEvent addClassConstant: '_OffsetOf_modifiers' value: 16r4!
-CefKeyEvent addClassConstant: '_OffsetOf_native_key_code' value: 16rC!
-CefKeyEvent addClassConstant: '_OffsetOf_type' value: 16r0!
-CefKeyEvent addClassConstant: '_OffsetOf_unmodified_character' value: 16r15!
-CefKeyEvent addClassConstant: '_OffsetOf_windows_key_code' value: 16r8!
+CefKeyEvent addClassConstant: '_OffsetOf_cefSize' value: 16r0!
+CefKeyEvent addClassConstant: '_OffsetOf_character' value: 16r18!
+CefKeyEvent addClassConstant: '_OffsetOf_focus_on_editable_field' value: 16r1A!
+CefKeyEvent addClassConstant: '_OffsetOf_is_system_key' value: 16r14!
+CefKeyEvent addClassConstant: '_OffsetOf_modifiers' value: 16r8!
+CefKeyEvent addClassConstant: '_OffsetOf_native_key_code' value: 16r10!
+CefKeyEvent addClassConstant: '_OffsetOf_type' value: 16r4!
+CefKeyEvent addClassConstant: '_OffsetOf_unmodified_character' value: 16r19!
+CefKeyEvent addClassConstant: '_OffsetOf_windows_key_code' value: 16rC!
 
 CefKeyEvent comment: ''!
 
@@ -127,6 +128,7 @@ windows_key_code:!**compiled accessors**!public! !
 defineFields
 	"self compileDefinition"
 
+	super defineFields.
 	self
 		defineField: #type type: SDWORDField new;
 		defineField: #modifiers type: DWORDField new;
@@ -138,7 +140,7 @@ defineFields
 		defineField: #focus_on_editable_field type: SWORDField new!
 
 getFieldNames
-	^#(#type #modifiers #windows_key_code #native_key_code #is_system_key #character #unmodified_character #focus_on_editable_field)! !
+	^#(#cefSize #type #modifiers #windows_key_code #native_key_code #is_system_key #character #unmodified_character #focus_on_editable_field)! !
 
 !CefKeyEvent class categoriesForMethods!
 defineFields!public! !

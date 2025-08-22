@@ -1,6 +1,10 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Smalltalk at: #CefConstants put: (PoolConstantsDictionary named: #CefConstants)!
+CefConstants at: 'CEF_API_HASH_PLATFORM' put: 16r0!
+CefConstants at: 'CEF_API_HASH_UNIVERSAL' put: 16r1!
+CefConstants at: 'CEF_API_VERSION_EXPERIMENTAL' put: 16rF423F!
+CefConstants at: 'CEF_API_VERSION_NEXT' put: 16rF423E!
 CefConstants at: 'CEF_CHANNEL_LAYOUT_2_1' put: 16r4!
 CefConstants at: 'CEF_CHANNEL_LAYOUT_2_2' put: 16r7!
 CefConstants at: 'CEF_CHANNEL_LAYOUT_2POINT1' put: 16r11!
@@ -35,6 +39,9 @@ CefConstants at: 'CEF_CHANNEL_LAYOUT_STEREO_AND_KEYBOARD_MIC' put: 16r1E!
 CefConstants at: 'CEF_CHANNEL_LAYOUT_STEREO_DOWNMIX' put: 16r10!
 CefConstants at: 'CEF_CHANNEL_LAYOUT_SURROUND' put: 16r5!
 CefConstants at: 'CEF_CHANNEL_LAYOUT_UNSUPPORTED' put: 16r1!
+CefConstants at: 'CEF_COLOR_TYPE_BGRA_8888' put: 16r1!
+CefConstants at: 'CEF_COLOR_TYPE_RGBA_8888' put: 16r0!
+CefConstants at: 'CEF_COMMIT_HASH' put: 16r2!
 CefConstants at: 'CEF_RUNTIME_STYLE_ALLOY' put: 16r2!
 CefConstants at: 'CEF_RUNTIME_STYLE_CHROME' put: 16r1!
 CefConstants at: 'CEF_RUNTIME_STYLE_DEFAULT' put: 16r0!

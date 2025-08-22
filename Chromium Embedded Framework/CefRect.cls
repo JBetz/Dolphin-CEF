@@ -101,7 +101,7 @@ y:!public! !
 !CefRect class methodsFor!
 
 defineFields
-	"CefRect compileDefinition"
+	"self compileDefinition"
 
 	self
 		defineField: #x type: SDWORDField new;

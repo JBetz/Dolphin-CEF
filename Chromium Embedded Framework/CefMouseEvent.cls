@@ -60,28 +60,7 @@ y:!public! !
 !CefMouseEvent class methodsFor!
 
 defineFields
-	"CefMouseEvent compileDefinition 
-
-	///
-	/// Structure representing mouse event information.
-	///
-	typedef struct _cef_mouse_event_t {
-	  ///
-	  /// X coordinate relative to the left side of the view.
-	  ///
-	  int x;
-
-	  ///
-	  /// Y coordinate relative to the top side of the view.
-	  ///
-	  int y;
-
-	  ///
-	  /// Bit flags describing any pressed modifier keys. See
-	  /// cef_event_flags_t for values.
-	  ///
-	  uint32_t modifiers;
-	} cef_mouse_event_t;"
+	"self compileDefinition"
 
 	self
 		defineField: #x type: SDWORDField new;

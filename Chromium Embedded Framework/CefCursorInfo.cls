@@ -77,19 +77,7 @@ size:!**compiled accessors**!public! !
 !CefCursorInfo class methodsFor!
 
 defineFields
-	"CefCursorInfo compileDefinition
-
-	///
-	/// Structure representing cursor information. |buffer| will be
-	/// |size.width|*|size.height|*4 bytes in size and represents a BGRA image with
-	/// an upper-left origin.
-	///
-	typedef struct _cef_cursor_info_t {
-		cef_point_t hotspot;
-		float image_scale_factor;
-		void* buffer;
-		cef_size_t size;
-	} cef_cursor_info_t;"
+	"self compileDefinition"
 
 	self
 		defineField: #hotspot type: (StructureField type: CefPoint);

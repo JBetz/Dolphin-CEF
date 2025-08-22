@@ -1,22 +1,23 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefPopupFeatures
+CefExternalStructure subclass: #CefPopupFeatures
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_height _OffsetOf_heightSet _OffsetOf_isPopup _OffsetOf_width _OffsetOf_widthSet _OffsetOf_x _OffsetOf_xSet _OffsetOf_y _OffsetOf_ySet'
+	classVariableNames: '_OffsetOf_cefSize _OffsetOf_height _OffsetOf_heightSet _OffsetOf_isPopup _OffsetOf_width _OffsetOf_widthSet _OffsetOf_x _OffsetOf_xSet _OffsetOf_y _OffsetOf_ySet'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefPopupFeatures guid: (GUID fromString: '{423cfa44-42af-4e55-afa7-8cd8414f25d8}')!
 
-CefPopupFeatures addClassConstant: '_OffsetOf_height' value: 16r18!
-CefPopupFeatures addClassConstant: '_OffsetOf_heightSet' value: 16r1C!
-CefPopupFeatures addClassConstant: '_OffsetOf_isPopup' value: 16r20!
-CefPopupFeatures addClassConstant: '_OffsetOf_width' value: 16r10!
-CefPopupFeatures addClassConstant: '_OffsetOf_widthSet' value: 16r14!
-CefPopupFeatures addClassConstant: '_OffsetOf_x' value: 16r0!
-CefPopupFeatures addClassConstant: '_OffsetOf_xSet' value: 16r4!
-CefPopupFeatures addClassConstant: '_OffsetOf_y' value: 16r8!
-CefPopupFeatures addClassConstant: '_OffsetOf_ySet' value: 16rC!
+CefPopupFeatures addClassConstant: '_OffsetOf_cefSize' value: 16r0!
+CefPopupFeatures addClassConstant: '_OffsetOf_height' value: 16r1C!
+CefPopupFeatures addClassConstant: '_OffsetOf_heightSet' value: 16r20!
+CefPopupFeatures addClassConstant: '_OffsetOf_isPopup' value: 16r24!
+CefPopupFeatures addClassConstant: '_OffsetOf_width' value: 16r14!
+CefPopupFeatures addClassConstant: '_OffsetOf_widthSet' value: 16r18!
+CefPopupFeatures addClassConstant: '_OffsetOf_x' value: 16r4!
+CefPopupFeatures addClassConstant: '_OffsetOf_xSet' value: 16r8!
+CefPopupFeatures addClassConstant: '_OffsetOf_y' value: 16rC!
+CefPopupFeatures addClassConstant: '_OffsetOf_ySet' value: 16r10!
 
 CefPopupFeatures comment: ''!
 
@@ -138,25 +139,9 @@ ySet:!**compiled accessors**!public! !
 !CefPopupFeatures class methodsFor!
 
 defineFields
-	"CefPopupFeatures compileDefinition"
+	"self compileDefinition"
 
-	"///
-	/// Popup window features.
-	///
-	typedef struct _cef_popup_features_t {
-	  int x;
-	  int xSet;
-	  int y;
-	  int ySet;
-	  int width;
-	  int widthSet;
-	  int height;
-	  int heightSet;
-
-	  /// True (1) if browser interface elements should be hidden.
-	  int isPopup;
-	} cef_popup_features_t;"
-
+	super defineFields.
 	self
 		defineField: #x type: SDWORDField new;
 		defineField: #xSet type: SDWORDField new;
@@ -169,7 +154,7 @@ defineFields
 		defineField: #isPopup type: SDWORDField new!
 
 getFieldNames
-	^#(#x #xSet #y #ySet #width #widthSet #height #heightSet #isPopup)! !
+	^#(#cefSize #x #xSet #y #ySet #width #widthSet #height #heightSet #isPopup)! !
 
 !CefPopupFeatures class categoriesForMethods!
 defineFields!public! !

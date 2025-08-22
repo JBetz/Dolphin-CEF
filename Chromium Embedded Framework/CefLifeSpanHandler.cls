@@ -2,17 +2,18 @@
 
 CefEventHandler subclass: #CefLifeSpanHandler
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_do_close _OffsetOf_on_after_created _OffsetOf_on_before_close _OffsetOf_on_before_dev_tools_popup _OffsetOf_on_before_popup'
+	classVariableNames: '_OffsetOf_do_close _OffsetOf_on_after_created _OffsetOf_on_before_close _OffsetOf_on_before_dev_tools_popup _OffsetOf_on_before_popup _OffsetOf_on_before_popup_aborted'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefLifeSpanHandler guid: (GUID fromString: '{5f052d4e-3838-4451-922c-b95695377d92}')!
 
-CefLifeSpanHandler addClassConstant: '_OffsetOf_do_close' value: 16r20!
-CefLifeSpanHandler addClassConstant: '_OffsetOf_on_after_created' value: 16r1C!
-CefLifeSpanHandler addClassConstant: '_OffsetOf_on_before_close' value: 16r24!
-CefLifeSpanHandler addClassConstant: '_OffsetOf_on_before_dev_tools_popup' value: 16r18!
+CefLifeSpanHandler addClassConstant: '_OffsetOf_do_close' value: 16r24!
+CefLifeSpanHandler addClassConstant: '_OffsetOf_on_after_created' value: 16r20!
+CefLifeSpanHandler addClassConstant: '_OffsetOf_on_before_close' value: 16r28!
+CefLifeSpanHandler addClassConstant: '_OffsetOf_on_before_dev_tools_popup' value: 16r1C!
 CefLifeSpanHandler addClassConstant: '_OffsetOf_on_before_popup' value: 16r14!
+CefLifeSpanHandler addClassConstant: '_OffsetOf_on_before_popup_aborted' value: 16r18!
 
 CefLifeSpanHandler comment: ''!
 
@@ -68,7 +69,17 @@ on_before_popup
 on_before_popup: anExternalAddress
 	"Set the receiver's 'on_before_popup' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_on_before_popup put: anExternalAddress! !
+	bytes uintPtrAtOffset: _OffsetOf_on_before_popup put: anExternalAddress!
+
+on_before_popup_aborted
+	"Answer the <ExternalAddress> value of the receiver's 'on_before_popup_aborted' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_on_before_popup_aborted) asExternalAddress!
+
+on_before_popup_aborted: anExternalAddress
+	"Set the receiver's 'on_before_popup_aborted' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_on_before_popup_aborted put: anExternalAddress! !
 
 !CefLifeSpanHandler categoriesForMethods!
 do_close!**compiled accessors**!public! !
@@ -81,12 +92,14 @@ on_before_dev_tools_popup!**compiled accessors**!public! !
 on_before_dev_tools_popup:!**compiled accessors**!public! !
 on_before_popup!**compiled accessors**!public! !
 on_before_popup:!**compiled accessors**!public! !
+on_before_popup_aborted!**compiled accessors**!public! !
+on_before_popup_aborted:!**compiled accessors**!public! !
 !
 
 !CefLifeSpanHandler class methodsFor!
 
 defineFields
-	"CefLifeSpanHandler compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
@@ -94,6 +107,7 @@ defineFields
 			type: (CallbackField descriptor: (ExternalDescriptor
 							fromString: 'stdcall: sdword CefLifeSpanHandler* CefBrowser* CefFrame* CefString* CefString* sdword sdword CefPopupFeatures* CefWindowInfo* CefClient* CefBrowserSettings* CefDictionaryValue* sdword*')
 					smalltalkName: #onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGesture:popupFeatures:windowInfo:client:settings:extraInfo:noJavascriptAccess:);
+		defineField: #on_before_popup_aborted type: LPVOIDField new;
 		defineField: #on_before_dev_tools_popup type: LPVOIDField new;
 		defineField: #on_after_created
 			type: (CallbackField
@@ -109,7 +123,7 @@ defineFields
 					smalltalkName: #onBeforeClose:browser:)!
 
 getFieldNames
-	^#(#base #on_before_popup #on_before_dev_tools_popup #on_after_created #do_close #on_before_close)! !
+	^#(#base #on_before_popup #on_before_popup_aborted #on_before_dev_tools_popup #on_after_created #do_close #on_before_close)! !
 
 !CefLifeSpanHandler class categoriesForMethods!
 defineFields!public! !

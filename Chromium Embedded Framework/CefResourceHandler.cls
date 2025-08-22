@@ -112,7 +112,7 @@ skip:!**compiled accessors**!public! !
 !CefResourceHandler class methodsFor!
 
 defineFields
-	"CefResourceHandler compileDefinition"
+	"self recompileDefinition"
 
 	super defineFields.
 	self
@@ -127,7 +127,7 @@ defineFields
 					smalltalkName: #getResponseHeaders:response:responseLength:redirectUrl:);
 		defineField: #skip
 			type: (CallbackField descriptor: (ExternalDescriptor
-							fromString: 'stdcall: sdword CefResourceHandler* void* sqword* sqword* CefCallback*')
+							fromString: 'stdcall: sdword CefResourceHandler* sqword* sqword* CefCallback*')
 					smalltalkName: #skip:bytesToSkip:bytesSkipped:callback:);
 		defineField: #read
 			type: (CallbackField descriptor: (ExternalDescriptor

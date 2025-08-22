@@ -60,7 +60,7 @@ str:!**compiled accessors**!public! !
 !CefString class methodsFor!
 
 defineFields
-	"CefString compileDefinition"
+	"self compileDefinition"
 
 	self
 		defineField: #str type: (PointerField type: Utf16String);

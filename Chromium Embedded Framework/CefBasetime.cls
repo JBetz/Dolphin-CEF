@@ -34,7 +34,7 @@ val:!**compiled accessors**!public! !
 !CefBasetime class methodsFor!
 
 defineFields
-	"CefBasetime compileDefinition"
+	"self compileDefinition"
 
 	self defineField: #val type: SQWORDField new!
 

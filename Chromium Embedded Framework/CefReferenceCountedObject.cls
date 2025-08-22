@@ -73,7 +73,7 @@ initialize!public! !
 !CefReferenceCountedObject class methodsFor!
 
 defineFields
-	"CefReferenceCountedObject  compileDefinition"
+	"self compileDefinition"
 
 	self defineField: #base type: (StructureField type: CefBaseRefCounted)!
 

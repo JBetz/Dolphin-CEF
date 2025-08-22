@@ -2,7 +2,7 @@
 
 **Dolphin Version**: 7.2.1
 
-**CEF Version**: [128.0.6613.114](https://cef-builds.spotifycdn.com/cef_binary_128.4.8%2Bg88b5034%2Bchromium-128.0.6613.114_windows32.tar.bz2)
+**CEF Version**: [139.0.7258.139](https://cef-builds.spotifycdn.com/cef_binary_139.0.26%2Bg9d80e0d%2Bchromium-139.0.7258.139_windows32.tar.bz2)
 
 ## Why Dolphin-CEF?
 For creating a custom browser on top of Chromium, or otherwise embedding web content inside of a native Windows app.
