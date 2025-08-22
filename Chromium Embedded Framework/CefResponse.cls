@@ -32,8 +32,16 @@ CefResponse comment: ''!
 
 !CefResponse methodsFor!
 
+_getCharset_cefResponse: cefResponse
+	<stdcall: CefString* get_charset CefResponse*>
+	^self invalidCall: _failureCode!
+
 _getStatus_cefResponse: cefResponse
 	<stdcall: sdword get_status CefResponse*>
+	^self invalidCall: _failureCode!
+
+_setCharset_cefResponse: cefResponse charset: charset
+	<stdcall: void set_charset CefResponse* CefString*>
 	^self invalidCall: _failureCode!
 
 _setMimeType_cefResponse: cefResponse mimeType: mimeType
@@ -49,14 +57,14 @@ _setStatusText_cefResponse: cefResponse statusText: statusText
 	^self invalidCall: _failureCode!
 
 get_charset
-	"Answer the <Integer> value of the receiver's 'get_charset' field."
+	"Answer the <ExternalAddress> value of the receiver's 'get_charset' field."
 
-	^bytes dwordAtOffset: _OffsetOf_get_charset!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_charset) asExternalAddress!
 
-get_charset: anInteger
-	"Set the receiver's 'get_charset' field to the value of the argument, anInteger"
+get_charset: anExternalAddress
+	"Set the receiver's 'get_charset' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_get_charset put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_get_charset put: anExternalAddress!
 
 get_error
 	"Answer the <Integer> value of the receiver's 'get_error' field."
@@ -128,6 +136,11 @@ get_url: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_get_url put: anInteger!
 
+getCharset
+	| method |
+	method := self class externalMethodAt: #_getCharset_cefResponse: ifAbsentBindTo: self get_charset.
+	^method value: self withArguments: (Array with: self)!
+
 getStatus
 	| method |
 	method := self class externalMethodAt: #_getStatus_cefResponse: ifAbsentBindTo: self get_status.
@@ -144,14 +157,14 @@ is_read_only: anInteger
 	bytes dwordAtOffset: _OffsetOf_is_read_only put: anInteger!
 
 set_charset
-	"Answer the <Integer> value of the receiver's 'set_charset' field."
+	"Answer the <ExternalAddress> value of the receiver's 'set_charset' field."
 
-	^bytes dwordAtOffset: _OffsetOf_set_charset!
+	^(bytes uintPtrAtOffset: _OffsetOf_set_charset) asExternalAddress!
 
-set_charset: anInteger
-	"Set the receiver's 'set_charset' field to the value of the argument, anInteger"
+set_charset: anExternalAddress
+	"Set the receiver's 'set_charset' field to the value of the argument, anExternalAddress"
 
-	bytes dwordAtOffset: _OffsetOf_set_charset put: anInteger!
+	bytes uintPtrAtOffset: _OffsetOf_set_charset put: anExternalAddress!
 
 set_error
 	"Answer the <Integer> value of the receiver's 'set_error' field."
@@ -223,6 +236,16 @@ set_url: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_set_url put: anInteger!
 
+setCharset_charset: charset
+	| method arguments |
+	method := self class externalMethodAt: #_setCharset_cefResponse:charset:
+				ifAbsentBindTo: self set_charset.
+	arguments := Array new: 2.
+	arguments
+		at: 1 put: self;
+		at: 2 put: charset.
+	^method value: self withArguments: arguments!
+
 setMimeType_mimeType: mimeType
 	| method arguments |
 	method := self class externalMethodAt: #_setMimeType_cefResponse:mimeType:
@@ -254,7 +277,9 @@ setStatusText_statusText: statusText
 	^method value: self withArguments: arguments! !
 
 !CefResponse categoriesForMethods!
+_getCharset_cefResponse:!**compiled accessors**!private! !
 _getStatus_cefResponse:!**compiled accessors**!private! !
+_setCharset_cefResponse:charset:!**compiled accessors**!private! !
 _setMimeType_cefResponse:mimeType:!**compiled accessors**!private! !
 _setStatus_cefResponse:status:!**compiled accessors**!private! !
 _setStatusText_cefResponse:statusText:!**compiled accessors**!private! !
@@ -274,6 +299,7 @@ get_status_text!**compiled accessors**!public! !
 get_status_text:!**compiled accessors**!public! !
 get_url!**compiled accessors**!public! !
 get_url:!**compiled accessors**!public! !
+getCharset!**compiled accessors**!public! !
 getStatus!**compiled accessors**!public! !
 is_read_only!**compiled accessors**!public! !
 is_read_only:!**compiled accessors**!public! !
@@ -293,6 +319,7 @@ set_status_text!**compiled accessors**!public! !
 set_status_text:!**compiled accessors**!public! !
 set_url!**compiled accessors**!public! !
 set_url:!**compiled accessors**!public! !
+setCharset_charset:!**compiled accessors**!public! !
 setMimeType_mimeType:!**compiled accessors**!public! !
 setStatus_status:!**compiled accessors**!public! !
 setStatusText_statusText:!**compiled accessors**!public! !
@@ -301,7 +328,7 @@ setStatusText_statusText:!**compiled accessors**!public! !
 !CefResponse class methodsFor!
 
 defineFields
-	"CefResponse compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
@@ -323,8 +350,12 @@ defineFields
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefResponse* CefString*')
 					smalltalkName: #setMimeType_mimeType:);
-		defineField: #get_charset type: DWORDField new;
-		defineField: #set_charset type: DWORDField new;
+		defineField: #get_charset
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: CefString* CefResponse*'));
+		defineField: #set_charset
+			type: (MethodField
+					descriptor: (ExternalDescriptor fromString: 'stdcall: void CefResponse* CefString*')
+					smalltalkName: #setCharset_charset:);
 		defineField: #get_header_by_name type: DWORDField new;
 		defineField: #set_header_by_name type: DWORDField new;
 		defineField: #get_header_map type: DWORDField new;
