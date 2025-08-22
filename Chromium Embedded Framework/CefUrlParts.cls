@@ -210,9 +210,7 @@ fromString: aString
 	cef := CefLibrary default.
 	parts := CefUrlParts new.
 	resultCode := cef parseUrl_url: aString asCefString parts: parts.
-	resultCode = 0
-		ifTrue: [resultCode := cef parseUrl_url: ('https://' , aString) asCefString parts: parts].
-	^resultCode = 0 ifTrue: [nil] ifFalse: [parts]!
+	^resultCode = 0 ifTrue: [self fromString: 'https://' , aString] ifFalse: [parts]!
 
 getFieldNames
 	^#(#spec #scheme #username #password #host #port #origin #path #query #fragment)! !

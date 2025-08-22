@@ -17,11 +17,17 @@ Url comment: ''!
 asCefString
 	^string asCefString!
 
+asFileName
+	| validSpecialCharacters |
+	validSpecialCharacters := #(#- #_).
+	^self string
+		collect: [:each | each isAlphaNumeric | (validSpecialCharacters includes: each) ifTrue: [each] ifFalse: [$_]]!
+
 asUrl
 	^self!
 
-displayString
-	^self string!
+displayOn: aStream
+	aStream nextPutAll: self string!
 
 domain
 	^self host!
@@ -36,11 +42,7 @@ origin
 	^self parts origin str!
 
 parts
-	parts ifNil: [parts := CefUrlParts fromString: string].
-	^parts!
-
-parts: aCefUrlParts
-	parts := aCefUrlParts!
+	^CefUrlParts fromString: string!
 
 password
 	^self parts password str!
@@ -75,14 +77,14 @@ username
 
 !Url categoriesForMethods!
 asCefString!public! !
+asFileName!public! !
 asUrl!public! !
-displayString!public! !
+displayOn:!public! !
 domain!public! !
 fragment!public! !
 host!public! !
 origin!public! !
 parts!public! !
-parts:!public! !
 password!public! !
 path!public! !
 port!public! !
@@ -97,14 +99,13 @@ username!public! !
 !Url class methodsFor!
 
 fromString: aString
-	| urlParts |
-	urlParts := CefUrlParts fromString: aString.
-	urlParts ifNil: [self error: ('Invalid URL string: <1s>' expandMacrosWith: aString)].
-	^self new
-		string: aString;
-		parts: urlParts! !
+	^self new string: aString!
+
+stonAllInstVarNames
+	^self instVarNames difference: #(parts)! !
 
 !Url class categoriesForMethods!
 fromString:!public! !
+stonAllInstVarNames!public! !
 !
 
