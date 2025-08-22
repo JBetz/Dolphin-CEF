@@ -66,9 +66,9 @@ onViewCreated
 	chromiumBrowser := ChromiumBrowser new.
 	chromiumBrowser
 		host: self;
-		createWindowedBrowser: 'about:blank'
-		rectangle: rectangle
-		window: windowHandle!
+		createWindowed: windowHandle
+			rectangle: rectangle
+			url: 'about:blank'!
 
 onViewDestroyed
 	chromiumBrowser onViewDestroyed!
