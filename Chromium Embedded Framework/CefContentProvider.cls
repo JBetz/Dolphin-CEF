@@ -16,8 +16,8 @@ CefContentProvider comment: ''!
 
 cancel: resourceHandler!
 
-chromiumBrowser: anObject
-	chromiumBrowser := anObject!
+chromiumBrowser: aChromiumBrowser
+	chromiumBrowser := aChromiumBrowser!
 
 getResourceHandler: resourceRequestHandler browser: browser frame: frame request: request
 	^resourceHandler yourAddress!
@@ -52,7 +52,7 @@ onBeforeResourceLoad: resourceRequestHandler browser: browser frame: frame reque
 
 onResourceLoadComplete: resourceRequestHandler browser: browser frame: frame request: request response: response status: status receivedContentLength: receivedContentLength
 	htmlByteStream := nil.
-	chromiumBrowser ifNotNil: [chromiumBrowser removeContentProvider: self]!
+	chromiumBrowser removeContentProvider: self!
 
 open: resourceHandler request: request handleRequest: handleRequest callback: callback 
 	handleRequest value: 1.

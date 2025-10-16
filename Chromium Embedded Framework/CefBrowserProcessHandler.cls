@@ -112,7 +112,7 @@ on_schedule_message_pump_work:!**compiled accessors**!public! !
 !CefBrowserProcessHandler class methodsFor!
 
 defineFields
-	"CefBrowserProcessHandler  compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self

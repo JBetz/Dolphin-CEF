@@ -27,9 +27,12 @@ initialize!public! !
 defineFields
 	"self compileDefinition"
 
-	self defineField: #cefSize type: DWORDField new! !
+	self defineField: #cefSize type: DWORDField new!
+
+ensureDefined! !
 
 !CefExternalStructure class categoriesForMethods!
 defineFields!public! !
+ensureDefined!public! !
 !
 

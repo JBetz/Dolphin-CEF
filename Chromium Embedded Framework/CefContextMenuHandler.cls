@@ -112,7 +112,7 @@ run_quick_menu:!**compiled accessors**!public! !
 !CefContextMenuHandler class methodsFor!
 
 defineFields
-	"CefContextMenuHandler  compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self

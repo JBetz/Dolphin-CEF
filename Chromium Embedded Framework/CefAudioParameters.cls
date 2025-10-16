@@ -2,15 +2,16 @@
 
 CefExternalStructure subclass: #CefAudioParameters
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_channel_layout _OffsetOf_frames_per_buffer _OffsetOf_sample_rate'
+	classVariableNames: '_OffsetOf_cefSize _OffsetOf_channel_layout _OffsetOf_frames_per_buffer _OffsetOf_sample_rate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefAudioParameters guid: (GUID fromString: '{238b90e7-a603-407a-882c-77e6c3102f16}')!
 
-CefAudioParameters addClassConstant: '_OffsetOf_channel_layout' value: 16r0!
-CefAudioParameters addClassConstant: '_OffsetOf_frames_per_buffer' value: 16r8!
-CefAudioParameters addClassConstant: '_OffsetOf_sample_rate' value: 16r4!
+CefAudioParameters addClassConstant: '_OffsetOf_cefSize' value: 16r0!
+CefAudioParameters addClassConstant: '_OffsetOf_channel_layout' value: 16r4!
+CefAudioParameters addClassConstant: '_OffsetOf_frames_per_buffer' value: 16rC!
+CefAudioParameters addClassConstant: '_OffsetOf_sample_rate' value: 16r8!
 
 CefAudioParameters comment: ''!
 
