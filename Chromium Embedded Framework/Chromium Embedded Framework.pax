@@ -108,8 +108,11 @@ package classNames
 package methodNames
 	add: #Collection -> #asCefListValue;
 	add: #Dictionary -> #asCefDictionaryValue;
+	add: #InputState -> #loopWhile:;
 	add: #KernelLibrary -> #setPriorityClass:dwPriorityClass:;
 	add: #KernelLibrary -> #setProcessDEPPolicy:;
+	add: #PostedActionWindow -> #cefCallbackCode:;
+	add: #PostedActionWindow -> #preTranslateMessage:;
 	add: #Rectangle -> #asCefRect;
 	add: #String -> #asCefString;
 	add: #String -> #asUrl;
@@ -273,7 +276,7 @@ CefExternalStructure subclass: #CefAcceleratedPaintInfoCommon
 
 CefExternalStructure subclass: #CefAudioParameters
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_channel_layout _OffsetOf_frames_per_buffer _OffsetOf_sample_rate'
+	classVariableNames: '_OffsetOf_cefSize _OffsetOf_channel_layout _OffsetOf_frames_per_buffer _OffsetOf_sample_rate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -399,7 +402,7 @@ CefReferenceCountedObject subclass: #CefCommandLine
 
 CefReferenceCountedObject subclass: #CefContextMenuParams
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_dictionary_suggestions _OffsetOf_get_edit_state_flags _OffsetOf_get_frame_charset _OffsetOf_get_frame_url _OffsetOf_get_link_url _OffsetOf_get_media_state_flags _OffsetOf_get_media_type _OffsetOf_get_misspelled_word _OffsetOf_get_page_url _OffsetOf_get_selection_text _OffsetOf_get_source_url _OffsetOf_get_title_text _OffsetOf_get_type_flags _OffsetOf_get_unfiltered_link_url _OffsetOf_get_xcoord _OffsetOf_get_ycoord _OffsetOf_has_image_contents _OffsetOf_is_custom_menu _OffsetOf_is_editable _OffsetOf_is_spell_check_enabled'
+	classVariableNames: '_OffsetOf_get_dictionary_suggestions _OffsetOf_get_edit_state_flags _OffsetOf_get_frame_charset _OffsetOf_get_frame_url _OffsetOf_get_link_url _OffsetOf_get_media_state_flags _OffsetOf_get_media_type _OffsetOf_get_misspelled_word _OffsetOf_get_page_url _OffsetOf_get_selection_text _OffsetOf_get_source_url _OffsetOf_get_title_text _OffsetOf_get_type_flags _OffsetOf_get_unfiltered_link_url _OffsetOf_get_x_coord _OffsetOf_get_y_coord _OffsetOf_has_image_contents _OffsetOf_is_custom_menu _OffsetOf_is_editable _OffsetOf_is_spell_check_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -669,6 +672,49 @@ asCefDictionaryValue
 asCefDictionaryValue!public! !
 !
 
+!InputState methodsFor!
+
+loopWhile: aBlock
+	"Pump messages until the <niladicValuable> argument evaluates to false."
+
+	"Implementation Note: Host system events are processed at a higher priority to deferred
+	actions. A single message/action is processed before testing again to see if the loop should
+	be terminated. A single deferred action is processed between each test to see if there are
+	further Windows messages. Generally however the Windows message queue remains empty for long
+	periods, and all deferred messages will be quickly processed. When both queues are empty the
+	active process (which should be the UI process) will yield control to lower priority
+	processes, in particular the idle process which is responsible for quiescing the whole
+	system."
+
+	| msg activity |
+	msg := MSG new.
+	activity := false.
+	
+	[
+	[aBlock value ifFalse: [^self].
+	self isInputReady: msg] whileTrue: 
+				[activity := true.
+				self pumpMessage: msg].
+	CefBrowserProcessRunner iterate.
+	SDLWindowManager iterate.
+	"The PostedActionWindow should evaluate all posted actions in the message pump, but for
+	robustness ensure it does not accumulate a backlog of actions as this would cause very
+	strange behaviour."
+	msgWindow evaluatePendingActions ifTrue: [activity := true].
+	deferredActions nextNoWait
+		ifNil: 
+			[self waitForInput: activity.
+			activity := false]
+		ifNotNil: 
+			[:action |
+			activity := true.
+			action value]]
+			repeat! !
+
+!InputState categoriesForMethods!
+loopWhile:!message dispatching!public! !
+!
+
 !KernelLibrary methodsFor!
 
 setPriorityClass: hProcess dwPriorityClass: dwPriorityClass
@@ -691,6 +737,40 @@ setProcessDEPPolicy: dwFlags
 !KernelLibrary categoriesForMethods!
 setPriorityClass:dwPriorityClass:!public! !
 setProcessDEPPolicy:!public! !
+!
+
+!PostedActionWindow methodsFor!
+
+cefCallbackCode: anInteger 
+	cefCallbackCode := anInteger!
+
+preTranslateMessage: aMSG
+	"Private - Dispatch any posted action requests on the message loop side - we don't want to
+	do this inside a callback. Also the window belongs to the VM, and messages are not
+	dispatched into the image anyway."
+
+	| msg |
+	msg := aMSG message.
+	msg == WM_USER
+		ifTrue: 
+			[self evaluateNextAction.
+			^true].
+	msg == WM_TIMER
+		ifTrue: 
+			[| timerId |
+			timerId := aMSG wParam.
+			self killTimer: timerId.
+			SessionManager current onTimer: timerId.
+			^true].
+	msg == cefCallbackCode
+		ifTrue: 
+			[CefBrowserProcessRunner current onScheduleMessagePumpWork: aMSG wParam delayMs: aMSG lParam.
+			^true].
+	^false! !
+
+!PostedActionWindow categoriesForMethods!
+cefCallbackCode:!public! !
+preTranslateMessage:!dispatching!private! !
 !
 
 !Rectangle methodsFor!
