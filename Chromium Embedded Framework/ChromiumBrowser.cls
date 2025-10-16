@@ -389,6 +389,8 @@ onBeforeClose: lifeSpanHandler browser: browser
 	^0!
 
 onBeforeContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model
+	params callRelease.
+	model callRelease.
 	^0!
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
@@ -406,6 +408,7 @@ onContextMenuCommand: contextMenuHandler browser: browser frame: frame params: p
 	| selector |
 	selector := ContextMenuCommandMap at: commandId ifAbsent: [^0].
 	host perform: selector.
+	params callRelease.
 	^1!
 
 onContextMenuDismissed: contextMenuHandler browser: browser frame: frame 
@@ -598,7 +601,9 @@ reload
 removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url displayString!
 
-runContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model callback: callback 
+runContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model callback: callback
+	params callRelease.
+	model callRelease.
 	^0!
 
 scrollOffset
