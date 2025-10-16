@@ -61,6 +61,7 @@ onViewClosed
 
 onViewCreated
 	| rectangle windowHandle |
+	CefBrowserProcessRunner ensureRunning.
 	rectangle := self parentView clientRectangle.
 	windowHandle := self handle value.
 	chromiumBrowser := ChromiumBrowser new.

@@ -46,7 +46,6 @@ copy
 
 createOffscreen: aHandle rectangle: aRectangle url: aUrlOrString
 	| windowInfo browserSettings |
-	CefBrowserProcessRunner ensureRunning.
 	(aRectangle width <= 0 or: [aRectangle height <= 0])
 		ifTrue: [self error: ('Invalid rectangle extent: <1d>' expandMacrosWith: aRectangle extent)].
 	rectangle := aRectangle.
@@ -69,7 +68,6 @@ createOffscreen: aHandle rectangle: aRectangle url: aUrlOrString
 
 createWindowed: aHandle rectangle: aRectangle url: aUrlOrString
 	| windowInfo browserSettings resultCode |
-	CefBrowserProcessRunner ensureRunning.
 	windowInfo := CefWindowInfo new
 				style: self cefWindowStyle;
 				ex_style: self cefWindowExStyle;
