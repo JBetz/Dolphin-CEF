@@ -2,7 +2,7 @@
 
 CefReferenceCountedObject subclass: #CefContextMenuParams
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_dictionary_suggestions _OffsetOf_get_edit_state_flags _OffsetOf_get_frame_charset _OffsetOf_get_frame_url _OffsetOf_get_link_url _OffsetOf_get_media_state_flags _OffsetOf_get_media_type _OffsetOf_get_misspelled_word _OffsetOf_get_page_url _OffsetOf_get_selection_text _OffsetOf_get_source_url _OffsetOf_get_title_text _OffsetOf_get_type_flags _OffsetOf_get_unfiltered_link_url _OffsetOf_get_xcoord _OffsetOf_get_ycoord _OffsetOf_has_image_contents _OffsetOf_is_custom_menu _OffsetOf_is_editable _OffsetOf_is_spell_check_enabled'
+	classVariableNames: '_OffsetOf_get_dictionary_suggestions _OffsetOf_get_edit_state_flags _OffsetOf_get_frame_charset _OffsetOf_get_frame_url _OffsetOf_get_link_url _OffsetOf_get_media_state_flags _OffsetOf_get_media_type _OffsetOf_get_misspelled_word _OffsetOf_get_page_url _OffsetOf_get_selection_text _OffsetOf_get_source_url _OffsetOf_get_title_text _OffsetOf_get_type_flags _OffsetOf_get_unfiltered_link_url _OffsetOf_get_x_coord _OffsetOf_get_y_coord _OffsetOf_has_image_contents _OffsetOf_is_custom_menu _OffsetOf_is_editable _OffsetOf_is_spell_check_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -22,8 +22,8 @@ CefContextMenuParams addClassConstant: '_OffsetOf_get_source_url' value: 16r28!
 CefContextMenuParams addClassConstant: '_OffsetOf_get_title_text' value: 16r30!
 CefContextMenuParams addClassConstant: '_OffsetOf_get_type_flags' value: 16r1C!
 CefContextMenuParams addClassConstant: '_OffsetOf_get_unfiltered_link_url' value: 16r24!
-CefContextMenuParams addClassConstant: '_OffsetOf_get_xcoord' value: 16r14!
-CefContextMenuParams addClassConstant: '_OffsetOf_get_ycoord' value: 16r18!
+CefContextMenuParams addClassConstant: '_OffsetOf_get_x_coord' value: 16r14!
+CefContextMenuParams addClassConstant: '_OffsetOf_get_y_coord' value: 16r18!
 CefContextMenuParams addClassConstant: '_OffsetOf_has_image_contents' value: 16r2C!
 CefContextMenuParams addClassConstant: '_OffsetOf_is_custom_menu' value: 16r60!
 CefContextMenuParams addClassConstant: '_OffsetOf_is_editable' value: 16r54!
@@ -36,7 +36,7 @@ CefContextMenuParams comment: ''!
 !CefContextMenuParams methodsFor!
 
 _getDictionarySuggestions_cefContextMenuParams: cefContextMenuParams suggestions: suggestions
-	<stdcall: sdword get_dictionary_suggestions CefContextMenuParams* CefStringList*>
+	<stdcall: bool get_dictionary_suggestions CefContextMenuParams* CefStringList*>
 	^self invalidCall: _failureCode!
 
 _getEditStateFlags_cefContextMenuParams: cefContextMenuParams
@@ -91,28 +91,28 @@ _getUnfilteredLinkUrl_cefContextMenuParams: cefContextMenuParams
 	<stdcall: CefStringUserfree* get_unfiltered_link_url CefContextMenuParams*>
 	^self invalidCall: _failureCode!
 
-_getXcoord_cefContextMenuParams: cefContextMenuParams
-	<stdcall: sdword get_xcoord CefContextMenuParams*>
+_getXCoord_cefContextMenuParams: cefContextMenuParams
+	<stdcall: sdword get_x_coord CefContextMenuParams*>
 	^self invalidCall: _failureCode!
 
-_getYcoord_cefContextMenuParams: cefContextMenuParams
-	<stdcall: sdword get_ycoord CefContextMenuParams*>
+_getYCoord_cefContextMenuParams: cefContextMenuParams
+	<stdcall: sdword get_y_coord CefContextMenuParams*>
 	^self invalidCall: _failureCode!
 
 _hasImageContents_cefContextMenuParams: cefContextMenuParams
-	<stdcall: sdword has_image_contents CefContextMenuParams*>
+	<stdcall: bool has_image_contents CefContextMenuParams*>
 	^self invalidCall: _failureCode!
 
 _isCustomMenu_cefContextMenuParams: cefContextMenuParams
-	<stdcall: sdword is_custom_menu CefContextMenuParams*>
+	<stdcall: bool is_custom_menu CefContextMenuParams*>
 	^self invalidCall: _failureCode!
 
 _isEditable_cefContextMenuParams: cefContextMenuParams
-	<stdcall: sdword is_editable CefContextMenuParams*>
+	<stdcall: bool is_editable CefContextMenuParams*>
 	^self invalidCall: _failureCode!
 
 _isSpellCheckEnabled_cefContextMenuParams: cefContextMenuParams
-	<stdcall: sdword is_spell_check_enabled CefContextMenuParams*>
+	<stdcall: bool is_spell_check_enabled CefContextMenuParams*>
 	^self invalidCall: _failureCode!
 
 get_dictionary_suggestions
@@ -255,25 +255,25 @@ get_unfiltered_link_url: anExternalAddress
 
 	bytes uintPtrAtOffset: _OffsetOf_get_unfiltered_link_url put: anExternalAddress!
 
-get_xcoord
-	"Answer the <ExternalAddress> value of the receiver's 'get_xcoord' field."
+get_x_coord
+	"Answer the <ExternalAddress> value of the receiver's 'get_x_coord' field."
 
-	^(bytes uintPtrAtOffset: _OffsetOf_get_xcoord) asExternalAddress!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_x_coord) asExternalAddress!
 
-get_xcoord: anExternalAddress
-	"Set the receiver's 'get_xcoord' field to the value of the argument, anExternalAddress"
+get_x_coord: anExternalAddress
+	"Set the receiver's 'get_x_coord' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_get_xcoord put: anExternalAddress!
+	bytes uintPtrAtOffset: _OffsetOf_get_x_coord put: anExternalAddress!
 
-get_ycoord
-	"Answer the <ExternalAddress> value of the receiver's 'get_ycoord' field."
+get_y_coord
+	"Answer the <ExternalAddress> value of the receiver's 'get_y_coord' field."
 
-	^(bytes uintPtrAtOffset: _OffsetOf_get_ycoord) asExternalAddress!
+	^(bytes uintPtrAtOffset: _OffsetOf_get_y_coord) asExternalAddress!
 
-get_ycoord: anExternalAddress
-	"Set the receiver's 'get_ycoord' field to the value of the argument, anExternalAddress"
+get_y_coord: anExternalAddress
+	"Set the receiver's 'get_y_coord' field to the value of the argument, anExternalAddress"
 
-	bytes uintPtrAtOffset: _OffsetOf_get_ycoord put: anExternalAddress!
+	bytes uintPtrAtOffset: _OffsetOf_get_y_coord put: anExternalAddress!
 
 getDictionarySuggestions_suggestions: suggestions
 	| method arguments |
@@ -363,16 +363,16 @@ getUnfilteredLinkUrl
 				ifAbsentBindTo: self get_unfiltered_link_url.
 	^method value: self withArguments: (Array with: self)!
 
-getXcoord
+getXCoord
 	| method |
-	method := self class externalMethodAt: #_getXcoord_cefContextMenuParams:
-				ifAbsentBindTo: self get_xcoord.
+	method := self class externalMethodAt: #_getXCoord_cefContextMenuParams:
+				ifAbsentBindTo: self get_x_coord.
 	^method value: self withArguments: (Array with: self)!
 
-getYcoord
+getYCoord
 	| method |
-	method := self class externalMethodAt: #_getYcoord_cefContextMenuParams:
-				ifAbsentBindTo: self get_ycoord.
+	method := self class externalMethodAt: #_getYCoord_cefContextMenuParams:
+				ifAbsentBindTo: self get_y_coord.
 	^method value: self withArguments: (Array with: self)!
 
 has_image_contents
@@ -487,8 +487,8 @@ _getSourceUrl_cefContextMenuParams:!**compiled accessors**!private! !
 _getTitleText_cefContextMenuParams:!**compiled accessors**!private! !
 _getTypeFlags_cefContextMenuParams:!**compiled accessors**!private! !
 _getUnfilteredLinkUrl_cefContextMenuParams:!**compiled accessors**!private! !
-_getXcoord_cefContextMenuParams:!**compiled accessors**!private! !
-_getYcoord_cefContextMenuParams:!**compiled accessors**!private! !
+_getXCoord_cefContextMenuParams:!**compiled accessors**!private! !
+_getYCoord_cefContextMenuParams:!**compiled accessors**!private! !
 _hasImageContents_cefContextMenuParams:!**compiled accessors**!private! !
 _isCustomMenu_cefContextMenuParams:!**compiled accessors**!private! !
 _isEditable_cefContextMenuParams:!**compiled accessors**!private! !
@@ -521,10 +521,10 @@ get_type_flags!public! !
 get_type_flags:!public! !
 get_unfiltered_link_url!public! !
 get_unfiltered_link_url:!public! !
-get_xcoord!public! !
-get_xcoord:!public! !
-get_ycoord!public! !
-get_ycoord:!public! !
+get_x_coord!**compiled accessors**!public! !
+get_x_coord:!**compiled accessors**!public! !
+get_y_coord!**compiled accessors**!public! !
+get_y_coord:!**compiled accessors**!public! !
 getDictionarySuggestions_suggestions:!**compiled accessors**!public! !
 getEditStateFlags!**compiled accessors**!public! !
 getFrameCharset!**compiled accessors**!public! !
@@ -539,8 +539,8 @@ getSourceUrl!**compiled accessors**!public! !
 getTitleText!**compiled accessors**!public! !
 getTypeFlags!**compiled accessors**!public! !
 getUnfilteredLinkUrl!**compiled accessors**!public! !
-getXcoord!**compiled accessors**!public! !
-getYcoord!**compiled accessors**!public! !
+getXCoord!**compiled accessors**!public! !
+getYCoord!**compiled accessors**!public! !
 has_image_contents!public! !
 has_image_contents:!public! !
 hasImageContents!**compiled accessors**!public! !
@@ -569,14 +569,14 @@ isVideo!public! !
 !CefContextMenuParams class methodsFor!
 
 defineFields
-	"CefContextMenuParams compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
-		defineField: #get_xcoord
+		defineField: #get_x_coord
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefContextMenuParams*'));
-		defineField: #get_ycoord
+		defineField: #get_y_coord
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefContextMenuParams*'));
 		defineField: #get_type_flags
@@ -593,7 +593,7 @@ defineFields
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefStringUserfree* CefContextMenuParams*'));
 		defineField: #has_image_contents
 			type: (MethodField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefContextMenuParams*'));
+					descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefContextMenuParams*'));
 		defineField: #get_title_text
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefStringUserfree* CefContextMenuParams*'));
@@ -620,23 +620,23 @@ defineFields
 					descriptor: (ExternalDescriptor fromString: 'stdcall: CefStringUserfree* CefContextMenuParams*'));
 		defineField: #get_dictionary_suggestions
 			type: (MethodField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefContextMenuParams* CefStringList*')
+					descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefContextMenuParams* CefStringList*')
 					smalltalkName: #getDictionarySuggestions_suggestions:);
 		defineField: #is_editable
 			type: (MethodField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefContextMenuParams*'));
+					descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefContextMenuParams*'));
 		defineField: #is_spell_check_enabled
 			type: (MethodField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefContextMenuParams*'));
+					descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefContextMenuParams*'));
 		defineField: #get_edit_state_flags
 			type: (MethodField
 					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefContextMenuParams*'));
 		defineField: #is_custom_menu
 			type: (MethodField
-					descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefContextMenuParams*'))!
+					descriptor: (ExternalDescriptor fromString: 'stdcall: bool CefContextMenuParams*'))!
 
 getFieldNames
-	^#(#base #get_xcoord #get_ycoord #get_type_flags #get_link_url #get_unfiltered_link_url #get_source_url #has_image_contents #get_title_text #get_page_url #get_frame_url #get_frame_charset #get_media_type #get_media_state_flags #get_selection_text #get_misspelled_word #get_dictionary_suggestions #is_editable #is_spell_check_enabled #get_edit_state_flags #is_custom_menu)! !
+	^#(#base #get_x_coord #get_y_coord #get_type_flags #get_link_url #get_unfiltered_link_url #get_source_url #has_image_contents #get_title_text #get_page_url #get_frame_url #get_frame_charset #get_media_type #get_media_state_flags #get_selection_text #get_misspelled_word #get_dictionary_suggestions #is_editable #is_spell_check_enabled #get_edit_state_flags #is_custom_menu)! !
 
 !CefContextMenuParams class categoriesForMethods!
 defineFields!public! !
