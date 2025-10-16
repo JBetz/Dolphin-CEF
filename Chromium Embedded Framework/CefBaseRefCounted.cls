@@ -6,7 +6,7 @@ ExtendedExternalStructure subclass: #CefBaseRefCounted
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-CefBaseRefCounted guid: (GUID fromString: '{30cef58a-166e-43e1-b838-2bed36062965}')!
+CefBaseRefCounted guid: (GUID fromString: '{d7012401-e106-462a-9a7b-8c0cfd3105a7}')!
 
 CefBaseRefCounted addClassConstant: '_OffsetOf_add_ref' value: 16r4!
 CefBaseRefCounted addClassConstant: '_OffsetOf_cefSize' value: 16r0!
@@ -66,13 +66,6 @@ cefSize: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_cefSize put: anInteger!
 
-disableReferenceCounting
-	self
-		add_ref: ExternalAddress new;
-		release: ExternalAddress new;
-		has_one_ref: ExternalAddress new;
-		has_at_least_one_ref: ExternalAddress new!
-
 has_at_least_one_ref
 	"Answer the <ExternalAddress> value of the receiver's 'has_at_least_one_ref' field."
 
@@ -126,7 +119,6 @@ addRef!**compiled accessors**!public! !
 callRelease!**compiled accessors**!public! !
 cefSize!**compiled accessors**!public! !
 cefSize:!**compiled accessors**!public! !
-disableReferenceCounting!public! !
 has_at_least_one_ref!**compiled accessors**!public! !
 has_at_least_one_ref:!**compiled accessors**!public! !
 has_one_ref!**compiled accessors**!public! !

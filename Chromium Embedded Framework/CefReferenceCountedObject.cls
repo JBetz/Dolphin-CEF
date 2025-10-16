@@ -16,9 +16,6 @@ CefReferenceCountedObject comment: ''!
 
 !CefReferenceCountedObject methodsFor!
 
-addRef
-	^self base addRef!
-
 base
 	"Answer the <CefBaseRefCounted> value of the receiver's 'base' field."
 
@@ -34,39 +31,38 @@ base: aCefBaseRefCounted
 		startingAt: 1!
 
 callRelease
-	^self base callRelease!
+	self base callRelease!
+
+cefSize: anInteger
+	self base cefSize: anInteger!
 
 delegate
 	^delegate!
 
-delegate: anObject
+delegate: anObject 
 	delegate := anObject!
 
 disableReferenceCounting
-	self base disableReferenceCounting!
-
-hasAtLeastOneRef
-	^self base hasAtLeastOneRef!
-
-hasOneRef
-	^self base hasOneRef!
+	self base
+		add_ref: ExternalAddress new;
+		release: ExternalAddress new;
+		has_one_ref: ExternalAddress new;
+		has_at_least_one_ref: ExternalAddress new!
 
 initialize
 	super initialize.
-	self base
+	self
 		cefSize: self class byteSize;
 		disableReferenceCounting! !
 
 !CefReferenceCountedObject categoriesForMethods!
-addRef!public! !
 base!**compiled accessors**!public! !
 base:!**compiled accessors**!public! !
-callRelease!public! !
+callRelease!private! !
+cefSize:!private! !
 delegate!public! !
 delegate:!public! !
-disableReferenceCounting!public! !
-hasAtLeastOneRef!public! !
-hasOneRef!public! !
+disableReferenceCounting!private! !
 initialize!public! !
 !
 
@@ -76,6 +72,8 @@ defineFields
 	"self compileDefinition"
 
 	self defineField: #base type: (StructureField type: CefBaseRefCounted)!
+
+ensureDefined!
 
 getFieldNames
 	^#(#base)!
@@ -88,6 +86,7 @@ instanceCounts
 
 !CefReferenceCountedObject class categoriesForMethods!
 defineFields!public! !
+ensureDefined!public! !
 getFieldNames!**compiled accessors**!constants!private! !
 instanceCounts!public! !
 !
