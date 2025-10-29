@@ -215,6 +215,10 @@ stringListValue_list: list index: index value: value
 	<cdecl: sdword cef_string_list_value CefStringList* dword CefString*>
 	^self invalidCall: _failureCode!
 
+stringUtf8ToUtf16_src: src srcLen: src_len output: output 
+	<cdecl: sdword cef_string_utf8_to_utf16 char* dword CefString*>
+	^self invalidCall: _failureCode!
+
 taskManagerGet
 	<cdecl: CefTaskManager* cef_task_manager_get>
 	^self invalidCall: _failureCode! !
@@ -240,6 +244,7 @@ shutdown!public! !
 stringFromAscii_src:srcLen:output:!public! !
 stringListSize_list:!parser!public! !
 stringListValue_list:index:value:!parser!public! !
+stringUtf8ToUtf16_src:srcLen:output:!public! !
 taskManagerGet!public! !
 !
 
