@@ -555,7 +555,7 @@ stopLoad!**compiled accessors**!public! !
 !CefBrowser class methodsFor!
 
 defineFields
-	"CefBrowser  compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
