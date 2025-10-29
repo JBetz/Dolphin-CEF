@@ -106,6 +106,7 @@ package classNames
 	yourself.
 
 package methodNames
+	add: #AnsiString -> #asCefString;
 	add: #Collection -> #asCefListValue;
 	add: #Dictionary -> #asCefDictionaryValue;
 	add: #InputState -> #loopWhile:;
@@ -114,11 +115,12 @@ package methodNames
 	add: #PostedActionWindow -> #cefCallbackCode:;
 	add: #PostedActionWindow -> #preTranslateMessage:;
 	add: #Rectangle -> #asCefRect;
-	add: #String -> #asCefString;
 	add: #String -> #asUrl;
 	add: #String -> #fromSnakeCaseToCamelCase;
 	add: #String -> #looksLikeUrl;
 	add: #String -> #uncapitalized;
+	add: #Utf16String -> #asCefString;
+	add: #Utf8String -> #asCefString;
 	yourself.
 
 package globalNames
@@ -300,7 +302,7 @@ CefExternalStructure subclass: #CefPopupFeatures
 
 CefExternalStructure subclass: #CefScreenInfo
 	instanceVariableNames: ''
-	classVariableNames: ''
+	classVariableNames: '_OffsetOf_available_rect _OffsetOf_cefSize _OffsetOf_depth _OffsetOf_depth_per_component _OffsetOf_device_scale_factor _OffsetOf_is_monochrome _OffsetOf_rect'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -654,6 +656,21 @@ ContainerView subclass: #WebBrowserView
 
 "Loose Methods"!
 
+!AnsiString methodsFor!
+
+asCefString
+	| output |
+	output := CefString new.
+	CefLibrary default
+		stringFromAscii_src: self
+		srcLen: self length
+		output: output.
+	^output! !
+
+!AnsiString categoriesForMethods!
+asCefString!public! !
+!
+
 !Collection methodsFor!
 
 asCefListValue
@@ -695,7 +712,6 @@ loopWhile: aBlock
 	self isInputReady: msg] whileTrue: 
 				[activity := true.
 				self pumpMessage: msg].
-	CefBrowserProcessRunner iterate.
 	SDLWindowManager iterate.
 	"The PostedActionWindow should evaluate all posted actions in the message pump, but for
 	robustness ensure it does not accumulate a backlog of actions as this would cause very
@@ -788,15 +804,6 @@ asCefRect!public! !
 
 !String methodsFor!
 
-asCefString
-	| output |
-	output := CefString new.
-	CefLibrary default
-		stringFromAscii_src: self
-		srcLen: self size
-		output: output.
-	^output!
-
 asUrl
 	^Url fromString: self!
 
@@ -822,11 +829,37 @@ uncapitalized
 	^write contents! !
 
 !String categoriesForMethods!
-asCefString!public! !
 asUrl!converting!public! !
 fromSnakeCaseToCamelCase!public! !
 looksLikeUrl!public! !
 uncapitalized!public! !
+!
+
+!Utf16String methodsFor!
+
+asCefString
+	^CefString new
+		str: self;
+		length: self length;
+		dtor: nil! !
+
+!Utf16String categoriesForMethods!
+asCefString!public! !
+!
+
+!Utf8String methodsFor!
+
+asCefString
+	| output |
+	output := CefString new.
+	CefLibrary default
+		stringUtf8ToUtf16_src: self
+		srcLen: self length
+		output: output.
+	^output! !
+
+!Utf8String categoriesForMethods!
+asCefString!public! !
 !
 
 "End of package definition"!
