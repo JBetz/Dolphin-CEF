@@ -49,7 +49,7 @@ initializeApp
 	cefApp
 		delegate: self;
 		enableBrowserProcessHandlerAndDelegateTo: self.
-	self setupMessagePumpCallback!
+	self useExternalMessagePump ifTrue: [self setupMessagePumpCallback]!
 
 initializeCef
 	| resultCode |
@@ -73,7 +73,7 @@ initializeSettings
 	cefSettings := CefSettings new
 				no_sandbox: true;
 				browser_subprocess_path: subprocessPath asCefString;
-				log_severity: LOGSEVERITY_DEBUG;
+				log_severity: LOGSEVERITY_DEFAULT;
 				log_file: logFile asCefString;
 				cache_path: cachePath asCefString;
 				windowless_rendering_enabled: true;
@@ -135,10 +135,20 @@ setupMessagePumpCallback
 
 stop
 	isRunning ifFalse: [^self].
-	isRunning := false.
-	cefMainArgs := nil.
-	cefApp := nil.
-	cefSettings := nil!
+	Transcript
+		display: '[START] CEF shutdown';
+		cr.
+	[self library shutdown] ensure: 
+			[isRunning := false.
+			cefMainArgs := nil.
+			cefApp := nil.
+			cefSettings := nil].
+	Transcript
+		display: '[END] CEF shutdown';
+		cr!
+
+useExternalMessagePump
+	^cefSettings external_message_pump asBoolean!
 
 useMultiThreadedMessageLoop
 	^cefSettings multi_threaded_message_loop asBoolean! !
@@ -167,6 +177,7 @@ onUnhandledError:!public! !
 run!public! !
 setupMessagePumpCallback!public! !
 stop!public! !
+useExternalMessagePump!public! !
 useMultiThreadedMessageLoop!private! !
 !
 
@@ -205,13 +216,9 @@ onShutdown
 onStartup
 	Singleton ifNil: [^self].
 	Transcript
-		display: 'WARNING: CefBrowserProcessRunner wasn''''t stopped on previous shutdown. Stopping now.';
+		display: 'WARNING: CefBrowserProcessRunner wasn''t stopped on previous shutdown. Stopping now.';
 		cr.
-	Singleton stop.
-	Singleton := nil!
-
-pause
-	self new pause! !
+	Singleton := nil! !
 
 !CefBrowserProcessRunner class categoriesForMethods!
 current!public! !
@@ -221,6 +228,5 @@ iterate!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !
-pause!public! !
 !
 
