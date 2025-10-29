@@ -21,10 +21,12 @@ back: anInteger
 	self go: anInteger negated!
 
 canGoBack
-	^cefBrowser ifNotNil: [cefBrowser canGoBack] ifNil: [false]!
+	cefBrowser ifNil: [^false].
+	^cefBrowser canGoBack!
 
 canGoForward
-	^cefBrowser ifNotNil: [cefBrowser canGoForward] ifNil: [false]!
+	cefBrowser ifNil: [^false].
+	^cefBrowser canGoForward!
 
 cefWindowExStyle
 	^0!
@@ -32,7 +34,7 @@ cefWindowExStyle
 cefWindowStyle
 	^##(WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_TABSTOP | WS_VISIBLE)!
 
-closeBrowser
+close
 	cefBrowser ifNil: [^self].
 	[cefBrowser getHost closeBrowser_forceClose: 0] on: Error
 		do: 
@@ -59,7 +61,7 @@ createOffscreen: aHandle rectangle: aRectangle url: aUrlOrString
 				windowless_frame_rate: 40;
 				background_color: Color white argbCode.
 	self library
-		browserHostCreateBrowserSync_windowInfo: windowInfo
+		browserHostCreateBrowser_windowInfo: windowInfo
 		client: cefClient
 		url: aUrlOrString asUrl asCefString
 		settings: browserSettings
@@ -98,21 +100,21 @@ doClose: lifeSpanHandler browser: browser
 	^0!
 
 evalJavaScript: aString callback: aBlock
-	| mainFrame uuid message argumentList arguments |
+	| mainFrame id message argumentList arguments |
 	cefBrowser ifNil: [^self].
 	mainFrame := cefBrowser getMainFrame.
 	message := CefProcessMessage new: 'Eval'.
-	uuid := GUID newUnique displayString.
+	id := GUID newUnique displayString.
 	argumentList := message getArgumentList.
 	arguments := CefDictionaryValue new.
 	arguments
-		at: 'id' put: uuid;
+		at: 'id' put: id;
 		at: 'code' put: aString;
 		at: 'scriptUrl' put: 'Dolphin';
 		at: 'startLine' put: 1.
 	argumentList setDictionary_index: 0 value: arguments.
 	mainFrame sendProcessMessage_targetProcess: PID_RENDERER message: message.
-	evalCallbacks at: uuid put: aBlock!
+	evalCallbacks at: id put: aBlock!
 
 executeJavaScript: aString
 	| mainFrame |
@@ -178,7 +180,7 @@ getResourceRequestHandler: requestHandler browser: browser frame: frame request:
 getRootScreenRect: renderHandler browser: browser rect: rect
 	| rootRectangle |
 	host ifNil: [^0].
-	rootRectangle := host rootRectangle.
+	rootRectangle := host windowRectangle.
 	rect
 		x: rootRectangle left;
 		y: rootRectangle top;
@@ -187,7 +189,15 @@ getRootScreenRect: renderHandler browser: browser rect: rect
 	^0!
 
 getScreenInfo: renderHandler browser: browser screenInfo: screenInfo
-	^0!
+	| displayExtent displayRectangle |
+	displayExtent := SDLWindowManager current displayExtent.
+	"CEF will crash if width or height are 0"
+	self
+		assert: [displayExtent x > 0];
+		assert: [displayExtent y > 0].
+	displayRectangle := Rectangle origin: 0 @ 0 extent: displayExtent.
+	screenInfo rect: displayRectangle asCefRect.
+	^1!
 
 getScreenPoint: renderHandle browser: browser viewX: viewX viewY: viewY screenX: screenX screenY: screenY
 	| windowOrigin browserOrigin |
@@ -292,6 +302,9 @@ isFocusedElementEditable
 	focusedElement ifNil: [^false].
 	^focusedElement isEditable!
 
+isLoading
+	^cefBrowser isNil!
+
 isReadyToClose
 	^readyToClose!
 
@@ -311,22 +324,13 @@ loadUrl: aUrlOrString
 			mainFrame := cefBrowser getMainFrame.
 			mainFrame loadUrl_url: aUrlOrString asUrl asCefString]!
 
-onAcceleratedPaint: aCefRenderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRects info: info
-	| sharedResource |
+onAcceleratedPaint: aCefRenderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRectsPointer info: info
+	| sharedResource format |
 	host ifNil: [^0].
 	sharedResource := info shared_texture_handle.
-	type = PET_VIEW
-		ifTrue: 
-			[host
-				copyPageTexture: sharedResource
-				format: info format
-				extent: dirtyRects extent].
-	type = PET_POPUP
-		ifTrue: 
-			[host
-				copyPopupTexture: sharedResource
-				format: info format
-				extent: dirtyRects extent].
+	format := info format.
+	type = PET_VIEW ifTrue: [host copyPageTexture: sharedResource format: format].
+	type = PET_POPUP ifTrue: [host copyPopupTexture: sharedResource format: format].
 	^0!
 
 onAddressChange: displayHandler browser: browser frame: frame url: url
@@ -387,6 +391,19 @@ onBeforeClose: lifeSpanHandler browser: browser
 	^0!
 
 onBeforeContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model
+	| selection |
+	selection := params getSelectionText.
+	selection isNull
+		ifFalse: 
+			[model
+				insertItemAt_index: 1
+					commandId: MENU_ID_CUSTOM_FIRST
+					label: 'Translate' asCefString;
+				insertItemAt_index: 2
+					commandId: MENU_ID_CUSTOM_FIRST + 1
+					label: 'Speak' asCefString.
+			selectedText := selection str].
+	selection free.
 	params callRelease.
 	model callRelease.
 	^0!
@@ -404,9 +421,9 @@ onConsoleMessage: displayHandler browser: browser level: level message: message 
 
 onContextMenuCommand: contextMenuHandler browser: browser frame: frame params: params commandId: commandId eventFlags: eventFlags
 	| selector |
-	selector := ContextMenuCommandMap at: commandId ifAbsent: [^0].
-	host perform: selector.
-	params callRelease.
+	selector := ContextMenuCommandMap at: commandId
+				ifAbsent: [self error: ('Unknown context menu commandId: <1d>' expandMacrosWith: commandId)].
+	[host perform: selector] ensure: [params callRelease].
 	^1!
 
 onContextMenuDismissed: contextMenuHandler browser: browser frame: frame 
@@ -423,7 +440,8 @@ onEval: aCefListValue
 	| result id callback |
 	result := aCefListValue getDictionary_index: 0.
 	id := result at: 'id'.
-	callback := evalCallbacks removeKey: id ifAbsent: [^self].
+	callback := evalCallbacks removeKey: id
+				ifAbsent: [self error: ('Eval result received with unknown id: <1d>' expandMacrosWith: id)].
 	(result includesKey: 'success')
 		ifTrue: 
 			[| rawJson json |
@@ -483,7 +501,7 @@ onLoadStart: loadHandler browser: browser frame: frame transitionType: transitio
 	^0!
 
 onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
-	host ifNotNil: [host hasFocus ifTrue: [browser getHost setFocus_focus: 1]].
+	host notNil & host hasFocus ifTrue: [self focus].
 	^0!
 
 onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess
@@ -508,8 +526,8 @@ onOpenUrlFromTab: requestHandler browser: browser frame: frame targetUrl: target
 
 onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRects buffer: buffer width: width height: height
 	host ifNil: [^0].
-	type = PET_VIEW ifTrue: [host updatePageTexture: buffer].
-	type = PET_POPUP ifTrue: [host updatePopupTexture: buffer].
+	type = PET_VIEW ifTrue: [host updatePageTexture: buffer extent: width @ height].
+	type = PET_POPUP ifTrue: [host updatePopupTexture: buffer extent: width @ height].
 	^0!
 
 onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
@@ -558,7 +576,7 @@ onTooltip: displayHandler browser: browser text: text
 	^0!
 
 onViewClosed
-	self closeBrowser
+	self close
 	!
 
 onViewDestroyed
@@ -621,12 +639,15 @@ sendKeyEvent: aKeyEvent
 	cefBrowser getHost sendKeyEvent_event: aKeyEvent!
 
 sendMouseClickEvent: aMouseEvent mouseButtonType: anInteger mouseUp: aBoolean clickCount: anotherInteger
+	| clickCount |
 	cefBrowser ifNil: [^self].
+	"CEF will crash if click count isn't within this range"
+	clickCount := anotherInteger clampBetween: 1 and: 3.
 	cefBrowser getHost
 		sendMouseClickEvent_event: aMouseEvent
 		mouseButtonType: anInteger
 		mouseUp: aBoolean asInteger
-		clickCount: anotherInteger!
+		clickCount: clickCount!
 
 sendMouseMoveEvent: aMouseEvent mouseLeave: aBoolean
 	cefBrowser ifNil: [^self].
@@ -653,8 +674,16 @@ stopFinding
 	cefBrowser ifNil: [^self].
 	cefBrowser getHost stopFinding_clearSelection: false asInteger!
 
-traverseTo: aString
-	self executeJavaScript: ('navigation.traverseTo(<1S>)' expandMacrosWith: aString)!
+translate: aString from: sourceLanguage to: targetLanguage callback: aBlock
+	| javascript |
+	javascript := '(async () => {
+	const translator = await Translator.create({ sourceLanguage: "<1s>", targetLanguage: "<2s>" });
+	return translator.translate(`<3s>`);
+})()'
+				expandMacrosWith: sourceLanguage
+				with: targetLanguage
+				with: aString.
+	self evalJavaScript: javascript callback: aBlock!
 
 undo
 	cefBrowser getFocusedFrame callUndo!
@@ -674,7 +703,7 @@ canGoBack!public! !
 canGoForward!public! !
 cefWindowExStyle!private! !
 cefWindowStyle!private! !
-closeBrowser!public! !
+close!public! !
 copy!public! !
 createOffscreen:rectangle:url:!public! !
 createWindowed:rectangle:url:!public! !
@@ -709,6 +738,7 @@ initialize!public! !
 initializeOffscreenClient!private! !
 initializeWindowedClient!private! !
 isFocusedElementEditable!public! !
+isLoading!public! !
 isReadyToClose!public! !
 library!public! !
 loadHtml:forUrl:!public! !
@@ -778,7 +808,7 @@ setFrameRate:!public! !
 show!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
 stopFinding!public! !
-traverseTo:!public! !
+translate:from:to:callback:!public! !
 undo!public! !
 wasHidden:!public! !
 windowHandle!public! !
@@ -787,7 +817,7 @@ windowHandle!public! !
 !ChromiumBrowser class methodsFor!
 
 initialize
-	"ChromiumBrowser initialize"
+	"self initialize"
 
 	super initialize.
 	CursorMap := LookupTable new.
@@ -839,7 +869,10 @@ initialize
 	ContextMenuCommandMap
 		at: MENU_ID_BACK put: #back;
 		at: MENU_ID_FORWARD put: #forward;
-		at: MENU_ID_RELOAD put: #reload!
+		at: MENU_ID_RELOAD put: #reload;
+		at: MENU_ID_COPY put: #copy;
+		at: MENU_ID_CUSTOM_FIRST put: #translate;
+		at: MENU_ID_CUSTOM_FIRST + 1 put: #speak!
 
 new
 	^super new initialize! !
