@@ -137,17 +137,14 @@ defineFields
 	self
 		defineField: #cefSize type: DWORDField new;
 		defineField: #add_ref
-			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBaseRefCounted*')
-					smalltalkName: #addRef);
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: void CefBaseRefCounted*'));
 		defineField: #release
 			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBaseRefCounted*')
 					smalltalkName: #callRelease);
 		defineField: #has_one_ref
-			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBaseRefCounted*')
-					smalltalkName: #hasOneRef);
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBaseRefCounted*'));
 		defineField: #has_at_least_one_ref
-			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBaseRefCounted*')
-					smalltalkName: #hasAtLeastOneRef)!
+			type: (MethodField descriptor: (ExternalDescriptor fromString: 'stdcall: sdword CefBaseRefCounted*'))!
 
 getFieldNames
 	^#(#cefSize #add_ref #release #has_one_ref #has_at_least_one_ref)! !
