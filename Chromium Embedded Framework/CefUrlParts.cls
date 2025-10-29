@@ -208,11 +208,15 @@ defineFields
 		defineField: #fragment type: (StructureField type: CefString)!
 
 fromString: aString
-	| cef parts resultCode |
+	| urlString cef parts resultCode |
+	urlString := (aString beginsWith: 'https://') | (aString beginsWith: 'http://')
+				ifTrue: [aString]
+				ifFalse: ['https://' , aString].
 	cef := CefLibrary default.
 	parts := CefUrlParts new.
-	resultCode := cef parseUrl_url: aString asCefString parts: parts.
-	^resultCode = 0 ifTrue: [self fromString: 'https://' , aString] ifFalse: [parts]!
+	resultCode := cef parseUrl_url: urlString asCefString parts: parts.
+	resultCode = 0 ifTrue: [self error: ('Invalid URL string: <1s>' expandMacrosWith: urlString)].
+	^parts!
 
 getFieldNames
 	^#(#cefSize #spec #scheme #username #password #host #port #origin #path #query #fragment)! !
