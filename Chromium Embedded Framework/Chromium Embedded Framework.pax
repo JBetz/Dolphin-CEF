@@ -659,12 +659,14 @@ ContainerView subclass: #WebBrowserView
 !AnsiString methodsFor!
 
 asCefString
-	| output |
+	| output result |
 	output := CefString new.
-	CefLibrary default
-		stringFromAscii_src: self
-		srcLen: self length
-		output: output.
+	result := CefLibrary default
+				stringAsciiToUtf16_src: self
+				srcLen: self length
+				output: output.
+	result asBoolean
+		ifFalse: [self error: ('Error converting string ''<1s>'' to CefString' expandMacrosWith: self)].
 	^output! !
 
 !AnsiString categoriesForMethods!
@@ -838,10 +840,16 @@ uncapitalized!public! !
 !Utf16String methodsFor!
 
 asCefString
-	^CefString new
-		str: self;
-		length: self length;
-		dtor: nil! !
+	| output result |
+	output := CefString new.
+	result := CefLibrary default
+				stringUtf16Set_src: self
+				srcLen: self length
+				output: output
+				copy: 1.
+	result asBoolean
+		ifFalse: [self error: ('Error converting string ''<1s>'' to CefString' expandMacrosWith: self)].
+	^output! !
 
 !Utf16String categoriesForMethods!
 asCefString!public! !
@@ -850,13 +858,7 @@ asCefString!public! !
 !Utf8String methodsFor!
 
 asCefString
-	| output |
-	output := CefString new.
-	CefLibrary default
-		stringUtf8ToUtf16_src: self
-		srcLen: self length
-		output: output.
-	^output! !
+	^self asUtf16String asCefString! !
 
 !Utf8String categoriesForMethods!
 asCefString!public! !

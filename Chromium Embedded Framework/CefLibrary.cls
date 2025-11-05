@@ -203,7 +203,7 @@ shutdown
 	<cdecl: void cef_shutdown>
 	^self invalidCall: _failureCode!
 
-stringFromAscii_src: src srcLen: src_len output: output 
+stringAsciiToUtf16_src: src srcLen: src_len output: output
 	<cdecl: sdword cef_string_ascii_to_utf16 char* dword CefString*>
 	^self invalidCall: _failureCode!
 
@@ -213,6 +213,10 @@ stringListSize_list: list
 
 stringListValue_list: list index: index value: value
 	<cdecl: sdword cef_string_list_value CefStringList* dword CefString*>
+	^self invalidCall: _failureCode!
+
+stringUtf16Set_src: src srcLen: src_len output: output  copy: copy
+	<cdecl: sdword cef_string_utf16_set char16* dword CefString* sdword>
 	^self invalidCall: _failureCode!
 
 stringUtf8ToUtf16_src: src srcLen: src_len output: output 
@@ -241,9 +245,10 @@ quitMessageLoop!public! !
 resolveUrl_baseUrl:relativeUrl:resolvedUrl:!parser!public! !
 runMessageLoop!public! !
 shutdown!public! !
-stringFromAscii_src:srcLen:output:!public! !
+stringAsciiToUtf16_src:srcLen:output:!public! !
 stringListSize_list:!parser!public! !
 stringListValue_list:index:value:!parser!public! !
+stringUtf16Set_src:srcLen:output:copy:!public! !
 stringUtf8ToUtf16_src:srcLen:output:!public! !
 taskManagerGet!public! !
 !
