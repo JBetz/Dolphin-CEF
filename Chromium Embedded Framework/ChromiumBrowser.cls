@@ -549,6 +549,24 @@ onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourc
 	messageName = 'ClientRenderer.OnEval' ifTrue: [self onEval: arguments].
 	messageName = 'ClientRenderer.OnMessage' ifTrue: [self onMessage: arguments]!
 
+onRenderProcessResponsive: aCefRequestHandler browser: aCefBrowser
+	Transcript
+		display: #onRenderProcessResponsive;
+		cr.
+	^0!
+
+onRenderProcessTerminated: aCefRequestHandler browser: aCefBrowser status: anInteger errorCode: anotherInteger errorString: aCefString
+	Transcript
+		display: #onRenderProcessTerminated -> anInteger -> anotherInteger -> aCefString str;
+		cr.
+	^0!
+
+onRenderProcessUnresponsive: aCefRequestHandler browser: aCefBrowser callback: anExternalAddress
+	Transcript
+		display: #onRenderProcessUnresponsive;
+		cr.
+	^0!
+
 onResize: aRectangle
 	rectangle := aRectangle.
 	cefBrowser ifNil: [^self].
@@ -683,6 +701,7 @@ translate: aString from: sourceLanguage to: targetLanguage callback: aBlock
 				expandMacrosWith: sourceLanguage
 				with: targetLanguage
 				with: aString.
+	javascript inspect.
 	self evalJavaScript: javascript callback: aBlock!
 
 undo
@@ -780,6 +799,9 @@ onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event h
 onPopupShow:browser:show:!popup!private! !
 onPopupSize:browser:rect:!popup!private! !
 onProcessMessageReceived:browser:frame:sourceProcess:message:!private! !
+onRenderProcessResponsive:browser:!private! !
+onRenderProcessTerminated:browser:status:errorCode:errorString:!private! !
+onRenderProcessUnresponsive:browser:callback:!private! !
 onResize:!public! !
 onScrollOffsetChanged:browser:x:y:!cef event handler!private!render handler! !
 onStatusMessage:browser:value:!cef event handler!display handler!private! !

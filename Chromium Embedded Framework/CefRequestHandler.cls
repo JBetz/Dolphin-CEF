@@ -187,9 +187,18 @@ defineFields
 		defineField: #on_certificate_error type: LPVOIDField new;
 		defineField: #on_select_client_certificate type: LPVOIDField new;
 		defineField: #on_render_view_ready type: LPVOIDField new;
-		defineField: #on_render_process_unresponsive type: LPVOIDField new;
-		defineField: #on_render_process_responsive type: LPVOIDField new;
-		defineField: #on_render_process_terminated type: LPVOIDField new;
+		defineField: #on_render_process_unresponsive
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: bool CefRequestHandler* CefBrowser* void*')
+					smalltalkName: #onRenderProcessUnresponsive:browser:callback:);
+		defineField: #on_render_process_responsive
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: bool CefRequestHandler* CefBrowser*')
+					smalltalkName: #onRenderProcessResponsive:browser:);
+		defineField: #on_render_process_terminated
+			type: (CallbackField descriptor: (ExternalDescriptor
+							fromString: 'stdcall: void CefRequestHandler* CefBrowser* void* sdword CefString*')
+					smalltalkName: #onRenderProcessTerminated:browser:status:errorCode:errorString:);
 		defineField: #on_document_available_in_main_frame type: LPVOIDField new!
 
 getFieldNames
