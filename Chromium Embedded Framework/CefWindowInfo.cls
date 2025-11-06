@@ -2,14 +2,13 @@
 
 CefExternalStructure subclass: #CefWindowInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_bounds _OffsetOf_cefSize _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_runtime_style _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
+	classVariableNames: '_OffsetOf_bounds _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_runtime_style _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefWindowInfo guid: (GUID fromString: '{a23737b3-e519-4626-b17a-1af220364c5b}')!
 
 CefWindowInfo addClassConstant: '_OffsetOf_bounds' value: 16r18!
-CefWindowInfo addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefWindowInfo addClassConstant: '_OffsetOf_ex_style' value: 16r4!
 CefWindowInfo addClassConstant: '_OffsetOf_external_begin_frame_enabled' value: 16r38!
 CefWindowInfo addClassConstant: '_OffsetOf_menu' value: 16r2C!

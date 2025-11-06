@@ -2,7 +2,7 @@
 
 CefExternalStructure subclass: #CefAcceleratedPaintInfoCommon
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_capture_counter _OffsetOf_capture_update_rect _OffsetOf_cefSize _OffsetOf_coded_size _OffsetOf_content_rect _OffsetOf_has_capture_counter _OffsetOf_has_region_capture_rect _OffsetOf_has_source_size _OffsetOf_region_capture_rect _OffsetOf_source_size _OffsetOf_timestamp _OffsetOf_visible_rect'
+	classVariableNames: '_OffsetOf_capture_counter _OffsetOf_capture_update_rect _OffsetOf_coded_size _OffsetOf_content_rect _OffsetOf_has_capture_counter _OffsetOf_has_region_capture_rect _OffsetOf_has_source_size _OffsetOf_region_capture_rect _OffsetOf_source_size _OffsetOf_timestamp _OffsetOf_visible_rect'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -10,7 +10,6 @@ CefAcceleratedPaintInfoCommon guid: (GUID fromString: '{eec32921-21bb-436b-b6de-
 
 CefAcceleratedPaintInfoCommon addClassConstant: '_OffsetOf_capture_counter' value: 16r58!
 CefAcceleratedPaintInfoCommon addClassConstant: '_OffsetOf_capture_update_rect' value: 16r38!
-CefAcceleratedPaintInfoCommon addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefAcceleratedPaintInfoCommon addClassConstant: '_OffsetOf_coded_size' value: 16r10!
 CefAcceleratedPaintInfoCommon addClassConstant: '_OffsetOf_content_rect' value: 16r24!
 CefAcceleratedPaintInfoCommon addClassConstant: '_OffsetOf_has_capture_counter' value: 16r64!

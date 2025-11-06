@@ -2,13 +2,12 @@
 
 CefExternalStructure subclass: #CefKeyEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_character _OffsetOf_focus_on_editable_field _OffsetOf_is_system_key _OffsetOf_modifiers _OffsetOf_native_key_code _OffsetOf_type _OffsetOf_unmodified_character _OffsetOf_windows_key_code'
+	classVariableNames: '_OffsetOf_character _OffsetOf_focus_on_editable_field _OffsetOf_is_system_key _OffsetOf_modifiers _OffsetOf_native_key_code _OffsetOf_type _OffsetOf_unmodified_character _OffsetOf_windows_key_code'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefKeyEvent guid: (GUID fromString: '{346aacfd-1ec5-4b61-854e-45f1ee15ab48}')!
 
-CefKeyEvent addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefKeyEvent addClassConstant: '_OffsetOf_character' value: 16r18!
 CefKeyEvent addClassConstant: '_OffsetOf_focus_on_editable_field' value: 16r1A!
 CefKeyEvent addClassConstant: '_OffsetOf_is_system_key' value: 16r14!

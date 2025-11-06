@@ -2,13 +2,12 @@
 
 CefExternalStructure subclass: #CefUrlParts
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_fragment _OffsetOf_host _OffsetOf_origin _OffsetOf_password _OffsetOf_path _OffsetOf_port _OffsetOf_query _OffsetOf_scheme _OffsetOf_spec _OffsetOf_username'
+	classVariableNames: '_OffsetOf_fragment _OffsetOf_host _OffsetOf_origin _OffsetOf_password _OffsetOf_path _OffsetOf_port _OffsetOf_query _OffsetOf_scheme _OffsetOf_spec _OffsetOf_username'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefUrlParts guid: (GUID fromString: '{5835f6f5-3db0-474a-b530-b50df424ad5a}')!
 
-CefUrlParts addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefUrlParts addClassConstant: '_OffsetOf_fragment' value: 16r70!
 CefUrlParts addClassConstant: '_OffsetOf_host' value: 16r34!
 CefUrlParts addClassConstant: '_OffsetOf_origin' value: 16r4C!

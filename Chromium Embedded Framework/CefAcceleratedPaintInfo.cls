@@ -2,13 +2,12 @@
 
 CefExternalStructure subclass: #CefAcceleratedPaintInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_extra _OffsetOf_format _OffsetOf_shared_texture_handle'
+	classVariableNames: '_OffsetOf_extra _OffsetOf_format _OffsetOf_shared_texture_handle'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefAcceleratedPaintInfo guid: (GUID fromString: '{839bcef5-54e7-4b4a-90d0-61e6a72eff12}')!
 
-CefAcceleratedPaintInfo addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefAcceleratedPaintInfo addClassConstant: '_OffsetOf_extra' value: 16r10!
 CefAcceleratedPaintInfo addClassConstant: '_OffsetOf_format' value: 16r8!
 CefAcceleratedPaintInfo addClassConstant: '_OffsetOf_shared_texture_handle' value: 16r4!

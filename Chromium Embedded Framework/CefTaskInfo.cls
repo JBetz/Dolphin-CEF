@@ -2,13 +2,12 @@
 
 CefExternalStructure subclass: #CefTaskInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_cpu_usage _OffsetOf_gpu_memory _OffsetOf_id _OffsetOf_is_gpu_memory_inflated _OffsetOf_is_killable _OffsetOf_memory _OffsetOf_number_of_processors _OffsetOf_title _OffsetOf_type'
+	classVariableNames: '_OffsetOf_cpu_usage _OffsetOf_gpu_memory _OffsetOf_id _OffsetOf_is_gpu_memory_inflated _OffsetOf_is_killable _OffsetOf_memory _OffsetOf_number_of_processors _OffsetOf_title _OffsetOf_type'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefTaskInfo guid: (GUID fromString: '{086868c2-90ff-42fc-8d11-01538ba7d8bc}')!
 
-CefTaskInfo addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefTaskInfo addClassConstant: '_OffsetOf_cpu_usage' value: 16r28!
 CefTaskInfo addClassConstant: '_OffsetOf_gpu_memory' value: 16r40!
 CefTaskInfo addClassConstant: '_OffsetOf_id' value: 16r8!

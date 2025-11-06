@@ -2,13 +2,12 @@
 
 CefExternalStructure subclass: #CefPopupFeatures
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_height _OffsetOf_heightSet _OffsetOf_isPopup _OffsetOf_width _OffsetOf_widthSet _OffsetOf_x _OffsetOf_xSet _OffsetOf_y _OffsetOf_ySet'
+	classVariableNames: '_OffsetOf_height _OffsetOf_heightSet _OffsetOf_isPopup _OffsetOf_width _OffsetOf_widthSet _OffsetOf_x _OffsetOf_xSet _OffsetOf_y _OffsetOf_ySet'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefPopupFeatures guid: (GUID fromString: '{423cfa44-42af-4e55-afa7-8cd8414f25d8}')!
 
-CefPopupFeatures addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefPopupFeatures addClassConstant: '_OffsetOf_height' value: 16r1C!
 CefPopupFeatures addClassConstant: '_OffsetOf_heightSet' value: 16r20!
 CefPopupFeatures addClassConstant: '_OffsetOf_isPopup' value: 16r24!

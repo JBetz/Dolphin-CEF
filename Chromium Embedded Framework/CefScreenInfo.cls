@@ -2,14 +2,13 @@
 
 CefExternalStructure subclass: #CefScreenInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_available_rect _OffsetOf_cefSize _OffsetOf_depth _OffsetOf_depth_per_component _OffsetOf_device_scale_factor _OffsetOf_is_monochrome _OffsetOf_rect'
+	classVariableNames: '_OffsetOf_available_rect _OffsetOf_depth _OffsetOf_depth_per_component _OffsetOf_device_scale_factor _OffsetOf_is_monochrome _OffsetOf_rect'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefScreenInfo guid: (GUID fromString: '{eb601c7a-d293-4b66-ba67-f569f22b5f7c}')!
 
 CefScreenInfo addClassConstant: '_OffsetOf_available_rect' value: 16r24!
-CefScreenInfo addClassConstant: '_OffsetOf_cefSize' value: 16r0!
 CefScreenInfo addClassConstant: '_OffsetOf_depth' value: 16r8!
 CefScreenInfo addClassConstant: '_OffsetOf_depth_per_component' value: 16rC!
 CefScreenInfo addClassConstant: '_OffsetOf_device_scale_factor' value: 16r4!
