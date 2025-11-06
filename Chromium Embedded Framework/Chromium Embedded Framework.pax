@@ -100,6 +100,7 @@ package classNames
 	add: #CefX509Certificate;
 	add: #ChromiumBrowser;
 	add: #CInteropLibrary;
+	add: #QWORDArray;
 	add: #Url;
 	add: #UrlTests;
 	add: #WebBrowserView;
@@ -218,7 +219,7 @@ ExternalStructure subclass: #CefCursorInfo
 
 ExternalStructure subclass: #CefExternalStructure
 	instanceVariableNames: ''
-	classVariableNames: ''
+	classVariableNames: '_OffsetOf_cefSize'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -266,55 +267,55 @@ ExternalStructure subclass: #CefStringList
 
 CefExternalStructure subclass: #CefAcceleratedPaintInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_extra _OffsetOf_format _OffsetOf_shared_texture_handle'
+	classVariableNames: '_OffsetOf_extra _OffsetOf_format _OffsetOf_shared_texture_handle'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefExternalStructure subclass: #CefAcceleratedPaintInfoCommon
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_capture_counter _OffsetOf_capture_update_rect _OffsetOf_cefSize _OffsetOf_coded_size _OffsetOf_content_rect _OffsetOf_has_capture_counter _OffsetOf_has_region_capture_rect _OffsetOf_has_source_size _OffsetOf_region_capture_rect _OffsetOf_source_size _OffsetOf_timestamp _OffsetOf_visible_rect'
+	classVariableNames: '_OffsetOf_capture_counter _OffsetOf_capture_update_rect _OffsetOf_coded_size _OffsetOf_content_rect _OffsetOf_has_capture_counter _OffsetOf_has_region_capture_rect _OffsetOf_has_source_size _OffsetOf_region_capture_rect _OffsetOf_source_size _OffsetOf_timestamp _OffsetOf_visible_rect'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefExternalStructure subclass: #CefAudioParameters
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_channel_layout _OffsetOf_frames_per_buffer _OffsetOf_sample_rate'
+	classVariableNames: '_OffsetOf_channel_layout _OffsetOf_frames_per_buffer _OffsetOf_sample_rate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefExternalStructure subclass: #CefBrowserSettings
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_background_color _OffsetOf_cefSize _OffsetOf_chrome_status_bubble _OffsetOf_chrome_zoom_bubble _OffsetOf_cursive_font_family _OffsetOf_databases_deprecated _OffsetOf_default_encoding _OffsetOf_default_fixed_font_size _OffsetOf_default_font_size _OffsetOf_fantasy_font_family _OffsetOf_fixed_font_family _OffsetOf_image_loading _OffsetOf_image_shrink_standalone_to_fit _OffsetOf_javascript _OffsetOf_javascript_access_clipboard _OffsetOf_javascript_close_windows _OffsetOf_javascript_dom_paste _OffsetOf_local_storage _OffsetOf_minimum_font_size _OffsetOf_minimum_logical_font_size _OffsetOf_remote_fonts _OffsetOf_sans_serif_font_family _OffsetOf_serif_font_family _OffsetOf_standard_font_family _OffsetOf_tab_to_links _OffsetOf_text_area_resize _OffsetOf_webgl _OffsetOf_windowless_frame_rate'
+	classVariableNames: '_OffsetOf_background_color _OffsetOf_chrome_status_bubble _OffsetOf_chrome_zoom_bubble _OffsetOf_cursive_font_family _OffsetOf_databases_deprecated _OffsetOf_default_encoding _OffsetOf_default_fixed_font_size _OffsetOf_default_font_size _OffsetOf_fantasy_font_family _OffsetOf_fixed_font_family _OffsetOf_image_loading _OffsetOf_image_shrink_standalone_to_fit _OffsetOf_javascript _OffsetOf_javascript_access_clipboard _OffsetOf_javascript_close_windows _OffsetOf_javascript_dom_paste _OffsetOf_local_storage _OffsetOf_minimum_font_size _OffsetOf_minimum_logical_font_size _OffsetOf_remote_fonts _OffsetOf_sans_serif_font_family _OffsetOf_serif_font_family _OffsetOf_standard_font_family _OffsetOf_tab_to_links _OffsetOf_text_area_resize _OffsetOf_webgl _OffsetOf_windowless_frame_rate'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefExternalStructure subclass: #CefKeyEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_character _OffsetOf_focus_on_editable_field _OffsetOf_is_system_key _OffsetOf_modifiers _OffsetOf_native_key_code _OffsetOf_type _OffsetOf_unmodified_character _OffsetOf_windows_key_code'
+	classVariableNames: '_OffsetOf_character _OffsetOf_focus_on_editable_field _OffsetOf_is_system_key _OffsetOf_modifiers _OffsetOf_native_key_code _OffsetOf_type _OffsetOf_unmodified_character _OffsetOf_windows_key_code'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefExternalStructure subclass: #CefPopupFeatures
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_height _OffsetOf_heightSet _OffsetOf_isPopup _OffsetOf_width _OffsetOf_widthSet _OffsetOf_x _OffsetOf_xSet _OffsetOf_y _OffsetOf_ySet'
+	classVariableNames: '_OffsetOf_height _OffsetOf_heightSet _OffsetOf_isPopup _OffsetOf_width _OffsetOf_widthSet _OffsetOf_x _OffsetOf_xSet _OffsetOf_y _OffsetOf_ySet'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefExternalStructure subclass: #CefScreenInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_available_rect _OffsetOf_cefSize _OffsetOf_depth _OffsetOf_depth_per_component _OffsetOf_device_scale_factor _OffsetOf_is_monochrome _OffsetOf_rect'
+	classVariableNames: '_OffsetOf_available_rect _OffsetOf_depth _OffsetOf_depth_per_component _OffsetOf_device_scale_factor _OffsetOf_is_monochrome _OffsetOf_rect'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefExternalStructure subclass: #CefSettings
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_browser_subprocess_path _OffsetOf_cache_path _OffsetOf_cefSize _OffsetOf_chrome_app_icon_id _OffsetOf_chrome_policy_id _OffsetOf_command_line_args_disabled _OffsetOf_cookieable_scheme_list _OffsetOf_cookieable_schemes_exclude_defaults _OffsetOf_disable_signal_handlers _OffsetOf_external_message_pump _OffsetOf_framework_dir_path _OffsetOf_javascript_flags _OffsetOf_locale _OffsetOf_locales_dir_path _OffsetOf_log_file _OffsetOf_log_items _OffsetOf_log_severity _OffsetOf_main_bundle_path _OffsetOf_multi_threaded_message_loop _OffsetOf_no_sandbox _OffsetOf_persist_session_cookies _OffsetOf_remote_debugging_port _OffsetOf_resources_dir_path _OffsetOf_root_cache_path _OffsetOf_uncaught_exception_stack_size _OffsetOf_user_agent _OffsetOf_user_agent_product _OffsetOf_windowless_rendering_enabled'
+	classVariableNames: '_OffsetOf_accept_language_list _OffsetOf_background_color _OffsetOf_browser_subprocess_path _OffsetOf_cache_path _OffsetOf_chrome_app_icon_id _OffsetOf_chrome_policy_id _OffsetOf_command_line_args_disabled _OffsetOf_cookieable_scheme_list _OffsetOf_cookieable_schemes_exclude_defaults _OffsetOf_disable_signal_handlers _OffsetOf_external_message_pump _OffsetOf_framework_dir_path _OffsetOf_javascript_flags _OffsetOf_locale _OffsetOf_locales_dir_path _OffsetOf_log_file _OffsetOf_log_items _OffsetOf_log_severity _OffsetOf_main_bundle_path _OffsetOf_multi_threaded_message_loop _OffsetOf_no_sandbox _OffsetOf_persist_session_cookies _OffsetOf_remote_debugging_port _OffsetOf_resources_dir_path _OffsetOf_root_cache_path _OffsetOf_uncaught_exception_stack_size _OffsetOf_user_agent _OffsetOf_user_agent_product _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefExternalStructure subclass: #CefTaskInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_cpu_usage _OffsetOf_gpu_memory _OffsetOf_id _OffsetOf_is_gpu_memory_inflated _OffsetOf_is_killable _OffsetOf_memory _OffsetOf_number_of_processors _OffsetOf_title _OffsetOf_type'
+	classVariableNames: '_OffsetOf_cpu_usage _OffsetOf_gpu_memory _OffsetOf_id _OffsetOf_is_gpu_memory_inflated _OffsetOf_is_killable _OffsetOf_memory _OffsetOf_number_of_processors _OffsetOf_title _OffsetOf_type'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -326,13 +327,13 @@ CefExternalStructure subclass: #CefTouchHandleState
 
 CefExternalStructure subclass: #CefUrlParts
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cefSize _OffsetOf_fragment _OffsetOf_host _OffsetOf_origin _OffsetOf_password _OffsetOf_path _OffsetOf_port _OffsetOf_query _OffsetOf_scheme _OffsetOf_spec _OffsetOf_username'
+	classVariableNames: '_OffsetOf_fragment _OffsetOf_host _OffsetOf_origin _OffsetOf_password _OffsetOf_path _OffsetOf_port _OffsetOf_query _OffsetOf_scheme _OffsetOf_spec _OffsetOf_username'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 CefExternalStructure subclass: #CefWindowInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_bounds _OffsetOf_cefSize _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_runtime_style _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
+	classVariableNames: '_OffsetOf_bounds _OffsetOf_ex_style _OffsetOf_external_begin_frame_enabled _OffsetOf_menu _OffsetOf_parent_window _OffsetOf_runtime_style _OffsetOf_shared_texture_enabled _OffsetOf_style _OffsetOf_window _OffsetOf_window_name _OffsetOf_windowless_rendering_enabled'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -639,6 +640,12 @@ CefVisitor subclass: #CefNavigationEntryVisitor
 CefVisitor subclass: #CefStringVisitor
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_visit'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalArray subclass: #QWORDArray
+	instanceVariableNames: ''
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
