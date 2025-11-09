@@ -70,7 +70,6 @@ package classNames
 	add: #CefRect;
 	add: #CefReferenceCountedObject;
 	add: #CefRenderHandler;
-	add: #CefRenderProcessHandler;
 	add: #CefRequest;
 	add: #CefRequestContext;
 	add: #CefRequestContextHandler;
@@ -356,7 +355,7 @@ ExtendedExternalStructure subclass: #CefReferenceCountedObject
 	classInstanceVariableNames: ''!
 
 CefReferenceCountedObject subclass: #CefApp
-	instanceVariableNames: 'browserProcessHandler resourceBundleHandler renderProcessHandler'
+	instanceVariableNames: 'browserProcessHandler resourceBundleHandler'
 	classVariableNames: '_OffsetOf_get_browser_process_handler _OffsetOf_get_render_process_handler _OffsetOf_get_resource_bundle_handler _OffsetOf_on_before_command_line_processing _OffsetOf_on_register_custom_schemes'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -592,12 +591,6 @@ CefEventHandler subclass: #CefLoadHandler
 CefEventHandler subclass: #CefRenderHandler
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_get_accessibility_handler _OffsetOf_get_root_screen_rect _OffsetOf_get_screen_info _OffsetOf_get_screen_point _OffsetOf_get_touch_handle_size _OffsetOf_get_view_rect _OffsetOf_on_accelerated_paint _OffsetOf_on_ime_composition_range_changed _OffsetOf_on_paint _OffsetOf_on_popup_show _OffsetOf_on_popup_size _OffsetOf_on_scroll_offset_changed _OffsetOf_on_text_selection_changed _OffsetOf_on_touch_handle_state_changed _OffsetOf_on_virtual_keyboard_requested _OffsetOf_start_dragging _OffsetOf_update_drag_cursor'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-CefEventHandler subclass: #CefRenderProcessHandler
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_load_handler _OffsetOf_on_browser_created _OffsetOf_on_browser_destroyed _OffsetOf_on_context_created _OffsetOf_on_context_released _OffsetOf_on_focused_node_changed _OffsetOf_on_process_message_received _OffsetOf_on_uncaught_exception _OffsetOf_on_web_kit_initialized'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
