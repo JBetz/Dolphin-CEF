@@ -701,7 +701,6 @@ translate: aString from: sourceLanguage to: targetLanguage callback: aBlock
 				expandMacrosWith: sourceLanguage
 				with: targetLanguage
 				with: aString.
-	javascript inspect.
 	self evalJavaScript: javascript callback: aBlock!
 
 undo
