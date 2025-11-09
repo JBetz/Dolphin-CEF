@@ -493,34 +493,34 @@ _hasImageContents_cefContextMenuParams:!**compiled accessors**!private! !
 _isCustomMenu_cefContextMenuParams:!**compiled accessors**!private! !
 _isEditable_cefContextMenuParams:!**compiled accessors**!private! !
 _isSpellCheckEnabled_cefContextMenuParams:!**compiled accessors**!private! !
-get_dictionary_suggestions!public! !
-get_dictionary_suggestions:!public! !
-get_edit_state_flags!public! !
-get_edit_state_flags:!public! !
-get_frame_charset!public! !
-get_frame_charset:!public! !
-get_frame_url!public! !
-get_frame_url:!public! !
-get_link_url!public! !
-get_link_url:!public! !
-get_media_state_flags!public! !
-get_media_state_flags:!public! !
-get_media_type!public! !
-get_media_type:!public! !
-get_misspelled_word!public! !
-get_misspelled_word:!public! !
-get_page_url!public! !
-get_page_url:!public! !
-get_selection_text!public! !
-get_selection_text:!public! !
-get_source_url!public! !
-get_source_url:!public! !
-get_title_text!public! !
-get_title_text:!public! !
-get_type_flags!public! !
-get_type_flags:!public! !
-get_unfiltered_link_url!public! !
-get_unfiltered_link_url:!public! !
+get_dictionary_suggestions!**compiled accessors**!public! !
+get_dictionary_suggestions:!**compiled accessors**!public! !
+get_edit_state_flags!**compiled accessors**!public! !
+get_edit_state_flags:!**compiled accessors**!public! !
+get_frame_charset!**compiled accessors**!public! !
+get_frame_charset:!**compiled accessors**!public! !
+get_frame_url!**compiled accessors**!public! !
+get_frame_url:!**compiled accessors**!public! !
+get_link_url!**compiled accessors**!public! !
+get_link_url:!**compiled accessors**!public! !
+get_media_state_flags!**compiled accessors**!public! !
+get_media_state_flags:!**compiled accessors**!public! !
+get_media_type!**compiled accessors**!public! !
+get_media_type:!**compiled accessors**!public! !
+get_misspelled_word!**compiled accessors**!public! !
+get_misspelled_word:!**compiled accessors**!public! !
+get_page_url!**compiled accessors**!public! !
+get_page_url:!**compiled accessors**!public! !
+get_selection_text!**compiled accessors**!public! !
+get_selection_text:!**compiled accessors**!public! !
+get_source_url!**compiled accessors**!public! !
+get_source_url:!**compiled accessors**!public! !
+get_title_text!**compiled accessors**!public! !
+get_title_text:!**compiled accessors**!public! !
+get_type_flags!**compiled accessors**!public! !
+get_type_flags:!**compiled accessors**!public! !
+get_unfiltered_link_url!**compiled accessors**!public! !
+get_unfiltered_link_url:!**compiled accessors**!public! !
 get_x_coord!**compiled accessors**!public! !
 get_x_coord:!**compiled accessors**!public! !
 get_y_coord!**compiled accessors**!public! !
@@ -541,15 +541,15 @@ getTypeFlags!**compiled accessors**!public! !
 getUnfilteredLinkUrl!**compiled accessors**!public! !
 getXCoord!**compiled accessors**!public! !
 getYCoord!**compiled accessors**!public! !
-has_image_contents!public! !
-has_image_contents:!public! !
+has_image_contents!**compiled accessors**!public! !
+has_image_contents:!**compiled accessors**!public! !
 hasImageContents!**compiled accessors**!public! !
-is_custom_menu!public! !
-is_custom_menu:!public! !
-is_editable!public! !
-is_editable:!public! !
-is_spell_check_enabled!public! !
-is_spell_check_enabled:!public! !
+is_custom_menu!**compiled accessors**!public! !
+is_custom_menu:!**compiled accessors**!public! !
+is_editable!**compiled accessors**!public! !
+is_editable:!**compiled accessors**!public! !
+is_spell_check_enabled!**compiled accessors**!public! !
+is_spell_check_enabled:!**compiled accessors**!public! !
 isAudio!public! !
 isCanvas!public! !
 isCustomMenu!**compiled accessors**!public! !
