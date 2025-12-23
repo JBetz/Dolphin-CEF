@@ -1,12 +1,12 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText selectedRange focusedElement hoveredElement searches search visitors audioStream queuedUrl evalCallbacks'
+	instanceVariableNames: 'cefClient cefBrowser host rectangle contentProviders readyToClose selectedText selectedRange focusedElement hoveredElement searches search visitors queuedUrl evalCallbacks'
 	classVariableNames: 'ContextMenuCommandMap CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
 
-ChromiumBrowser guid: (GUID fromString: '{dd65169f-edf7-4936-b937-280354337246}')!
+ChromiumBrowser guid: (GUID fromString: '{20e93867-3dcc-48a4-889e-c4a049823e24}')!
 
 ChromiumBrowser comment: ''!
 
@@ -16,9 +16,6 @@ ChromiumBrowser comment: ''!
 
 back
 	cefBrowser goBack!
-
-back: anInteger
-	self go: anInteger negated!
 
 canGoBack
 	cefBrowser ifNil: [^false].
@@ -152,9 +149,6 @@ forceCloseBrowser
 forward
 	cefBrowser goForward!
 
-forward: anInteger
-	self go: anInteger!
-
 getAudioParameters: audioHandler browser: browser params: params
 	^0!
 
@@ -190,8 +184,7 @@ getRootScreenRect: renderHandler browser: browser rect: rect
 
 getScreenInfo: renderHandler browser: browser screenInfo: screenInfo
 	| displayExtent displayRectangle |
-	displayExtent := SDLWindowManager current displayExtent.
-	"CEF will crash if width or height are 0"
+	displayExtent := host displayExtent.
 	self
 		assert: [displayExtent x > 0];
 		assert: [displayExtent y > 0].
@@ -259,6 +252,9 @@ hasTextSelected
 
 hide
 	self wasHidden: true!
+
+host
+	^host!
 
 host: anObject 
 	host := anObject!
@@ -391,19 +387,6 @@ onBeforeClose: lifeSpanHandler browser: browser
 	^0!
 
 onBeforeContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model
-	| selection |
-	selection := params getSelectionText.
-	selection isNull
-		ifFalse: 
-			[model
-				insertItemAt_index: 1
-					commandId: MENU_ID_CUSTOM_FIRST
-					label: 'Translate' asCefString;
-				insertItemAt_index: 2
-					commandId: MENU_ID_CUSTOM_FIRST + 1
-					label: 'Speak' asCefString.
-			selectedText := selection str].
-	selection free.
 	params callRelease.
 	model callRelease.
 	^0!
@@ -435,24 +418,6 @@ onCursorChange: displayHandler browser: browser cursor: cursor type: type custom
 	cursorSelector := CursorMap at: type ifAbsent: [^0].
 	host cursor: cursorSelector.
 	^1!
-
-onEval: aCefListValue
-	| result id callback |
-	result := aCefListValue getDictionary_index: 0.
-	id := result at: 'id'.
-	callback := evalCallbacks removeKey: id
-				ifAbsent: [self error: ('Eval result received with unknown id: <1d>' expandMacrosWith: id)].
-	(result includesKey: 'success')
-		ifTrue: 
-			[| rawJson json |
-			rawJson := result at: 'success'.
-			json := rawJson ifNotNil: [STONJSON fromString: rawJson].
-			callback value: json]
-		ifFalse: 
-			[| exceptionData javascriptException |
-			exceptionData := result at: 'error'.
-			javascriptException := CefJavaScriptException fromCefDictionary: exceptionData.
-			javascriptException signal]!
 
 onFaviconUrlChange: displayHandler browser: browser iconUrls: iconUrls
 	^0!
@@ -507,20 +472,10 @@ onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: n
 onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess
 	^0!
 
-onMessage: aCefListValue
-	| arguments source rawData data |
-	arguments := aCefListValue getDictionary_index: 0.
-	source := arguments at: 'source'.
-	rawData := arguments at: 'data'.
-	data := rawData ifNotNil: [STONJSON fromString: rawData].
-	host onWindowMessage: data source: source!
-
 onOpenUrlFromTab: requestHandler browser: browser frame: frame targetUrl: targetUrl targetDisposition: targetDisposition userGesture: userGesture
 	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
 		ifTrue: 
-			[| url |
-			url := Url fromString: targetUrl str.
-			host openNewPage: url.
+			[host openNewPage: targetUrl str.
 			^1].
 	^0!
 
@@ -539,38 +494,16 @@ onPopupSize: renderHandler browser: browser rect: rect
 	^0!
 
 onProcessMessageReceived: aCefClient browser: aCefBrowser frame: aCefFrame sourceProcess: anInteger message: aCefProcessMessage
-	| messageName arguments |
-	messageName := aCefProcessMessage getName str.
-	arguments := aCefProcessMessage getArgumentList.
-	messageName = 'ClientRenderer.OnFocus' ifTrue: [self onFocus: arguments].
-	messageName = 'ClientRenderer.OnFocusOut' ifTrue: [self onFocusOut: arguments].
-	messageName = 'ClientRenderer.OnMouseOver' ifTrue: [self onMouseOver: arguments].
-	messageName = 'ClientRenderer.OnNavigate' ifTrue: [self onNavigate: arguments].
-	messageName = 'ClientRenderer.OnEval' ifTrue: [self onEval: arguments].
-	messageName = 'ClientRenderer.OnMessage' ifTrue: [self onMessage: arguments]!
+	^0!
 
 onRenderProcessResponsive: aCefRequestHandler browser: aCefBrowser
-	Transcript
-		display: #onRenderProcessResponsive;
-		cr.
 	^0!
 
 onRenderProcessTerminated: aCefRequestHandler browser: aCefBrowser status: anInteger errorCode: anotherInteger errorString: aCefString
-	Transcript
-		display: #onRenderProcessTerminated -> anInteger -> anotherInteger -> aCefString str;
-		cr.
 	^0!
 
 onRenderProcessUnresponsive: aCefRequestHandler browser: aCefBrowser callback: anExternalAddress
-	Transcript
-		display: #onRenderProcessUnresponsive;
-		cr.
 	^0!
-
-onResize: aRectangle
-	rectangle := aRectangle.
-	cefBrowser ifNil: [^self].
-	cefBrowser getHost wasResized!
 
 onScrollOffsetChanged: renderHandler browser: browser x: x y: y
 	self scrollOffset
@@ -659,7 +592,6 @@ sendKeyEvent: aKeyEvent
 sendMouseClickEvent: aMouseEvent mouseButtonType: anInteger mouseUp: aBoolean clickCount: anotherInteger
 	| clickCount |
 	cefBrowser ifNil: [^self].
-	"CEF will crash if click count isn't within this range"
 	clickCount := anotherInteger clampBetween: 1 and: 3.
 	cefBrowser getHost
 		sendMouseClickEvent_event: aMouseEvent
@@ -692,17 +624,6 @@ stopFinding
 	cefBrowser ifNil: [^self].
 	cefBrowser getHost stopFinding_clearSelection: false asInteger!
 
-translate: aString from: sourceLanguage to: targetLanguage callback: aBlock
-	| javascript |
-	javascript := '(async () => {
-	const translator = await Translator.create({ sourceLanguage: "<1s>", targetLanguage: "<2s>" });
-	return translator.translate(`<3s>`);
-})()'
-				expandMacrosWith: sourceLanguage
-				with: targetLanguage
-				with: aString.
-	self evalJavaScript: javascript callback: aBlock!
-
 undo
 	cefBrowser getFocusedFrame callUndo!
 
@@ -716,7 +637,6 @@ windowHandle
 
 !ChromiumBrowser categoriesForMethods!
 back!public! !
-back:!public! !
 canGoBack!public! !
 canGoForward!public! !
 cefWindowExStyle!private! !
@@ -736,7 +656,6 @@ focus!public! !
 focusedElement!public! !
 forceCloseBrowser!public! !
 forward!public! !
-forward:!public! !
 getAudioParameters:browser:params:!audio handler!cef event handler!private! !
 getAuthCredentials:browser:originUrl:isProxy:host:port:realm:scheme:callback:!private! !
 getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:!cef event handler!private!request handler! !
@@ -750,6 +669,7 @@ getViewRect:browser:rect:!cef event handler!private!render handler! !
 go:!public! !
 hasTextSelected!private! !
 hide!public! !
+host!accessing!private! !
 host:!public! !
 hoveredElement!public! !
 initialize!public! !
@@ -761,7 +681,7 @@ isReadyToClose!public! !
 library!public! !
 loadHtml:forUrl:!public! !
 loadUrl:!public! !
-onAcceleratedPaint:browser:type:dirtyRectsCount:dirtyRects:info:!private! !
+onAcceleratedPaint:browser:type:dirtyRectsCount:dirtyRects:info:!private!render handler! !
 onAddressChange:browser:frame:url:!cef event handler!display handler!private! !
 onAfterCreated:browser:!cef event handler!life span handler!private! !
 onAudioStreamError:browser:message:!audio handler!private! !
@@ -777,7 +697,6 @@ onConsoleMessage:browser:level:message:source:line:!cef event handler!display ha
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
 onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
-onEval:!public! !
 onFaviconUrlChange:browser:iconUrls:!cef event handler!display handler!private! !
 onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
 onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
@@ -792,7 +711,6 @@ onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler
 onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
 onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
 onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:!cef event handler!display handler!private! !
-onMessage:!public! !
 onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
 onPopupShow:browser:show:!popup!private! !
@@ -801,7 +719,6 @@ onProcessMessageReceived:browser:frame:sourceProcess:message:!private! !
 onRenderProcessResponsive:browser:!private! !
 onRenderProcessTerminated:browser:status:errorCode:errorString:!private! !
 onRenderProcessUnresponsive:browser:callback:!private! !
-onResize:!public! !
 onScrollOffsetChanged:browser:x:y:!cef event handler!private!render handler! !
 onStatusMessage:browser:value:!cef event handler!display handler!private! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
@@ -829,7 +746,6 @@ setFrameRate:!public! !
 show!public! !
 startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
 stopFinding!public! !
-translate:from:to:callback:!public! !
 undo!public! !
 wasHidden:!public! !
 windowHandle!public! !
@@ -891,9 +807,7 @@ initialize
 		at: MENU_ID_BACK put: #back;
 		at: MENU_ID_FORWARD put: #forward;
 		at: MENU_ID_RELOAD put: #reload;
-		at: MENU_ID_COPY put: #copy;
-		at: MENU_ID_CUSTOM_FIRST put: #translate;
-		at: MENU_ID_CUSTOM_FIRST + 1 put: #speak!
+		at: MENU_ID_COPY put: #copy!
 
 new
 	^super new initialize! !

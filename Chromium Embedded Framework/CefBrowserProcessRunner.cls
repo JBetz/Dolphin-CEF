@@ -2,9 +2,9 @@
 
 Object subclass: #CefBrowserProcessRunner
 	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning messagePumpCallbackCode apiVersion'
-	classVariableNames: ''
+	classVariableNames: 'Singleton'
 	poolDictionaries: 'CefConstants'
-	classInstanceVariableNames: 'Singleton'!
+	classInstanceVariableNames: ''!
 
 CefBrowserProcessRunner guid: (GUID fromString: '{a2d64bd2-4dd7-431d-a764-321e2869bfba}')!
 
@@ -48,8 +48,7 @@ initializeApp
 	cefApp := CefApp new.
 	cefApp
 		delegate: self;
-		enableBrowserProcessHandlerAndDelegateTo: self.
-	self useExternalMessagePump ifTrue: [self setupMessagePumpCallback]!
+		enableBrowserProcessHandlerAndDelegateTo: self!
 
 initializeCef
 	| resultCode |
@@ -66,7 +65,7 @@ initializeCef
 
 initializeSettings
 	| subprocessPath logFile cachePath |
-	subprocessPath := FileLocator imageRelative localFileSpecFor: 'CefSubprocessRunner.exe'.
+	subprocessPath := FileLocator imageRelative localFileSpecFor: 'CefProcessRunner.exe'.
 	logFile := FileLocator imageRelative localFileSpecFor: 'cef.log'.
 	cachePath := FileLocator imageRelative localFileSpecFor: 'cef-cache'.
 	File createDirectoryPath: cachePath.
@@ -76,12 +75,7 @@ initializeSettings
 				log_severity: LOGSEVERITY_DEFAULT;
 				log_file: logFile asCefString;
 				cache_path: cachePath asCefString;
-				windowless_rendering_enabled: true;
-				external_message_pump: true!
-
-iterate
-	isRunning ifFalse: [^self].
-	self library doMessageLoopWork!
+				windowless_rendering_enabled: true!
 
 library
 	^CefLibrary default!
@@ -147,8 +141,9 @@ stop
 		display: '[END] CEF shutdown';
 		cr!
 
-useExternalMessagePump
-	^cefSettings external_message_pump asBoolean!
+update
+	isRunning ifFalse: [^self].
+	self library doMessageLoopWork!
 
 useMultiThreadedMessageLoop
 	^cefSettings multi_threaded_message_loop asBoolean! !
@@ -164,9 +159,8 @@ initialize!public! !
 initializeApp!private! !
 initializeCef!private! !
 initializeSettings!private! !
-iterate!public! !
 library!private! !
-onAlreadyRunningAppRelaunch:commandLine:currentDirectory:!public! !
+onAlreadyRunningAppRelaunch:commandLine:currentDirectory:!private! !
 onBeforeChildProcessLaunch:commandLine:!cef event handler!private! !
 onBeforeCommandLineProcessing:processType:commandLine:!cef event handler!private! !
 onContextInitialized:!cef event handler!private! !
@@ -177,7 +171,7 @@ onUnhandledError:!public! !
 run!public! !
 setupMessagePumpCallback!public! !
 stop!public! !
-useExternalMessagePump!public! !
+update!public! !
 useMultiThreadedMessageLoop!private! !
 !
 
@@ -201,10 +195,6 @@ initialize
 			send: #onShutdown
 			to: self!
 
-iterate
-	Singleton ifNil: [^self].
-	[Singleton iterate] on: Error do: [:error | Singleton onUnhandledError: error]!
-
 new
 	^self shouldNotImplement!
 
@@ -218,15 +208,23 @@ onStartup
 	Transcript
 		display: 'WARNING: CefBrowserProcessRunner wasn''t stopped on previous shutdown. Stopping now.';
 		cr.
-	Singleton := nil! !
+	Singleton := nil!
+
+reset
+	Singleton := nil!
+
+update
+	Singleton ifNil: [^self].
+	[Singleton update] on: Error do: [:error | Singleton onUnhandledError: error]! !
 
 !CefBrowserProcessRunner class categoriesForMethods!
 current!public! !
 ensureRunning!public! !
 initialize!public! !
-iterate!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !
+reset!public! !
+update!public! !
 !
 

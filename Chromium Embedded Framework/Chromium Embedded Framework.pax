@@ -58,10 +58,8 @@ package classNames
 	add: #CefMainArgs;
 	add: #CefMenuModel;
 	add: #CefMouseEvent;
-	add: #CefNavigationDestination;
 	add: #CefNavigationEntry;
 	add: #CefNavigationEntryVisitor;
-	add: #CefNavigationEvent;
 	add: #CefPoint;
 	add: #CefPopupFeatures;
 	add: #CefPreferencesRegistrar;
@@ -100,22 +98,11 @@ package classNames
 	add: #ChromiumBrowser;
 	add: #CInteropLibrary;
 	add: #QWORDArray;
-	add: #Url;
-	add: #UrlTests;
-	add: #WebBrowserView;
 	yourself.
 
 package methodNames
 	add: #AnsiString -> #asCefString;
-	add: #Collection -> #asCefListValue;
-	add: #Dictionary -> #asCefDictionaryValue;
-	add: #InputState -> #loopWhile:;
-	add: #KernelLibrary -> #setPriorityClass:dwPriorityClass:;
-	add: #KernelLibrary -> #setProcessDEPPolicy:;
-	add: #PostedActionWindow -> #cefCallbackCode:;
-	add: #PostedActionWindow -> #preTranslateMessage:;
 	add: #Rectangle -> #asCefRect;
-	add: #String -> #asUrl;
 	add: #String -> #fromSnakeCaseToCamelCase;
 	add: #String -> #looksLikeUrl;
 	add: #String -> #uncapitalized;
@@ -137,7 +124,6 @@ package setPrerequisites: #(
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
-	'..\Core\Contributions\svenc\STON\STON-Core'
 	'..\FFI Extensions\FFI Extensions').
 
 package!
@@ -146,26 +132,14 @@ package!
 
 Object subclass: #CefBrowserProcessRunner
 	instanceVariableNames: 'cefMainArgs cefApp cefSettings isRunning messagePumpCallbackCode apiVersion'
-	classVariableNames: ''
+	classVariableNames: 'Singleton'
 	poolDictionaries: 'CefConstants'
-	classInstanceVariableNames: 'Singleton'!
+	classInstanceVariableNames: ''!
 
 Object subclass: #CefContentProvider
 	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler chromiumBrowser'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
-	classInstanceVariableNames: ''!
-
-Object subclass: #CefNavigationDestination
-	instanceVariableNames: 'id index key sameDocument url'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-Object subclass: #CefNavigationEvent
-	instanceVariableNames: 'destination formData hashChange navigationType userInitiated'
-	classVariableNames: ''
-	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 Object subclass: #CefTransitionType
@@ -175,15 +149,9 @@ Object subclass: #CefTransitionType
 	classInstanceVariableNames: ''!
 
 Object subclass: #ChromiumBrowser
-	instanceVariableNames: 'host cefClient cefBrowser rectangle contentProviders readyToClose selectedText selectedRange focusedElement hoveredElement searches search visitors audioStream queuedUrl evalCallbacks'
+	instanceVariableNames: 'cefClient cefBrowser host rectangle contentProviders readyToClose selectedText selectedRange focusedElement hoveredElement searches search visitors queuedUrl evalCallbacks'
 	classVariableNames: 'ContextMenuCommandMap CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
-	classInstanceVariableNames: ''!
-
-Object subclass: #Url
-	instanceVariableNames: 'string parts'
-	classVariableNames: ''
-	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 Error subclass: #CefJavaScriptException
@@ -354,6 +322,12 @@ ExtendedExternalStructure subclass: #CefReferenceCountedObject
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!
 
+ExtendedExternalStructure subclass: #CefRequest
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_get_first_party_for_cookies _OffsetOf_get_flags _OffsetOf_get_header_by_name _OffsetOf_get_header_map _OffsetOf_get_identifier _OffsetOf_get_method _OffsetOf_get_post_data _OffsetOf_get_referrer_policy _OffsetOf_get_referrer_url _OffsetOf_get_resource_type _OffsetOf_get_transition_type _OffsetOf_get_url _OffsetOf_is_read_only _OffsetOf_set _OffsetOf_set_first_party_for_cookies _OffsetOf_set_flags _OffsetOf_set_header_by_name _OffsetOf_set_header_map _OffsetOf_set_method _OffsetOf_set_post_data _OffsetOf_set_referrer _OffsetOf_set_url'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 CefReferenceCountedObject subclass: #CefApp
 	instanceVariableNames: 'browserProcessHandler resourceBundleHandler'
 	classVariableNames: '_OffsetOf_get_browser_process_handler _OffsetOf_get_render_process_handler _OffsetOf_get_resource_bundle_handler _OffsetOf_on_before_command_line_processing _OffsetOf_on_register_custom_schemes'
@@ -459,12 +433,6 @@ CefReferenceCountedObject subclass: #CefPreferencesRegistrar
 CefReferenceCountedObject subclass: #CefProcessMessage
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_copy _OffsetOf_get_argument_list _OffsetOf_get_name _OffsetOf_get_shared_memory_region _OffsetOf_is_read_only _OffsetOf_is_valid'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-CefReferenceCountedObject subclass: #CefRequest
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_get_first_party_for_cookies _OffsetOf_get_flags _OffsetOf_get_header_by_name _OffsetOf_get_header_map _OffsetOf_get_identifier _OffsetOf_get_method _OffsetOf_get_post_data _OffsetOf_get_referrer_policy _OffsetOf_get_referrer_url _OffsetOf_get_resource_type _OffsetOf_get_transition_type _OffsetOf_get_url _OffsetOf_is_read_only _OffsetOf_set _OffsetOf_set_first_party_for_cookies _OffsetOf_set_flags _OffsetOf_set_header_by_name _OffsetOf_set_header_map _OffsetOf_set_method _OffsetOf_set_post_data _OffsetOf_set_referrer _OffsetOf_set_url'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -642,18 +610,6 @@ ExternalArray subclass: #QWORDArray
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-TestCase subclass: #UrlTests
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-ContainerView subclass: #WebBrowserView
-	instanceVariableNames: 'chromiumBrowser'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
 "Loose Methods"!
 
 !AnsiString methodsFor!
@@ -673,124 +629,6 @@ asCefString
 asCefString!public! !
 !
 
-!Collection methodsFor!
-
-asCefListValue
-	Error notYetImplemented! !
-
-!Collection categoriesForMethods!
-asCefListValue!enumerating!public! !
-!
-
-!Dictionary methodsFor!
-
-asCefDictionaryValue
-	Error notYetImplemented! !
-
-!Dictionary categoriesForMethods!
-asCefDictionaryValue!public! !
-!
-
-!InputState methodsFor!
-
-loopWhile: aBlock
-	"Pump messages until the <niladicValuable> argument evaluates to false."
-
-	"Implementation Note: Host system events are processed at a higher priority to deferred
-	actions. A single message/action is processed before testing again to see if the loop should
-	be terminated. A single deferred action is processed between each test to see if there are
-	further Windows messages. Generally however the Windows message queue remains empty for long
-	periods, and all deferred messages will be quickly processed. When both queues are empty the
-	active process (which should be the UI process) will yield control to lower priority
-	processes, in particular the idle process which is responsible for quiescing the whole
-	system."
-
-	| msg activity |
-	msg := MSG new.
-	activity := false.
-	
-	[
-	[aBlock value ifFalse: [^self].
-	self isInputReady: msg] whileTrue: 
-				[activity := true.
-				self pumpMessage: msg].
-	SDLWindowManager iterate.
-	"The PostedActionWindow should evaluate all posted actions in the message pump, but for
-	robustness ensure it does not accumulate a backlog of actions as this would cause very
-	strange behaviour."
-	msgWindow evaluatePendingActions ifTrue: [activity := true].
-	deferredActions nextNoWait
-		ifNil: 
-			[self waitForInput: activity.
-			activity := false]
-		ifNotNil: 
-			[:action |
-			activity := true.
-			action value]]
-			repeat! !
-
-!InputState categoriesForMethods!
-loopWhile:!message dispatching!public! !
-!
-
-!KernelLibrary methodsFor!
-
-setPriorityClass: hProcess dwPriorityClass: dwPriorityClass
-	"BOOL SetPriorityClass(
-	  [in] HANDLE hProcess,
-	  [in] DWORD  dwPriorityClass
-	);"
-
-	<stdcall: bool SetPriorityClass handle dword>
-	^self invalidCall!
-
-setProcessDEPPolicy: dwFlags
-	"BOOL WINAPI SetProcessDEPPolicy(
-	  _In_  DWORD dwFlags
-	);"
-
-	<stdcall: bool SetProcessDEPPolicy dword>
-	^self invalidCall! !
-
-!KernelLibrary categoriesForMethods!
-setPriorityClass:dwPriorityClass:!public! !
-setProcessDEPPolicy:!public! !
-!
-
-!PostedActionWindow methodsFor!
-
-cefCallbackCode: anInteger 
-	cefCallbackCode := anInteger!
-
-preTranslateMessage: aMSG
-	"Private - Dispatch any posted action requests on the message loop side - we don't want to
-	do this inside a callback. Also the window belongs to the VM, and messages are not
-	dispatched into the image anyway."
-
-	| msg |
-	msg := aMSG message.
-	msg == WM_USER
-		ifTrue: 
-			[self evaluateNextAction.
-			^true].
-	msg == WM_TIMER
-		ifTrue: 
-			[| timerId |
-			timerId := aMSG wParam.
-			self killTimer: timerId.
-			SessionManager current onTimer: timerId.
-			^true].
-	msg == cefCallbackCode
-		ifTrue: 
-			[CefBrowserProcessRunner current onScheduleMessagePumpWork: aMSG wParam delayMs: aMSG lParam.
-			^true].
-	^false! !
-
-!PostedActionWindow categoriesForMethods!
-cefCallbackCode:!public! !
-preTranslateMessage:!dispatching!private! !
-!
-
 !Rectangle methodsFor!
 
 asCefRect
@@ -805,9 +643,6 @@ asCefRect!public! !
 !
 
 !String methodsFor!
-
-asUrl
-	^Url fromString: self!
 
 fromSnakeCaseToCamelCase
 	| words |
@@ -826,12 +661,12 @@ uncapitalized
 	size == 0 ifTrue: [^self].
 	write := self species writeStream: size.
 	read := self readStream.
-	write nextPut: read next asLowercase.
-	write nextPutAll: read upToEnd.
+	write
+		nextPut: read next asLowercase;
+		nextPutAll: read upToEnd.
 	^write contents! !
 
 !String categoriesForMethods!
-asUrl!converting!public! !
 fromSnakeCaseToCamelCase!public! !
 looksLikeUrl!public! !
 uncapitalized!public! !
