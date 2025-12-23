@@ -289,7 +289,7 @@ onStartup
 	self cleanupResources! !
 
 !CefLibrary class categoriesForMethods!
-cleanupResources!public! !
+cleanupResources!private! !
 fileName!public! !
 getTaskList!public! !
 initialize!public! !
