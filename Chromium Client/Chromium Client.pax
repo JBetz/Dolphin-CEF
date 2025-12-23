@@ -1,0 +1,179 @@
+﻿| package |
+package := Package name: 'Chromium Client'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package classNames
+	add: #CefNavigationDestination;
+	add: #CefNavigationEvent;
+	add: #ContextMenuCommand;
+	add: #ContextMenuConfiguration;
+	add: #RemoteChromiumBrowser;
+	add: #RemoteChromiumClient;
+	add: #RemoteChromiumObject;
+	yourself.
+
+package methodNames
+	add: #CefKeyEvent -> #asDictionary;
+	add: #CefMouseEvent -> #asDictionary;
+	add: #CefRect -> #asDictionary;
+	add: #KernelLibrary -> #getProcessId:;
+	add: 'CefJavaScriptException class' -> #fromDictionary:;
+	add: 'CefRect class' -> #fromDictionary:;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\Chromium Embedded Framework\Chromium Embedded Framework'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Contributions\Burning River\ExternalProcess\ExternalProcess'
+	'..\..\Dolphin-SDL\SDL3\SDL3').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #CefNavigationDestination
+	instanceVariableNames: 'id index key sameDocument url'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #CefNavigationEvent
+	instanceVariableNames: 'destination formData hashChange navigationType userInitiated'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #ContextMenuCommand
+	instanceVariableNames: 'index commandId label'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #ContextMenuConfiguration
+	instanceVariableNames: 'browserId commands'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #RemoteChromiumObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+RemoteChromiumObject subclass: #RemoteChromiumBrowser
+	instanceVariableNames: 'id client host canGoBack canGoForward focusedElement hoveredElement queuedUrl selectedText selectedRange actionQueue'
+	classVariableNames: 'ContextMenuCommandMap CursorMap'
+	poolDictionaries: 'CefConstants Win32Constants'
+	classInstanceVariableNames: ''!
+
+RemoteChromiumObject subclass: #RemoteChromiumClient
+	instanceVariableNames: 'process socket remoteBrowsers callbacks'
+	classVariableNames: 'Singleton'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Loose Methods"!
+
+!CefJavaScriptException class methodsFor!
+
+fromDictionary: aDictionary
+	^self new
+		message: (aDictionary at: #message);
+		lineNumber: (aDictionary at: #lineNumber);
+		startColumn: (aDictionary at: #startColumn);
+		startPosition: (aDictionary at: #startPosition);
+		endColumn: (aDictionary at: #endColumn);
+		endPosition: (aDictionary at: #endPosition);
+		scriptResourceName: (aDictionary at: #scriptResourceName);
+		sourceLine: (aDictionary at: #sourceLine);
+		yourself! !
+
+!CefJavaScriptException class categoriesForMethods!
+fromDictionary:!public! !
+!
+
+!CefKeyEvent methodsFor!
+
+asDictionary
+	^Dictionary new
+		at: #type put: self type;
+		at: #modifiers put: self modifiers;
+		at: #windows_key_code put: self windows_key_code;
+		at: #native_key_code put: self native_key_code;
+		at: #is_system_key put: self is_system_key;
+		at: #character put: self character asString;
+		at: #unmodified_character put: self unmodified_character asString;
+		at: #focus_on_editable_field put: self focus_on_editable_field;
+		yourself! !
+
+!CefKeyEvent categoriesForMethods!
+asDictionary!public! !
+!
+
+!CefMouseEvent methodsFor!
+
+asDictionary
+	^Dictionary new
+		at: #x put: self x;
+		at: #y put: self y;
+		at: #modifiers put: self modifiers;
+		yourself! !
+
+!CefMouseEvent categoriesForMethods!
+asDictionary!public! !
+!
+
+!CefRect methodsFor!
+
+asDictionary
+	^Dictionary new
+		at: #x put: self x;
+		at: #y put: self y;
+		at: #width put: self width;
+		at: #height put: self height;
+		yourself! !
+
+!CefRect categoriesForMethods!
+asDictionary!public! !
+!
+
+!CefRect class methodsFor!
+
+fromDictionary: aDictionary
+	^self new
+		x: (aDictionary at: #x);
+		y: (aDictionary at: #y);
+		width: (aDictionary at: #width);
+		height: (aDictionary at: #height);
+		yourself! !
+
+!CefRect class categoriesForMethods!
+fromDictionary:!public! !
+!
+
+!KernelLibrary methodsFor!
+
+getProcessId: aHandle
+	"Retrieves the process identifier of the specified process.
+
+		DWORD GetProcessId(
+			[in] HANDLE Process
+		);"
+
+	<stdcall: dword GetProcessId handle>
+	^self invalidCall: _failureCode! !
+
+!KernelLibrary categoriesForMethods!
+getProcessId:!public!win32 functions-process and thread! !
+!
+
+"End of package definition"!
+
