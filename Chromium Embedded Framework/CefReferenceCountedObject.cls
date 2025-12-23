@@ -73,8 +73,6 @@ defineFields
 
 	self defineField: #base type: (StructureField type: CefBaseRefCounted)!
 
-ensureDefined!
-
 getFieldNames
 	^#(#base)!
 
@@ -86,7 +84,6 @@ instanceCounts
 
 !CefReferenceCountedObject class categoriesForMethods!
 defineFields!public! !
-ensureDefined!public! !
 getFieldNames!**compiled accessors**!constants!private! !
 instanceCounts!public! !
 !
