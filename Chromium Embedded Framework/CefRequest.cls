@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-CefReferenceCountedObject subclass: #CefRequest
+ExternalStructure subclass: #CefRequest
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_get_first_party_for_cookies _OffsetOf_get_flags _OffsetOf_get_header_by_name _OffsetOf_get_header_map _OffsetOf_get_identifier _OffsetOf_get_method _OffsetOf_get_post_data _OffsetOf_get_referrer_policy _OffsetOf_get_referrer_url _OffsetOf_get_resource_type _OffsetOf_get_transition_type _OffsetOf_get_url _OffsetOf_is_read_only _OffsetOf_set _OffsetOf_set_first_party_for_cookies _OffsetOf_set_flags _OffsetOf_set_header_by_name _OffsetOf_set_header_map _OffsetOf_set_method _OffsetOf_set_post_data _OffsetOf_set_referrer _OffsetOf_set_url'
 	poolDictionaries: ''
@@ -8,28 +8,28 @@ CefReferenceCountedObject subclass: #CefRequest
 
 CefRequest guid: (GUID fromString: '{7fd17138-7b13-47ba-8be9-d51b800c562b}')!
 
-CefRequest addClassConstant: '_OffsetOf_get_first_party_for_cookies' value: 16r58!
-CefRequest addClassConstant: '_OffsetOf_get_flags' value: 16r50!
-CefRequest addClassConstant: '_OffsetOf_get_header_by_name' value: 16r44!
-CefRequest addClassConstant: '_OffsetOf_get_header_map' value: 16r3C!
-CefRequest addClassConstant: '_OffsetOf_get_identifier' value: 16r68!
-CefRequest addClassConstant: '_OffsetOf_get_method' value: 16r20!
-CefRequest addClassConstant: '_OffsetOf_get_post_data' value: 16r34!
-CefRequest addClassConstant: '_OffsetOf_get_referrer_policy' value: 16r30!
-CefRequest addClassConstant: '_OffsetOf_get_referrer_url' value: 16r2C!
-CefRequest addClassConstant: '_OffsetOf_get_resource_type' value: 16r60!
-CefRequest addClassConstant: '_OffsetOf_get_transition_type' value: 16r64!
-CefRequest addClassConstant: '_OffsetOf_get_url' value: 16r18!
-CefRequest addClassConstant: '_OffsetOf_is_read_only' value: 16r14!
-CefRequest addClassConstant: '_OffsetOf_set' value: 16r4C!
-CefRequest addClassConstant: '_OffsetOf_set_first_party_for_cookies' value: 16r5C!
-CefRequest addClassConstant: '_OffsetOf_set_flags' value: 16r54!
-CefRequest addClassConstant: '_OffsetOf_set_header_by_name' value: 16r48!
-CefRequest addClassConstant: '_OffsetOf_set_header_map' value: 16r40!
-CefRequest addClassConstant: '_OffsetOf_set_method' value: 16r24!
-CefRequest addClassConstant: '_OffsetOf_set_post_data' value: 16r38!
-CefRequest addClassConstant: '_OffsetOf_set_referrer' value: 16r28!
-CefRequest addClassConstant: '_OffsetOf_set_url' value: 16r1C!
+CefRequest addClassConstant: '_OffsetOf_get_first_party_for_cookies' value: 16r44!
+CefRequest addClassConstant: '_OffsetOf_get_flags' value: 16r3C!
+CefRequest addClassConstant: '_OffsetOf_get_header_by_name' value: 16r30!
+CefRequest addClassConstant: '_OffsetOf_get_header_map' value: 16r28!
+CefRequest addClassConstant: '_OffsetOf_get_identifier' value: 16r54!
+CefRequest addClassConstant: '_OffsetOf_get_method' value: 16rC!
+CefRequest addClassConstant: '_OffsetOf_get_post_data' value: 16r20!
+CefRequest addClassConstant: '_OffsetOf_get_referrer_policy' value: 16r1C!
+CefRequest addClassConstant: '_OffsetOf_get_referrer_url' value: 16r18!
+CefRequest addClassConstant: '_OffsetOf_get_resource_type' value: 16r4C!
+CefRequest addClassConstant: '_OffsetOf_get_transition_type' value: 16r50!
+CefRequest addClassConstant: '_OffsetOf_get_url' value: 16r4!
+CefRequest addClassConstant: '_OffsetOf_is_read_only' value: 16r0!
+CefRequest addClassConstant: '_OffsetOf_set' value: 16r38!
+CefRequest addClassConstant: '_OffsetOf_set_first_party_for_cookies' value: 16r48!
+CefRequest addClassConstant: '_OffsetOf_set_flags' value: 16r40!
+CefRequest addClassConstant: '_OffsetOf_set_header_by_name' value: 16r34!
+CefRequest addClassConstant: '_OffsetOf_set_header_map' value: 16r2C!
+CefRequest addClassConstant: '_OffsetOf_set_method' value: 16r10!
+CefRequest addClassConstant: '_OffsetOf_set_post_data' value: 16r24!
+CefRequest addClassConstant: '_OffsetOf_set_referrer' value: 16r14!
+CefRequest addClassConstant: '_OffsetOf_set_url' value: 16r8!
 
 CefRequest comment: ''!
 
@@ -342,7 +342,7 @@ set_url:!**compiled accessors**!public! !
 !CefRequest class methodsFor!
 
 defineFields
-	"CefRequest  compileDefinition"
+	"self compileDefinition"
 
 	super defineFields.
 	self
