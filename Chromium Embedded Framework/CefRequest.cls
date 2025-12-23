@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-ExternalStructure subclass: #CefRequest
+ExtendedExternalStructure subclass: #CefRequest
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_get_first_party_for_cookies _OffsetOf_get_flags _OffsetOf_get_header_by_name _OffsetOf_get_header_map _OffsetOf_get_identifier _OffsetOf_get_method _OffsetOf_get_post_data _OffsetOf_get_referrer_policy _OffsetOf_get_referrer_url _OffsetOf_get_resource_type _OffsetOf_get_transition_type _OffsetOf_get_url _OffsetOf_is_read_only _OffsetOf_set _OffsetOf_set_first_party_for_cookies _OffsetOf_set_flags _OffsetOf_set_header_by_name _OffsetOf_set_header_map _OffsetOf_set_method _OffsetOf_set_post_data _OffsetOf_set_referrer _OffsetOf_set_url'
 	poolDictionaries: ''
@@ -375,7 +375,7 @@ defineFields
 		defineField: #get_identifier type: DWORDField new!
 
 getFieldNames
-	^#(#base #is_read_only #get_url #set_url #get_method #set_method #set_referrer #get_referrer_url #get_referrer_policy #get_post_data #set_post_data #get_header_map #set_header_map #get_header_by_name #set_header_by_name #set #get_flags #set_flags #get_first_party_for_cookies #set_first_party_for_cookies #get_resource_type #get_transition_type #get_identifier)! !
+	^#(#is_read_only #get_url #set_url #get_method #set_method #set_referrer #get_referrer_url #get_referrer_policy #get_post_data #set_post_data #get_header_map #set_header_map #get_header_by_name #set_header_by_name #set #get_flags #set_flags #get_first_party_for_cookies #set_first_party_for_cookies #get_resource_type #get_transition_type #get_identifier)! !
 
 !CefRequest class categoriesForMethods!
 defineFields!public! !
