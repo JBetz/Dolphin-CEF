@@ -1,0 +1,247 @@
+﻿| package |
+package := Package name: 'Chromium Reader'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package classNames
+	add: #BrowserFileReader;
+	add: #ImportRecord;
+	add: #ImportUrl;
+	add: #ImportVisit;
+	add: #LastActiveTimeCommand;
+	add: #PageState;
+	add: #PickleStream;
+	add: #SelectedNavigationInTabCommand;
+	add: #SessionCommand;
+	add: #SessionFileReader;
+	add: #SessionStorageAssociatedCommand;
+	add: #SetActiveWindowCommand;
+	add: #SetPinnedStateCommand;
+	add: #SetSelectedNavigationIndexCommand;
+	add: #SetSelectedTabInIndexCommand;
+	add: #SetTabGroupCommand;
+	add: #SetTabIndexInWindowCommand;
+	add: #SetTabWindowCommand;
+	add: #SetWindowAppNameCommand;
+	add: #SetWindowBounds3Command;
+	add: #SetWindowTypeCommand;
+	add: #SetWindowUserTitleCommand;
+	add: #SetWindowVisibleOnAllWorkspacesCommand;
+	add: #SetWindowWorkspace2Command;
+	add: #StorageBackendCommand;
+	add: #TabsFileReader;
+	add: #UnknownSessionCommand;
+	add: #UpdateTabNavigationCommand;
+	yourself.
+
+package methodNames
+	add: #ByteArray -> #asUtf16String;
+	yourself.
+
+package globalNames
+	add: #ChromiumConstants;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\Chromium Embedded Framework\Chromium Embedded Framework'
+	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #BrowserFileReader
+	instanceVariableNames: 'stream signature version commands'
+	classVariableNames: ''
+	poolDictionaries: 'ChromiumConstants'
+	classInstanceVariableNames: 'CommandMap'!
+
+Object subclass: #ImportRecord
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #PageState
+	instanceVariableNames: 'version url originalUrl target parent title alternativeTitle lastVisitedTime xScrollOffset yScrollOffset isTargetItem visitCount referrerUrl documentState pageScaleFactor itemSequenceNumber documentSequenceNumber hasStateObject stateObject formData httpContentType referrerUrl1 subItemsSize subItems referencedFiles'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #SessionCommand
+	instanceVariableNames: 'unreadBytes error'
+	classVariableNames: 'SessionCommandMap TabCommandMap'
+	poolDictionaries: 'ChromiumConstants'
+	classInstanceVariableNames: ''!
+
+BrowserFileReader subclass: #SessionFileReader
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+BrowserFileReader subclass: #TabsFileReader
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ImportRecord subclass: #ImportUrl
+	instanceVariableNames: 'id url title visitCount typedCount lastVisitTime hidden'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ImportRecord subclass: #ImportVisit
+	instanceVariableNames: 'id url visitTime fromVisit externalReferrerUrl transition segmentId visitDuration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #LastActiveTimeCommand
+	instanceVariableNames: 'tabId lastActiveTime windowId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SelectedNavigationInTabCommand
+	instanceVariableNames: 'tabId index timestamp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SessionStorageAssociatedCommand
+	instanceVariableNames: 'tabId sessionStoragePersistentId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetActiveWindowCommand
+	instanceVariableNames: 'windowId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetPinnedStateCommand
+	instanceVariableNames: 'tabId pinnedState'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetSelectedNavigationIndexCommand
+	instanceVariableNames: 'tabId index'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetSelectedTabInIndexCommand
+	instanceVariableNames: 'windowId index'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetTabGroupCommand
+	instanceVariableNames: 'tabId maybeGroup hasGroup'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetTabIndexInWindowCommand
+	instanceVariableNames: 'tabId index'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetTabWindowCommand
+	instanceVariableNames: 'windowId tabId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetWindowAppNameCommand
+	instanceVariableNames: 'windowId userTitle'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetWindowBounds3Command
+	instanceVariableNames: 'windowId x y w h showState'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetWindowTypeCommand
+	instanceVariableNames: 'windowId index'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetWindowUserTitleCommand
+	instanceVariableNames: 'windowId userTitle'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetWindowVisibleOnAllWorkspacesCommand
+	instanceVariableNames: 'windowId visibleOnAllWorkspaces'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #SetWindowWorkspace2Command
+	instanceVariableNames: 'windowId workspace'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #StorageBackendCommand
+	instanceVariableNames: 'contents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #UnknownSessionCommand
+	instanceVariableNames: 'contents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SessionCommand subclass: #UpdateTabNavigationCommand
+	instanceVariableNames: 'index tabId virtualUrl title state transitionType hasPostData referrerUrl ignoredReferrerPolicy originalRequestUrl isOverridingUserAgent timestamp searchTerms httpStatus referrerPolicy extendedMap taskId parentTaskId rootTaskId childTaskIdCount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ReadStream subclass: #PickleStream
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Loose Methods"!
+
+!ByteArray methodsFor!
+
+asUtf16String
+	"Answer an UTF16-encoded String the characters of have the same encoding as the byte elements of the receiver."
+
+	| size |
+	size := self basicSize.
+	^self
+		replaceBytesOf: (Utf16String new: size)
+		from: 1
+		to: size
+		startingAt: 1! !
+
+!ByteArray categoriesForMethods!
+asUtf16String!public! !
+!
+
+"End of package definition"!
+
