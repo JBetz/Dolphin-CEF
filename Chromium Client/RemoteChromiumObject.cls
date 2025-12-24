@@ -21,6 +21,12 @@ compileRpcDefinitions
 		defineRpcMethods;
 		defineRpcCallbacks!
 
+defineRpcCallback: aSymbol
+	self
+		defineRpcCallback: aSymbol
+		arguments: #()
+		withAcknowledgement: false!
+
 defineRpcCallback: aSymbol arguments: aCollection
 	self
 		defineRpcCallback: aSymbol
@@ -33,25 +39,34 @@ defineRpcCallback: aSymbol arguments: aCollection withAcknowledgement: aBoolean
 	source := String writeStream: 256.
 	source
 		nextPutAll: methodHeader;
-		crtab;
-		nextPutAll: ('| <1s> |' expandMacrosWith: (Character space join: aCollection)).
+		crtab.
+	aCollection isEmpty
+		ifFalse: [source nextPutAll: ('| <1s> |' expandMacrosWith: (Character space join: aCollection))].
 	aCollection do: 
 			[:each |
 			source
 				nextPutAll: ('<1s> := aDictionary at: #<1s>.' expandMacrosWith: each);
 				crtab].
-	source
-		nextPutAll: (aCollection allButFirst
-					inject: ('host <1s>: <2s>' expandMacrosWith: aSymbol with: aCollection first)
-					into: [:sum :each | sum , (' <1s>: <1s>' expandMacrosWith: each)]);
-		nextPut: $..
+	aCollection isEmpty
+		ifTrue: [source nextPutAll: ('host <1s>' expandMacrosWith: aSymbol)]
+		ifFalse: 
+			[source nextPutAll: (aCollection allButFirst
+						inject: ('host <1s>: <2s>' expandMacrosWith: aSymbol with: aCollection first)
+						into: [:sum :each | sum , (' <1s>: <1s>' expandMacrosWith: each)])].
+	source nextPut: $..
 	aBoolean
 		ifTrue: 
 			[source
 				crtab;
-				nextPutAll: 'self acknowledge: (GUID fromIdlString: (aDictionary at: ''id''))'].
+				nextPutAll: 'self acknowledge: (GUID fromIdlString: (aDictionary at: #id))'].
 	source := Smalltalk developmentSystem reformatSource: source contents in: self.
 	self compile: source categories: {ExternalStructure autoGenCategory. 'callback'}!
+
+defineRpcCallback: aSymbol withAcknowledgement: aBoolean
+	self
+		defineRpcCallback: aSymbol
+		arguments: #()
+		withAcknowledgement: aBoolean!
 
 defineRpcMethod: aSymbol
 	self
@@ -98,8 +113,10 @@ new
 
 !RemoteChromiumObject class categoriesForMethods!
 compileRpcDefinitions!public! !
+defineRpcCallback:!private! !
 defineRpcCallback:arguments:!private! !
 defineRpcCallback:arguments:withAcknowledgement:!private! !
+defineRpcCallback:withAcknowledgement:!private! !
 defineRpcMethod:!private! !
 defineRpcMethod:arguments:!private! !
 defineRpcMethod:arguments:withCallback:!private! !

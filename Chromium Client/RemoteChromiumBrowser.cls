@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 RemoteChromiumObject subclass: #RemoteChromiumBrowser
-	instanceVariableNames: 'id client host canGoBack canGoForward focusedElement hoveredElement queuedUrl selectedText selectedRange actionQueue'
+	instanceVariableNames: 'id client host canGoBack canGoForward isReadyToClose focusedElement hoveredElement queuedUrl selectedText selectedRange actionQueue'
 	classVariableNames: 'ContextMenuCommandMap CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -17,11 +17,11 @@ RemoteChromiumBrowser comment: ''!
 acknowledge: acknowledge
 	id ifNil: [^self].
 	client send: (Dictionary new
-				at: 'class' put: 'Browser';
-				at: 'method' put: 'Acknowledge';
-				at: 'id' put: GUID newUnique idlString;
-				at: 'instanceId' put: id;
-				at: 'acknowledge' put: acknowledge idlString;
+				at: #class put: #Browser;
+				at: #method put: #Acknowledge;
+				at: #id put: GUID newUnique idlString;
+				at: #instanceId put: id;
+				at: #acknowledge put: acknowledge idlString;
 				yourself)!
 
 back
@@ -64,6 +64,19 @@ client
 
 client: anObject
 	client := anObject!
+
+close
+	self close: false!
+
+close: forceClose
+	id ifNil: [^self].
+	client send: (Dictionary new
+				at: #class put: #Browser;
+				at: #method put: #Close;
+				at: #id put: GUID newUnique idlString;
+				at: #instanceId put: id;
+				at: #forceClose put: forceClose;
+				yourself)!
 
 copy
 	id ifNil: [^self].
@@ -122,12 +135,16 @@ evalJavaScript: code scriptUrl: scriptUrl startLine: startLine callback: callbac
 		onSuccess: callback!
 
 focus
+	self focus: true!
+
+focus: focus
 	id ifNil: [^self].
 	client send: (Dictionary new
 				at: #class put: #Browser;
 				at: #method put: #Focus;
 				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #focus put: focus;
 				yourself)!
 
 focusedElement
@@ -135,6 +152,9 @@ focusedElement
 
 focusedElement: aHtmlElement
 	focusedElement := aHtmlElement!
+
+forceClose
+	self close: true!
 
 forward
 	id ifNil: [^self].
@@ -212,12 +232,16 @@ onAcceleratedPaint: aDictionary
 		onAcceleratedPaint: elementType
 		sharedTextureHandle: sharedTextureHandle
 		format: format.
-	self acknowledge: (GUID fromIdlString: (aDictionary at: 'id'))!
+	self acknowledge: (GUID fromIdlString: (aDictionary at: #id))!
 
 onAddressChange: aDictionary
 	| url |
 	url := aDictionary at: #url.
 	host onAddressChange: url!
+
+onBeforeClose: aDictionary
+	host onBeforeClose.
+	self acknowledge: (GUID fromIdlString: (aDictionary at: #id))!
 
 onBeforeContextMenu: aBeforeContextMenuEvent
 	Transcript
@@ -395,6 +419,19 @@ selectedText
 show
 	self wasHidden: false!
 
+tryClose
+	self tryClose: [:response | isReadyToClose := response at: #canClose]!
+
+tryClose: callback
+	id ifNil: [^self].
+	client send: (Dictionary new
+				at: #class put: #Browser;
+				at: #method put: #TryClose;
+				at: #id put: GUID newUnique idlString;
+				at: #instanceId put: id;
+				yourself)
+		onSuccess: callback!
+
 undo
 	id ifNil: [^self].
 	client send: (Dictionary new
@@ -431,6 +468,8 @@ canGoForward!**compiled accessors**!public! !
 canGoForward:!**compiled accessors**!public!rpc! !
 client!public! !
 client:!public! !
+close!**compiled accessors**!public!rpc! !
+close:!**compiled accessors**!public!rpc! !
 copy!**compiled accessors**!public!rpc! !
 cut!**compiled accessors**!public!rpc! !
 defocus!**compiled accessors**!public!rpc! !
@@ -438,8 +477,10 @@ delete!**compiled accessors**!public!rpc! !
 evalJavaScript:callback:!public! !
 evalJavaScript:scriptUrl:startLine:callback:!**compiled accessors**!public!rpc! !
 focus!**compiled accessors**!public!rpc! !
+focus:!**compiled accessors**!public!rpc! !
 focusedElement!public! !
 focusedElement:!public! !
+forceClose!**compiled accessors**!public!rpc! !
 forward!**compiled accessors**!public!rpc! !
 hasTextSelected!public! !
 host!public! !
@@ -454,6 +495,7 @@ notifyResize!**compiled accessors**!public!rpc! !
 notifyResize:!**compiled accessors**!public!rpc! !
 onAcceleratedPaint:!**compiled accessors**!callback!public! !
 onAddressChange:!**compiled accessors**!callback!public! !
+onBeforeClose:!**compiled accessors**!callback!public! !
 onBeforeContextMenu:!public! !
 onConsoleMessage:!**compiled accessors**!callback!public! !
 onCursorChange:!public! !
@@ -474,6 +516,8 @@ reload!**compiled accessors**!public!rpc! !
 selectAll!**compiled accessors**!public!rpc! !
 selectedText!public! !
 show!public! !
+tryClose!**compiled accessors**!public!rpc! !
+tryClose:!**compiled accessors**!public!rpc! !
 undo!**compiled accessors**!public!rpc! !
 wasHidden!**compiled accessors**!public!rpc! !
 wasHidden:!**compiled accessors**!public!rpc! !
@@ -493,7 +537,8 @@ defineRpcCallbacks
 		defineRpcCallback: #onFocusedNodeChanged arguments: #(#tagName #inputType #isEditable);
 		defineRpcCallback: #onMouseOver arguments: #(#tagName #inputType #href #rectangle);
 		defineRpcCallback: #onNavigate
-			arguments: #(#destination #formData #hashChange #navigationType #userInitiated)!
+			arguments: #(#destination #formData #hashChange #navigationType #userInitiated);
+		defineRpcCallback: #onBeforeClose withAcknowledgement: true!
 
 defineRpcMethods
 	"Private - self defineRpcMethods"
@@ -502,7 +547,7 @@ defineRpcMethods
 		defineRpcMethod: #back;
 		defineRpcMethod: #forward;
 		defineRpcMethod: #reload;
-		defineRpcMethod: #focus;
+		defineRpcMethod: #focus arguments: #(focus);
 		defineRpcMethod: #defocus;
 		defineRpcMethod: #canGoBack withCallback: true;
 		defineRpcMethod: #canGoForward withCallback: true;
@@ -522,7 +567,9 @@ defineRpcMethods
 		defineRpcMethod: #onMouseClick arguments: #(#event #button #mouseUp #clickCount);
 		defineRpcMethod: #onMouseMove arguments: #(#event #mouseLeave);
 		defineRpcMethod: #onMouseWheel arguments: #(#event #deltaX #deltaY);
-		defineRpcMethod: #onKeyboardEvent arguments: #(#event)!
+		defineRpcMethod: #onKeyboardEvent arguments: #(#event);
+		defineRpcMethod: #close arguments: #(#forceClose);
+		defineRpcMethod: #tryClose withCallback: true!
 
 initialize
 	"self initialize"

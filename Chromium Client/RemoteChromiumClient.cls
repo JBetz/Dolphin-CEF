@@ -63,11 +63,11 @@ initializeClient
 	processId := kernel getProcessId: kernel getCurrentProcess.
 	messageWindowHandle := VMLibrary default registryAt: #MsgWndHandle.
 	self send: (Dictionary new
-				at: 'class' put: 'Client';
-				at: 'method' put: 'Initialize';
-				at: 'id' put: GUID newUnique idlString;
-				at: 'clientProcessId' put: processId;
-				at: 'clientMessageWindowHandle' put: messageWindowHandle asInteger;
+				at: #class put: #Client;
+				at: #method put: #Initialize;
+				at: #id put: GUID newUnique idlString;
+				at: #clientProcessId put: processId;
+				at: #clientMessageWindowHandle put: messageWindowHandle asInteger;
 				yourself)
 		onSuccess: [:response | ]!
 
@@ -101,12 +101,21 @@ send: aDictionary
 
 send: aDictionary onSuccess: aBlock
 	| requestId |
-	requestId := aDictionary at: 'id'.
+	requestId := aDictionary at: #id.
 	callbacks at: requestId put: aBlock.
 	socket send: aDictionary!
 
+shutdown
+	self send: (Dictionary new
+				at: #class put: #Client;
+				at: #method put: #Shutdown;
+				at: #id put: GUID newUnique idlString;
+				yourself)!
+
 stop
-	self disconnect!
+	self
+		shutdown;
+		disconnect!
 
 update
 	| messages |
@@ -138,6 +147,7 @@ receiveMessages!private! !
 run!private! !
 send:!public! !
 send:onSuccess:!public! !
+shutdown!private! !
 stop!public! !
 update!public! !
 !
