@@ -14,23 +14,27 @@ RemoteChromiumBrowser comment: ''!
 
 !RemoteChromiumBrowser methodsFor!
 
-acknowledge: acknowledge
+acknowledge: requestId
 	id ifNil: [^self].
 	client send: (Dictionary new
 				at: #class put: #Browser;
 				at: #method put: #Acknowledge;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #acknowledge put: acknowledge idlString;
+				at: #id put: GUID newUnique idlString;
+				at: #arguments
+					put: (Dictionary new
+							at: #requestId put: requestId idlString;
+							yourself);
 				yourself)!
 
 back
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Back;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 canGoBack
@@ -39,10 +43,11 @@ canGoBack
 canGoBack: callback
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #CanGoBack;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)
 		onSuccess: callback!
 
@@ -52,10 +57,11 @@ canGoForward
 canGoForward: callback
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #CanGoForward;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)
 		onSuccess: callback!
 
@@ -71,47 +77,54 @@ close
 close: forceClose
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Close;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #forceClose put: forceClose;
+				at: #arguments
+					put: (Dictionary new
+							at: #forceClose put: forceClose;
+							yourself);
 				yourself)!
 
 copy
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Copy;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 cut
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Cut;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 defocus
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Defocus;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 delete
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Delete;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 evalJavaScript: aString callback: aBlock
@@ -124,13 +137,16 @@ evalJavaScript: aString callback: aBlock
 evalJavaScript: code scriptUrl: scriptUrl startLine: startLine callback: callback
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #EvalJavaScript;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #code put: code;
-				at: #scriptUrl put: scriptUrl;
-				at: #startLine put: startLine;
+				at: #arguments
+					put: (Dictionary new
+							at: #code put: code;
+							at: #scriptUrl put: scriptUrl;
+							at: #startLine put: startLine;
+							yourself);
 				yourself)
 		onSuccess: callback!
 
@@ -140,11 +156,14 @@ focus
 focus: focus
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Focus;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #focus put: focus;
+				at: #arguments
+					put: (Dictionary new
+							at: #focus put: focus;
+							yourself);
 				yourself)!
 
 focusedElement
@@ -159,10 +178,11 @@ forceClose
 forward
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Forward;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 hasTextSelected
@@ -198,11 +218,14 @@ loadUrl
 loadUrl: url
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #LoadUrl;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #url put: url;
+				at: #arguments
+					put: (Dictionary new
+							at: #url put: url;
+							yourself);
 				yourself)!
 
 notifyResize
@@ -216,11 +239,14 @@ notifyResize
 notifyResize: rectangle
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #NotifyResize;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #rectangle put: rectangle;
+				at: #arguments
+					put: (Dictionary new
+							at: #rectangle put: rectangle;
+							yourself);
 				yourself)!
 
 onAcceleratedPaint: aDictionary
@@ -277,11 +303,14 @@ onKeyboardEvent
 onKeyboardEvent: event
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #OnKeyboardEvent;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #event put: event;
+				at: #arguments
+					put: (Dictionary new
+							at: #event put: event;
+							yourself);
 				yourself)!
 
 onLoadingProgressChange: aDictionary
@@ -292,37 +321,46 @@ onLoadingProgressChange: aDictionary
 onMouseClick: event button: button mouseUp: mouseUp clickCount: clickCount
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #OnMouseClick;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #event put: event;
-				at: #button put: button;
-				at: #mouseUp put: mouseUp;
-				at: #clickCount put: clickCount;
+				at: #arguments
+					put: (Dictionary new
+							at: #event put: event;
+							at: #button put: button;
+							at: #mouseUp put: mouseUp;
+							at: #clickCount put: clickCount;
+							yourself);
 				yourself)!
 
 onMouseMove: event mouseLeave: mouseLeave
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #OnMouseMove;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #event put: event;
-				at: #mouseLeave put: mouseLeave;
+				at: #arguments
+					put: (Dictionary new
+							at: #event put: event;
+							at: #mouseLeave put: mouseLeave;
+							yourself);
 				yourself)!
 
 onMouseWheel: event deltaX: deltaX deltaY: deltaY
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #OnMouseWheel;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #event put: event;
-				at: #deltaX put: deltaX;
-				at: #deltaY put: deltaY;
+				at: #arguments
+					put: (Dictionary new
+							at: #event put: event;
+							at: #deltaX put: deltaX;
+							at: #deltaY put: deltaY;
+							yourself);
 				yourself)!
 
 onNavigate: aDictionary
@@ -373,44 +411,48 @@ parseUrl: aString callback: aBlock
 paste
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Paste;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 redo
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Redo;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 refreshNavigationState
 	canGoBack := nil.
 	canGoForward := nil.
 	self
-		canGoBack: [:response | canGoBack := response at: 'canGoBack'];
-		canGoForward: [:response | canGoForward := response at: 'canGoForward']!
+		canGoBack: [:aBoolean | canGoBack := aBoolean];
+		canGoForward: [:aBoolean | canGoForward := aBoolean]!
 
 reload
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Reload;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 selectAll
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #SelectAll;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 selectedText
@@ -420,43 +462,40 @@ show
 	self wasHidden: false!
 
 tryClose
-	self tryClose: [:response | isReadyToClose := response at: #canClose]!
+	self tryClose: [:aBoolean | isReadyToClose := aBoolean]!
 
 tryClose: callback
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #TryClose;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)
 		onSuccess: callback!
 
 undo
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #Undo;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				yourself)!
-
-wasHidden
-	id ifNil: [^self].
-	client send: (Dictionary new
-				at: 'type' put: 'Browser_RemoteChromiumBrowser';
-				at: 'id' put: GUID newUnique idlString;
-				at: 'browserId' put: id;
+				at: #arguments put: nil;
 				yourself)!
 
 wasHidden: hidden
 	id ifNil: [^self].
 	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
 				at: #class put: #Browser;
 				at: #method put: #WasHidden;
-				at: #id put: GUID newUnique idlString;
 				at: #instanceId put: id;
-				at: #hidden put: hidden;
+				at: #arguments
+					put: (Dictionary new
+							at: #hidden put: hidden;
+							yourself);
 				yourself)! !
 
 !RemoteChromiumBrowser categoriesForMethods!
@@ -519,7 +558,6 @@ show!public! !
 tryClose!**compiled accessors**!public!rpc! !
 tryClose:!**compiled accessors**!public!rpc! !
 undo!**compiled accessors**!public!rpc! !
-wasHidden!**compiled accessors**!public!rpc! !
 wasHidden:!**compiled accessors**!public!rpc! !
 !
 

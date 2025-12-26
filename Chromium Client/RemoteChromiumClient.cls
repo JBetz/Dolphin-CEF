@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 RemoteChromiumObject subclass: #RemoteChromiumClient
-	instanceVariableNames: 'process socket remoteBrowsers callbacks'
+	instanceVariableNames: 'id process socket remoteBrowsers callbacks'
 	classVariableNames: 'Singleton'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -23,17 +23,19 @@ connect
 
 createBrowser: aUrl rectangle: aRectangle html: aString for: aRemoteChromiumBrowser
 	self send: (Dictionary new
-				at: 'class' put: 'Client';
-				at: 'method' put: 'CreateBrowser';
-				at: 'id' put: GUID newUnique idlString;
-				at: 'url' put: aUrl asString;
-				at: 'rectangle' put: aRectangle asCefRect asDictionary;
-				at: 'html' put: aString;
+				at: #class put: #Client;
+				at: #method put: #CreateBrowser;
+				at: #instanceId put: id;
+				at: #id put: GUID newUnique idlString;
+				at: #arguments
+					put: (Dictionary new
+							at: #url put: aUrl asString;
+							at: #rectangle put: aRectangle asCefRect asDictionary;
+							at: #html put: aString;
+							yourself);
 				yourself)
 		onSuccess: 
-			[:response |
-			| browserId |
-			browserId := response at: 'browserId'.
+			[:browserId |
 			aRemoteChromiumBrowser id: browserId.
 			remoteBrowsers at: browserId put: aRemoteChromiumBrowser]!
 
@@ -54,6 +56,7 @@ ensureRunning
 
 initialize
 	super initialize.
+	id := 1.
 	remoteBrowsers := Dictionary new.
 	callbacks := Dictionary new!
 
@@ -65,9 +68,13 @@ initializeClient
 	self send: (Dictionary new
 				at: #class put: #Client;
 				at: #method put: #Initialize;
+				at: #instanceId put: 1;
 				at: #id put: GUID newUnique idlString;
-				at: #clientProcessId put: processId;
-				at: #clientMessageWindowHandle put: messageWindowHandle asInteger;
+				at: #arguments
+					put: (Dictionary new
+							at: #clientProcessId put: processId;
+							at: #clientMessageWindowHandle put: messageWindowHandle asInteger;
+							yourself);
 				yourself)
 		onSuccess: [:response | ]!
 
@@ -124,17 +131,20 @@ update
 	messages do: 
 			[:each |
 			| requestId |
-			requestId := each at: 'requestId' ifAbsent: [nil].
+			requestId := each at: #requestId ifAbsent: [nil].
 			requestId
 				ifNil: 
 					[| browser selector |
-					browser := remoteBrowsers at: (each at: 'instanceId') ifAbsent: [nil].
-					selector := ((each at: 'method') uncapitalized , ':') asSymbol.
+					browser := remoteBrowsers at: (each at: #instanceId) ifAbsent: [nil].
+					selector := ((each at: #method) uncapitalized , ':') asSymbol.
 					browser ifNotNil: [browser perform: selector with: each]]
 				ifNotNil: 
-					[| callback |
-					callback := callbacks at: (each at: 'requestId').
-					callback value: each]]! !
+					[| response callback |
+					response := RpcResponse fromDictionary: each.
+					callback := callbacks at: requestId.
+					response success
+						ifTrue: [callback value: response returnValue]
+						ifFalse: [self error: response error displayString]]]! !
 
 !RemoteChromiumClient categoriesForMethods!
 connect!private! !

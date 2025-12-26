@@ -95,11 +95,16 @@ defineRpcMethod: aSymbol arguments: aCollection withCallback: aBoolean
 		crtab;
 		nextPutAll: 'id ifNil: [^self].';
 		nextPutAll: 'client send: (Dictionary new ';
+		nextPutAll: 'at: #id put: GUID newUnique idlString;';
 		nextPutAll: ('at: #class put: #<1s>;' expandMacrosWith: self rpcClassName);
 		nextPutAll: ('at: #method put: #<1s>;' expandMacrosWith: aSymbol capitalized);
-		nextPutAll: 'at: #id put: GUID newUnique idlString;';
 		nextPutAll: 'at: #instanceId put: id;'.
-	aCollection do: [:each | source nextPutAll: ('at: #<1s> put: <1s>;' expandMacrosWith: each)].
+	aCollection isEmpty
+		ifTrue: [source nextPutAll: 'at: #arguments put: nil;']
+		ifFalse: 
+			[source nextPutAll: 'at: #arguments put: (Dictionary new '.
+			aCollection do: [:each | source nextPutAll: ('at: #<1s> put: <1s>;' expandMacrosWith: each)].
+			source nextPutAll: 'yourself);'].
 	source nextPutAll: 'yourself)'.
 	aBoolean ifTrue: [source nextPutAll: ' onSuccess: callback'].
 	source := Smalltalk developmentSystem reformatSource: source contents in: self.
