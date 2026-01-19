@@ -14,6 +14,9 @@ SessionCommand comment: ''!
 
 !SessionCommand methodsFor!
 
+asSelector
+	^('process<1s>:' expandMacrosWith: self class name) asSymbol!
+
 error: anError
 	error := anError!
 
@@ -42,6 +45,7 @@ unreadBytes: anInteger
 	unreadBytes := anInteger! !
 
 !SessionCommand categoriesForMethods!
+asSelector!public! !
 error:!private! !
 hasError!public! !
 isIncomplete!public! !

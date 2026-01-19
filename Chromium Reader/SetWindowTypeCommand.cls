@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 SessionCommand subclass: #SetWindowTypeCommand
-	instanceVariableNames: 'windowId index'
+	instanceVariableNames: 'windowId windowType'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,23 +14,23 @@ SetWindowTypeCommand comment: ''!
 
 !SetWindowTypeCommand methodsFor!
 
-index
-	^index!
-
-index: anInteger 
-	index := anInteger!
-
 windowId
 	^windowId!
 
 windowId: anObject
-	windowId := anObject! !
+	windowId := anObject!
+
+windowType
+	^windowType!
+
+windowType: anInteger
+	windowType := anInteger! !
 
 !SetWindowTypeCommand categoriesForMethods!
-index!public! !
-index:!private! !
 windowId!accessing!public! !
 windowId:!accessing!private! !
+windowType!public! !
+windowType:!private! !
 !
 
 !SetWindowTypeCommand class methodsFor!
@@ -38,7 +38,7 @@ windowId:!accessing!private! !
 fromStream: aStream
 	^self new
 		windowId: aStream nextSDWORD;
-		index: aStream nextSDWORD;
+		windowType: aStream nextSDWORD;
 		yourself! !
 
 !SetWindowTypeCommand class categoriesForMethods!

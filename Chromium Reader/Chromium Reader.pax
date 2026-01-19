@@ -5,6 +5,11 @@ package paxVersion: 1;
 
 package classNames
 	add: #BrowserFileReader;
+	add: #BrowserInfo;
+	add: #BrowserObject;
+	add: #BrowserSession;
+	add: #BrowserTab;
+	add: #BrowserWindow;
 	add: #ImportRecord;
 	add: #ImportUrl;
 	add: #ImportVisit;
@@ -13,7 +18,6 @@ package classNames
 	add: #PickleStream;
 	add: #SelectedNavigationInTabCommand;
 	add: #SessionCommand;
-	add: #SessionFileReader;
 	add: #SessionStorageAssociatedCommand;
 	add: #SetActiveWindowCommand;
 	add: #SetPinnedStateCommand;
@@ -29,7 +33,6 @@ package classNames
 	add: #SetWindowVisibleOnAllWorkspacesCommand;
 	add: #SetWindowWorkspace2Command;
 	add: #StorageBackendCommand;
-	add: #TabsFileReader;
 	add: #UnknownSessionCommand;
 	add: #UpdateTabNavigationCommand;
 	yourself.
@@ -50,17 +53,31 @@ package globalAliases: (Set new
 
 package setPrerequisites: #(
 	'..\Chromium Embedded Framework\Chromium Embedded Framework'
-	'..\Core\Object Arts\Dolphin\Base\Dolphin').
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\Dolphin-SDL\SDL3\SDL3').
 
 package!
 
 "Class Definitions"!
 
 Object subclass: #BrowserFileReader
-	instanceVariableNames: 'stream signature version commands'
+	instanceVariableNames: 'browserInfo signature version commands sessionFileStream tabsFileStream'
 	classVariableNames: ''
-	poolDictionaries: 'ChromiumConstants'
-	classInstanceVariableNames: 'CommandMap'!
+	poolDictionaries: 'ChromiumConstants SDLConstants'
+	classInstanceVariableNames: 'SessionCommandMap TabCommandMap'!
+
+Object subclass: #BrowserInfo
+	instanceVariableNames: 'name organization application'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #BrowserObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 
 Object subclass: #ImportRecord
 	instanceVariableNames: ''
@@ -80,14 +97,20 @@ Object subclass: #SessionCommand
 	poolDictionaries: 'ChromiumConstants'
 	classInstanceVariableNames: ''!
 
-BrowserFileReader subclass: #SessionFileReader
-	instanceVariableNames: ''
+BrowserObject subclass: #BrowserSession
+	instanceVariableNames: 'windows tabs'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-BrowserFileReader subclass: #TabsFileReader
-	instanceVariableNames: ''
+BrowserObject subclass: #BrowserTab
+	instanceVariableNames: 'id windowId index title isPinned isClosed navigationIndex navigationEntries lastActiveTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+BrowserObject subclass: #BrowserWindow
+	instanceVariableNames: 'id tabs selectedTabIndex rectangle type isActive isClosed appName userTitle workspace visibleOnAllWorkspaces'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -177,7 +200,7 @@ SessionCommand subclass: #SetWindowBounds3Command
 	classInstanceVariableNames: ''!
 
 SessionCommand subclass: #SetWindowTypeCommand
-	instanceVariableNames: 'windowId index'
+	instanceVariableNames: 'windowId windowType'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
