@@ -14,30 +14,39 @@ ContextMenuConfiguration comment: ''!
 
 !ContextMenuConfiguration methodsFor!
 
+addCommand: aContextMenuCommand
+	commands add: aContextMenuCommand!
+
 asDictionary
 	^Dictionary new
 		at: #id put: GUID newUnique idlString;
-		at: #browserId put: browserId;
-		at: #commands put: (commands collect: [:each | each asDictionary]);
+		at: #commands put: (commands collect: [:each | each asDictionary]) asArray;
 		yourself!
-
-browserId
-	^browserId!
-
-browserId: anObject
-	browserId := anObject!
 
 commands
 	^commands!
 
 commands: anObject
-	commands := anObject! !
+	commands := anObject!
+
+initialize
+	super initialize.
+	commands := OrderedCollection new! !
 
 !ContextMenuConfiguration categoriesForMethods!
+addCommand:!public! !
 asDictionary!public! !
-browserId!accessing!public! !
-browserId:!accessing!private! !
 commands!accessing!public! !
 commands:!accessing!private! !
+initialize!public! !
+!
+
+!ContextMenuConfiguration class methodsFor!
+
+new
+	^super new initialize! !
+
+!ContextMenuConfiguration class categoriesForMethods!
+new!public! !
 !
 

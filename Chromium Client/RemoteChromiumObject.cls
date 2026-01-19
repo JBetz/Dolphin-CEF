@@ -22,18 +22,12 @@ compileRpcDefinitions
 		defineRpcCallbacks!
 
 defineRpcCallback: aSymbol
-	self
-		defineRpcCallback: aSymbol
-		arguments: #()
-		withAcknowledgement: false!
+	self defineRpcCallback: aSymbol arguments: #() hasReturnValue: false!
 
 defineRpcCallback: aSymbol arguments: aCollection
-	self
-		defineRpcCallback: aSymbol
-		arguments: aCollection
-		withAcknowledgement: false!
+	^self defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: false!
 
-defineRpcCallback: aSymbol arguments: aCollection withAcknowledgement: aBoolean
+defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: aBoolean
 	| methodHeader source |
 	methodHeader := aSymbol , ': aDictionary'.
 	source := String writeStream: 256.
@@ -47,6 +41,7 @@ defineRpcCallback: aSymbol arguments: aCollection withAcknowledgement: aBoolean
 			source
 				nextPutAll: ('<1s> := aDictionary at: #<1s>.' expandMacrosWith: each);
 				crtab].
+	aBoolean ifTrue: [source nextPutAll: '^'].
 	aCollection isEmpty
 		ifTrue: [source nextPutAll: ('host <1s>' expandMacrosWith: aSymbol)]
 		ifFalse: 
@@ -55,18 +50,12 @@ defineRpcCallback: aSymbol arguments: aCollection withAcknowledgement: aBoolean
 						into: [:sum :each | sum , (' <1s>: <1s>' expandMacrosWith: each)])].
 	source nextPut: $..
 	aBoolean
-		ifTrue: 
+		ifFalse: 
 			[source
 				crtab;
-				nextPutAll: 'self acknowledge: (GUID fromIdlString: (aDictionary at: #id))'].
+				nextPutAll: '^nil'].
 	source := Smalltalk developmentSystem reformatSource: source contents in: self.
 	self compile: source categories: {ExternalStructure autoGenCategory. 'callback'}!
-
-defineRpcCallback: aSymbol withAcknowledgement: aBoolean
-	self
-		defineRpcCallback: aSymbol
-		arguments: #()
-		withAcknowledgement: aBoolean!
 
 defineRpcMethod: aSymbol
 	self
@@ -120,8 +109,7 @@ new
 compileRpcDefinitions!public! !
 defineRpcCallback:!private! !
 defineRpcCallback:arguments:!private! !
-defineRpcCallback:arguments:withAcknowledgement:!private! !
-defineRpcCallback:withAcknowledgement:!private! !
+defineRpcCallback:arguments:hasReturnValue:!private! !
 defineRpcMethod:!private! !
 defineRpcMethod:arguments:!private! !
 defineRpcMethod:arguments:withCallback:!private! !

@@ -94,6 +94,18 @@ receiveMessages
 			messageJson := socket receive].
 	^messages!
 
+respond: requestId
+	self respond: requestId value: nil!
+
+respond: aString value: anObject
+	id ifNil: [^self].
+	self send: (Dictionary new
+				at: #requestId put: aString;
+				at: #success put: true;
+				at: #returnValue put: anObject;
+				at: #error put: nil;
+				yourself)!
+
 run
 	| directory |
 	directory := FileLocator imageRelative: 'cef'.
@@ -134,10 +146,15 @@ update
 			requestId := each at: #requestId ifAbsent: [nil].
 			requestId
 				ifNil: 
-					[| browser selector |
+					[| browser |
 					browser := remoteBrowsers at: (each at: #instanceId) ifAbsent: [nil].
-					selector := ((each at: #method) uncapitalized , ':') asSymbol.
-					browser ifNotNil: [browser perform: selector with: each]]
+					browser
+						ifNotNil: 
+							[| selector arguments returnValue |
+							selector := ((each at: #method) uncapitalized , ':') asSymbol.
+							arguments := each at: #arguments.
+							returnValue := browser perform: selector with: arguments.
+							self respond: (each at: #id) value: returnValue]]
 				ifNotNil: 
 					[| response callback |
 					response := RpcResponse fromDictionary: each.
@@ -154,6 +171,8 @@ ensureRunning!public! !
 initialize!public! !
 initializeClient!private! !
 receiveMessages!private! !
+respond:!public! !
+respond:value:!public! !
 run!private! !
 send:!public! !
 send:onSuccess:!public! !

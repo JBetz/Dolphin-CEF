@@ -33,7 +33,8 @@ package setPrerequisites: #(
 	'..\Chromium Embedded Framework\Chromium Embedded Framework'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Contributions\Burning River\ExternalProcess\ExternalProcess'
-	'..\..\Dolphin-SDL\SDL3\SDL3').
+	'..\..\Dolphin-SDL\SDL3\SDL3'
+	'..\svenc\STON\STON-Core').
 
 package!
 

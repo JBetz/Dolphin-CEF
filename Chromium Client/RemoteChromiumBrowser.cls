@@ -14,19 +14,6 @@ RemoteChromiumBrowser comment: ''!
 
 !RemoteChromiumBrowser methodsFor!
 
-acknowledge: requestId
-	id ifNil: [^self].
-	client send: (Dictionary new
-				at: #class put: #Browser;
-				at: #method put: #Acknowledge;
-				at: #instanceId put: id;
-				at: #id put: GUID newUnique idlString;
-				at: #arguments
-					put: (Dictionary new
-							at: #requestId put: requestId idlString;
-							yourself);
-				yourself)!
-
 back
 	id ifNil: [^self].
 	client send: (Dictionary new
@@ -132,7 +119,7 @@ evalJavaScript: aString callback: aBlock
 		evalJavaScript: aString
 		scriptUrl: 'Dolphin'
 		startLine: 1
-		callback: aBlock!
+		callback: [:response | aBlock value: (STONJSON fromString: response)]!
 
 evalJavaScript: code scriptUrl: scriptUrl startLine: startLine callback: callback
 	id ifNil: [^self].
@@ -258,22 +245,33 @@ onAcceleratedPaint: aDictionary
 		onAcceleratedPaint: elementType
 		sharedTextureHandle: sharedTextureHandle
 		format: format.
-	self acknowledge: (GUID fromIdlString: (aDictionary at: #id))!
+	^nil!
 
 onAddressChange: aDictionary
 	| url |
 	url := aDictionary at: #url.
-	host onAddressChange: url!
+	host onAddressChange: url.
+	^nil!
 
 onBeforeClose: aDictionary
 	host onBeforeClose.
-	self acknowledge: (GUID fromIdlString: (aDictionary at: #id))!
+	^nil!
 
-onBeforeContextMenu: aBeforeContextMenuEvent
-	Transcript
-		display: aBeforeContextMenuEvent textSelection;
-		cr.
-	self acknowledge: aBeforeContextMenuEvent id!
+onBeforeContextMenu: aDictionary
+	| origin nodeType nodeMedia nodeMediaStateFlags nodeEditFlags selectionText |
+	origin := aDictionary at: #origin.
+	nodeType := aDictionary at: #nodeType.
+	nodeMedia := aDictionary at: #nodeMedia.
+	nodeMediaStateFlags := aDictionary at: #nodeMediaStateFlags.
+	nodeEditFlags := aDictionary at: #nodeEditFlags.
+	selectionText := aDictionary at: #selectionText.
+	^host
+		onBeforeContextMenu: origin
+		nodeType: nodeType
+		nodeMedia: nodeMedia
+		nodeMediaStateFlags: nodeMediaStateFlags
+		nodeEditFlags: nodeEditFlags
+		selectionText: selectionText!
 
 onConsoleMessage: aDictionary
 	| level message source line |
@@ -285,12 +283,44 @@ onConsoleMessage: aDictionary
 		onConsoleMessage: level
 		message: message
 		source: source
-		line: line!
+		line: line.
+	^nil!
+
+onContextMenuCommand: aDictionary
+	| commandId eventFlags |
+	commandId := aDictionary at: #commandId.
+	eventFlags := aDictionary at: #eventFlags.
+	host onContextMenuCommand: commandId eventFlags: eventFlags.
+	^nil!
 
 onCursorChange: aDictionary
-	| cursorSelector |
-	cursorSelector := CursorMap at: (aDictionary at: 'cursorType') ifAbsent: [^self].
-	self host cursor: cursorSelector!
+	| cursorHandle cursorType |
+	cursorHandle := aDictionary at: #cursorHandle.
+	cursorType := aDictionary at: #cursorType.
+	host onCursorChange: cursorHandle cursorType: cursorType.
+	^nil!
+
+onFocusedNodeChanged: aDictionary
+	| tagName inputType isEditable |
+	tagName := aDictionary at: #tagName.
+	inputType := aDictionary at: #inputType.
+	isEditable := aDictionary at: #isEditable.
+	host
+		onFocusedNodeChanged: tagName
+		inputType: inputType
+		isEditable: isEditable.
+	^nil!
+
+onFocusOut: aDictionary
+	| tagName inputType isEditable |
+	tagName := aDictionary at: #tagName.
+	inputType := aDictionary at: #inputType.
+	isEditable := aDictionary at: #isEditable.
+	host
+		onFocusOut: tagName
+		inputType: inputType
+		isEditable: isEditable.
+	^nil!
 
 onKeyboardEvent
 	id ifNil: [^self].
@@ -316,7 +346,8 @@ onKeyboardEvent: event
 onLoadingProgressChange: aDictionary
 	| progress |
 	progress := aDictionary at: #progress.
-	host onLoadingProgressChange: progress!
+	host onLoadingProgressChange: progress.
+	^nil!
 
 onMouseClick: event button: button mouseUp: mouseUp clickCount: clickCount
 	id ifNil: [^self].
@@ -375,16 +406,37 @@ onNavigate: aDictionary
 		formData: formData
 		hashChange: hashChange
 		navigationType: navigationType
-		userInitiated: userInitiated!
+		userInitiated: userInitiated.
+	^nil!
+
+onPopupShow: aDictionary
+	| show |
+	show := aDictionary at: #show.
+	host onPopupShow: show.
+	^nil!
+
+onPopupSize: aDictionary
+	| rectangle |
+	rectangle := aDictionary at: #rectangle.
+	host onPopupSize: rectangle.
+	^nil!
 
 onTextSelectionChanged: aDictionary
-	selectedText := aDictionary at: 'selectedText'.
-	selectedRange := (aDictionary at: 'selectedRangeFrom') to: (aDictionary at: 'selectedRangeTo')!
+	| selectedText selectedRangeFrom selectedRangeTo |
+	selectedText := aDictionary at: #selectedText.
+	selectedRangeFrom := aDictionary at: #selectedRangeFrom.
+	selectedRangeTo := aDictionary at: #selectedRangeTo.
+	host
+		onTextSelectionChanged: selectedText
+		selectedRangeFrom: selectedRangeFrom
+		selectedRangeTo: selectedRangeTo.
+	^nil!
 
 onTitleChange: aDictionary
 	| title |
 	title := aDictionary at: #title.
-	host onTitleChange: title!
+	host onTitleChange: title.
+	^nil!
 
 parseUrl: aString callback: aBlock
 	self
@@ -499,7 +551,6 @@ wasHidden: hidden
 				yourself)! !
 
 !RemoteChromiumBrowser categoriesForMethods!
-acknowledge:!public! !
 back!**compiled accessors**!public!rpc! !
 canGoBack!**compiled accessors**!public! !
 canGoBack:!**compiled accessors**!public!rpc! !
@@ -535,9 +586,12 @@ notifyResize:!**compiled accessors**!public!rpc! !
 onAcceleratedPaint:!**compiled accessors**!callback!public! !
 onAddressChange:!**compiled accessors**!callback!public! !
 onBeforeClose:!**compiled accessors**!callback!public! !
-onBeforeContextMenu:!public! !
+onBeforeContextMenu:!**compiled accessors**!callback!public! !
 onConsoleMessage:!**compiled accessors**!callback!public! !
-onCursorChange:!public! !
+onContextMenuCommand:!**compiled accessors**!callback!public! !
+onCursorChange:!**compiled accessors**!callback!public! !
+onFocusedNodeChanged:!**compiled accessors**!callback!public! !
+onFocusOut:!**compiled accessors**!callback!public! !
 onKeyboardEvent!**compiled accessors**!public!rpc! !
 onKeyboardEvent:!**compiled accessors**!public!rpc! !
 onLoadingProgressChange:!**compiled accessors**!callback!public! !
@@ -545,7 +599,9 @@ onMouseClick:button:mouseUp:clickCount:!**compiled accessors**!public!rpc! !
 onMouseMove:mouseLeave:!**compiled accessors**!public!rpc! !
 onMouseWheel:deltaX:deltaY:!**compiled accessors**!public!rpc! !
 onNavigate:!**compiled accessors**!callback!public! !
-onTextSelectionChanged:!public! !
+onPopupShow:!**compiled accessors**!callback!public! !
+onPopupSize:!**compiled accessors**!callback!public! !
+onTextSelectionChanged:!**compiled accessors**!callback!public! !
 onTitleChange:!**compiled accessors**!callback!public! !
 parseUrl:callback:!public! !
 paste!**compiled accessors**!public!rpc! !
@@ -565,18 +621,26 @@ wasHidden:!**compiled accessors**!public!rpc! !
 
 defineRpcCallbacks
 	self
-		defineRpcCallback: #onAcceleratedPaint
-			arguments: #(#elementType #sharedTextureHandle #format)
-			withAcknowledgement: true;
+		defineRpcCallback: #onAcceleratedPaint arguments: #(#elementType #sharedTextureHandle #format);
+		defineRpcCallback: #onPopupShow arguments: #(#show);
+		defineRpcCallback: #onPopupSize arguments: #(#rectangle);
 		defineRpcCallback: #onAddressChange arguments: #(#url);
 		defineRpcCallback: #onTitleChange arguments: #(#title);
+		defineRpcCallback: #onTextSelectionChanged
+			arguments: #(#selectedText #selectedRangeFrom #selectedRangeTo);
 		defineRpcCallback: #onConsoleMessage arguments: #(#level #message #source #line);
 		defineRpcCallback: #onLoadingProgressChange arguments: #(#progress);
+		defineRpcCallback: #onCursorChange arguments: #(#cursorHandle #cursorType);
+		defineRpcCallback: #onFocusOut arguments: #(#tagName #inputType #isEditable);
 		defineRpcCallback: #onFocusedNodeChanged arguments: #(#tagName #inputType #isEditable);
 		defineRpcCallback: #onMouseOver arguments: #(#tagName #inputType #href #rectangle);
 		defineRpcCallback: #onNavigate
 			arguments: #(#destination #formData #hashChange #navigationType #userInitiated);
-		defineRpcCallback: #onBeforeClose withAcknowledgement: true!
+		defineRpcCallback: #onBeforeClose;
+		defineRpcCallback: #onBeforeContextMenu
+			arguments: #(#origin #nodeType #nodeMedia #nodeMediaStateFlags #nodeEditFlags #selectionText)
+			hasReturnValue: true;
+		defineRpcCallback: #onContextMenuCommand arguments: #(#commandId #eventFlags)!
 
 defineRpcMethods
 	"Private - self defineRpcMethods"
