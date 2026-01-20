@@ -57,6 +57,9 @@ defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: aBoolean
 	source := Smalltalk developmentSystem reformatSource: source contents in: self.
 	self compile: source categories: {ExternalStructure autoGenCategory. 'callback'}!
 
+defineRpcCallback: aSymbol hasReturnValue: aBoolean
+	^self defineRpcCallback: aSymbol arguments: #() hasReturnValue: aBoolean!
+
 defineRpcMethod: aSymbol
 	self
 		defineRpcMethod: aSymbol
@@ -110,6 +113,7 @@ compileRpcDefinitions!public! !
 defineRpcCallback:!private! !
 defineRpcCallback:arguments:!private! !
 defineRpcCallback:arguments:hasReturnValue:!private! !
+defineRpcCallback:hasReturnValue:!private! !
 defineRpcMethod:!private! !
 defineRpcMethod:arguments:!private! !
 defineRpcMethod:arguments:withCallback:!private! !

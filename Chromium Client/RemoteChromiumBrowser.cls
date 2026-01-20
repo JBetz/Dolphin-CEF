@@ -172,6 +172,9 @@ forward
 				at: #arguments put: nil;
 				yourself)!
 
+getViewRect: aDictionary
+	^host getViewRect!
+
 hasTextSelected
 	^selectedText notNil and: [selectedText notEmpty]!
 
@@ -215,27 +218,6 @@ loadUrl: url
 							yourself);
 				yourself)!
 
-notifyResize
-	id ifNil: [^self].
-	client send: (Dictionary new
-				at: 'type' put: 'Browser_RemoteChromiumBrowser';
-				at: 'id' put: GUID newUnique idlString;
-				at: 'browserId' put: id;
-				yourself)!
-
-notifyResize: rectangle
-	id ifNil: [^self].
-	client send: (Dictionary new
-				at: #id put: GUID newUnique idlString;
-				at: #class put: #Browser;
-				at: #method put: #NotifyResize;
-				at: #instanceId put: id;
-				at: #arguments
-					put: (Dictionary new
-							at: #rectangle put: rectangle;
-							yourself);
-				yourself)!
-
 onAcceleratedPaint: aDictionary
 	| elementType sharedTextureHandle format |
 	elementType := aDictionary at: #elementType.
@@ -272,6 +254,18 @@ onBeforeContextMenu: aDictionary
 		nodeMediaStateFlags: nodeMediaStateFlags
 		nodeEditFlags: nodeEditFlags
 		selectionText: selectionText!
+
+onBeforePopup: aDictionary
+	| targetUrl targetFrameName targetDisposition userGesture |
+	targetUrl := aDictionary at: #targetUrl.
+	targetFrameName := aDictionary at: #targetFrameName.
+	targetDisposition := aDictionary at: #targetDisposition.
+	userGesture := aDictionary at: #userGesture.
+	^host
+		onBeforePopup: targetUrl
+		targetFrameName: targetFrameName
+		targetDisposition: targetDisposition
+		userGesture: userGesture!
 
 onConsoleMessage: aDictionary
 	| level message source line |
@@ -408,6 +402,16 @@ onNavigate: aDictionary
 		navigationType: navigationType
 		userInitiated: userInitiated.
 	^nil!
+
+onOpenUrlFromTab: aDictionary
+	| targetUrl targetDisposition userGesture |
+	targetUrl := aDictionary at: #targetUrl.
+	targetDisposition := aDictionary at: #targetDisposition.
+	userGesture := aDictionary at: #userGesture.
+	^host
+		onOpenUrlFromTab: targetUrl
+		targetDisposition: targetDisposition
+		userGesture: userGesture!
 
 onPopupShow: aDictionary
 	| show |
@@ -548,6 +552,16 @@ wasHidden: hidden
 					put: (Dictionary new
 							at: #hidden put: hidden;
 							yourself);
+				yourself)!
+
+wasResized
+	id ifNil: [^self].
+	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
+				at: #class put: #Browser;
+				at: #method put: #WasResized;
+				at: #instanceId put: id;
+				at: #arguments put: nil;
 				yourself)! !
 
 !RemoteChromiumBrowser categoriesForMethods!
@@ -572,6 +586,7 @@ focusedElement!public! !
 focusedElement:!public! !
 forceClose!**compiled accessors**!public!rpc! !
 forward!**compiled accessors**!public!rpc! !
+getViewRect:!**compiled accessors**!callback!public! !
 hasTextSelected!public! !
 host!public! !
 host:!public! !
@@ -581,12 +596,11 @@ id:!public! !
 isFocusedElementEditable!public! !
 loadUrl!**compiled accessors**!public!rpc! !
 loadUrl:!**compiled accessors**!public!rpc! !
-notifyResize!**compiled accessors**!public!rpc! !
-notifyResize:!**compiled accessors**!public!rpc! !
 onAcceleratedPaint:!**compiled accessors**!callback!public! !
 onAddressChange:!**compiled accessors**!callback!public! !
 onBeforeClose:!**compiled accessors**!callback!public! !
 onBeforeContextMenu:!**compiled accessors**!callback!public! !
+onBeforePopup:!**compiled accessors**!callback!public! !
 onConsoleMessage:!**compiled accessors**!callback!public! !
 onContextMenuCommand:!**compiled accessors**!callback!public! !
 onCursorChange:!**compiled accessors**!callback!public! !
@@ -599,6 +613,7 @@ onMouseClick:button:mouseUp:clickCount:!**compiled accessors**!public!rpc! !
 onMouseMove:mouseLeave:!**compiled accessors**!public!rpc! !
 onMouseWheel:deltaX:deltaY:!**compiled accessors**!public!rpc! !
 onNavigate:!**compiled accessors**!callback!public! !
+onOpenUrlFromTab:!**compiled accessors**!callback!public! !
 onPopupShow:!**compiled accessors**!callback!public! !
 onPopupSize:!**compiled accessors**!callback!public! !
 onTextSelectionChanged:!**compiled accessors**!callback!public! !
@@ -615,13 +630,18 @@ tryClose!**compiled accessors**!public!rpc! !
 tryClose:!**compiled accessors**!public!rpc! !
 undo!**compiled accessors**!public!rpc! !
 wasHidden:!**compiled accessors**!public!rpc! !
+wasResized!**compiled accessors**!public!rpc! !
 !
 
 !RemoteChromiumBrowser class methodsFor!
 
 defineRpcCallbacks
 	self
+		defineRpcCallback: #getViewRect hasReturnValue: true;
 		defineRpcCallback: #onAcceleratedPaint arguments: #(#elementType #sharedTextureHandle #format);
+		defineRpcCallback: #onBeforePopup
+			arguments: #(#targetUrl #targetFrameName #targetDisposition #userGesture)
+			hasReturnValue: true;
 		defineRpcCallback: #onPopupShow arguments: #(#show);
 		defineRpcCallback: #onPopupSize arguments: #(#rectangle);
 		defineRpcCallback: #onAddressChange arguments: #(#url);
@@ -636,6 +656,9 @@ defineRpcCallbacks
 		defineRpcCallback: #onMouseOver arguments: #(#tagName #inputType #href #rectangle);
 		defineRpcCallback: #onNavigate
 			arguments: #(#destination #formData #hashChange #navigationType #userInitiated);
+		defineRpcCallback: #onOpenUrlFromTab
+			arguments: #(#targetUrl #targetDisposition #userGesture)
+			hasReturnValue: true;
 		defineRpcCallback: #onBeforeClose;
 		defineRpcCallback: #onBeforeContextMenu
 			arguments: #(#origin #nodeType #nodeMedia #nodeMediaStateFlags #nodeEditFlags #selectionText)
@@ -653,9 +676,9 @@ defineRpcMethods
 		defineRpcMethod: #defocus;
 		defineRpcMethod: #canGoBack withCallback: true;
 		defineRpcMethod: #canGoForward withCallback: true;
+		defineRpcMethod: #wasResized;
 		defineRpcMethod: #wasHidden arguments: #(#hidden);
 		defineRpcMethod: #loadUrl arguments: #(#url);
-		defineRpcMethod: #notifyResize arguments: #(#rectangle);
 		defineRpcMethod: #evalJavaScript
 			arguments: #(#code #scriptUrl #startLine)
 			withCallback: true;
