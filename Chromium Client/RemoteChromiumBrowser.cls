@@ -95,14 +95,7 @@ cut
 				yourself)!
 
 defocus
-	id ifNil: [^self].
-	client send: (Dictionary new
-				at: #id put: GUID newUnique idlString;
-				at: #class put: #Browser;
-				at: #method put: #Defocus;
-				at: #instanceId put: id;
-				at: #arguments put: nil;
-				yourself)!
+	self focus: false!
 
 delete
 	id ifNil: [^self].
