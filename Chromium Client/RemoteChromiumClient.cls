@@ -1,9 +1,9 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 RemoteChromiumObject subclass: #RemoteChromiumClient
-	instanceVariableNames: 'id process socket remoteBrowsers callbacks'
+	instanceVariableNames: 'id process socket remoteBrowsers callbacks windowMessageId'
 	classVariableNames: 'Singleton'
-	poolDictionaries: ''
+	poolDictionaries: 'Win32Constants'
 	classInstanceVariableNames: ''!
 
 RemoteChromiumClient guid: (GUID fromString: '{73cc809c-283a-4c54-b384-f8b4ebf6e386}')!
@@ -18,8 +18,7 @@ connect
 	| address |
 	address := NET_Address fromString: 'localhost'.
 	address waitUntilResolved.
-	socket := NET_StreamSocket address: address port: 3000.
-	self initializeClient!
+	socket := NET_StreamSocket address: address port: 3000!
 
 createBrowser: aUrl rectangle: aRectangle html: aString for: aRemoteChromiumBrowser
 	self send: (Dictionary new
@@ -52,31 +51,17 @@ disconnect
 	callbacks removeAll!
 
 ensureRunning
-	socket ifNil: [self connect]!
+	self start!
+
+forceStop
+	process := nil.
+	socket := nil!
 
 initialize
 	super initialize.
 	id := 1.
 	remoteBrowsers := Dictionary new.
 	callbacks := Dictionary new!
-
-initializeClient
-	| kernel processId messageWindowHandle |
-	kernel := KernelLibrary default.
-	processId := kernel getProcessId: kernel getCurrentProcess.
-	messageWindowHandle := VMLibrary default registryAt: #MsgWndHandle.
-	self send: (Dictionary new
-				at: #class put: #Client;
-				at: #method put: #Initialize;
-				at: #instanceId put: 1;
-				at: #id put: GUID newUnique idlString;
-				at: #arguments
-					put: (Dictionary new
-							at: #clientProcessId put: processId;
-							at: #clientMessageWindowHandle put: messageWindowHandle asInteger;
-							yourself);
-				yourself)
-		onSuccess: [:response | ]!
 
 receiveMessages
 	| messages messageJson |
@@ -106,14 +91,6 @@ respond: aString value: anObject
 				at: #error put: nil;
 				yourself)!
 
-run
-	| directory |
-	directory := FileLocator imageRelative: 'cef'.
-	process := ExternalProcess new
-				directory: directory;
-				commandLine: directory , '\CefProcessRunner';
-				executeAsync!
-
 send: aDictionary
 	socket ifNil: [^self].
 	socket send: aDictionary!
@@ -125,16 +102,70 @@ send: aDictionary onSuccess: aBlock
 	socket send: aDictionary!
 
 shutdown
+	socket ifNil: [^self].
 	self send: (Dictionary new
 				at: #class put: #Client;
 				at: #method put: #Shutdown;
 				at: #id put: GUID newUnique idlString;
 				yourself)!
 
+start
+	[self startProcess] on: Error
+		do: 
+			[:error |
+			Transcript
+				display: ('Error starting Chromium process: <1d>' expandMacrosWith: error);
+				cr.
+			(Delay forSeconds: 1) wait.
+			self start].
+	[self connect] on: Error
+		do: 
+			[:error |
+			Transcript
+				display: ('Error connecting to Chromium process: <1d>' expandMacrosWith: error);
+				cr.
+			(Delay forSeconds: 1) wait.
+			self start]!
+
+startProcess
+	| processId messageWindowHandle commandLine readyEvent |
+	(process notNil and: [process isAlive]) ifTrue: [^self].
+	processId := KernelLibrary default getCurrentProcessId.
+	messageWindowHandle := VMLibrary default registryAt: #MsgWndHandle.
+	windowMessageId := UserLibrary default
+				registerWindowMessage: ('ChromiumRPC_<1d>' expandMacrosWith: processId).
+	commandLine := 'cef/CefProcessRunner --application-process-id=<1d> --application-message-window-handle=<2d> --window-message-id=<3d>'
+				expandMacrosWith: processId
+				with: messageWindowHandle
+				with: windowMessageId.
+	readyEvent := KernelLibrary default
+				createEvent: nil
+				bManualReset: true
+				bInitialState: false
+				lpName: 'ChromiumSocketReady'.
+	process := ExternalProcess new
+				directory: (FileLocator imageRelative: 'cef');
+				commandLine: commandLine;
+				stdoutFilename: 'cef.out';
+				stderrFilename: 'cef.err';
+				executeAsync.
+	KernelLibrary default waitForSingleObject: readyEvent dwMilliseconds: INFINITE!
+
 stop
 	self
 		shutdown;
-		disconnect!
+		disconnect;
+		stopProcess!
+
+stopProcess
+	process ifNil: [^self].
+	process kill.
+	[process isAlive] whileTrue: 
+			[Transcript
+				display: 'Waiting for Chromium process to terminate ...';
+				cr.
+			(Delay forSeconds: 1) wait].
+	process := nil!
 
 update
 	| messages |
@@ -168,16 +199,18 @@ connect!private! !
 createBrowser:rectangle:html:for:!public!rpc! !
 disconnect!private! !
 ensureRunning!public! !
+forceStop!public! !
 initialize!public! !
-initializeClient!private! !
 receiveMessages!private! !
 respond:!public! !
 respond:value:!public! !
-run!private! !
 send:!public! !
 send:onSuccess:!public! !
 shutdown!private! !
+start!public! !
+startProcess!private! !
 stop!public! !
+stopProcess!private! !
 update!public! !
 !
 
@@ -190,12 +223,28 @@ current
 ensureRunning
 	self current ensureRunning!
 
+initialize
+	"self initialize"
+
+	(SessionManager current)
+		when: #sessionStarted
+			send: #onStartup
+			to: self;
+		when: #sessionStopped
+			send: #onShutdown
+			to: self!
+
 new
 	^self shouldNotImplement!
 
 onShutdown
 	Singleton ifNil: [^self].
 	Singleton stop.
+	Singleton := nil!
+
+onStartup
+	Singleton ifNil: [^self].
+	Singleton forceStop.
 	Singleton := nil!
 
 reset
@@ -211,8 +260,10 @@ update
 !RemoteChromiumClient class categoriesForMethods!
 current!public! !
 ensureRunning!public! !
+initialize!public! !
 new!public! !
 onShutdown!public! !
+onStartup!public! !
 reset!public! !
 rpcClassName!public! !
 update!public! !
