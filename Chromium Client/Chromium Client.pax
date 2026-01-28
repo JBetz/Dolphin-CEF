@@ -8,6 +8,8 @@ package classNames
 	add: #CefNavigationEvent;
 	add: #ContextMenuCommand;
 	add: #ContextMenuConfiguration;
+	add: #ImageDownload;
+	add: #PNGImageData;
 	add: #RemoteChromiumBrowser;
 	add: #RemoteChromiumClient;
 	add: #RemoteChromiumObject;
@@ -18,6 +20,7 @@ package methodNames
 	add: #CefKeyEvent -> #asDictionary;
 	add: #CefMouseEvent -> #asDictionary;
 	add: #CefRect -> #asDictionary;
+	add: #KernelLibrary -> #getCurrentProcessId;
 	add: #KernelLibrary -> #getProcessId:;
 	add: 'CefJavaScriptException class' -> #fromDictionary:;
 	add: 'CefRect class' -> #fromDictionary:;
@@ -64,6 +67,18 @@ Object subclass: #ContextMenuConfiguration
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+Object subclass: #ImageDownload
+	instanceVariableNames: 'imageUrl httpStatusCode images'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #PNGImageData
+	instanceVariableNames: 'data width height'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 Object subclass: #RemoteChromiumObject
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -83,9 +98,9 @@ RemoteChromiumObject subclass: #RemoteChromiumBrowser
 	classInstanceVariableNames: ''!
 
 RemoteChromiumObject subclass: #RemoteChromiumClient
-	instanceVariableNames: 'id process socket remoteBrowsers callbacks'
+	instanceVariableNames: 'id process socket remoteBrowsers callbacks windowMessageId'
 	classVariableNames: 'Singleton'
-	poolDictionaries: ''
+	poolDictionaries: 'Win32Constants'
 	classInstanceVariableNames: ''!
 
 "Loose Methods"!
@@ -169,6 +184,14 @@ fromDictionary:!public! !
 
 !KernelLibrary methodsFor!
 
+getCurrentProcessId
+	"Answer thread identifier of the currently executing thread (like Processor activeProcess).
+
+		DWORD GetCurrentProcessId(VOID)"
+
+	<stdcall: dword GetCurrentProcessId>
+	^self invalidCall: _failureCode!
+
 getProcessId: aHandle
 	"Retrieves the process identifier of the specified process.
 
@@ -180,6 +203,7 @@ getProcessId: aHandle
 	^self invalidCall: _failureCode! !
 
 !KernelLibrary categoriesForMethods!
+getCurrentProcessId!public!win32 functions-process and thread! !
 getProcessId:!public!win32 functions-process and thread! !
 !
 

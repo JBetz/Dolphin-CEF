@@ -107,6 +107,23 @@ delete
 				at: #arguments put: nil;
 				yourself)!
 
+downloadImage: imageUrl isFavicon: isFavicon maxImageSize: maxImageSize bypassCache: bypassCache callback: callback
+	id ifNil: [^self].
+	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
+				at: #class put: #Browser;
+				at: #method put: #DownloadImage;
+				at: #instanceId put: id;
+				at: #arguments
+					put: (Dictionary new
+							at: #imageUrl put: imageUrl;
+							at: #isFavicon put: isFavicon;
+							at: #maxImageSize put: maxImageSize;
+							at: #bypassCache put: bypassCache;
+							yourself);
+				yourself)
+		onSuccess: callback!
+
 evalJavaScript: aString callback: aBlock
 	self
 		evalJavaScript: aString
@@ -285,6 +302,12 @@ onCursorChange: aDictionary
 	cursorHandle := aDictionary at: #cursorHandle.
 	cursorType := aDictionary at: #cursorType.
 	host onCursorChange: cursorHandle cursorType: cursorType.
+	^nil!
+
+onFaviconUrlChange: aDictionary
+	| iconUrls |
+	iconUrls := aDictionary at: #iconUrls.
+	host onFaviconUrlChange: iconUrls.
 	^nil!
 
 onFocusedNodeChanged: aDictionary
@@ -571,6 +594,7 @@ copy!**compiled accessors**!public!rpc! !
 cut!**compiled accessors**!public!rpc! !
 defocus!**compiled accessors**!public!rpc! !
 delete!**compiled accessors**!public!rpc! !
+downloadImage:isFavicon:maxImageSize:bypassCache:callback:!**compiled accessors**!public!rpc! !
 evalJavaScript:callback:!public! !
 evalJavaScript:scriptUrl:startLine:callback:!**compiled accessors**!public!rpc! !
 focus!**compiled accessors**!public!rpc! !
@@ -597,6 +621,7 @@ onBeforePopup:!**compiled accessors**!callback!public! !
 onConsoleMessage:!**compiled accessors**!callback!public! !
 onContextMenuCommand:!**compiled accessors**!callback!public! !
 onCursorChange:!**compiled accessors**!callback!public! !
+onFaviconUrlChange:!**compiled accessors**!callback!public! !
 onFocusedNodeChanged:!**compiled accessors**!callback!public! !
 onFocusOut:!**compiled accessors**!callback!public! !
 onKeyboardEvent!**compiled accessors**!public!rpc! !
@@ -644,6 +669,7 @@ defineRpcCallbacks
 		defineRpcCallback: #onConsoleMessage arguments: #(#level #message #source #line);
 		defineRpcCallback: #onLoadingProgressChange arguments: #(#progress);
 		defineRpcCallback: #onCursorChange arguments: #(#cursorHandle #cursorType);
+		defineRpcCallback: #onFaviconUrlChange arguments: #(#iconUrls);
 		defineRpcCallback: #onFocusOut arguments: #(#tagName #inputType #isEditable);
 		defineRpcCallback: #onFocusedNodeChanged arguments: #(#tagName #inputType #isEditable);
 		defineRpcCallback: #onMouseOver arguments: #(#tagName #inputType #href #rectangle);
@@ -665,8 +691,7 @@ defineRpcMethods
 		defineRpcMethod: #back;
 		defineRpcMethod: #forward;
 		defineRpcMethod: #reload;
-		defineRpcMethod: #focus arguments: #(focus);
-		defineRpcMethod: #defocus;
+		defineRpcMethod: #focus arguments: #(#focus);
 		defineRpcMethod: #canGoBack withCallback: true;
 		defineRpcMethod: #canGoForward withCallback: true;
 		defineRpcMethod: #wasResized;
@@ -687,7 +712,10 @@ defineRpcMethods
 		defineRpcMethod: #onMouseWheel arguments: #(#event #deltaX #deltaY);
 		defineRpcMethod: #onKeyboardEvent arguments: #(#event);
 		defineRpcMethod: #close arguments: #(#forceClose);
-		defineRpcMethod: #tryClose withCallback: true!
+		defineRpcMethod: #tryClose withCallback: true;
+		defineRpcMethod: #downloadImage
+			arguments: #(#imageUrl #isFavicon #maxImageSize #bypassCache)
+			withCallback: true!
 
 initialize
 	"self initialize"
