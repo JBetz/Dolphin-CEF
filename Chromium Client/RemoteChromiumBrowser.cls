@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 RemoteChromiumObject subclass: #RemoteChromiumBrowser
-	instanceVariableNames: 'id client host canGoBack canGoForward isReadyToClose focusedElement hoveredElement queuedUrl selectedText selectedRange actionQueue'
+	instanceVariableNames: 'id client host isLoading canGoBack canGoForward isReadyToClose focusedElement hoveredElement queuedUrl actionQueue'
 	classVariableNames: 'ContextMenuCommandMap CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -182,11 +182,41 @@ forward
 				at: #arguments put: nil;
 				yourself)!
 
+getFrameRate: callback
+	id ifNil: [^self].
+	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
+				at: #class put: #Browser;
+				at: #method put: #GetFrameRate;
+				at: #instanceId put: id;
+				at: #arguments put: nil;
+				yourself)
+		onSuccess: callback!
+
+getScreenPoint: aDictionary
+	| view |
+	view := aDictionary at: #view.
+	^host getScreenPoint: view!
+
+getSource: callback
+	id ifNil: [^self].
+	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
+				at: #class put: #Browser;
+				at: #method put: #GetSource;
+				at: #instanceId put: id;
+				at: #arguments put: nil;
+				yourself)
+		onSuccess: callback!
+
 getViewRect: aDictionary
 	^host getViewRect!
 
 hasTextSelected
-	^selectedText notNil and: [selectedText notEmpty]!
+	^host selectedText notNil and: [host selectedText notEmpty]!
+
+hide
+	self wasHidden: true!
 
 host
 	^host!
@@ -196,6 +226,9 @@ host: aRenderedWebpage
 
 hoveredElement
 	^hoveredElement!
+
+hoveredElement: aHtmlElement
+	hoveredElement := aHtmlElement!
 
 id
 	^id!
@@ -294,8 +327,7 @@ onContextMenuCommand: aDictionary
 	| commandId eventFlags |
 	commandId := aDictionary at: #commandId.
 	eventFlags := aDictionary at: #eventFlags.
-	host onContextMenuCommand: commandId eventFlags: eventFlags.
-	^nil!
+	^host onContextMenuCommand: commandId eventFlags: eventFlags!
 
 onCursorChange: aDictionary
 	| cursorHandle cursorType |
@@ -353,10 +385,49 @@ onKeyboardEvent: event
 							yourself);
 				yourself)!
 
+onLoadEnd: aDictionary
+	| httpStatusCode |
+	httpStatusCode := aDictionary at: #httpStatusCode.
+	host onLoadEnd: httpStatusCode.
+	^nil!
+
+onLoadError: aDictionary
+	| errorCode errorText failedUrl |
+	errorCode := aDictionary at: #errorCode.
+	errorText := aDictionary at: #errorText.
+	failedUrl := aDictionary at: #failedUrl.
+	host
+		onLoadError: errorCode
+		errorText: errorText
+		failedUrl: failedUrl.
+	^nil!
+
 onLoadingProgressChange: aDictionary
 	| progress |
 	progress := aDictionary at: #progress.
 	host onLoadingProgressChange: progress.
+	^nil!
+
+onLoadingStateChange: aDictionary
+	| isLoading canGoBack canGoForward |
+	isLoading := aDictionary at: #isLoading.
+	canGoBack := aDictionary at: #canGoBack.
+	canGoForward := aDictionary at: #canGoForward.
+	self
+		onLoadingStateChange: isLoading
+		canGoBack: canGoBack
+		canGoForward: canGoForward.
+	^nil!
+
+onLoadingStateChange: aBoolean canGoBack: anotherBoolean canGoForward: thirdBoolean
+	isLoading := aBoolean.
+	canGoBack := anotherBoolean.
+	canGoForward := thirdBoolean!
+
+onLoadStart: aDictionary
+	| transitionType |
+	transitionType := aDictionary at: #transitionType.
+	host onLoadStart: transitionType.
 	^nil!
 
 onMouseClick: event button: button mouseUp: mouseUp clickCount: clickCount
@@ -429,6 +500,23 @@ onOpenUrlFromTab: aDictionary
 		targetDisposition: targetDisposition
 		userGesture: userGesture!
 
+onPaint: aDictionary
+	| elementType width height dirtyRects sharedMemoryHandle sharedMemorySize |
+	elementType := aDictionary at: #elementType.
+	width := aDictionary at: #width.
+	height := aDictionary at: #height.
+	dirtyRects := aDictionary at: #dirtyRects.
+	sharedMemoryHandle := aDictionary at: #sharedMemoryHandle.
+	sharedMemorySize := aDictionary at: #sharedMemorySize.
+	host
+		onPaint: elementType
+		width: width
+		height: height
+		dirtyRects: dirtyRects
+		sharedMemoryHandle: sharedMemoryHandle
+		sharedMemorySize: sharedMemorySize.
+	^nil!
+
 onPopupShow: aDictionary
 	| show |
 	show := aDictionary at: #show.
@@ -456,6 +544,12 @@ onTitleChange: aDictionary
 	| title |
 	title := aDictionary at: #title.
 	host onTitleChange: title.
+	^nil!
+
+onTooltip: aDictionary
+	| text |
+	text := aDictionary at: #text.
+	host onTooltip: text.
 	^nil!
 
 parseUrl: aString callback: aBlock
@@ -500,13 +594,6 @@ redo
 				at: #arguments put: nil;
 				yourself)!
 
-refreshNavigationState
-	canGoBack := nil.
-	canGoForward := nil.
-	self
-		canGoBack: [:aBoolean | canGoBack := aBoolean];
-		canGoForward: [:aBoolean | canGoForward := aBoolean]!
-
 reload
 	id ifNil: [^self].
 	client send: (Dictionary new
@@ -527,8 +614,18 @@ selectAll
 				at: #arguments put: nil;
 				yourself)!
 
-selectedText
-	^selectedText!
+setFrameRate: frameRate
+	id ifNil: [^self].
+	client send: (Dictionary new
+				at: #id put: GUID newUnique idlString;
+				at: #class put: #Browser;
+				at: #method put: #SetFrameRate;
+				at: #instanceId put: id;
+				at: #arguments
+					put: (Dictionary new
+							at: #frameRate put: frameRate;
+							yourself);
+				yourself)!
 
 show
 	self wasHidden: false!
@@ -603,11 +700,16 @@ focusedElement!public! !
 focusedElement:!public! !
 forceClose!**compiled accessors**!public!rpc! !
 forward!**compiled accessors**!public!rpc! !
+getFrameRate:!**compiled accessors**!public!rpc! !
+getScreenPoint:!**compiled accessors**!callback!public! !
+getSource:!**compiled accessors**!public!rpc! !
 getViewRect:!**compiled accessors**!callback!public! !
 hasTextSelected!public! !
+hide!**compiled accessors**!public!rpc! !
 host!public! !
 host:!public! !
 hoveredElement!public! !
+hoveredElement:!public! !
 id!public! !
 id:!public! !
 isFocusedElementEditable!public! !
@@ -626,23 +728,29 @@ onFocusedNodeChanged:!**compiled accessors**!callback!public! !
 onFocusOut:!**compiled accessors**!callback!public! !
 onKeyboardEvent!**compiled accessors**!public!rpc! !
 onKeyboardEvent:!**compiled accessors**!public!rpc! !
+onLoadEnd:!**compiled accessors**!callback!public! !
+onLoadError:!**compiled accessors**!callback!public! !
 onLoadingProgressChange:!**compiled accessors**!callback!public! !
+onLoadingStateChange:!**compiled accessors**!callback!public! !
+onLoadingStateChange:canGoBack:canGoForward:!**compiled accessors**!callback!public! !
+onLoadStart:!**compiled accessors**!callback!public! !
 onMouseClick:button:mouseUp:clickCount:!**compiled accessors**!public!rpc! !
 onMouseMove:mouseLeave:!**compiled accessors**!public!rpc! !
 onMouseWheel:deltaX:deltaY:!**compiled accessors**!public!rpc! !
 onNavigate:!**compiled accessors**!callback!public! !
 onOpenUrlFromTab:!**compiled accessors**!callback!public! !
+onPaint:!**compiled accessors**!callback!public! !
 onPopupShow:!**compiled accessors**!callback!public! !
 onPopupSize:!**compiled accessors**!callback!public! !
 onTextSelectionChanged:!**compiled accessors**!callback!public! !
 onTitleChange:!**compiled accessors**!callback!public! !
+onTooltip:!**compiled accessors**!callback!public! !
 parseUrl:callback:!public! !
 paste!**compiled accessors**!public!rpc! !
 redo!**compiled accessors**!public!rpc! !
-refreshNavigationState!public!rpc! !
 reload!**compiled accessors**!public!rpc! !
 selectAll!**compiled accessors**!public!rpc! !
-selectedText!public! !
+setFrameRate:!**compiled accessors**!public!rpc! !
 show!public! !
 tryClose!**compiled accessors**!public!rpc! !
 tryClose:!**compiled accessors**!public!rpc! !
@@ -655,7 +763,12 @@ wasResized!**compiled accessors**!public!rpc! !
 
 defineRpcCallbacks
 	self
+		defineRpcCallback: #getScreenPoint
+			arguments: #(#view)
+			hasReturnValue: true;
 		defineRpcCallback: #getViewRect hasReturnValue: true;
+		defineRpcCallback: #onPaint
+			arguments: #(#elementType #width #height #dirtyRects #sharedMemoryHandle #sharedMemorySize);
 		defineRpcCallback: #onAcceleratedPaint arguments: #(#elementType #sharedTextureHandle #format);
 		defineRpcCallback: #onBeforePopup
 			arguments: #(#targetUrl #targetFrameName #targetDisposition #userGesture)
@@ -682,7 +795,16 @@ defineRpcCallbacks
 		defineRpcCallback: #onBeforeContextMenu
 			arguments: #(#origin #nodeType #nodeMedia #nodeMediaStateFlags #nodeEditFlags #selectionText)
 			hasReturnValue: true;
-		defineRpcCallback: #onContextMenuCommand arguments: #(#commandId #eventFlags)!
+		defineRpcCallback: #onContextMenuCommand
+			arguments: #(#commandId #eventFlags)
+			hasReturnValue: true;
+		defineRpcCallback: #onLoadingStateChange
+			arguments: #(#isLoading #canGoBack #canGoForward)
+			target: #self;
+		defineRpcCallback: #onLoadStart arguments: #(#transitionType);
+		defineRpcCallback: #onLoadEnd arguments: #(#httpStatusCode);
+		defineRpcCallback: #onLoadError arguments: #(#errorCode #errorText #failedUrl);
+		defineRpcCallback: #onTooltip arguments: #(#text)!
 
 defineRpcMethods
 	"Private - self defineRpcMethods"
@@ -715,7 +837,10 @@ defineRpcMethods
 		defineRpcMethod: #tryClose withCallback: true;
 		defineRpcMethod: #downloadImage
 			arguments: #(#imageUrl #isFavicon #maxImageSize #bypassCache)
-			withCallback: true!
+			withCallback: true;
+		defineRpcMethod: #getSource withCallback: true;
+		defineRpcMethod: #getFrameRate withCallback: true;
+		defineRpcMethod: #setFrameRate arguments: #(#frameRate)!
 
 initialize
 	"self initialize"

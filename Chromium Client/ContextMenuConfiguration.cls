@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #ContextMenuConfiguration
-	instanceVariableNames: 'browserId commands'
+	instanceVariableNames: 'commands'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -23,6 +23,12 @@ asDictionary
 		at: #commands put: (commands collect: [:each | each asDictionary]) asArray;
 		yourself!
 
+at: anInteger put: anotherInteger label: aString
+	commands add: (ContextMenuCommand new
+				index: anInteger;
+				commandId: anotherInteger;
+				label: aString)!
+
 commands
 	^commands!
 
@@ -36,6 +42,7 @@ initialize
 !ContextMenuConfiguration categoriesForMethods!
 addCommand:!public! !
 asDictionary!public! !
+at:put:label:!public! !
 commands!accessing!public! !
 commands:!accessing!private! !
 initialize!public! !

@@ -62,7 +62,7 @@ Object subclass: #ContextMenuCommand
 	classInstanceVariableNames: ''!
 
 Object subclass: #ContextMenuConfiguration
-	instanceVariableNames: 'browserId commands'
+	instanceVariableNames: 'commands'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -92,7 +92,7 @@ Object subclass: #RpcResponse
 	classInstanceVariableNames: ''!
 
 RemoteChromiumObject subclass: #RemoteChromiumBrowser
-	instanceVariableNames: 'id client host canGoBack canGoForward isReadyToClose focusedElement hoveredElement queuedUrl selectedText selectedRange actionQueue'
+	instanceVariableNames: 'id client host isLoading canGoBack canGoForward isReadyToClose focusedElement hoveredElement queuedUrl actionQueue'
 	classVariableNames: 'ContextMenuCommandMap CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!

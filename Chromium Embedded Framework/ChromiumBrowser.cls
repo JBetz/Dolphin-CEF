@@ -278,7 +278,6 @@ initializeOffscreenClient
 		enableContextMenuHandlerAndDelegateTo: self;
 		enableDisplayHandlerAndDelegateTo: self;
 		enableFindHandlerAndDelegateTo: self;
-		enableFrameHandlerAndDelegateTo: self;
 		enableLifeSpanHandlerAndDelegateTo: self;
 		enableLoadHandlerAndDelegateTo: self;
 		enableRenderHandlerAndDelegateTo: self;
@@ -434,18 +433,6 @@ onFindResult: aCefFindHandler browser: browser identifier: identifier count: cou
 		selectionRectangle: selectionRect asRectangle.
 	^0!
 
-onFrameAttached: frameHandler browser: browser frame: frame reattached: reattched
-	^0!
-
-onFrameCreated: frameHandler browser: browser frame: frame
-	^0!
-
-onFrameDestroyed: frameHandler browser: browser frame: frame
-	^0!
-
-onFrameDetached: frameHandler browser: browser frame: frame
-	^0!
-
 onFullscreenModeChange: displayHandler browser: browser fullscreen: fullscreen
 	^0!
 
@@ -463,10 +450,6 @@ onLoadingStateChange: loadHandler browser: browser isLoading: isLoading canGoBac
 	^0!
 
 onLoadStart: loadHandler browser: browser frame: frame transitionType: transitionType
-	^0!
-
-onMainFrameChanged: frameHandler browser: browser oldFrame: oldFrame newFrame: newFrame
-	host notNil & host hasFocus ifTrue: [self focus].
 	^0!
 
 onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess
@@ -699,17 +682,12 @@ onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!pri
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
 onFaviconUrlChange:browser:iconUrls:!cef event handler!display handler!private! !
 onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
-onFrameAttached:browser:frame:reattached:!cef event handler!frame handler!private! !
-onFrameCreated:browser:frame:!cef event handler!frame handler!private! !
-onFrameDestroyed:browser:frame:!cef event handler!frame handler!private! !
-onFrameDetached:browser:frame:!cef event handler!frame handler!private! !
 onFullscreenModeChange:browser:fullscreen:!cef event handler!display handler!private! !
 onLoadEnd:browser:frame:httpStatusCode:!cef event handler!load handler!private! !
 onLoadError:browser:frame:errorCode:errorText:failedUrl:!cef event handler!load handler!private! !
 onLoadingProgressChange:browser:progress:!cef event handler!display handler!private! !
 onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler!load handler!private! !
 onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
-onMainFrameChanged:browser:oldFrame:newFrame:!cef event handler!frame handler!private! !
 onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:!cef event handler!display handler!private! !
 onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !

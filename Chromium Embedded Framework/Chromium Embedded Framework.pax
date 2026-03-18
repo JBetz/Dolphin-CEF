@@ -96,16 +96,12 @@ package classNames
 	add: #CefWindowInfo;
 	add: #CefX509Certificate;
 	add: #ChromiumBrowser;
-	add: #CInteropLibrary;
 	add: #QWORDArray;
 	yourself.
 
 package methodNames
 	add: #AnsiString -> #asCefString;
 	add: #Rectangle -> #asCefRect;
-	add: #String -> #fromSnakeCaseToCamelCase;
-	add: #String -> #looksLikeUrl;
-	add: #String -> #uncapitalized;
 	add: #Utf16String -> #asCefString;
 	add: #Utf8String -> #asCefString;
 	yourself.
@@ -161,12 +157,6 @@ Error subclass: #CefJavaScriptException
 	classInstanceVariableNames: ''!
 
 ExternalLibrary subclass: #CefLibrary
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-ExternalLibrary subclass: #CInteropLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -640,36 +630,6 @@ asCefRect
 
 !Rectangle categoriesForMethods!
 asCefRect!public! !
-!
-
-!String methodsFor!
-
-fromSnakeCaseToCamelCase
-	| words |
-	words := '_' split: self.
-	^words allButFirst inject: words first into: [:total :currentWord | total , currentWord capitalized]!
-
-looksLikeUrl
-	^((self contains: '.') or: [self contains: ':/']) and: [(self includes: Character space) not]!
-
-uncapitalized
-	"Answer a <readableString> which is a copy of the receiver but with 
-	the first character converted to its lowercase equivalent."
-
-	| size write read |
-	size := self size.
-	size == 0 ifTrue: [^self].
-	write := self species writeStream: size.
-	read := self readStream.
-	write
-		nextPut: read next asLowercase;
-		nextPutAll: read upToEnd.
-	^write contents! !
-
-!String categoriesForMethods!
-fromSnakeCaseToCamelCase!public! !
-looksLikeUrl!public! !
-uncapitalized!public! !
 !
 
 !Utf16String methodsFor!

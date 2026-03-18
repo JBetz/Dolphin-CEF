@@ -22,12 +22,15 @@ compileRpcDefinitions
 		defineRpcCallbacks!
 
 defineRpcCallback: aSymbol
-	self defineRpcCallback: aSymbol arguments: #() hasReturnValue: false!
+	self defineRpcCallback: aSymbol arguments: #() hasReturnValue: false target: #host!
 
 defineRpcCallback: aSymbol arguments: aCollection
-	^self defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: false!
+	^self defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: false target: #host!
 
 defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: aBoolean
+	^self defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: aBoolean target: #host!
+
+defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: aBoolean target: anotherSymbol
 	| methodHeader source |
 	methodHeader := aSymbol , ': aDictionary'.
 	source := String writeStream: 256.
@@ -43,10 +46,13 @@ defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: aBoolean
 				crtab].
 	aBoolean ifTrue: [source nextPutAll: '^'].
 	aCollection isEmpty
-		ifTrue: [source nextPutAll: ('host <1s>' expandMacrosWith: aSymbol)]
+		ifTrue: [source nextPutAll: ('<1s> <2s>' expandMacrosWith: anotherSymbol with: aSymbol)]
 		ifFalse: 
-			[source nextPutAll: (aCollection allButFirst
-						inject: ('host <1s>: <2s>' expandMacrosWith: aSymbol with: aCollection first)
+			[source
+				nextPutAll: (aCollection allButFirst inject: ('<1s> <2s>: <3s>'
+								expandMacrosWith: anotherSymbol
+								with: aSymbol
+								with: aCollection first)
 						into: [:sum :each | sum , (' <1s>: <1s>' expandMacrosWith: each)])].
 	source nextPut: $..
 	aBoolean
@@ -56,6 +62,13 @@ defineRpcCallback: aSymbol arguments: aCollection hasReturnValue: aBoolean
 				nextPutAll: '^nil'].
 	source := Smalltalk developmentSystem reformatSource: source contents in: self.
 	self compile: source categories: {ExternalStructure autoGenCategory. 'callback'}!
+
+defineRpcCallback: aSymbol arguments: aCollection target: anotherSymbol
+	^self
+		defineRpcCallback: aSymbol
+		arguments: aCollection
+		hasReturnValue: false
+		target: anotherSymbol!
 
 defineRpcCallback: aSymbol hasReturnValue: aBoolean
 	^self defineRpcCallback: aSymbol arguments: #() hasReturnValue: aBoolean!
@@ -113,6 +126,8 @@ compileRpcDefinitions!public! !
 defineRpcCallback:!private! !
 defineRpcCallback:arguments:!private! !
 defineRpcCallback:arguments:hasReturnValue:!private! !
+defineRpcCallback:arguments:hasReturnValue:target:!private! !
+defineRpcCallback:arguments:target:!private! !
 defineRpcCallback:hasReturnValue:!private! !
 defineRpcMethod:!private! !
 defineRpcMethod:arguments:!private! !

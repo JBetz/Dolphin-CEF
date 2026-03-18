@@ -55,7 +55,7 @@ initializeCef
 	Transcript
 		display: ('CEF Version <D>' expandMacrosWith: apiVersion);
 		cr.
-	self useMultiThreadedMessageLoop ifFalse: [self initializeApp].
+	self initializeApp.
 	resultCode := self library
 				initialize_args: cefMainArgs
 				settings: cefSettings
@@ -116,17 +116,6 @@ run
 		initializeCef.
 	isRunning := true!
 
-setupMessagePumpCallback
-	| cInteropLibrary msgWindow callbackFunction |
-	cInteropLibrary := CInteropLibrary default.
-	msgWindow := SessionManager inputState msgWindow.
-	messagePumpCallbackCode := UserLibrary default registerWindowMessage: 'on_schedule_message_pump'.
-	msgWindow cefCallbackCode: messagePumpCallbackCode.
-	cInteropLibrary initializeCefCallback_hwnd: msgWindow asParameter msgId: messagePumpCallbackCode.
-	callbackFunction := (CInteropLibrary lookupMethod: #cefCallback_browserProcessHandler:delayMs:)
-				procAddress.
-	cefApp browserProcessHandler on_schedule_message_pump_work: callbackFunction!
-
 stop
 	isRunning ifFalse: [^self].
 	Transcript
@@ -143,10 +132,7 @@ stop
 
 update
 	isRunning ifFalse: [^self].
-	self library doMessageLoopWork!
-
-useMultiThreadedMessageLoop
-	^cefSettings multi_threaded_message_loop asBoolean! !
+	self library doMessageLoopWork! !
 
 !CefBrowserProcessRunner categoriesForMethods!
 ensureRunning!public! !
@@ -169,10 +155,8 @@ onRegisterCustomSchemes:registrar:!cef event handler!private! !
 onScheduleMessagePumpWork:delayMs:!cef event handler!private! !
 onUnhandledError:!public! !
 run!public! !
-setupMessagePumpCallback!public! !
 stop!public! !
 update!public! !
-useMultiThreadedMessageLoop!private! !
 !
 
 !CefBrowserProcessRunner class methodsFor!

@@ -16,11 +16,19 @@ RemoteChromiumClient comment: ''!
 
 connect
 	| address |
+	socket ifNotNil: [^self].
+	Transcript
+		display: 'Connecting to Chromium process ...';
+		cr.
 	address := NET_Address fromString: 'localhost'.
 	address waitUntilResolved.
-	socket := NET_StreamSocket address: address port: 3000!
+	socket := NET_StreamSocket address: address port: 3000.
+	socket waitUntilConnected.
+	Transcript
+		display: 'Connected to Chromium process.';
+		cr!
 
-createBrowser: aUrl rectangle: aRectangle html: aString for: aRemoteChromiumBrowser
+createBrowser: aUrl rectangle: aRectangle html: aString parentWindowHandle: aHandle windowless: aBoolean hardwareAccelerated: anotherBoolean for: aRemoteChromiumBrowser
 	self send: (Dictionary new
 				at: #class put: #Client;
 				at: #method put: #CreateBrowser;
@@ -31,6 +39,9 @@ createBrowser: aUrl rectangle: aRectangle html: aString for: aRemoteChromiumBrow
 							at: #url put: aUrl asString;
 							at: #rectangle put: aRectangle asCefRect asDictionary;
 							at: #html put: aString;
+							at: #parentWindowHandle put: aHandle asInteger;
+							at: #windowless put: aBoolean;
+							at: #hardwareAccelerated put: anotherBoolean;
 							yourself);
 				yourself)
 		onSuccess: 
@@ -39,6 +50,8 @@ createBrowser: aUrl rectangle: aRectangle html: aString for: aRemoteChromiumBrow
 			remoteBrowsers at: browserId put: aRemoteChromiumBrowser]!
 
 disconnect
+	remoteBrowsers removeAll.
+	callbacks removeAll.
 	socket ifNil: [^self].
 	[socket destroy] on: Error
 		do: 
@@ -46,12 +59,7 @@ disconnect
 			Transcript
 				display: error;
 				cr].
-	socket := nil.
-	remoteBrowsers removeAll.
-	callbacks removeAll!
-
-ensureRunning
-	self start!
+	socket := nil!
 
 forceStop
 	process := nil.
@@ -62,6 +70,9 @@ initialize
 	id := 1.
 	remoteBrowsers := Dictionary new.
 	callbacks := Dictionary new!
+
+isRunning
+	^process notNil and: [process isAlive and: [socket notNil]]!
 
 receiveMessages
 	| messages messageJson |
@@ -110,34 +121,28 @@ shutdown
 				yourself)!
 
 start
-	[self startProcess] on: Error
-		do: 
-			[:error |
-			Transcript
-				display: ('Error starting Chromium process: <1d>' expandMacrosWith: error);
-				cr.
-			(Delay forSeconds: 1) wait.
-			self start].
-	[self connect] on: Error
-		do: 
-			[:error |
-			Transcript
-				display: ('Error connecting to Chromium process: <1d>' expandMacrosWith: error);
-				cr.
-			(Delay forSeconds: 1) wait.
-			self start]!
+	self isRunning ifTrue: [^self].
+	self
+		startProcess;
+		connect!
 
 startProcess
 	| processId messageWindowHandle commandLine readyEvent |
 	(process notNil and: [process isAlive]) ifTrue: [^self].
+	Transcript
+		display: 'Starting Chromium process ...';
+		cr.
 	processId := KernelLibrary default getCurrentProcessId.
 	messageWindowHandle := VMLibrary default registryAt: #MsgWndHandle.
 	windowMessageId := UserLibrary default
 				registerWindowMessage: ('ChromiumRPC_<1d>' expandMacrosWith: processId).
 	commandLine := 'cef/CefProcessRunner --application-process-id=<1d> --application-message-window-handle=<2d> --window-message-id=<3d>'
 				expandMacrosWith: processId
-				with: messageWindowHandle
+				with: messageWindowHandle asInteger
 				with: windowMessageId.
+	Transcript
+		display: commandLine;
+		cr.
 	readyEvent := KernelLibrary default
 				createEvent: nil
 				bManualReset: true
@@ -149,7 +154,13 @@ startProcess
 				stdoutFilename: 'cef.out';
 				stderrFilename: 'cef.err';
 				executeAsync.
-	KernelLibrary default waitForSingleObject: readyEvent dwMilliseconds: INFINITE!
+	Transcript
+		display: 'Waiting for Chromium process to signal ready event ...';
+		cr.
+	KernelLibrary default waitForSingleObject: readyEvent dwMilliseconds: INFINITE.
+	Transcript
+		display: 'Chromium process ready to receive connections.';
+		cr!
 
 stop
 	self
@@ -165,6 +176,9 @@ stopProcess
 				display: 'Waiting for Chromium process to terminate ...';
 				cr.
 			(Delay forSeconds: 1) wait].
+	Transcript
+		display: 'Chromium process terminated.';
+		cr.
 	process := nil!
 
 update
@@ -189,18 +203,19 @@ update
 				ifNotNil: 
 					[| response callback |
 					response := RpcResponse fromDictionary: each.
-					callback := callbacks at: requestId.
 					response success
-						ifTrue: [callback value: response returnValue]
-						ifFalse: [self error: response error displayString]]]! !
+						ifTrue: 
+							[callback := callbacks at: requestId.
+							callback value: response returnValue]
+						ifFalse: [response inspect]]]! !
 
 !RemoteChromiumClient categoriesForMethods!
 connect!private! !
-createBrowser:rectangle:html:for:!public!rpc! !
+createBrowser:rectangle:html:parentWindowHandle:windowless:hardwareAccelerated:for:!public!rpc! !
 disconnect!private! !
-ensureRunning!public! !
 forceStop!public! !
 initialize!public! !
+isRunning!public!rpc! !
 receiveMessages!private! !
 respond:!public! !
 respond:value:!public! !
@@ -219,9 +234,6 @@ update!public! !
 current
 	Singleton ifNil: [Singleton := super new initialize].
 	^Singleton!
-
-ensureRunning
-	self current ensureRunning!
 
 initialize
 	"self initialize"
@@ -259,7 +271,6 @@ update
 
 !RemoteChromiumClient class categoriesForMethods!
 current!public! !
-ensureRunning!public! !
 initialize!public! !
 new!public! !
 onShutdown!public! !

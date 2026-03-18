@@ -15,6 +15,8 @@ package methodNames
 	add: #Boolean -> #asInteger;
 	add: #ExternalMethod -> #bindTo:;
 	add: #String -> #asArgumentName;
+	add: #String -> #fromSnakeCaseToCamelCase;
+	add: #String -> #uncapitalized;
 	add: #Symbol -> #isUnary;
 	yourself.
 
@@ -87,10 +89,31 @@ bindTo:!public! !
 !String methodsFor!
 
 asArgumentName
-	^(self reject: [:each | each = $*]) uncapitalized! !
+	^(self reject: [:each | each = $*]) uncapitalized!
+
+fromSnakeCaseToCamelCase
+	| words |
+	words := '_' split: self.
+	^words allButFirst inject: words first into: [:total :currentWord | total , currentWord capitalized]!
+
+uncapitalized
+	"Answer a <readableString> which is a copy of the receiver but with 
+	the first character converted to its lowercase equivalent."
+
+	| size write read |
+	size := self size.
+	size == 0 ifTrue: [^self].
+	write := self species writeStream: size.
+	read := self readStream.
+	write
+		nextPut: read next asLowercase;
+		nextPutAll: read upToEnd.
+	^write contents! !
 
 !String categoriesForMethods!
 asArgumentName!converting!public! !
+fromSnakeCaseToCamelCase!public! !
+uncapitalized!public! !
 !
 
 !Symbol methodsFor!
