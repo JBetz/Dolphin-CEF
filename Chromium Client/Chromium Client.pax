@@ -92,7 +92,7 @@ Object subclass: #RpcResponse
 	classInstanceVariableNames: ''!
 
 RemoteChromiumObject subclass: #RemoteChromiumBrowser
-	instanceVariableNames: 'id client host isLoading canGoBack canGoForward isReadyToClose focusedElement hoveredElement queuedUrl actionQueue'
+	instanceVariableNames: 'id client host isLoading isReadyToClose focusedElement hoveredElement queuedUrl actionQueue'
 	classVariableNames: 'ContextMenuCommandMap CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 RemoteChromiumObject subclass: #RemoteChromiumBrowser
-	instanceVariableNames: 'id client host isLoading canGoBack canGoForward isReadyToClose focusedElement hoveredElement queuedUrl actionQueue'
+	instanceVariableNames: 'id client host isLoading isReadyToClose focusedElement hoveredElement queuedUrl actionQueue'
 	classVariableNames: 'ContextMenuCommandMap CursorMap'
 	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -13,44 +13,6 @@ RemoteChromiumBrowser comment: ''!
 !RemoteChromiumBrowser categoriesForClass!Kernel-Objects! !
 
 !RemoteChromiumBrowser methodsFor!
-
-back
-	id ifNil: [^self].
-	client send: (Dictionary new
-				at: #id put: GUID newUnique idlString;
-				at: #class put: #Browser;
-				at: #method put: #Back;
-				at: #instanceId put: id;
-				at: #arguments put: nil;
-				yourself)!
-
-canGoBack
-	^canGoBack ifNil: [false]!
-
-canGoBack: callback
-	id ifNil: [^self].
-	client send: (Dictionary new
-				at: #id put: GUID newUnique idlString;
-				at: #class put: #Browser;
-				at: #method put: #CanGoBack;
-				at: #instanceId put: id;
-				at: #arguments put: nil;
-				yourself)
-		onSuccess: callback!
-
-canGoForward
-	^canGoForward ifNil: [false]!
-
-canGoForward: callback
-	id ifNil: [^self].
-	client send: (Dictionary new
-				at: #id put: GUID newUnique idlString;
-				at: #class put: #Browser;
-				at: #method put: #CanGoForward;
-				at: #instanceId put: id;
-				at: #arguments put: nil;
-				yourself)
-		onSuccess: callback!
 
 client
 	^client!
@@ -172,16 +134,6 @@ focusedElement: aHtmlElement
 forceClose
 	self close: true!
 
-forward
-	id ifNil: [^self].
-	client send: (Dictionary new
-				at: #id put: GUID newUnique idlString;
-				at: #class put: #Browser;
-				at: #method put: #Forward;
-				at: #instanceId put: id;
-				at: #arguments put: nil;
-				yourself)!
-
 getFrameRate: callback
 	id ifNil: [^self].
 	client send: (Dictionary new
@@ -277,6 +229,26 @@ onAddressChange: aDictionary
 	url := aDictionary at: #url.
 	host onAddressChange: url.
 	^nil!
+
+onBeforeBrowse: aDictionary
+	| url method referrerUrl headers userGesture isRedirect transitionType resourceType |
+	url := aDictionary at: #url.
+	method := aDictionary at: #method.
+	referrerUrl := aDictionary at: #referrerUrl.
+	headers := aDictionary at: #headers.
+	userGesture := aDictionary at: #userGesture.
+	isRedirect := aDictionary at: #isRedirect.
+	transitionType := aDictionary at: #transitionType.
+	resourceType := aDictionary at: #resourceType.
+	^host
+		onBeforeBrowse: url
+		method: method
+		referrerUrl: referrerUrl
+		headers: headers
+		userGesture: userGesture
+		isRedirect: isRedirect
+		transitionType: transitionType
+		resourceType: resourceType!
 
 onBeforeClose: aDictionary
 	host onBeforeClose.
@@ -409,25 +381,23 @@ onLoadingProgressChange: aDictionary
 	^nil!
 
 onLoadingStateChange: aDictionary
-	| isLoading canGoBack canGoForward |
 	isLoading := aDictionary at: #isLoading.
-	canGoBack := aDictionary at: #canGoBack.
-	canGoForward := aDictionary at: #canGoForward.
-	self
-		onLoadingStateChange: isLoading
-		canGoBack: canGoBack
-		canGoForward: canGoForward.
 	^nil!
 
 onLoadingStateChange: aBoolean canGoBack: anotherBoolean canGoForward: thirdBoolean
-	isLoading := aBoolean.
-	canGoBack := anotherBoolean.
-	canGoForward := thirdBoolean!
+	isLoading := aBoolean!
 
 onLoadStart: aDictionary
 	| transitionType |
 	transitionType := aDictionary at: #transitionType.
 	host onLoadStart: transitionType.
+	^nil!
+
+onLogMessage: aDictionary
+	| level message |
+	level := aDictionary at: #level.
+	message := aDictionary at: #message.
+	host onLogMessage: level message: message.
 	^nil!
 
 onMouseClick: event button: button mouseUp: mouseUp clickCount: clickCount
@@ -475,21 +445,6 @@ onMouseWheel: event deltaX: deltaX deltaY: deltaY
 							yourself);
 				yourself)!
 
-onNavigate: aDictionary
-	| destination formData hashChange navigationType userInitiated |
-	destination := aDictionary at: #destination.
-	formData := aDictionary at: #formData.
-	hashChange := aDictionary at: #hashChange.
-	navigationType := aDictionary at: #navigationType.
-	userInitiated := aDictionary at: #userInitiated.
-	host
-		onNavigate: destination
-		formData: formData
-		hashChange: hashChange
-		navigationType: navigationType
-		userInitiated: userInitiated.
-	^nil!
-
 onOpenUrlFromTab: aDictionary
 	| targetUrl targetDisposition userGesture |
 	targetUrl := aDictionary at: #targetUrl.
@@ -527,6 +482,30 @@ onPopupSize: aDictionary
 	| rectangle |
 	rectangle := aDictionary at: #rectangle.
 	host onPopupSize: rectangle.
+	^nil!
+
+onProgrammaticModifyHistory: aDictionary
+	| url state |
+	url := aDictionary at: #url.
+	state := aDictionary at: #state.
+	host onProgrammaticModifyHistory: url state: state.
+	^nil!
+
+onProgrammaticNavigate: aDictionary
+	| url state info history delta key |
+	url := aDictionary at: #url.
+	state := aDictionary at: #state.
+	info := aDictionary at: #info.
+	history := aDictionary at: #history.
+	delta := aDictionary at: #delta.
+	key := aDictionary at: #key.
+	host
+		onProgrammaticNavigate: url
+		state: state
+		info: info
+		history: history
+		delta: delta
+		key: key.
 	^nil!
 
 onTextSelectionChanged: aDictionary
@@ -678,11 +657,6 @@ wasResized
 				yourself)! !
 
 !RemoteChromiumBrowser categoriesForMethods!
-back!**compiled accessors**!public!rpc! !
-canGoBack!**compiled accessors**!public! !
-canGoBack:!**compiled accessors**!public!rpc! !
-canGoForward!**compiled accessors**!public! !
-canGoForward:!**compiled accessors**!public!rpc! !
 client!public! !
 client:!public! !
 close!**compiled accessors**!public!rpc! !
@@ -699,7 +673,6 @@ focus:!**compiled accessors**!public!rpc! !
 focusedElement!public! !
 focusedElement:!public! !
 forceClose!**compiled accessors**!public!rpc! !
-forward!**compiled accessors**!public!rpc! !
 getFrameRate:!**compiled accessors**!public!rpc! !
 getScreenPoint:!**compiled accessors**!callback!public! !
 getSource:!**compiled accessors**!public!rpc! !
@@ -717,6 +690,7 @@ loadUrl!**compiled accessors**!public!rpc! !
 loadUrl:!**compiled accessors**!public!rpc! !
 onAcceleratedPaint:!**compiled accessors**!callback!public! !
 onAddressChange:!**compiled accessors**!callback!public! !
+onBeforeBrowse:!**compiled accessors**!callback!public! !
 onBeforeClose:!**compiled accessors**!callback!public! !
 onBeforeContextMenu:!**compiled accessors**!callback!public! !
 onBeforePopup:!**compiled accessors**!callback!public! !
@@ -734,14 +708,16 @@ onLoadingProgressChange:!**compiled accessors**!callback!public! !
 onLoadingStateChange:!**compiled accessors**!callback!public! !
 onLoadingStateChange:canGoBack:canGoForward:!**compiled accessors**!callback!public! !
 onLoadStart:!**compiled accessors**!callback!public! !
+onLogMessage:!**compiled accessors**!callback!public! !
 onMouseClick:button:mouseUp:clickCount:!**compiled accessors**!public!rpc! !
 onMouseMove:mouseLeave:!**compiled accessors**!public!rpc! !
 onMouseWheel:deltaX:deltaY:!**compiled accessors**!public!rpc! !
-onNavigate:!**compiled accessors**!callback!public! !
 onOpenUrlFromTab:!**compiled accessors**!callback!public! !
 onPaint:!**compiled accessors**!callback!public! !
 onPopupShow:!**compiled accessors**!callback!public! !
 onPopupSize:!**compiled accessors**!callback!public! !
+onProgrammaticModifyHistory:!**compiled accessors**!callback!public! !
+onProgrammaticNavigate:!**compiled accessors**!callback!public! !
 onTextSelectionChanged:!**compiled accessors**!callback!public! !
 onTitleChange:!**compiled accessors**!callback!public! !
 onTooltip:!**compiled accessors**!callback!public! !
@@ -786,8 +762,11 @@ defineRpcCallbacks
 		defineRpcCallback: #onFocusOut arguments: #(#tagName #inputType #isEditable);
 		defineRpcCallback: #onFocusedNodeChanged arguments: #(#tagName #inputType #isEditable);
 		defineRpcCallback: #onMouseOver arguments: #(#tagName #inputType #href #rectangle);
-		defineRpcCallback: #onNavigate
-			arguments: #(#destination #formData #hashChange #navigationType #userInitiated);
+		defineRpcCallback: #onProgrammaticModifyHistory arguments: #(#url #state);
+		defineRpcCallback: #onProgrammaticNavigate arguments: #(#url #state #info #history #delta #key);
+		defineRpcCallback: #onBeforeBrowse
+			arguments: #(#url #method #referrerUrl #headers #userGesture #isRedirect #transitionType #resourceType)
+			hasReturnValue: true;
 		defineRpcCallback: #onOpenUrlFromTab
 			arguments: #(#targetUrl #targetDisposition #userGesture)
 			hasReturnValue: true;
@@ -804,18 +783,15 @@ defineRpcCallbacks
 		defineRpcCallback: #onLoadStart arguments: #(#transitionType);
 		defineRpcCallback: #onLoadEnd arguments: #(#httpStatusCode);
 		defineRpcCallback: #onLoadError arguments: #(#errorCode #errorText #failedUrl);
-		defineRpcCallback: #onTooltip arguments: #(#text)!
+		defineRpcCallback: #onTooltip arguments: #(#text);
+		defineRpcCallback: #onLogMessage arguments: #(#level #message)!
 
 defineRpcMethods
 	"Private - self defineRpcMethods"
 
 	self
-		defineRpcMethod: #back;
-		defineRpcMethod: #forward;
 		defineRpcMethod: #reload;
 		defineRpcMethod: #focus arguments: #(#focus);
-		defineRpcMethod: #canGoBack withCallback: true;
-		defineRpcMethod: #canGoForward withCallback: true;
 		defineRpcMethod: #wasResized;
 		defineRpcMethod: #wasHidden arguments: #(#hidden);
 		defineRpcMethod: #loadUrl arguments: #(#url);
