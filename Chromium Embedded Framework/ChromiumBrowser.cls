@@ -93,9 +93,6 @@ defocus
 delete
 	cefBrowser getFocusedFrame callDel!
 
-doClose: lifeSpanHandler browser: browser
-	^0!
-
 evalJavaScript: aString callback: aBlock
 	| mainFrame id message argumentList arguments |
 	cefBrowser ifNil: [^self].
@@ -148,9 +145,6 @@ forceCloseBrowser
 
 forward
 	cefBrowser goForward!
-
-getAudioParameters: audioHandler browser: browser params: params
-	^0!
 
 getAuthCredentials: requestHandler browser: browser originUrl: originUrl isProxy: isProxy host: host port: port realm: realm scheme: scheme callback: callback 
 	^0!
@@ -374,20 +368,9 @@ onAudioStreamStopped: audioHandler browser: browser
 	host onAudioStreamStopped.
 	^0!
 
-onAutoResize: displayHandler browser: browser newSize: newSize 
-	^0!
-
-onBeforeBrowse: requestHandler browser: browser frame: frame request: request userGesture: userGesture isRedirect: isRedirect
-	^0!
-
 onBeforeClose: lifeSpanHandler browser: browser
 	cefBrowser := nil.
 	readyToClose := true.
-	^0!
-
-onBeforeContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model
-	params callRelease.
-	model callRelease.
 	^0!
 
 onBeforePopup: lifeSpanHandler browser: browser frame: frame targetUrl: targetUrl targetFrameName: targetFrameName targetDisposition: targetDisposition userGesture: userGesture popupFeatures: popupFeatures windowInfo: windowInfo client: client settings: browserSettings extraInfo: extraInfo noJavascriptAccess: noJavascriptAccess
@@ -408,18 +391,12 @@ onContextMenuCommand: contextMenuHandler browser: browser frame: frame params: p
 	[host perform: selector] ensure: [params callRelease].
 	^1!
 
-onContextMenuDismissed: contextMenuHandler browser: browser frame: frame 
-	^0!
-
 onCursorChange: displayHandler browser: browser cursor: cursor type: type customCursorInfo: customCursorInfo
 	| cursorSelector |
 	host ifNil: [^0].
 	cursorSelector := CursorMap at: type ifAbsent: [^0].
 	host cursor: cursorSelector.
 	^1!
-
-onFaviconUrlChange: displayHandler browser: browser iconUrls: iconUrls
-	^0!
 
 onFindResult: aCefFindHandler browser: browser identifier: identifier count: count selectionRect: selectionRect activeMatchOrdinal: activeMatchOrdinal finalUpdate: finalUpdate
 	"Called to report find results returned by cef_browser_host_t::find(). |identifer| is a unique incremental identifier for the currently active
@@ -433,39 +410,11 @@ onFindResult: aCefFindHandler browser: browser identifier: identifier count: cou
 		selectionRectangle: selectionRect asRectangle.
 	^0!
 
-onFullscreenModeChange: displayHandler browser: browser fullscreen: fullscreen
-	^0!
-
-onLoadEnd: loadHandler browser: browser frame: frame httpStatusCode: httpStatusCode
-	host onLoadEnd: httpStatusCode.
-	^0!
-
-onLoadError: loadHandler browser: browser frame: frame errorCode: errorCode errorText: errorText failedUrl: failedUrl
-	^0!
-
-onLoadingProgressChange: displayHandler browser: browser progress: progress
-	^0!
-
-onLoadingStateChange: loadHandler browser: browser isLoading: isLoading canGoBack: canGoBack canGoForward: canGoForward
-	^0!
-
-onLoadStart: loadHandler browser: browser frame: frame transitionType: transitionType
-	^0!
-
-onMediaAccessChange: displayHandler browser: browser hasVideoAccess: hasVideoAccess hasAudioAccess: hasAudioAccess
-	^0!
-
 onOpenUrlFromTab: requestHandler browser: browser frame: frame targetUrl: targetUrl targetDisposition: targetDisposition userGesture: userGesture
 	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
 		ifTrue: 
 			[host openNewPage: targetUrl str.
 			^1].
-	^0!
-
-onPaint: renderHandler browser: browser type: type dirtyRectsCount: dirtyRectsCount dirtyRects: dirtyRects buffer: buffer width: width height: height
-	host ifNil: [^0].
-	type = PET_VIEW ifTrue: [host updatePageTexture: buffer extent: width @ height].
-	type = PET_POPUP ifTrue: [host updatePopupTexture: buffer extent: width @ height].
 	^0!
 
 onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
@@ -494,19 +443,9 @@ onScrollOffsetChanged: renderHandler browser: browser x: x y: y
 		y: y.
 	^0!
 
-onStatusMessage: displayHandler browser: browser value: value
-	^0!
-
 onTextSelectionChanged: renderHandler browser: browser selectedText: aCefString selectedRange: aCefRange
 	selectedRange := Interval from: aCefRange from to: aCefRange to.
 	selectedText := aCefString isNull ifTrue: [nil] ifFalse: [aCefString str].
-	^0!
-
-onTitleChange: displayHandler browser: browser title: title
-	host ifNotNil: [title isNull ifFalse: [host onTitleChange: title str]].
-	^0!
-
-onTooltip: displayHandler browser: browser text: text
 	^0!
 
 onViewClosed
@@ -523,9 +462,6 @@ onViewDestroyed
 			delayCount := delayCount + 1].
 	readyToClose ifFalse: [self forceCloseBrowser]]
 			forkAt: Processor userBackgroundPriority!
-
-onVirtualKeyboardRequested: renderHandler browser: browser inputMode: inputMode
-	^0!
 
 paste
 	cefBrowser getFocusedFrame callPaste!
@@ -550,11 +486,6 @@ reload
 
 removeContentProvider: aContentProvider
 	contentProviders removeKey: aContentProvider url displayString!
-
-runContextMenu: contextMenuHandler browser: browser frame: frame params: params model: model callback: callback
-	params callRelease.
-	model callRelease.
-	^0!
 
 scrollOffset
 	^host ifNotNil: [host scrollOffset] ifNil: [0 @ 0]!
@@ -600,9 +531,6 @@ setFrameRate: anInteger
 show
 	self wasHidden: false!
 
-startDragging: renderHandler browser: browser dragData: dragData allowedOps: allowedOps x: x y: y
-	^0!
-
 stopFinding
 	cefBrowser ifNil: [^self].
 	cefBrowser getHost stopFinding_clearSelection: false asInteger!
@@ -631,7 +559,6 @@ createWindowed:rectangle:url:!public! !
 cut!public! !
 defocus!public! !
 delete!public! !
-doClose:browser:!cef event handler!life span handler!private! !
 evalJavaScript:callback:!public! !
 executeJavaScript:!public! !
 find:!public! !
@@ -639,7 +566,6 @@ focus!public! !
 focusedElement!public! !
 forceCloseBrowser!public! !
 forward!public! !
-getAudioParameters:browser:params:!audio handler!cef event handler!private! !
 getAuthCredentials:browser:originUrl:isProxy:host:port:realm:scheme:callback:!private! !
 getResourceRequestHandler:browser:frame:request:isNavigation:isDownload:requestInitiator:disableDefaultHandling:!cef event handler!private!request handler! !
 getRootScreenRect:browser:rect:!cef event handler!private!render handler! !
@@ -671,26 +597,13 @@ onAudioStreamError:browser:message:!audio handler!private! !
 onAudioStreamPacket:browser:data:frames:pts:!audio handler!cef event handler!private! !
 onAudioStreamStarted:browser:params:channels:!audio handler!cef event handler!private! !
 onAudioStreamStopped:browser:!audio handler!cef event handler!private! !
-onAutoResize:browser:newSize:!cef event handler!display handler!private! !
-onBeforeBrowse:browser:frame:request:userGesture:isRedirect:!cef event handler!private!request handler! !
 onBeforeClose:browser:!cef event handler!life span handler!private! !
-onBeforeContextMenu:browser:frame:params:model:!cef event handler!context menu handler!private! !
 onBeforePopup:browser:frame:targetUrl:targetFrameName:targetDisposition:userGesture:popupFeatures:windowInfo:client:settings:extraInfo:noJavascriptAccess:!cef event handler!life span handler!popup!private! !
 onConsoleMessage:browser:level:message:source:line:!cef event handler!display handler!private! !
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
-onContextMenuDismissed:browser:frame:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
-onFaviconUrlChange:browser:iconUrls:!cef event handler!display handler!private! !
 onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
-onFullscreenModeChange:browser:fullscreen:!cef event handler!display handler!private! !
-onLoadEnd:browser:frame:httpStatusCode:!cef event handler!load handler!private! !
-onLoadError:browser:frame:errorCode:errorText:failedUrl:!cef event handler!load handler!private! !
-onLoadingProgressChange:browser:progress:!cef event handler!display handler!private! !
-onLoadingStateChange:browser:isLoading:canGoBack:canGoForward:!cef event handler!load handler!private! !
-onLoadStart:browser:frame:transitionType:!cef event handler!load handler!private! !
-onMediaAccessChange:browser:hasVideoAccess:hasAudioAccess:!cef event handler!display handler!private! !
 onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
-onPaint:browser:type:dirtyRectsCount:dirtyRects:buffer:width:height:!cef event handler!private!render handler! !
 onPopupShow:browser:show:!popup!private! !
 onPopupSize:browser:rect:!popup!private! !
 onProcessMessageReceived:browser:frame:sourceProcess:message:!private! !
@@ -698,20 +611,15 @@ onRenderProcessResponsive:browser:!private! !
 onRenderProcessTerminated:browser:status:errorCode:errorString:!private! !
 onRenderProcessUnresponsive:browser:callback:!private! !
 onScrollOffsetChanged:browser:x:y:!cef event handler!private!render handler! !
-onStatusMessage:browser:value:!cef event handler!display handler!private! !
 onTextSelectionChanged:browser:selectedText:selectedRange:!cef event handler!private! !
-onTitleChange:browser:title:!cef event handler!display handler!private! !
-onTooltip:browser:text:!cef event handler!display handler!private! !
 onViewClosed!public! !
 onViewDestroyed!public! !
-onVirtualKeyboardRequested:browser:inputMode:!cef event handler!private!render handler! !
 paste!public! !
 provideHtml:forUrl:!public! !
 redo!public! !
 registerContentProvider:!public! !
 reload!public! !
 removeContentProvider:!public! !
-runContextMenu:browser:frame:params:model:callback:!cef event handler!context menu handler!private! !
 scrollOffset!public! !
 search:!public! !
 selectAll!public! !
@@ -722,7 +630,6 @@ sendMouseMoveEvent:mouseLeave:!public! !
 sendMouseWheelEvent:delta:!public! !
 setFrameRate:!public! !
 show!public! !
-startDragging:browser:dragData:allowedOps:x:y:!cef event handler!private! !
 stopFinding!public! !
 undo!public! !
 wasHidden:!public! !
