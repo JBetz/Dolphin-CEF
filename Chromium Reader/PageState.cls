@@ -229,8 +229,6 @@ fromStream: aStream
 		version: version;
 		referencedFiles: aStream nextStringArray;
 		url: aStream nextInnerUtf16String.
-
-	Transcript display: pageState url; cr.
 	pageState
 		originalUrl: aStream nextInnerUtf16String;
 		target: aStream nextInnerUtf16String;
