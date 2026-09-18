@@ -4,16 +4,20 @@ package paxVersion: 1;
 	basicComment: ''.
 
 package classNames
-	add: #CefNavigationDestination;
-	add: #CefNavigationEvent;
+	add: #BrowseEvent;
+	add: #ChromiumClient;
+	add: #ChromiumObject;
 	add: #ContextMenuCommand;
 	add: #ContextMenuConfiguration;
+	add: #DownloadConfiguration;
+	add: #DownloadItem;
+	add: #HttpRequest;
+	add: #HttpResponse;
 	add: #ImageDownload;
 	add: #PNGImageData;
-	add: #RemoteChromiumBrowser;
-	add: #RemoteChromiumClient;
-	add: #RemoteChromiumObject;
+	add: #RpcCallbackMethodBuilder;
 	add: #RpcResponse;
+	add: #WebBrowser;
 	yourself.
 
 package methodNames
@@ -43,14 +47,20 @@ package!
 
 "Class Definitions"!
 
-Object subclass: #CefNavigationDestination
-	instanceVariableNames: 'id index key sameDocument url'
+Object subclass: #BrowseEvent
+	instanceVariableNames: 'url method referrerUrl headers userGesture isRedirect transitionType resourceType'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-Object subclass: #CefNavigationEvent
-	instanceVariableNames: 'destination formData hashChange navigationType userInitiated'
+Object subclass: #ChromiumClient
+	instanceVariableNames: 'id process socket windowManager remoteObjects callbacks windowMessageId readyEvent'
+	classVariableNames: 'Singleton'
+	poolDictionaries: 'Win32Constants'
+	classInstanceVariableNames: ''!
+
+Object subclass: #ChromiumObject
+	instanceVariableNames: 'model'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -67,6 +77,24 @@ Object subclass: #ContextMenuConfiguration
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+Object subclass: #DownloadConfiguration
+	instanceVariableNames: 'shouldContinue downloadPath showDialog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #DownloadItem
+	instanceVariableNames: 'isInProgress isComplete isCanceled isInterrupted isPaused interruptReason currentSpeed percentComplete totalBytes receivedBytes startTime endTime fullPath id url originalUrl suggestedFileName contentDisposition mimeType'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #HttpResponse
+	instanceVariableNames: 'headers body statusCode statusText'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 Object subclass: #ImageDownload
 	instanceVariableNames: 'imageUrl httpStatusCode images'
 	classVariableNames: ''
@@ -79,8 +107,8 @@ Object subclass: #PNGImageData
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-Object subclass: #RemoteChromiumObject
-	instanceVariableNames: ''
+Object subclass: #RpcCallbackMethodBuilder
+	instanceVariableNames: 'selector target arguments hasReturnValue'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -91,16 +119,16 @@ Object subclass: #RpcResponse
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-RemoteChromiumObject subclass: #RemoteChromiumBrowser
-	instanceVariableNames: 'id client host isLoading isReadyToClose focusedElement hoveredElement queuedUrl actionQueue'
-	classVariableNames: 'ContextMenuCommandMap CursorMap'
-	poolDictionaries: 'CefConstants Win32Constants'
+ChromiumObject subclass: #HttpRequest
+	instanceVariableNames: 'id client'
+	classVariableNames: ''
+	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-RemoteChromiumObject subclass: #RemoteChromiumClient
-	instanceVariableNames: 'id process socket remoteBrowsers callbacks windowMessageId'
-	classVariableNames: 'Singleton'
-	poolDictionaries: 'Win32Constants'
+ChromiumObject subclass: #WebBrowser
+	instanceVariableNames: 'id client view navigator'
+	classVariableNames: 'ContextMenuCommandMap CursorMap'
+	poolDictionaries: 'CefConstants Win32Constants'
 	classInstanceVariableNames: ''!
 
 "Loose Methods"!
