@@ -93,7 +93,7 @@ defocus
 delete
 	cefBrowser getFocusedFrame callDel!
 
-evalJavaScript: aString callback: aBlock
+evaluateJavaScript: aString callback: aBlock
 	| mainFrame id message argumentList arguments |
 	cefBrowser ifNil: [^self].
 	mainFrame := cefBrowser getMainFrame.
@@ -410,13 +410,6 @@ onFindResult: aCefFindHandler browser: browser identifier: identifier count: cou
 		selectionRectangle: selectionRect asRectangle.
 	^0!
 
-onOpenUrlFromTab: requestHandler browser: browser frame: frame targetUrl: targetUrl targetDisposition: targetDisposition userGesture: userGesture
-	targetDisposition = CEF_WOD_NEW_BACKGROUND_TAB
-		ifTrue: 
-			[host openNewPage: targetUrl str.
-			^1].
-	^0!
-
 onPopupShow: aCefRenderHandler browser: aCefBrowser show: anInteger
 	anInteger asBoolean ifTrue: [host onShowPopup] ifFalse: [host onHidePopup].
 	^0!
@@ -559,7 +552,7 @@ createWindowed:rectangle:url:!public! !
 cut!public! !
 defocus!public! !
 delete!public! !
-evalJavaScript:callback:!public! !
+evaluateJavaScript:callback:!public! !
 executeJavaScript:!public! !
 find:!public! !
 focus!public! !
@@ -603,7 +596,6 @@ onConsoleMessage:browser:level:message:source:line:!cef event handler!display ha
 onContextMenuCommand:browser:frame:params:commandId:eventFlags:!cef event handler!context menu handler!private! !
 onCursorChange:browser:cursor:type:customCursorInfo:!cef event handler!display handler!private! !
 onFindResult:browser:identifier:count:selectionRect:activeMatchOrdinal:finalUpdate:!cef event handler!find handler!private! !
-onOpenUrlFromTab:browser:frame:targetUrl:targetDisposition:userGesture:!cef event handler!private!request handler! !
 onPopupShow:browser:show:!popup!private! !
 onPopupSize:browser:rect:!popup!private! !
 onProcessMessageReceived:browser:frame:sourceProcess:message:!private! !
@@ -674,9 +666,9 @@ initialize
 		at: CT_CONTEXTMENU put: #arrow;
 		at: CT_ALIAS put: #hand;
 		at: CT_PROGRESS put: #wait;
-		at: CT_NODROP put: #no;
-		at: CT_NONE put: #no;
-		at: CT_NOTALLOWED put: #no;
+		at: CT_NODROP put: #notAllowed;
+		at: CT_NONE put: #none;
+		at: CT_NOTALLOWED put: #notAllowed;
 		at: CT_ZOOMIN put: #arrow;
 		at: CT_ZOOMOUT put: #arrow;
 		at: CT_GRAB put: #hand;
@@ -684,7 +676,7 @@ initialize
 		at: CT_MIDDLE_PANNING_VERTICAL put: #sizeAll;
 		at: CT_MIDDLE_PANNING_HORIZONTAL put: #sizeAll;
 		at: CT_CUSTOM put: #arrow;
-		at: CT_DND_NONE put: #no;
+		at: CT_DND_NONE put: #none;
 		at: CT_DND_MOVE put: #arrow;
 		at: CT_DND_LINK put: #hand.
 	ContextMenuCommandMap := LookupTable new.

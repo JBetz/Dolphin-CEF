@@ -20,6 +20,12 @@ code
 code: anObject
 	code := anObject!
 
+displayOn: aStream
+	aStream
+		nextPutAll: self source;
+		nextPut: Character space;
+		nextPutAll: self qualifiers displayString!
+
 hasBlockedFlag
 	"Attempted to visit a URL but was blocked."
 
@@ -203,6 +209,7 @@ sourceMask
 !CefTransitionType categoriesForMethods!
 code!accessing!public! !
 code:!accessing!public! !
+displayOn:!public! !
 hasBlockedFlag!public! !
 hasChainEndFlag!public! !
 hasChainStartFlag!public! !

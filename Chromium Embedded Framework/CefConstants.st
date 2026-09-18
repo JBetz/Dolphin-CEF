@@ -226,6 +226,10 @@ CefConstants at: 'MENU_ID_UNDO' put: 16r6E!
 CefConstants at: 'MENU_ID_USER_FIRST' put: 16r6784!
 CefConstants at: 'MENU_ID_USER_LAST' put: 16r6F54!
 CefConstants at: 'MENU_ID_VIEW_SOURCE' put: 16r84!
+CefConstants at: 'PDE_TYPE_BYTES' put: 16r1!
+CefConstants at: 'PDE_TYPE_EMPTY' put: 16r0!
+CefConstants at: 'PDE_TYPE_FILE' put: 16r2!
+CefConstants at: 'PDE_TYPE_NUM_VALUES' put: 16r3!
 CefConstants at: 'PET_POPUP' put: 16r1!
 CefConstants at: 'PET_VIEW' put: 16r0!
 CefConstants at: 'PID_BROWSER' put: 16r0!
