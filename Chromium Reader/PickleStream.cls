@@ -64,10 +64,9 @@ nextInnerUtf16String
 
 nextPageState
 	| size |
-	^self nextAligned: self nextSDWORD.
 	size := self nextSDWORD.
 	size = 0 ifTrue: [^nil].
-	^PageState fromStream: (PickleStream on: (self nextAligned: size))!
+	^PageState fromByteArray: (PickleStream on: (self nextAligned: size)) contents!
 
 nextQWORD
 	"uint64"

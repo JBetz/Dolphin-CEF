@@ -17,6 +17,7 @@ Currently, this library provides minimal support for use with Win32 widgets and 
 ## Getting Started
 * Install [Dolphin Smalltalk 7](https://github.com/dolphinsmalltalk/Dolphin)
 * Install `Chromium Embedded Framework.pax` in a Dolphin image
+* Follow the instructions in [CefProcessRunner](https://github.com/JBetz/CefProcessRunner)
 * Copy everything inside this repo's `cef` directory into the same directory as your image, then extract the `libcef.zip` folder and move `libcef.dll` into the same directory. It needs to be compressed to get around GitHub's 100mb file limit.
 * Inside the image, run `WebBrowserView example` to open a window with the Dolphin Github page
 
@@ -24,22 +25,4 @@ Alternatively, you can download [CEF Windows 32-bit binaries](https://cef-builds
 
 The source for `CefSubprocessRunner.exe` can be found in https://github.com/JBetz/CefSubprocessRunner.
 
-## Example
 
-```smalltalk
-| shell view |
-shell := ShellView new.
-shell
-    layoutManager: ProportionalLayout new;
-    create;
-    extent: 1200 @ 1000;
-    show.
-view := WebBrowserView new.
-^view
-    parentView: shell;
-    arrangement: 1;
-    create;
-    show;
-    loadUrl: 'https://github.com/dolphinsmalltalk/Dolphin';
-    yourself
-```

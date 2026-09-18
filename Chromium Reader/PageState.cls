@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #PageState
-	instanceVariableNames: 'version url originalUrl target parent title alternativeTitle lastVisitedTime xScrollOffset yScrollOffset isTargetItem visitCount referrerUrl documentState pageScaleFactor itemSequenceNumber documentSequenceNumber hasStateObject stateObject formData httpContentType referrerUrl1 subItemsSize subItems referencedFiles'
+	instanceVariableNames: 'bytes version url originalUrl target parent title alternativeTitle lastVisitedTime xScrollOffset yScrollOffset isTargetItem visitCount referrerUrl documentState pageScaleFactor itemSequenceNumber documentSequenceNumber hasStateObject stateObject formData httpContentType referrerUrl1 subItemsSize subItems referencedFiles'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -19,6 +19,12 @@ alternativeTitle
 
 alternativeTitle: anObject
 	alternativeTitle := anObject!
+
+bytes
+	^bytes!
+
+bytes: anObject
+	bytes := anObject!
 
 documentSequenceNumber
 	^documentSequenceNumber!
@@ -167,6 +173,8 @@ yScrollOffset: anObject
 !PageState categoriesForMethods!
 alternativeTitle!accessing!public! !
 alternativeTitle:!accessing!private! !
+bytes!accessing!private! !
+bytes:!accessing!private! !
 documentSequenceNumber!accessing!public! !
 documentSequenceNumber:!accessing!private! !
 documentState!accessing!public! !
@@ -219,27 +227,65 @@ yScrollOffset:!accessing!private! !
 
 !PageState class methodsFor!
 
-fromStream: aStream
-	| version pageState |
-	aStream reset.
-	aStream checkLength.
-	version := aStream nextSDWORD.
-	aStream position: 208.
+fromByteArray: aByteArray
+	| tableOfContents tableOfContentsAddress encodingLength version pageState |
+	tableOfContents := Dictionary new.
+	encodingLength := (aByteArray sdwordAtOffset: 0) + 4.
+	version := aByteArray sdwordAtOffset: 4.
+	tableOfContentsAddress := aByteArray sdwordAtOffset: 16r1C.
+	self
+		assert: [aByteArray size = encodingLength];
+		assert: [(aByteArray sdwordAtOffset: tableOfContentsAddress) = 16r90];
+		assert: [(aByteArray sdwordAtOffset: tableOfContentsAddress + 4) = 16r06];
+		assert: [(aByteArray sdwordAtOffset: tableOfContentsAddress + 8) = 16r88].
+	tableOfContents
+		at: 'url' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r08);
+		at: 'referrer_url' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r10);
+		at: 'eof_url' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r18);
+		at: 'weird_ascii' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r20);
+		at: 'sof_blink' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r28);
+		at: 'toc_after_blink' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r38);
+		at: 'sof_post' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r50);
+		at: 'eof_post' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r58);
+		at: 'url_2' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r60);
+		at: 'uuid_1' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r68);
+		at: 'uuid_2' put: (aByteArray sdwordAtOffset: tableOfContentsAddress + 16r70).
 	pageState := self new
-		version: version;
-		referencedFiles: aStream nextStringArray;
-		url: aStream nextInnerUtf16String.
-	pageState
-		originalUrl: aStream nextInnerUtf16String;
-		target: aStream nextInnerUtf16String;
-		parent: aStream nextInnerUtf16String;
-		title: aStream nextInnerUtf16String;
-		alternativeTitle: aStream nextInnerUtf16String;
-		yourself.
-	self halt.
+				bytes: aByteArray;
+				version: version;
+yourself.
+	"
+				referencedFiles: aByteArray nextStringArray;
+				url: aByteArray nextInnerUtf16String;
+				originalUrl: aByteArray nextInnerUtf16String;
+				target: aByteArray nextInnerUtf16String;
+				parent: aByteArray nextInnerUtf16String;
+				title: aByteArray nextInnerUtf16String;
+				alternativeTitle: aByteArray nextInnerUtf16String;"
+	^pageState!
+
+fromStream: aStream
+	| bytes encodingLength version pageState |
+	bytes := aStream contents.
+	encodingLength := aStream nextSDWORD + 4.
+	self assert: [aStream size = encodingLength].
+	version := aStream nextSDWORD.
+	pageState := self new
+				bytes: bytes;
+				version: version;
+				yourself.
+	"
+				referencedFiles: aStream nextStringArray;
+				url: aStream nextInnerUtf16String;
+				originalUrl: aStream nextInnerUtf16String;
+				target: aStream nextInnerUtf16String;
+				parent: aStream nextInnerUtf16String;
+				title: aStream nextInnerUtf16String;
+				alternativeTitle: aStream nextInnerUtf16String;"
 	^pageState! !
 
 !PageState class categoriesForMethods!
+fromByteArray:!public! !
 fromStream:!public! !
 !
 

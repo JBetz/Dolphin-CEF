@@ -86,7 +86,7 @@ Object subclass: #ImportRecord
 	classInstanceVariableNames: ''!
 
 Object subclass: #PageState
-	instanceVariableNames: 'version url originalUrl target parent title alternativeTitle lastVisitedTime xScrollOffset yScrollOffset isTargetItem visitCount referrerUrl documentState pageScaleFactor itemSequenceNumber documentSequenceNumber hasStateObject stateObject formData httpContentType referrerUrl1 subItemsSize subItems referencedFiles'
+	instanceVariableNames: 'bytes version url originalUrl target parent title alternativeTitle lastVisitedTime xScrollOffset yScrollOffset isTargetItem visitCount referrerUrl documentState pageScaleFactor itemSequenceNumber documentSequenceNumber hasStateObject stateObject formData httpContentType referrerUrl1 subItemsSize subItems referencedFiles'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
