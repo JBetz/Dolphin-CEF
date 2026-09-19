@@ -17,12 +17,6 @@ CefPoint comment: ''!
 
 !CefPoint methodsFor!
 
-asDictionary
-	^Dictionary new
-		at: 'x' put: self x;
-		at: 'y' put: self y;
-		yourself!
-
 x
 	"Answer the <Integer> value of the receiver's 'x' field."
 
@@ -44,7 +38,6 @@ y: anInteger
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
 
 !CefPoint categoriesForMethods!
-asDictionary!public! !
 x!**compiled accessors**!public! !
 x:!**compiled accessors**!public! !
 y!**compiled accessors**!public! !

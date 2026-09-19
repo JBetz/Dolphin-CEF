@@ -52,7 +52,6 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\Chromium Embedded Framework\Chromium Embedded Framework'
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
 	'..\..\Dolphin-SDL\SDL3\SDL3').

@@ -89,7 +89,6 @@ package classNames
 	add: #CefTaskInfo;
 	add: #CefTaskManager;
 	add: #CefTouchHandleState;
-	add: #CefTransitionType;
 	add: #CefUrlParts;
 	add: #CefValue;
 	add: #CefVisitor;
@@ -134,12 +133,6 @@ Object subclass: #CefBrowserProcessRunner
 
 Object subclass: #CefContentProvider
 	instanceVariableNames: 'url html htmlByteStream resourceRequestHandler resourceHandler chromiumBrowser'
-	classVariableNames: ''
-	poolDictionaries: 'CefConstants'
-	classInstanceVariableNames: ''!
-
-Object subclass: #CefTransitionType
-	instanceVariableNames: 'code'
 	classVariableNames: ''
 	poolDictionaries: 'CefConstants'
 	classInstanceVariableNames: ''!

@@ -195,7 +195,7 @@ fromStream: aStream
 		virtualUrl: aStream nextString;
 		title: aStream nextUtf16String;
 		state: aStream nextPageState;
-		transitionType: (CefTransitionType fromInteger: aStream nextDWORD);
+		transitionType: aStream nextDWORD;
 		hasPostData: aStream nextBoolean;
 		referrerUrl: aStream nextString;
 		ignoredReferrerPolicy: aStream nextSDWORD;
